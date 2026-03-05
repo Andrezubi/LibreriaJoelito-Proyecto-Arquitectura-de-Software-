@@ -1,0 +1,33 @@
+﻿using MySql.Data.MySqlClient;
+using System.Data;
+using System.Data.Common;
+
+namespace LibreriaJoelito
+{
+    public static class RepositorioBD
+    {
+        private static string connection = "Server=localhost;Port=3306;uid=root;pwd=1234;database=bdlibreria";
+        public static int executeNonQuery(MySqlCommand comando)
+        {
+            using (MySqlConnection con = new MySqlConnection(connection))
+            {
+                con.Open();
+                comando.Connection = con;
+                return comando.ExecuteNonQuery();
+            }
+        }
+        public static MySqlDataReader ExecuteReader(MySqlCommand comando)
+        {
+            MySqlConnection con = new MySqlConnection(connection);
+            con.Open();
+            comando.Connection = con;
+            return comando.ExecuteReader(CommandBehavior.CloseConnection);
+        }
+        public static MySqlDataAdapter ExecuteDataAdapter(MySqlCommand comando)
+        {
+            MySqlConnection con = new MySqlConnection(connection);
+            comando.Connection = con;
+            return new MySqlDataAdapter(comando);
+        }
+    }
+}
