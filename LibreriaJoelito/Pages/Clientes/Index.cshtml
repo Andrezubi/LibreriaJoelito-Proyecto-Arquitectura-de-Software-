@@ -1,0 +1,55 @@
+@page
+@model LibreriaJoelito.Pages.Clientes.IndexModel
+@{
+    ViewData["Title"] = "Listado de Clientes";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="display-6">Clientes</h2>
+        <a asp-page="Create" class="btn btn-outline-primary">+ Nuevo Cliente</a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>CI</th>
+                        <th>Email</th>
+                        <th>Fecha Registro</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (System.Data.DataRow row in Model.ClientesDataTable.Rows)
+                    {
+                        <tr>
+                            <td class="align-middle">@row["Nombre"]</td>
+                            <td class="align-middle">@row["Apellido"]</td>
+                            <td class="align-middle">@row["CI"]</td>
+                            <td class="align-middle">@row["Email"]</td>
+                            <td class="align-middle text-muted" style="font-size: 0.9rem;">
+                                @Convert.ToDateTime(row["FechaRegistro"]).ToString("dd/MM/yyyy HH:mm")
+                            </td>
+                            <td class="text-center align-middle">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a href="#" class="btn btn-outline-warning" title="Editar">Editar</a>
+                                    <a href="#" class="btn btn-outline-danger" title="Eliminar">Eliminar</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    @if (Model.ClientesDataTable.Rows.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center py-4 text-muted">No hay clientes registrados.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
