@@ -1,0 +1,184 @@
+﻿/* =====================================================
+   CONTENEDOR PRINCIPAL DEL SISTEMA
+   Controla toda la estructura de la página
+===================================================== */
+.sistema-de-gestion {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+/* =====================================================
+   HEADER (BARRA SUPERIOR MORADA)
+   Contiene logo y nombre del sistema
+===================================================== */
+.overlap-group {
+    width: 100%;
+    height: clamp(90px,10vh,140px);
+    background: #7b35bed9;
+    display: flex;
+    align-items: center;
+    padding-left: 2vw;
+    gap: 2vw;
+}
+
+/* =====================================================
+   LOGO DEL SISTEMA
+===================================================== */
+
+.group-3 {
+    width: clamp(50px,6vw,90px);
+    height: auto;
+    background-image: url("/img/logo-lib.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    aspect-ratio: 1/1;
+}
+
+/* =====================================================
+   CONTENEDOR DEL TEXTO DEL HEADER
+   (nombre + subtítulo)
+===================================================== */
+
+.header-text {
+    display: flex;
+    flex-direction: column;
+}
+
+/* =====================================================
+   TEXTO PRINCIPAL DEL HEADER
+   LIBRERÍA JOELITO
+===================================================== */
+
+.librer-a-joelito {
+    font-family: "Poppins-Bold";
+    /* tamaño responsive */
+    font-size: clamp(14px,2.5vw,28px);
+    color: #000000c4;
+}
+
+/* =====================================================
+   SUBTÍTULO DEL HEADER
+   Sistema de Gestión de la Librería
+===================================================== */
+
+.sistema-de-gesti-n {
+    font-family: "Poppins-SemiBold";
+    /* tamaño responsive */
+    font-size: clamp(10px,1.6vw,18px);
+    color: #000000c4;
+}
+
+/* =====================================================
+   CONTENEDOR PRINCIPAL DE CONTENIDO
+   (sidebar + área central)
+===================================================== */
+
+.main-container {
+    flex: 1;
+    display: flex;
+}
+
+/* =====================================================
+   SIDEBAR (MENÚ LATERAL VERDE)
+===================================================== */
+
+.rectangle {
+    /* ancho adaptable */
+    width: clamp(200px,20vw,320px);
+    background: #81d2bd;
+    display: flex;
+    flex-direction: column;
+}
+
+/* =====================================================
+   ITEM DEL MENÚ
+   Cada botón del sidebar
+===================================================== */
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+    padding: 1.2vw;
+    border-bottom: 1px solid #00000099;
+    background: #8ad6c2;
+    cursor: pointer;
+    /* animación suave al cambiar de color */
+    transition: background 0.2s ease;
+}
+
+
+    /* =====================================================
+   EFECTO HOVER (cuando pasas el mouse)
+===================================================== */
+
+    .menu-item:hover {
+        background: #6987d2;
+    }
+
+
+    /* =====================================================
+   ITEM ACTIVO (la página en la que estás)
+===================================================== */
+
+    .menu-item.active {
+        background: #6987d2;
+    }
+/* =====================================================
+   ÁREA CENTRAL DEL SISTEMA
+   Donde aparece la imagen de fondo
+===================================================== */
+
+.content-area {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+/* =====================================================
+   IMAGEN DE FONDO
+===================================================== */
+
+.element {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* =====================================================
+   CONTENEDOR DEL TEXTO CENTRAL
+   Mantiene el texto centrado en la imagen
+===================================================== */
+
+.center-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    width: 70%;
+}
+
+/* =====================================================
+   TEXTO PRINCIPAL DE BIENVENIDA
+===================================================== */
+
+.bienvenido-al {
+    font-family: "Poppins-Bold";
+    font-size: clamp(20px,3vw,36px);
+    color: #000000c4;
+    margin-bottom: 1vh;
+}
+
+/* =====================================================
+   TEXTO SECUNDARIO DE INSTRUCCIÓN
+===================================================== */
+
+.seleccione-una-opci {
+    font-family: "Poppins-SemiBold";
+    font-size: clamp(14px,1.8vw,22px);
+    color: #000000c4;
+}
