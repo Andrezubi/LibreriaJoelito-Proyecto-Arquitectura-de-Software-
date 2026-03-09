@@ -26,6 +26,10 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbGVhZG9DcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Camila Carvajal/source/repos/LibreriaJoelito-Proyecto-Arquitectura-de-Software-/LibreriaJoelito/Pages/EmpleadoDelete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbGVhZG9EZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Camila Carvajal/source/repos/LibreriaJoelito-Proyecto-Arquitectura-de-Software-/LibreriaJoelito/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
