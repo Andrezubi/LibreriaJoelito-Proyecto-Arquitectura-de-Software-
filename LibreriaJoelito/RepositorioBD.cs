@@ -7,7 +7,8 @@ namespace LibreriaJoelito
 {
     public static class RepositorioBD
     {
-        private static string connectionStringMySql = "Server=localhost;Port=3306;uid=root;pwd=1234;database=bdlibreria";
+        //private static string connectionStringMySql = "Server=localhost;Port=3306;uid=root;pwd=1234;database=bdlibreria";
+        private static string connectionStringMySql = "Server=localhost;Port=3306;uid=root;pwd=root;database=bdlibreria";
         public static int ExecuteNonQuery(MySqlCommand comando)
         {
             using (MySqlConnection con = new MySqlConnection(connectionStringMySql))
@@ -44,6 +45,14 @@ namespace LibreriaJoelito
                     return dataTable;
                 }
             }
+        }
+
+        public static DataRow ExecuteReturningDataRow(MySqlCommand comando)
+        {
+            DataTable dt = ExecuteReturningDataTable(comando); 
+            if (dt.Rows.Count > 0) 
+                return dt.Rows[0]; 
+            return null;
         }
     }
 }

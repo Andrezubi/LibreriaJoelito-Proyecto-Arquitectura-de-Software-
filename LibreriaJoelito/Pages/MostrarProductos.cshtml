@@ -4,6 +4,8 @@
 }
 <h1>Lista Productos </h1>
 
+<a asp-page="ProductoCreate" class="btn btn-primary">Nuevo Producto</a>
+
 <!--
 Codigo comentado para hacer un boton de crear producto
 <div>
@@ -38,7 +40,7 @@ Codigo comentado para hacer un boton de crear producto
                 <td>@row["Id_Producto_Base"]</td>
                 <td>@row["FechaRegistro"]</td>
                 <td>
-                    <a asp-route-id="@row["id"]" class="btn btn-warning btn-sm">Editar</a>
+                    <a asp-page="ProductoUpdate" asp-route-id="@row["Id"]" class="btn btn-warning btn-sm">Editar</a>
                     <form method="post" asp-page-handler="Delete" style="display:inline;">
                         <input type="hidden" name="id" value="@row["Id"]" />
 
