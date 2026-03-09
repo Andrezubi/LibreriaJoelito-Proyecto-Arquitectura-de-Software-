@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\TORREZ\\Escritorio\\UNIVERSIDAD\\SEMESTRE 1-2026\\Arquitectura de Software\\Libreria\\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\\LibreriaJoelito\\LibreriaJoelito.csproj": {}
+    "C:\\Users\\brend\\Documents\\Adrian\\ArquiDeSoftware\\LibreriaJoelito\\LibreriaJoelito.csproj": {}
   },
   "projects": {
-    "D:\\TORREZ\\Escritorio\\UNIVERSIDAD\\SEMESTRE 1-2026\\Arquitectura de Software\\Libreria\\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\\LibreriaJoelito\\LibreriaJoelito.csproj": {
+    "C:\\Users\\brend\\Documents\\Adrian\\ArquiDeSoftware\\LibreriaJoelito\\LibreriaJoelito.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\TORREZ\\Escritorio\\UNIVERSIDAD\\SEMESTRE 1-2026\\Arquitectura de Software\\Libreria\\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\\LibreriaJoelito\\LibreriaJoelito.csproj",
+        "projectUniqueName": "C:\\Users\\brend\\Documents\\Adrian\\ArquiDeSoftware\\LibreriaJoelito\\LibreriaJoelito.csproj",
         "projectName": "LibreriaJoelito",
-        "projectPath": "D:\\TORREZ\\Escritorio\\UNIVERSIDAD\\SEMESTRE 1-2026\\Arquitectura de Software\\Libreria\\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\\LibreriaJoelito\\LibreriaJoelito.csproj",
-        "packagesPath": "C:\\Users\\torre\\.nuget\\packages\\",
-        "outputPath": "D:\\TORREZ\\Escritorio\\UNIVERSIDAD\\SEMESTRE 1-2026\\Arquitectura de Software\\Libreria\\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\\LibreriaJoelito\\obj\\",
+        "projectPath": "C:\\Users\\brend\\Documents\\Adrian\\ArquiDeSoftware\\LibreriaJoelito\\LibreriaJoelito.csproj",
+        "packagesPath": "C:\\Users\\brend\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\brend\\Documents\\Adrian\\ArquiDeSoftware\\LibreriaJoelito\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\torre\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\brend\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

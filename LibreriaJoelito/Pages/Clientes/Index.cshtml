@@ -10,6 +10,14 @@
         <a asp-page="Create" class="btn btn-outline-primary">+ Nuevo Cliente</a>
     </div>
 
+    @if (TempData["MensajeExito"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["MensajeExito"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
     <div class="card shadow-sm border-0">
         <div class="table-responsive">
             <table class="table table-hover mb-0">
@@ -30,14 +38,16 @@
                             <td class="align-middle">@row["Nombre"]</td>
                             <td class="align-middle">@row["Apellido"]</td>
                             <td class="align-middle">@row["CI"]</td>
-                            <td class="align-middle">@row["Email"]</td>
+                            <td class="align-middle">@(row["Email"] == DBNull.Value ? "—" : row["Email"])</td>
                             <td class="align-middle text-muted" style="font-size: 0.9rem;">
                                 @Convert.ToDateTime(row["FechaRegistro"]).ToString("dd/MM/yyyy HH:mm")
                             </td>
                             <td class="text-center align-middle">
                                 <div class="btn-group btn-group-sm" role="group">
-                                    <a href="#" class="btn btn-outline-warning" title="Editar">Editar</a>
-                                    <a href="#" class="btn btn-outline-danger" title="Eliminar">Eliminar</a>
+                                    <a asp-page="Edit" asp-route-id="@row["Id"]"
+                                       class="btn btn-outline-warning">Editar</a>
+                                    <a asp-page="Delete" asp-route-id="@row["Id"]"
+                                       class="btn btn-outline-danger">Eliminar</a>
                                 </div>
                             </td>
                         </tr>
@@ -45,7 +55,9 @@
                     @if (Model.ClientesDataTable.Rows.Count == 0)
                     {
                         <tr>
-                            <td colspan="5" class="text-center py-4 text-muted">No hay clientes registrados.</td>
+                            <td colspan="6" class="text-center py-4 text-muted">
+                                No hay clientes registrados.
+                            </td>
                         </tr>
                     }
                 </tbody>
