@@ -15,7 +15,7 @@ namespace LibreriaJoelito.Pages
         public string Apellidos { get; set; }
 
         [BindProperty]
-        public string Ci { get; set; } // mejor string
+        public string Ci { get; set; } 
 
         [BindProperty]
         public string Email { get; set; }
