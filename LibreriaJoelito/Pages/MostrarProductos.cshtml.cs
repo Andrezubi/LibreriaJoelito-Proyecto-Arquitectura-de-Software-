@@ -45,6 +45,27 @@ namespace LibreriaJoelito.Pages
 
             return RedirectToPage("MostrarProductos");
         }
+        public string getNameById(int? id)
+        {
+            if (id == 0)
+            {
+                return "Sin producto Base";
+            }
+            string query = @"SELECT Nombre 
+                            FROM productos
+                            WHERE Id=@Id";
+            MySqlCommand cmd = new MySqlCommand(query);
+            cmd.Parameters.AddWithValue("@Id", id);
+            using (MySqlDataReader reader = RepositorioBD.ExecuteReader(cmd))
+            {
+                if (reader.Read())
+                {
+                    return reader["Nombre"].ToString()!;
+                }
+            }
+
+            return "No se encontro producto Base";
+        }
 
     }
 }

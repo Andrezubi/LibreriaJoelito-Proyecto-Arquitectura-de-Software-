@@ -37,7 +37,11 @@ Codigo comentado para hacer un boton de crear producto
                 <td>@row["Stock"]</td>
                 <td>@row["Tipo_Venta"]</td>
                 <td>@row["Factor_Conversion"]</td>
-                <td>@row["Id_Producto_Base"]</td>
+            <td>
+                @Model.getNameById(row["Id_Producto_Base"] == DBNull.Value
+                                ? 0
+                                : Convert.ToInt32(row["Id_Producto_Base"]))
+            </td>
                 <td>@row["FechaRegistro"]</td>
                 <td>
                     <a asp-page="ProductoUpdate" asp-route-id="@row["Id"]" class="btn btn-warning btn-sm">Editar</a>
