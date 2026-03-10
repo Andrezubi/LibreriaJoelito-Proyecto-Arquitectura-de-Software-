@@ -1,13 +1,8 @@
 namespace LibreriaJoelito.Models
 {
-    public class Cliente
+    public class Cliente: Usuario
     {
-        public int Id { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string CI { get; set; } = string.Empty;
-        public string? Complemento { get; set; }
-        public string? Email { get; set; }
+        
         public bool EsClienteFrecuente { get; set; }
         public byte Estado { get; set; }
         public DateTime FechaRegistro { get; set; }
@@ -16,11 +11,8 @@ namespace LibreriaJoelito.Models
         public Cliente() { }
 
         public Cliente(string nombre, string apellido, string ci, string email, bool esClienteFrecuente)
+            :base(nombre, apellido, ci, email)
         {
-            Nombre = nombre;
-            Apellido = apellido;
-            CI = ci;
-            Email = email;
             EsClienteFrecuente = esClienteFrecuente;
         }
     }
