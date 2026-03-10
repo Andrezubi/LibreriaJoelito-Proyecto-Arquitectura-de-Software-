@@ -26,7 +26,7 @@ namespace LibreriaJoelito.Pages
         {
             try
             {
-                string connectionString = configuration.GetConnectionString("ConnectionMySql");
+                string connectionString = configuration.GetConnectionString("ConnectionMySql")!;
                 string query = "DELETE FROM empleados WHERE Id = @id";
 
                 using (MySqlConnection connection = new MySqlConnection(connectionString))

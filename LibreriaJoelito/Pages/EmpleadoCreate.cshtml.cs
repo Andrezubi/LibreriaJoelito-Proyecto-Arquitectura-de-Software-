@@ -36,7 +36,7 @@ namespace LibreriaJoelito.Pages
         {
             try
             {
-                string connectionString = configuration.GetConnectionString("ConnectionMySql");
+                string connectionString = configuration.GetConnectionString("ConnectionMySql")!;
                 string query = @"INSERT INTO empleados 
                          (Nombre, Apellidos, CI, Email, Fecha_Nacimiento, Fecha_Ingreso, Estado) 
                          VALUES (@nombre, @apellidos, @ci, @email, @fechaNacimiento, CURDATE(), 1);";
