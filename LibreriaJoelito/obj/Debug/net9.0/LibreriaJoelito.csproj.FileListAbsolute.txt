@@ -239,4 +239,4 @@ D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Softwa
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\s3ouztwna6-xrbgcv15rh.gz
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\h79mz9j8z3-uv87j6czt2.gz
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
-D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\e3n0mf1c2r-q3ye04kfi2.gz
+D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\e3n0mf1c2r-i1sz9fiza7.gz
