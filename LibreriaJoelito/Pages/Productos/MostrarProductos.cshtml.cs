@@ -2,8 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
 using System.Data;
-using LibreriaJoelito;
-namespace LibreriaJoelito.Pages
+namespace LibreriaJoelito.Pages.Productos
 {
     public class MostrarProductosModel : PageModel
     {

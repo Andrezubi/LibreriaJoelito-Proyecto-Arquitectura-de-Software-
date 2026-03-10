@@ -1,8 +1,9 @@
+using LibreriaJoelito.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
 
-namespace LibreriaJoelito.Pages
+namespace LibreriaJoelito.Pages.Empleados
 {
     public class EmpleadoUpdateModel : PageModel
     {

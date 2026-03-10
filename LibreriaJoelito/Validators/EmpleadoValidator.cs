@@ -1,4 +1,4 @@
-﻿namespace LibreriaJoelito
+﻿namespace LibreriaJoelito.Validators
 {
     public class EmpleadoValidator
     {

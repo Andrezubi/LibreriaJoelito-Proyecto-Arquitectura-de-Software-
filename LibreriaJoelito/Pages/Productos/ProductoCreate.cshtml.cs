@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 
-namespace LibreriaJoelito.Pages
+namespace LibreriaJoelito.Pages.Productos
 {
     public class ProductoCreateModel : PageModel
     {

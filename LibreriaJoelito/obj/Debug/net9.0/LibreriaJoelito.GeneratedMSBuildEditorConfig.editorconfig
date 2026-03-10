@@ -36,20 +36,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50ZXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/coasas andres/Cosas Arquitectura de Software/LibreriaJoelito/LibreriaJoelito/Pages/EmpleadoCreate.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbGVhZG9DcmVhdGUuY3NodG1s
+[D:/coasas andres/Cosas Arquitectura de Software/LibreriaJoelito/LibreriaJoelito/Pages/Empleados/EmpleadoCreate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbGVhZG9zXEVtcGxlYWRvQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/coasas andres/Cosas Arquitectura de Software/LibreriaJoelito/LibreriaJoelito/Pages/EmpleadoDelete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbGVhZG9EZWxldGUuY3NodG1s
+[D:/coasas andres/Cosas Arquitectura de Software/LibreriaJoelito/LibreriaJoelito/Pages/Empleados/EmpleadoDelete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbGVhZG9zXEVtcGxlYWRvRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/coasas andres/Cosas Arquitectura de Software/LibreriaJoelito/LibreriaJoelito/Pages/EmpleadoGet.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbGVhZG9HZXQuY3NodG1s
+[D:/coasas andres/Cosas Arquitectura de Software/LibreriaJoelito/LibreriaJoelito/Pages/Empleados/EmpleadoGet.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbGVhZG9zXEVtcGxlYWRvR2V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/coasas andres/Cosas Arquitectura de Software/LibreriaJoelito/LibreriaJoelito/Pages/EmpleadoUpdate.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbGVhZG9VcGRhdGUuY3NodG1s
+[D:/coasas andres/Cosas Arquitectura de Software/LibreriaJoelito/LibreriaJoelito/Pages/Empleados/EmpleadoUpdate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbGVhZG9zXEVtcGxlYWRvVXBkYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/coasas andres/Cosas Arquitectura de Software/LibreriaJoelito/LibreriaJoelito/Pages/Error.cshtml]
@@ -60,20 +60,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/coasas andres/Cosas Arquitectura de Software/LibreriaJoelito/LibreriaJoelito/Pages/MostrarProductos.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW9zdHJhclByb2R1Y3Rvcy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/coasas andres/Cosas Arquitectura de Software/LibreriaJoelito/LibreriaJoelito/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/coasas andres/Cosas Arquitectura de Software/LibreriaJoelito/LibreriaJoelito/Pages/ProductoCreate.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdG9DcmVhdGUuY3NodG1s
+[D:/coasas andres/Cosas Arquitectura de Software/LibreriaJoelito/LibreriaJoelito/Pages/Productos/MostrarProductos.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdG9zXE1vc3RyYXJQcm9kdWN0b3MuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/coasas andres/Cosas Arquitectura de Software/LibreriaJoelito/LibreriaJoelito/Pages/ProductoUpdate.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdG9VcGRhdGUuY3NodG1s
+[D:/coasas andres/Cosas Arquitectura de Software/LibreriaJoelito/LibreriaJoelito/Pages/Productos/ProductoCreate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdG9zXFByb2R1Y3RvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/coasas andres/Cosas Arquitectura de Software/LibreriaJoelito/LibreriaJoelito/Pages/Productos/ProductoUpdate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdG9zXFByb2R1Y3RvVXBkYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/coasas andres/Cosas Arquitectura de Software/LibreriaJoelito/LibreriaJoelito/Pages/Shared/_ValidationScriptsPartial.cshtml]
