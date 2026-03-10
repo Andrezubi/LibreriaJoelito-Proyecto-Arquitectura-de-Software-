@@ -14,6 +14,8 @@ namespace LibreriaJoelito.Pages.Clientes
         public string CI { get; set; }
         [BindProperty]
         public string Email { get; set; }
+        [BindProperty]
+        public bool EsclienteFrecuente { get; set; }
 
         public void OnGet()
         {
@@ -29,6 +31,7 @@ namespace LibreriaJoelito.Pages.Clientes
             cmd.Parameters.AddWithValue("@apellido", Apellido);
             cmd.Parameters.AddWithValue("@ci", CI);
             cmd.Parameters.AddWithValue("@email", Email);
+            cmd.Parameters.AddWithValue("@EsClienteFrecuente", EsclienteFrecuente);
 
             RepositorioBD.ExecuteNonQuery(cmd);
 

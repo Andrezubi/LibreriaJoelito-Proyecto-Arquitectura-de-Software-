@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LibreriaJoelito")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5ca2b6e511c27d1ce229ca8f7cbd0cfd6c91a2e2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+02a61937f156748dbdc996d4b1a16fbda69d5ad3")]
 [assembly: System.Reflection.AssemblyProductAttribute("LibreriaJoelito")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LibreriaJoelito")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

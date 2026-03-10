@@ -14,12 +14,13 @@ namespace LibreriaJoelito.Models
 
         public Cliente() { }
 
-        public Cliente(string nombre, string apellido, string ci, string email)
+        public Cliente(string nombre, string apellido, string ci, string email, bool esClienteFrecuente)
         {
             Nombre = nombre;
             Apellido = apellido;
             CI = ci;
             Email = email;
+            EsClienteFrecuente = esClienteFrecuente;
         }
     }
 }

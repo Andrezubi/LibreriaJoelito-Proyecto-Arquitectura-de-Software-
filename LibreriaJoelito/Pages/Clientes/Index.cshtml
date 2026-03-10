@@ -27,6 +27,7 @@
                         <th>Apellido</th>
                         <th>CI</th>
                         <th>Email</th>
+                        <th>EsClienteFrecuente</th>
                         <th>Fecha Registro</th>
                         <th class="text-center">Acciones</th>
                     </tr>
@@ -39,6 +40,7 @@
                             <td class="align-middle">@row["Apellido"]</td>
                             <td class="align-middle">@row["CI"]</td>
                             <td class="align-middle">@(row["Email"] == DBNull.Value ? "—" : row["Email"])</td>
+                            <td class="align-middle">@(Convert.ToBoolean(row["EsClienteFrecuente"]) ? "Sí" : "No")</td>
                             <td class="align-middle text-muted" style="font-size: 0.9rem;">
                                 @Convert.ToDateTime(row["FechaRegistro"]).ToString("dd/MM/yyyy HH:mm")
                             </td>
