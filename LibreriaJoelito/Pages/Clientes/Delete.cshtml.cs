@@ -33,7 +33,7 @@ namespace LibreriaJoelito.Pages.Clientes
         {
             DeshabilitarCliente(Cliente.Id);
             TempData["MensajeExito"] = $"Cliente '{Cliente.Nombre} {Cliente.Apellido}' eliminado.";
-            return RedirectToPage("Index");
+            return RedirectToPage("ClientesGet");
         }
 
         DataTable ObtenerClientePorId(int id)

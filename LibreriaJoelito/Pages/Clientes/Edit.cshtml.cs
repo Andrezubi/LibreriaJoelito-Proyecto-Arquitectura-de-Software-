@@ -43,7 +43,7 @@ namespace LibreriaJoelito.Pages.Clientes
             ActualizarCliente();
 
             TempData["MensajeExito"] = $"Cliente '{Cliente.Nombre} {Cliente.Apellido}' actualizado exitosamente.";
-            return RedirectToPage("Index");
+            return RedirectToPage("ClientesGet");
         }
 
         DataTable ObtenerClientePorId(int id)
