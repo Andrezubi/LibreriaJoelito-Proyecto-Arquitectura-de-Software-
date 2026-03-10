@@ -41,59 +41,45 @@ namespace LibreriaJoelito.Pages
         {
             string connectionString = configuration.GetConnectionString("ConnectionMySql")!;
             string query = @"SELECT id, Nombre, Apellidos, CI, Fecha_Nacimiento, Email, Fecha_Ingreso 
-                            FROM empleados
-                            WHERE id =  @id
-                            ORDER BY 2;";
+                    FROM empleados
+                    WHERE id =  @id
+                    ORDER BY 2;";
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            MySqlCommand command = new MySqlCommand(query);
+            command.Parameters.AddWithValue("@id", Id);
+            MySqlDataReader reader = RepositorioBD.ExecuteReader(command);
+            if (reader.Read())
             {
-                MySqlCommand command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@id", Id);
-                connection.Open();
-
-                using (MySqlDataReader reader = command.ExecuteReader())
-                {
-                    if (reader.Read()) 
-                    {
-                        Nombre = reader["Nombre"].ToString()!;
-                        Apellidos = reader["Apellidos"].ToString()!;
-                        Ci = reader["CI"].ToString()!;
-                        Email = reader["Email"]?.ToString() ?? "";
-                        FechaNacimiento = Convert.ToDateTime(reader["Fecha_Nacimiento"]);
-                    }
-                }
+                Nombre = reader["Nombre"].ToString()!;
+                Apellidos = reader["Apellidos"].ToString()!;
+                Ci = reader["CI"].ToString()!;
+                Email = reader["Email"]?.ToString() ?? "";
+                FechaNacimiento = Convert.ToDateTime(reader["Fecha_Nacimiento"]);
             }
         }
 
         public IActionResult OnPost()
         {
-            string connectionString = configuration.GetConnectionString("ConnectionMySql")!;
-
             string query = @"UPDATE empleados 
-                     SET Nombre = @nombre, 
-                         Apellidos = @apellidos, 
-                         CI = @ci, 
-                         Email = @email, 
-                         Fecha_Nacimiento = @fechaNacimiento,
-                         UltimaActualizacion = NOW()
-                     WHERE id = @id;";
+             SET Nombre = @nombre, 
+                 Apellidos = @apellidos, 
+                 CI = @ci, 
+                 Email = @email, 
+                 Fecha_Nacimiento = @fechaNacimiento,
+                 UltimaActualizacion = NOW()
+             WHERE id = @id;";
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                MySqlCommand command = new MySqlCommand(query, connection);
+            MySqlCommand command = new MySqlCommand(query);
 
-                
-                command.Parameters.AddWithValue("@nombre", Nombre);
-                command.Parameters.AddWithValue("@apellidos", Apellidos);
-                command.Parameters.AddWithValue("@ci", Ci);
-                command.Parameters.AddWithValue("@email", Email);
-                command.Parameters.AddWithValue("@fechaNacimiento", FechaNacimiento.ToString("yyyy-MM-dd"));
+            command.Parameters.AddWithValue("@nombre", Nombre);
+            command.Parameters.AddWithValue("@apellidos", Apellidos);
+            command.Parameters.AddWithValue("@ci", Ci);
+            command.Parameters.AddWithValue("@email", Email);
+            command.Parameters.AddWithValue("@fechaNacimiento", FechaNacimiento.ToString("yyyy-MM-dd"));
 
-                command.Parameters.AddWithValue("@id", Id);
+            command.Parameters.AddWithValue("@id", Id);
 
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
+            RepositorioBD.ExecuteNonQuery(command);
 
 
             return RedirectToPage("EmpleadoGet");
