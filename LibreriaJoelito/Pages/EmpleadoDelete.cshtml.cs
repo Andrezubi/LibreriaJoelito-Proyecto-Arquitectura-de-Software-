@@ -31,21 +31,28 @@ namespace LibreriaJoelito.Pages
 
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@id", Id);
-
                     connection.Open();
-                    command.ExecuteNonQuery();
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        // 1. PRIMERO agregas el parámetro
+                        command.Parameters.AddWithValue("@id", Id);
+
+                        int filasAfectadas = command.ExecuteNonQuery();
+
+                        if (filasAfectadas > 0)
+                            TempData["SuccessMessage"] = "Empleado eliminado exitosamente.";
+                        else
+                            TempData["ErrorMessage"] = "No se encontró el empleado.";
+                    }
                 }
 
-                TempData["SuccessMessage"] = "Empleado eliminado exitosamente.";
+                return RedirectToPage("/Empleados/Index");
             }
             catch (Exception ex)
             {
-                TempData["ErrorMessage"] = "Error al eliminar el empleado: " + ex.Message;
+                TempData["ErrorMessage"] = "Error al eliminar: " + ex.Message;
+                return Page();
             }
-
-            return Page(); 
         }
     }
 }

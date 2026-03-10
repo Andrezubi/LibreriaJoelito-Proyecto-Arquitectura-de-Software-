@@ -23,17 +23,11 @@ namespace LibreriaJoelito.Pages
         {
             string connectionString = configuration.GetConnectionString("ConnectionMySql")!;
             string query = @"SELECT id, Nombre, Apellidos, CI, Fecha_Nacimiento, Email, Fecha_Ingreso 
-                            FROM empleados
-                            WHERE estado = 1
-                            ORDER BY 2;";
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-                MySqlCommand command = new MySqlCommand(query, connection);
-                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
-                adapter.Fill(EmpleadoDataTable);
-            }
+                    FROM empleados
+                    WHERE estado = 1
+                    ORDER BY 2;";
+            MySqlCommand command = new MySqlCommand(query);
+            EmpleadoDataTable = RepositorioBD.ExecuteReturningDataTable(command);
         }
     }
 }
