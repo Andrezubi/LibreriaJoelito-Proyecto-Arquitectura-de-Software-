@@ -6,10 +6,6 @@ namespace LibreriaJoelito.Pages
 {
     public class EmpleadoDeleteModel : PageModel
     {
-<<<<<<< HEAD
-        // Ya no necesitamos IConfiguration porque la conexión está dentro de RepositorioBD
-=======
->>>>>>> 7a379b204d95f11a9d6c752b945e3c3f3a61bc3a
         public EmpleadoDeleteModel()
         {
         }
@@ -37,11 +33,7 @@ namespace LibreriaJoelito.Pages
                 else
                     TempData["ErrorMessage"] = "No se pudo eliminar: el registro no existe.";
 
-<<<<<<< HEAD
-                return RedirectToPage("/Index"); 
-=======
                 return RedirectToPage("/Index");
->>>>>>> 7a379b204d95f11a9d6c752b945e3c3f3a61bc3a
             }
             catch (Exception ex)
             {
