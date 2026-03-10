@@ -1,5 +1,14 @@
+wwwroot\css\globals.css
 wwwroot\css\site.css
+wwwroot\css\style.css
 wwwroot\favicon.ico
+wwwroot\img\background-lib.png
+wwwroot\img\cli-lib.svg
+wwwroot\img\config-lib.svg
+wwwroot\img\emp-lib.svg
+wwwroot\img\home-lib.svg
+wwwroot\img\logo-lib.svg
+wwwroot\img\prod-lib.svg
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
@@ -61,65 +70,73 @@ wwwroot\lib\jquery\dist\jquery.slim.js
 wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\jquery\LICENSE.txt
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\jquery\dist\jquery.slim.min.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\jquery\dist\jquery.slim.min.js
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\jquery\dist\jquery.slim.js
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\jquery\dist\jquery.min.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\jquery\dist\jquery.min.js
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\jquery\dist\jquery.js
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\jquery-validation\LICENSE.md
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\jquery-validation\dist\jquery.validate.min.js
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\jquery-validation\dist\jquery.validate.js
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\jquery-validation\dist\additional-methods.min.js
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\jquery-validation\dist\additional-methods.js
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.min.js
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.js.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.js
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap.css.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap.css
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\js\site.js
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\favicon.ico
-D:\TORREZ\Escritorio\UNIVERSIDAD\SEMESTRE 1-2026\Arquitectura de Software\Libreria\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\css\site.css
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\css\globals.css
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\css\site.css
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\css\style.css
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\favicon.ico
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\img\cli-lib.svg
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\img\config-lib.svg
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\img\emp-lib.svg
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\img\home-lib.svg
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\img\logo-lib.svg
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\img\prod-lib.svg
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\js\site.js
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap.css
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap.css.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.js
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.js.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.min.js
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\jquery-validation\dist\additional-methods.js
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\jquery-validation\dist\additional-methods.min.js
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\jquery-validation\dist\jquery.validate.js
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\jquery-validation\dist\jquery.validate.min.js
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\jquery-validation\LICENSE.md
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\jquery\dist\jquery.js
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\jquery\dist\jquery.min.js
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\jquery\dist\jquery.min.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\jquery\dist\jquery.slim.js
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\jquery\dist\jquery.slim.min.js
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\jquery\dist\jquery.slim.min.map
+D:\coasas andres\Cosas Arquitectura de Software\LibreriaJoelito\LibreriaJoelito\wwwroot\lib\jquery\LICENSE.txt
