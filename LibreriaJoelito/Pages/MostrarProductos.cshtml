@@ -1,12 +1,26 @@
 ﻿@page
 @model LibreriaJoelito.Pages.MostrarProductosModel
 @{
+    ViewData["Title"] = "Productos";
 }
-<h1>Lista Productos </h1>
+<div class="content-area">
 
+    <div class="page-container">
+
+        <div class="tabla-header">
+
+            <div class="tabla-titulo">
+                Lista de Productos
+            </div>
+            <div class="tabla-acciones">
 <a asp-page="ProductoCreate" class="btn btn-primary">Nuevo Producto</a>
+            </div>
 
-<table class="table">
+        </div>
+           <div class="table-responsive">
+
+                <table class="tabla-sistema table-hover table-bordered">
+
     <thead>
         <tr>
             <th>Nombre del Producto</th>
@@ -50,7 +64,10 @@
                 </td>
             </tr>
         }
-
-
-    </tbody>
-</table>
+        
+       </tbody> 
+                </table>
+           </div>
+           
+    </div>
+</div>

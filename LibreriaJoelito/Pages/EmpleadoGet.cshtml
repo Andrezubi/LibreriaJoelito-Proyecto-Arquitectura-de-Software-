@@ -1,16 +1,37 @@
 ﻿@page
 @model LibreriaJoelito.Pages.EmpleadoGetModel
 @{
+	ViewData["Title"] = "Empleados";
 }
-
-<div class="position-relative">
+@*
+<div class="content-area">
 	<h2>Lista Empleados</h2>
 	<a class="btn btn-primary position-absolute top-0 end-0 m-3"
 	   asp-area="" asp-page="/EmpleadoCreate">+</a>
-</div>
+</div> 
 
-<table class="table">
-	<thead class="table-dark">
+*@ 
+<div class="content-area">
+
+	<div class="page-container">
+
+		<div class="tabla-header">
+
+			<div class="tabla-titulo">
+				Lista de Empleados
+			</div>
+
+			<div class="tabla-acciones">
+				<a asp-page="EmpleadoCreate" class="btn btn-primary btn-sm">
+					Añadir Empleado
+				</a>
+			</div>
+
+		</div>
+			<div class="table-responsive">
+
+				<table class="tabla-sistema table-hover table-bordered">
+	 <thead>
 		<tr>
 			<th>Nombre</th>
 			<th>Apellidos</th>
@@ -39,4 +60,7 @@
 			</tr>
 		}
 	</tbody>
-</table>
+   </table>
+ </div>
+  </div>
+</div>

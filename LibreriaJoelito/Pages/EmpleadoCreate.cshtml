@@ -3,7 +3,12 @@
 @{
 }
 
-<h2>Nuevo Empleado</h2>
+<div class="form-container">
+
+    <div class="form-header">
+        Nuevo Empleado
+    </div>
+
 
 @if (TempData["SuccessMessage"] != null)
 {
@@ -52,3 +57,4 @@
     <button type="submit" class="btn btn-primary mt-2">Guardar</button>
     <a asp-page="Oficina" class="btn btn-secondary mt-2">Volver</a>
 </form>
+</div>

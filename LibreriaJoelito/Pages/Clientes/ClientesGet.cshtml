@@ -1,14 +1,27 @@
 @page
-@model LibreriaJoelito.Pages.Clientes.IndexModel
+@model LibreriaJoelito.Pages.Clientes.ClientesGetModel
 @{
-    ViewData["Title"] = "Listado de Clientes";
+    ViewData["Title"] = "Clientes";
 }
 
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="display-6">Clientes</h2>
-        <a asp-page="Create" class="btn btn-outline-primary">+ Nuevo Cliente</a>
-    </div>
+<div class="content-area">
+
+  <div class="page-container">
+
+        <div class="tabla-header">
+
+            <div class="tabla-titulo">
+                Lista de Clientes
+            </div>
+
+            <div class="tabla-acciones">
+                <a asp-page="ClienteCreate" class="btn btn-primary btn-sm">
+                    Añadir Cliente
+                </a>
+            </div>
+
+        </div>
+
 
     @if (TempData["MensajeExito"] != null)
     {
@@ -18,10 +31,9 @@
         </div>
     }
 
-    <div class="card shadow-sm border-0">
         <div class="table-responsive">
-            <table class="table table-hover mb-0">
-                <thead class="bg-light">
+            <table class="tabla-sistema table-hover table-bordered">
+                <thead>
                     <tr>
                         <th>Nombre</th>
                         <th>Apellido</th>

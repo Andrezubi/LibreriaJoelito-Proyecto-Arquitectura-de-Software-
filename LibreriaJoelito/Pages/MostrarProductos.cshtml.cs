@@ -16,7 +16,7 @@ namespace LibreriaJoelito.Pages
         }
         public void OnGet()
         {
-            LoadProductos();
+           // LoadProductos();
 
         }
 
