@@ -235,3 +235,4 @@ C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-P
 C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\LibreriaJoelito.genruntimeconfig.cache
 C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\ref\LibreriaJoelito.dll
 C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\bin\Debug\net9.0\MySqlConnector.dll
+C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\bin\Debug\net9.0\MySqlConnector.dll
