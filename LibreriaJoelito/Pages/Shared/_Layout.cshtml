@@ -2,19 +2,113 @@
 <html>
 <head>
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
 
-	<link rel="stylesheet" href="~/css/globals.css" />
-	<link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/globals.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
 
-	<title>@ViewData["Title"]</title>
+    <title>@ViewData["Title"]</title>
 
 </head>
 
 <body>
 
-	@RenderBody()
+    <div class="sistema-de-gestion">
+
+        <!-- HEADER -->
+        <div class="overlap-group">
+
+            <div class="group-3"></div>
+
+            <div class="header-text">
+
+                <div class="librer-a-joelito">
+                    LIBRERÍA JOELITO
+                </div>
+
+                <div class="sistema-de-gesti-n">
+                    Sistema De Gestión De La Librería
+                </div>
+
+            </div>
+
+        </div>
+    
+        <!-- CONTENEDOR PRINCIPAL -->
+        <div class="main-container">
+
+            <!-- SIDEBAR -->
+            
+
+                <div class="rectangle">
+
+                    <!-- INICIO -->
+
+                    <a href="/Index" class="menu-item active">
+
+                        <img class="menu-icon" src="~/img/home-lib.svg">
+
+                        <div class="menu-text">Inicio</div>
+
+                    </a>
+
+
+                    <!-- PRODUCTOS -->
+
+                    <a href="/Productos" class="menu-item">
+
+                        <img class="menu-icon" src="~/img/prod-lib.svg">
+
+                        <div class="menu-text">Productos</div>
+
+                    </a>
+
+
+                    <!-- CLIENTES -->
+
+                    <a href="/Clientes" class="menu-item">
+
+                        <img class="menu-icon" src="~/img/cli-lib.svg">
+
+                        <div class="menu-text">Clientes</div>
+
+                    </a>
+
+
+                    <!-- EMPLEADOS -->
+
+                    <a href="/Empleados" class="menu-item">
+
+                        <img class="menu-icon" src="~/img/emp-lib.svg">
+
+                        <div class="menu-text">Empleados</div>
+
+                    </a>
+
+
+                    <!-- CONFIGURACION -->
+
+                    <a href="/Configuracion" class="menu-item">
+
+                        <img class="menu-icon" src="~/img/config-lib.svg">
+
+                        <div class="menu-text">Configuración</div>
+
+                    </a>
+
+                </div>
+           
+            <!-- AREA CENTRAL -->
+            <div class="content-area">
+
+                @RenderBody()
+
+            </div>
+
+        </div>
+     
+    </div>
 
 </body>
 </html>

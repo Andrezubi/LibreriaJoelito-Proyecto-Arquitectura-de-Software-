@@ -1,0 +1,65 @@
+﻿@page
+@model LibreriaJoelito.Pages.ProductosModel
+@{
+    ViewData["Title"] = "Productos";
+}
+<div class="content-area">
+
+    <div class="page-container">
+
+        <h1 class="titulo-pagina">Tabla de Productos (Prueba)</h1>
+
+        <table class="tabla-sistema">
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>1</td>
+                    <td>Cuaderno</td>
+                    <td>15 Bs</td>
+                    <td>40</td>
+                    <td>
+                        <button class="btn-editar">Editar</button>
+                        <button class="btn-eliminar">Eliminar</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>Lápiz</td>
+                    <td>3 Bs</td>
+                    <td>100</td>
+                    <td>
+                        <button class="btn-editar">Editar</button>
+                        <button class="btn-eliminar">Eliminar</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>Borrador</td>
+                    <td>2 Bs</td>
+                    <td>60</td>
+                    <td>
+                        <button class="btn-editar">Editar</button>
+                        <button class="btn-eliminar">Eliminar</button>
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
