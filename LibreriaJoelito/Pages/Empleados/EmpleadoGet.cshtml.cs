@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
 using System.Data;
 
-namespace LibreriaJoelito.Pages
+namespace LibreriaJoelito.Pages.Empleados
 {
     public class EmpleadoGetModel : PageModel
     {
