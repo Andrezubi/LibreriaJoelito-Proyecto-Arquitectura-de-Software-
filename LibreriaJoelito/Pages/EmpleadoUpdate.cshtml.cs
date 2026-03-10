@@ -6,31 +6,26 @@ namespace LibreriaJoelito.Pages
 {
     public class EmpleadoUpdateModel : PageModel
     {
-        private readonly IConfiguration configuration;
+        public EmpleadoUpdateModel() { }
 
         [BindProperty]
         public int Id { get; set; }
 
         [BindProperty]
-        public string Nombre { get; set; }
+        public string Nombre { get; set; } = string.Empty;
 
         [BindProperty]
-        public string Apellidos { get; set; }
+        public string Apellidos { get; set; } = string.Empty;
 
         [BindProperty]
-        public string Ci { get; set; }
+        public string Ci { get; set; } = string.Empty;
 
         [BindProperty]
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
         [BindProperty]
         public DateTime FechaNacimiento { get; set; }
 
-
-        public EmpleadoUpdateModel(IConfiguration configuration)
-        {
-            this.configuration = configuration;
-        }
         public void OnGet(int id)
         {
             this.Id = id;
@@ -39,50 +34,73 @@ namespace LibreriaJoelito.Pages
 
         public void Select()
         {
-            string connectionString = configuration.GetConnectionString("ConnectionMySql")!;
-            string query = @"SELECT id, Nombre, Apellidos, CI, Fecha_Nacimiento, Email, Fecha_Ingreso 
-                    FROM empleados
-                    WHERE id =  @id
-                    ORDER BY 2;";
+            string query = @"SELECT Nombre, Apellidos, CI, Fecha_Nacimiento, Email 
+                            FROM empleados
+                            WHERE id = @id";
 
             MySqlCommand command = new MySqlCommand(query);
             command.Parameters.AddWithValue("@id", Id);
-            MySqlDataReader reader = RepositorioBD.ExecuteReader(command);
-            if (reader.Read())
+            using (MySqlDataReader reader = RepositorioBD.ExecuteReader(command))
             {
-                Nombre = reader["Nombre"].ToString()!;
-                Apellidos = reader["Apellidos"].ToString()!;
-                Ci = reader["CI"].ToString()!;
-                Email = reader["Email"]?.ToString() ?? "";
-                FechaNacimiento = Convert.ToDateTime(reader["Fecha_Nacimiento"]);
+                if (reader.Read())
+                {
+                    Nombre = reader["Nombre"].ToString() ?? "";
+                    Apellidos = reader["Apellidos"].ToString() ?? "";
+                    Ci = reader["CI"].ToString() ?? "";
+                    Email = reader["Email"]?.ToString() ?? "";
+                    FechaNacimiento = Convert.ToDateTime(reader["Fecha_Nacimiento"]);
+                }
             }
         }
 
         public IActionResult OnPost()
         {
-            string query = @"UPDATE empleados 
-             SET Nombre = @nombre, 
-                 Apellidos = @apellidos, 
-                 CI = @ci, 
-                 Email = @email, 
-                 Fecha_Nacimiento = @fechaNacimiento,
-                 UltimaActualizacion = NOW()
-             WHERE id = @id;";
+            if (!EmpleadoValidator.esNombreValido(Nombre))
+            {
+                TempData["ErrorMessage"] = "El nombre no es válido (mínimo 4 caracteres).";
+                return Page();
+            }
 
-            MySqlCommand command = new MySqlCommand(query);
+            if (!EmpleadoValidator.esCiValido(Ci))
+            {
+                TempData["ErrorMessage"] = "El CI debe ser mayor a 6 dígitos.";
+                return Page();
+            }
 
-            command.Parameters.AddWithValue("@nombre", Nombre);
-            command.Parameters.AddWithValue("@apellidos", Apellidos);
-            command.Parameters.AddWithValue("@ci", Ci);
-            command.Parameters.AddWithValue("@email", Email);
-            command.Parameters.AddWithValue("@fechaNacimiento", FechaNacimiento.ToString("yyyy-MM-dd"));
+            if (!EmpleadoValidator.esCorreoValido(Email))
+            {
+                TempData["ErrorMessage"] = "El correo electrónico no es válido.";
+                return Page();
+            }
 
-            command.Parameters.AddWithValue("@id", Id);
+            try
+            {
+                string query = @"UPDATE empleados 
+                                 SET Nombre = @nombre, 
+                                     Apellidos = @apellidos, 
+                                     CI = @ci, 
+                                     Email = @email, 
+                                     Fecha_Nacimiento = @fechaNacimiento
+                                 WHERE id = @id;";
 
-            RepositorioBD.ExecuteNonQuery(command);
+                MySqlCommand command = new MySqlCommand(query);
+                command.Parameters.AddWithValue("@nombre", Nombre);
+                command.Parameters.AddWithValue("@apellidos", Apellidos);
+                command.Parameters.AddWithValue("@ci", Ci);
+                command.Parameters.AddWithValue("@email", Email);
+                command.Parameters.AddWithValue("@fechaNacimiento", FechaNacimiento.ToString("yyyy-MM-dd"));
+                command.Parameters.AddWithValue("@id", Id);
 
+                RepositorioBD.ExecuteNonQuery(command);
 
-            return RedirectToPage("EmpleadoGet");
+                TempData["SuccessMessage"] = "Empleado actualizado correctamente.";
+                return RedirectToPage("EmpleadoGet");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error al actualizar: " + ex.Message;
+                return Page();
+            }
         }
     }
 }
