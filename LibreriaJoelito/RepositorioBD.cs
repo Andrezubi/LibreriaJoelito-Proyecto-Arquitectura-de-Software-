@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿
+using MySql.Data.MySqlClient;
 using System.Data;
 using System.Data.Common;
 
@@ -43,6 +44,14 @@ namespace LibreriaJoelito
                     return dataTable;
                 }
             }
+        }
+
+        public static DataRow ExecuteReturningDataRow(MySqlCommand comando)
+        {
+            DataTable dt = ExecuteReturningDataTable(comando); 
+            if (dt.Rows.Count > 0) 
+                return dt.Rows[0]; 
+            return null;
         }
     }
 }
