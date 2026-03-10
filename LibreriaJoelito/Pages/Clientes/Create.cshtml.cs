@@ -38,7 +38,7 @@ namespace LibreriaJoelito.Pages.Clientes
 
             RepositorioBD.ExecuteNonQuery(cmd);
 
-            return RedirectToPage("ClientesGet");
+            return RedirectToPage("Index");
         }
     }
 }
