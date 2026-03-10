@@ -25,7 +25,7 @@ namespace LibreriaJoelito.Pages.Productos
             string query = @"SELECT  Id, Nombre,Categoria,Precio,Stock,Tipo_Venta,Factor_Conversion,Id_Producto_Base, FechaRegistro
                             FROM productos
                             WHERE estado=1
-                            ORDER BY 2";
+                            ORDER BY 3";
             MySqlCommand command = new MySqlCommand(query);
 
             ProductosDataTable = RepositorioBD.ExecuteReturningDataTable(command);

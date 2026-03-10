@@ -23,8 +23,8 @@
 
     <thead>
         <tr>
-            <th>Nombre del Producto</th>
             <th>Categoria</th>
+            <th>Nombre del Producto</th>
             <th>Precio</th>
             <th>Stock</th>
             <th>Tipo de Venta</th>
@@ -38,8 +38,8 @@
         @foreach (System.Data.DataRow row in Model.ProductosDataTable.Rows)
         {
             <tr>
-                <td>@row["Nombre"]</td>
                 <td>@row["Categoria"]</td>
+                <td>@row["Nombre"]</td>
                 <td>@row["Precio"]</td>
                 <td>@row["Stock"]</td>
                 <td>@row["Tipo_Venta"]</td>

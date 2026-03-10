@@ -49,7 +49,7 @@
         <label>Producto Base</label>
 
         <select asp-for="@Model.IdProductoBase" class="form-control">
-            <option value="null">Seleccione un producto base</option>
+            <option value="null">Sin Producto Base</option>
 
             @foreach (System.Data.DataRow row in Model.ProductosDataTable.Rows)
             {
