@@ -1,6 +1,9 @@
+using LibreriaJoelito.Models;
+using LibreriaJoelito.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 
 namespace LibreriaJoelito.Pages
@@ -46,9 +49,22 @@ namespace LibreriaJoelito.Pages
             command.Parameters.AddWithValue("@tipoVenta", TipoVenta);
             command.Parameters.AddWithValue("@factorConversion", FactorConversion);
             command.Parameters.AddWithValue("@idProductoBase", IdProductoBase);
+            Producto producto= new Producto(Categoria,Nombre,Precio,Stock,TipoVenta,FactorConversion,IdProductoBase);
+            List<ValidationResult> errors = new List<ValidationResult>();
+            errors=ProductValidator.ValidarProducto(producto); 
+            if (errors.Count > 0)
+            {
+                foreach (var error in errors)
+                {
+                    foreach (var member in error.MemberNames)
+                    {
+                        ModelState.AddModelError(member, error.ErrorMessage);
+                    }
+                }
 
+                return Page(); // vuelve al formulario mostrando errores
+            }
             RepositorioBD.ExecuteNonQuery(command);
-
             return RedirectToPage("MostrarProductos");
         }
         void LoadProductos()
