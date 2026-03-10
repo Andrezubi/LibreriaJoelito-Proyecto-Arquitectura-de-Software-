@@ -6,8 +6,8 @@ namespace LibreriaJoelito.Models
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string CI { get; set; } = string.Empty;
-        public string Complemento { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
+        public string? Complemento { get; set; }
+        public string? Email { get; set; }
         public bool EsClienteFrecuente { get; set; }
         public byte Estado { get; set; }
         public DateTime FechaRegistro { get; set; }

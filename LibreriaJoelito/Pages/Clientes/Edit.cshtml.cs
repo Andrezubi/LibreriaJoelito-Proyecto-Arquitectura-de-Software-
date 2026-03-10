@@ -92,7 +92,7 @@ namespace LibreriaJoelito.Pages.Clientes
             conexion.Open();
             MySqlCommand comando = new MySqlCommand(query, conexion);
             comando.Parameters.AddWithValue("@ci", ci);
-            comando.Parameters.AddWithValue("@complemento", Cliente.Complemento ?? "");
+            comando.Parameters.AddWithValue("@complemento", Cliente.Complemento ?? string.Empty);
             comando.Parameters.AddWithValue("@id", idActual);
             return Convert.ToInt32(comando.ExecuteScalar()) > 0;
         }
@@ -116,7 +116,7 @@ namespace LibreriaJoelito.Pages.Clientes
             comando.Parameters.AddWithValue("@nombre", Cliente.Nombre);
             comando.Parameters.AddWithValue("@apellido", Cliente.Apellido);
             comando.Parameters.AddWithValue("@ci", Cliente.CI);
-            comando.Parameters.AddWithValue("@complemento", Cliente.Complemento ?? "");
+            comando.Parameters.AddWithValue("@complemento", Cliente.Complemento ?? string.Empty);
             comando.Parameters.AddWithValue("@email", (object?)Cliente.Email ?? DBNull.Value);
             comando.Parameters.AddWithValue("@frecuente", Cliente.EsClienteFrecuente);
             comando.Parameters.AddWithValue("@id", Cliente.Id);
