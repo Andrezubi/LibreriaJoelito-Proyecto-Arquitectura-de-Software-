@@ -49,7 +49,7 @@ namespace LibreriaJoelito.Pages.Clientes
         DataTable ObtenerClientePorId(int id)
         {
             string connectionString = _configuration.GetConnectionString("ConnectionMySql")!;
-            string query = @"SELECT Id, Nombre, Apellido, CI, Email, EsClienteFrecuente
+            string query = @"SELECT Id, Nombre, Apellido, CI, Complemento, Email, EsClienteFrecuente
                              FROM Clientes
                              WHERE Id = @id AND Estado = 1";
 
@@ -71,6 +71,7 @@ namespace LibreriaJoelito.Pages.Clientes
                 Nombre = fila["Nombre"].ToString()!,
                 Apellido = fila["Apellido"].ToString()!,
                 CI = fila["CI"].ToString()!,
+                Complemento = fila["Complemento"]?.ToString() ?? "",
                 Email = fila["Email"] == DBNull.Value ? null : fila["Email"].ToString(),
                 EsClienteFrecuente = Convert.ToBoolean(fila["EsClienteFrecuente"])
             };
@@ -85,12 +86,13 @@ namespace LibreriaJoelito.Pages.Clientes
         bool CIYaExisteEnOtroCliente(string ci, int idActual)
         {
             string connectionString = _configuration.GetConnectionString("ConnectionMySql")!;
-            string query = "SELECT COUNT(*) FROM Clientes WHERE CI = @ci AND Id <> @id";
+            string query = "SELECT COUNT(*) FROM Clientes WHERE CI = @ci AND Complemento = @complemento AND Id <> @id";
 
             using MySqlConnection conexion = new MySqlConnection(connectionString);
             conexion.Open();
             MySqlCommand comando = new MySqlCommand(query, conexion);
             comando.Parameters.AddWithValue("@ci", ci);
+            comando.Parameters.AddWithValue("@complemento", Cliente.Complemento ?? "");
             comando.Parameters.AddWithValue("@id", idActual);
             return Convert.ToInt32(comando.ExecuteScalar()) > 0;
         }
@@ -102,6 +104,7 @@ namespace LibreriaJoelito.Pages.Clientes
                                 Nombre              = @nombre,
                                 Apellido            = @apellido,
                                 CI                  = @ci,
+                                Complemento         = @complemento,
                                 Email               = @email,
                                 EsClienteFrecuente  = @frecuente,
                                 UltimaActualizacion = NOW()
@@ -113,6 +116,7 @@ namespace LibreriaJoelito.Pages.Clientes
             comando.Parameters.AddWithValue("@nombre", Cliente.Nombre);
             comando.Parameters.AddWithValue("@apellido", Cliente.Apellido);
             comando.Parameters.AddWithValue("@ci", Cliente.CI);
+            comando.Parameters.AddWithValue("@complemento", Cliente.Complemento ?? "");
             comando.Parameters.AddWithValue("@email", (object?)Cliente.Email ?? DBNull.Value);
             comando.Parameters.AddWithValue("@frecuente", Cliente.EsClienteFrecuente);
             comando.Parameters.AddWithValue("@id", Cliente.Id);

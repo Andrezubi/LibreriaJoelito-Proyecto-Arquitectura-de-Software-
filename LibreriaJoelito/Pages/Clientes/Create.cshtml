@@ -20,9 +20,15 @@
                             <label asp-for="Apellido" class="form-label">Apellido</label>
                             <input asp-for="Apellido" class="form-control" placeholder="Ej: Pérez" required />
                         </div>
-                        <div class="mb-3">
-                            <label asp-for="CI" class="form-label">CI (Cédula de Identidad)</label>
-                            <input asp-for="CI" class="form-control" placeholder="Ej: 1234567" required />
+                        <div class="row">
+                            <div class="col-md-8 mb-3">
+                                <label asp-for="CI" class="form-label">CI (Cédula de Identidad)</label>
+                                <input asp-for="CI" class="form-control" placeholder="Ej: 1234567" required />
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Complemento" class="form-label">Comp.</label>
+                                <input asp-for="Complemento" class="form-control" placeholder="Ej: 1A" />
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label asp-for="Email" class="form-label">Correo Electrónico</label>

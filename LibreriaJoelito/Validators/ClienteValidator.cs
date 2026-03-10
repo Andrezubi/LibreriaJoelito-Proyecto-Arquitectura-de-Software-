@@ -1,4 +1,4 @@
-﻿using LibreriaJoelito.Models;
+using LibreriaJoelito.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace LibreriaJoelito.Validators
@@ -12,6 +12,7 @@ namespace LibreriaJoelito.Validators
             ValidarNombre(cliente.Nombre, errores);
             ValidarApellido(cliente.Apellido, errores);
             ValidarCI(cliente.CI, errores);
+            ValidarComplemento(cliente.Complemento, errores);
             ValidarEmail(cliente.Email, errores);
 
             return errores;
@@ -41,6 +42,12 @@ namespace LibreriaJoelito.Validators
         {
             if (!string.IsNullOrWhiteSpace(email) && !email.Contains("@"))
                 errores.Add(new ValidationResult("El Email no tiene un formato válido.", new[] { "Cliente.Email" }));
+        }
+
+        static void ValidarComplemento(string? complemento, List<ValidationResult> errores)
+        {
+            if (!string.IsNullOrWhiteSpace(complemento) && complemento.Length > 10)
+                errores.Add(new ValidationResult("El Complemento no puede exceder los 10 caracteres.", new[] { "Cliente.Complemento" }));
         }
     }
 }

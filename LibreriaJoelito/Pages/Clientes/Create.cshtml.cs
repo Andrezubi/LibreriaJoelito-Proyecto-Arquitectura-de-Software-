@@ -11,9 +11,11 @@ namespace LibreriaJoelito.Pages.Clientes
         [BindProperty]
         public string Apellido { get; set; }
         [BindProperty]
-        public string CI { get; set; }
+        public string CI { get; set; } = string.Empty;
         [BindProperty]
-        public string Email { get; set; }
+        public string Complemento { get; set; } = string.Empty;
+        [BindProperty]
+        public string Email { get; set; } = string.Empty;
         [BindProperty]
         public bool EsclienteFrecuente { get; set; }
 
@@ -26,10 +28,11 @@ namespace LibreriaJoelito.Pages.Clientes
             if (!ModelState.IsValid) return Page();
 
             // Usando RepositorioBD para insertar
-            MySqlCommand cmd = new MySqlCommand("INSERT INTO clientes (Nombre, Apellido, CI, Email) VALUES (@nombre, @apellido, @ci, @email)");
+            MySqlCommand cmd = new MySqlCommand("INSERT INTO clientes (Nombre, Apellido, CI, Complemento, Email, EsClienteFrecuente) VALUES (@nombre, @apellido, @ci, @complemento, @email, @EsClienteFrecuente)");
             cmd.Parameters.AddWithValue("@nombre", Nombre);
             cmd.Parameters.AddWithValue("@apellido", Apellido);
             cmd.Parameters.AddWithValue("@ci", CI);
+            cmd.Parameters.AddWithValue("@complemento", Complemento ?? "");
             cmd.Parameters.AddWithValue("@email", Email);
             cmd.Parameters.AddWithValue("@EsClienteFrecuente", EsclienteFrecuente);
 

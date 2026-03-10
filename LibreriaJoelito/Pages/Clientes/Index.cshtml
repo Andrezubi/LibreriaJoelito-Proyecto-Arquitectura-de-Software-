@@ -38,7 +38,9 @@
                         <tr>
                             <td class="align-middle">@row["Nombre"]</td>
                             <td class="align-middle">@row["Apellido"]</td>
-                            <td class="align-middle">@row["CI"]</td>
+                            <td class="align-middle">
+                                @row["CI"]@(string.IsNullOrWhiteSpace(row["Complemento"]?.ToString()) ? "" : "-" + row["Complemento"])
+                            </td>
                             <td class="align-middle">@(row["Email"] == DBNull.Value ? "—" : row["Email"])</td>
                             <td class="align-middle">@(Convert.ToBoolean(row["EsClienteFrecuente"]) ? "Sí" : "No")</td>
                             <td class="align-middle text-muted" style="font-size: 0.9rem;">
