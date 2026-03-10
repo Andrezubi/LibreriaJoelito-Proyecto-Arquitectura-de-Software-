@@ -74,7 +74,8 @@ namespace LibreriaJoelito.Pages
                          Apellidos = @apellidos, 
                          CI = @ci, 
                          Email = @email, 
-                         Fecha_Nacimiento = @fechaNacimiento
+                         Fecha_Nacimiento = @fechaNacimiento,
+                         UltimaActualizacion = NOW()
                      WHERE id = @id;";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -94,7 +95,6 @@ namespace LibreriaJoelito.Pages
                 command.ExecuteNonQuery();
             }
 
-            TempData["SuccessMessage"] = "Empleado actualizado exitosamente.";
 
             return RedirectToPage("EmpleadoGet");
         }
