@@ -58,13 +58,13 @@
                             <td class="align-middle text-muted" style="font-size: 0.9rem;">
                                 @Convert.ToDateTime(row["FechaRegistro"]).ToString("dd/MM/yyyy HH:mm")
                             </td>
-                            <td class="text-center align-middle">
-                                <div class="btn-group btn-group-sm" role="group">
+                            <td>
+                                
                                     <a asp-page="Edit" asp-route-id="@row["Id"]"
-                                       class="btn btn-outline-warning">Editar</a>
+                                       class="btn btn-warning btn-sm">Editar</a>
                                     <a asp-page="Delete" asp-route-id="@row["Id"]"
-                                       class="btn btn-outline-danger">Eliminar</a>
-                                </div>
+                                       class="btn btn-warning btn-sm">Eliminar</a>
+                                
                             </td>
                         </tr>
                     }
