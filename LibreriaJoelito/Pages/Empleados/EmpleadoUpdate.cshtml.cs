@@ -81,7 +81,8 @@ namespace LibreriaJoelito.Pages.Empleados
                                      Apellidos = @apellidos, 
                                      CI = @ci, 
                                      Email = @email, 
-                                     Fecha_Nacimiento = @fechaNacimiento
+                                     Fecha_Nacimiento = @fechaNacimiento,
+                                     UltimaActualizacion = NOW()
                                  WHERE id = @id;";
 
                 MySqlCommand command = new MySqlCommand(query);

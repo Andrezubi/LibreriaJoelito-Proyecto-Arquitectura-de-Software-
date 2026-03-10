@@ -104,7 +104,7 @@ namespace LibreriaJoelito.Pages.Productos
                         ModelState.AddModelError(member, error.ErrorMessage);
                     }
                 }
-
+                LoadProductos(Id);
                 return Page(); // vuelve al formulario mostrando errores
             }
             RepositorioBD.ExecuteNonQuery(command);

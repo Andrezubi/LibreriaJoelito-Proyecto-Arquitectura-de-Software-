@@ -2,6 +2,13 @@
 @model LibreriaJoelito.Pages.Productos.ProductoCreateModel
 @{
 }
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger shadow-sm rounded mt-3">
+        <h5 class="mb-2">⚠️ Se encontraron errores:</h5>
+        <div asp-validation-summary="All"></div>
+    </div>
+}
 <div class="form-container">
 
     <div class="form-header">
