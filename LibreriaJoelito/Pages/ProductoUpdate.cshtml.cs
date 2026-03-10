@@ -25,6 +25,11 @@ namespace LibreriaJoelito.Pages
         [BindProperty]
         public decimal FactorConversion { get; set; }
 
+        [BindProperty]
+        public int? IdProductoBase { get; set; }
+
+        public DataTable nombresProductosDataTable { get; set; }
+
         public ProductoUpdateModel(IConfiguration configuration)
         {
             this.configuration = configuration;
@@ -33,11 +38,12 @@ namespace LibreriaJoelito.Pages
         public void OnGet(byte id)
         {
             LoadProducto(id);
+            LoadProductos(id);
         }
 
         public IActionResult LoadProducto(byte id)
         {
-            string query = @"SELECT Categoria, Nombre, Precio, Stock, Tipo_Venta, Factor_Conversion
+            string query = @"SELECT Categoria, Nombre, Precio, Stock, Tipo_Venta, Factor_Conversion,Id_Producto_Base
                             FROM bdlibreria.productos
                             WHERE Id = @id;";
             MySqlCommand command = new MySqlCommand(query);
@@ -52,6 +58,8 @@ namespace LibreriaJoelito.Pages
             Stock = Convert.ToInt32(row["Stock"]);
             TipoVenta = row["Tipo_Venta"].ToString();
             FactorConversion = Convert.ToDecimal(row["Factor_Conversion"]);
+            IdProductoBase = row["Id_Producto_Base"] == DBNull.Value
+                 ? null : Convert.ToInt32(row["Id_Producto_Base"]);
 
 
             return Page();
@@ -66,7 +74,8 @@ namespace LibreriaJoelito.Pages
                                 Stock = @stock,
                                 Tipo_Venta = @tipoVenta,
                                 Factor_Conversion = @factorConversion,
-                                UltimaActualizacion = @fechaAhora
+                                UltimaActualizacion = @fechaAhora,
+                                Id_Producto_Base =@idProductoBase
                             WHERE Id = @id;";
 
             MySqlCommand command = new MySqlCommand(query);
@@ -79,10 +88,23 @@ namespace LibreriaJoelito.Pages
             command.Parameters.AddWithValue("@factorConversion", FactorConversion);
             command.Parameters.AddWithValue("@fechaAhora", DateTime.Now);
             command.Parameters.AddWithValue("@id", Id);
+            command.Parameters.AddWithValue("@idProductoBase", IdProductoBase);
 
             RepositorioBD.ExecuteNonQuery(command);
 
             return RedirectToPage("MostrarProductos");
+        }
+        void LoadProductos(int id)
+        {
+            string query = @"SELECT Id, Nombre 
+                     FROM productos
+                     WHERE estado = 1 And Id!=@id
+                     ORDER BY Nombre";
+
+            MySqlCommand cmd = new MySqlCommand(query);
+            cmd.Parameters.AddWithValue("@id", id);
+
+            nombresProductosDataTable = RepositorioBD.ExecuteReturningDataTable(cmd);
         }
     }
 }

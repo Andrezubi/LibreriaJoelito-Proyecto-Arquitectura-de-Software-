@@ -35,10 +35,11 @@ namespace LibreriaJoelito.Pages
         public IActionResult OnPostDelete(int id)
         {
             string query = @"UPDATE productos
-                     SET estado = 0
+                     SET Estado = 0, UltimaActualizacion=@fechaAhora
                      WHERE Id = @Id";
 
             MySqlCommand cmd = new MySqlCommand(query);
+            cmd.Parameters.AddWithValue("@fechaAhora", DateTime.Now);
             cmd.Parameters.AddWithValue("@Id", id);
 
             RepositorioBD.ExecuteNonQuery(cmd);
