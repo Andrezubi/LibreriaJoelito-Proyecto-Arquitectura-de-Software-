@@ -13,9 +13,9 @@ namespace LibreriaJoelito.Pages.Clientes
         [BindProperty]
         public string CI { get; set; } = string.Empty;
         [BindProperty]
-        public string Complemento { get; set; } = string.Empty;
+        public string? Complemento { get; set; }
         [BindProperty]
-        public string Email { get; set; } = string.Empty;
+        public string? Email { get; set; }
         [BindProperty]
         public bool EsclienteFrecuente { get; set; }
 
@@ -32,8 +32,8 @@ namespace LibreriaJoelito.Pages.Clientes
             cmd.Parameters.AddWithValue("@nombre", Nombre);
             cmd.Parameters.AddWithValue("@apellido", Apellido);
             cmd.Parameters.AddWithValue("@ci", CI);
-            cmd.Parameters.AddWithValue("@complemento", Complemento ?? "");
-            cmd.Parameters.AddWithValue("@email", Email);
+            cmd.Parameters.AddWithValue("@complemento", Complemento ?? string.Empty);
+            cmd.Parameters.AddWithValue("@email", Email ?? string.Empty);
             cmd.Parameters.AddWithValue("@EsClienteFrecuente", EsclienteFrecuente);
 
             RepositorioBD.ExecuteNonQuery(cmd);
