@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Camila Carvajal\\source\\repos\\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\\LibreriaJoelito\\LibreriaJoelito.csproj": {}
+    "C:\\Users\\USUARIO\\Desktop\\TAREAS\\ARQUITECTURA SOFTWARE\\Proyecto\\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\\LibreriaJoelito\\LibreriaJoelito.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Camila Carvajal\\source\\repos\\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\\LibreriaJoelito\\LibreriaJoelito.csproj": {
+    "C:\\Users\\USUARIO\\Desktop\\TAREAS\\ARQUITECTURA SOFTWARE\\Proyecto\\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\\LibreriaJoelito\\LibreriaJoelito.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Camila Carvajal\\source\\repos\\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\\LibreriaJoelito\\LibreriaJoelito.csproj",
+        "projectUniqueName": "C:\\Users\\USUARIO\\Desktop\\TAREAS\\ARQUITECTURA SOFTWARE\\Proyecto\\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\\LibreriaJoelito\\LibreriaJoelito.csproj",
         "projectName": "LibreriaJoelito",
-        "projectPath": "C:\\Users\\Camila Carvajal\\source\\repos\\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\\LibreriaJoelito\\LibreriaJoelito.csproj",
-        "packagesPath": "C:\\Users\\Camila Carvajal\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Camila Carvajal\\source\\repos\\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\\LibreriaJoelito\\obj\\",
+        "projectPath": "C:\\Users\\USUARIO\\Desktop\\TAREAS\\ARQUITECTURA SOFTWARE\\Proyecto\\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\\LibreriaJoelito\\LibreriaJoelito.csproj",
+        "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\USUARIO\\Desktop\\TAREAS\\ARQUITECTURA SOFTWARE\\Proyecto\\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\\LibreriaJoelito\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Camila Carvajal\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -44,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net9.0": {
@@ -74,7 +74,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.200-preview.0.26103.119/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
