@@ -6,11 +6,8 @@ namespace LibreriaJoelito.Pages
 {
     public class EmpleadoDeleteModel : PageModel
     {
-        private readonly IConfiguration configuration;
-
-        public EmpleadoDeleteModel(IConfiguration configuration)
+        public EmpleadoDeleteModel()
         {
-            this.configuration = configuration;
         }
 
         [BindProperty]
@@ -26,31 +23,21 @@ namespace LibreriaJoelito.Pages
         {
             try
             {
-                string connectionString = configuration.GetConnectionString("ConnectionMySql")!;
                 string query = "DELETE FROM empleados WHERE Id = @id";
+                MySqlCommand command = new MySqlCommand(query);
+                command.Parameters.AddWithValue("@id", Id);
+                int filasAfectadas = RepositorioBD.ExecuteNonQuery(command);
 
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
-                    {
-                        // 1. PRIMERO agregas el parámetro
-                        command.Parameters.AddWithValue("@id", Id);
+                if (filasAfectadas > 0)
+                    TempData["SuccessMessage"] = "Empleado eliminado exitosamente.";
+                else
+                    TempData["ErrorMessage"] = "No se pudo eliminar: el registro no existe.";
 
-                        int filasAfectadas = command.ExecuteNonQuery();
-
-                        if (filasAfectadas > 0)
-                            TempData["SuccessMessage"] = "Empleado eliminado exitosamente.";
-                        else
-                            TempData["ErrorMessage"] = "No se encontró el empleado.";
-                    }
-                }
-
-                return RedirectToPage("/Empleados/Index");
+                return RedirectToPage("/Index");
             }
             catch (Exception ex)
             {
-                TempData["ErrorMessage"] = "Error al eliminar: " + ex.Message;
+                TempData["ErrorMessage"] = "Error crítico en la base de datos: " + ex.Message;
                 return Page();
             }
         }
