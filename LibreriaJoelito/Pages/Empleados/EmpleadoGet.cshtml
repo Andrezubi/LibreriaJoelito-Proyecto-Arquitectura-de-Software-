@@ -45,7 +45,14 @@
 				<td>@row["Nombre"]</td>
 				<td>@row["ApellidoPaterno"]</td>
 				<td>@row["ApellidoMaterno"]</td>
-				<td>@(row["Ci"] + "-" + row["Complemento"])</td>
+				@if (row["Complemento"] != DBNull.Value && !string.IsNullOrEmpty(row["Complemento"].ToString()))
+				{
+					<td>@(row["Ci"] + "-" + row["Complemento"])</td>
+				}
+				else
+				{
+					<td>@row["Ci"]</td>
+				}
 				<td>@row["FechaNacimiento"]</td>
 				<td>@row["Email"]</td>
 				<td>@row["DireccionDomicilio"]</td>
