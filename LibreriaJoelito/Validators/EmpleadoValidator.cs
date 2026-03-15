@@ -54,7 +54,7 @@
         }
         public static bool esDireccionValida(string direccion)
         {
-            return direccion.Length > 10 && direccion.Length < 120;
+            return direccion.Length > 9 && direccion.Length < 121;
         }
         
         public static bool esTelefonoValido(int telefono)
@@ -63,7 +63,12 @@
             {
                 return false;
             }
-            return telefono > 1000000 && telefono < 999999999;
+            return telefono > 1000000 && telefono < 99999999;
+        }
+        public static bool esFechaIngresoValida(DateOnly fechaIngreso)
+        {
+            DateOnly hoy = DateOnly.FromDateTime(DateTime.Now);
+            return fechaIngreso <= hoy;
         }
         #endregion
     }

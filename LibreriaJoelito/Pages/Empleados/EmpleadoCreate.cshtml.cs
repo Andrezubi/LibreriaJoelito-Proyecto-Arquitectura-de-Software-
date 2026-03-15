@@ -46,13 +46,24 @@ namespace LibreriaJoelito.Pages.Empleados
         {
             if (!EmpleadoValidator.esNombreValido(Nombre))
             {
-                TempData["ErrorMessage"] = "El nombre no es válido (mínimo 4 caracteres y sin espacios a los lados).";
+                TempData["ErrorMessage"] = "El nombre no es válido (mínimo 2 caracteres y sin espacios a los lados).";
+                return Page();
+            }
+            if (!EmpleadoValidator.esApellidoValido(ApellidoMaterno) || !EmpleadoValidator.esApellidoValido(ApellidoPaterno))
+            {
+                TempData["ErrorMessage"] = "El apellido no es válido (mínimo 4 caracteres)";
                 return Page();
             }
 
             if (!EmpleadoValidator.esCiValido(Ci))
             {
-                TempData["ErrorMessage"] = "El CI debe tener más de 6 dígitos.";
+                TempData["ErrorMessage"] = "El CI debe tener 8 dígitos";
+                return Page();
+            }
+
+            if(!EmpleadoValidator.esExtensionCarnetValida(ExtensionCi))
+            {
+                TempData["ErrorMessage"] = "La extensión del carnet debe estar compuesta de un número y una letra.";
                 return Page();
             }
 
@@ -61,7 +72,26 @@ namespace LibreriaJoelito.Pages.Empleados
                 TempData["ErrorMessage"] = "El formato del correo electrónico no es correcto.";
                 return Page();
             }
-
+            if(!EmpleadoValidator.esFechaNacimientoValida(FechaNacimiento))
+            {
+                TempData["ErrorMessage"] = "La fecha de nacimiento no es válida (debe ser al menos 18 años).";
+                return Page();
+            }
+            if (!EmpleadoValidator.esTelefonoValido(Telefono))
+            {
+                TempData["ErrorMessage"] = "El número de teléfono debe tener 7-8 dígitos.";
+                return Page();
+            }
+            if(!EmpleadoValidator.esDireccionValida(DireccionDomicilio))
+            {
+                TempData["ErrorMessage"] = "La dirección no es válida (mínimo 10 caracteres).";
+                return Page();
+            }
+            if (!EmpleadoValidator.esFechaIngresoValida(FechaIngreso))
+            {
+                TempData["ErrorMessage"] = "La fecha de ingreso no es válida (no puede ser una fecha futura).";
+                return Page();
+            }
             try
             {
                 string query = @"INSERT INTO empleados 
