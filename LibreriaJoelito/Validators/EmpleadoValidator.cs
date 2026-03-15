@@ -30,6 +30,9 @@
         
         public static bool esExtensionCarnetValida(string extension)
         {
+            if (string.IsNullOrEmpty(extension))
+                return true;
+
             return extension.Length == 2 && char.IsDigit(extension[0]) && char.IsLetter(extension[1]);
 
         }
@@ -54,6 +57,9 @@
         }
         public static bool esDireccionValida(string direccion)
         {
+            if (string.IsNullOrEmpty(direccion))
+                return true;
+
             return direccion.Length > 9 && direccion.Length < 121;
         }
         
@@ -65,8 +71,11 @@
             }
             return telefono > 1000000 && telefono < 99999999;
         }
-        public static bool esFechaIngresoValida(DateOnly fechaIngreso)
+        public static bool esFechaIngresoValida(DateOnly? fechaIngreso)
         {
+            if (!fechaIngreso.HasValue)
+                return true;
+
             DateOnly hoy = DateOnly.FromDateTime(DateTime.Now);
             return fechaIngreso <= hoy;
         }
