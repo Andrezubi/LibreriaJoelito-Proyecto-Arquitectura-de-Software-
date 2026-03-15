@@ -14,6 +14,9 @@
         }
         public static bool esApellidoValido(string apellido)
         {
+            if (string.IsNullOrEmpty(apellido))
+                return true;
+
             return apellido.Length > 3 && apellido.Length < 36;
         }
 
@@ -65,6 +68,9 @@
         
         public static bool esTelefonoValido(int telefono)
         {
+            if(telefono == 0)
+                return true;
+
             if (telefono.ToString()[0] == '9' || telefono.ToString()[0] == '5' || telefono.ToString()[0] == '0')
             {
                 return false;

@@ -127,7 +127,7 @@ namespace LibreriaJoelito.Pages.Empleados
                 MySqlCommand command = new MySqlCommand(query);
                 command.Parameters.AddWithValue("@nombre", Nombre);
                 command.Parameters.AddWithValue("@apellidoPaterno", ApellidoPaterno);
-                command.Parameters.AddWithValue("@apellidoMateno", ApellidoMaterno);
+                command.Parameters.AddWithValue("@apellidoMaterno", ApellidoMaterno);
                 command.Parameters.AddWithValue("@ci", Ci);
                 command.Parameters.AddWithValue("@extensionCi", ExtensionCi);
                 command.Parameters.AddWithValue("@email", Email);
