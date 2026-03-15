@@ -2,16 +2,7 @@
 {
     public class EmpleadoValidator
     {
-        public static bool esCorreoValido(string correo)
-        {
-            return correo.Contains("@");
-        }
-
-        public static bool esCiValido(string ci)
-        {
-            return ci.Length > 6;
-        }
-
+        #region métodos
         public static bool esNombreValido(string nombre)
         {
             if (nombre != nombre.Trim())
@@ -19,7 +10,61 @@
                 return false;
             }
 
-            return nombre.Length > 3;
+            return nombre.Length > 1 && nombre.Length < 748;
         }
+        public static bool esApellidoValido(string apellido)
+        {
+            return apellido.Length > 3 && apellido.Length < 36;
+        }
+
+        
+
+        public static bool esCiValido(string ci)
+        {
+            if (!ci.All(char.IsDigit))
+            {
+                return false;
+            }
+            return ci.Length == 8;
+        }    
+        
+        public static bool esExtensionCarnetValida(string extension)
+        {
+            return extension.Length == 2 && char.IsDigit(extension[0]) && char.IsLetter(extension[1]);
+
+        }
+        public static int calcularEdad(DateOnly fechaNacimiento)
+        {
+            DateOnly hoy = DateOnly.FromDateTime(DateTime.Now);
+            int edad = hoy.Year - fechaNacimiento.Year;
+            if (hoy < fechaNacimiento.AddYears(edad))
+            {
+                edad--;
+            }
+            return edad;
+        }
+        public static bool esFechaNacimientoValida(DateOnly fechaNacimiento)
+        {
+            int edad = calcularEdad(fechaNacimiento);
+            return edad >= 18 && edad <= 65;
+        }
+        public static bool esCorreoValido(string correo)
+        {
+            return correo.Contains("@");
+        }
+        public static bool esDireccionValida(string direccion)
+        {
+            return direccion.Length > 10 && direccion.Length < 120;
+        }
+        
+        public static bool esTelefonoValido(int telefono)
+        {
+            if (telefono.ToString()[0] == '9' || telefono.ToString()[0] == '5' || telefono.ToString()[0] == '0')
+            {
+                return false;
+            }
+            return telefono > 1000000 && telefono < 999999999;
+        }
+        #endregion
     }
 }
