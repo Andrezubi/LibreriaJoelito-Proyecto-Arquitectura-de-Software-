@@ -60,12 +60,34 @@
 				<td>@row["FechaIngreso"]</td>										
 				<td>
 					<a asp-page="EmpleadoUpdate" asp-route-id="@row["Id"]" class="btn btn-warning btn-sm">Editar</a>
-					<a asp-page="EmpleadoDelete" asp-route-id="@row["Id"]" class=" btn btn-warning btn-sm">Eliminar</a>
+					<a data-bs-toggle="modal" data-bs-target="#modalDelete-@row["Id"]"  class="btn btn-danger btn-sm">Eliminar</a>
 				</td>
 			</tr>
+			@* modal delete *@
+						<div class="modal fade" id="modalDelete-@row["Id"]" tabindex="-1" aria-labelledby="EliminarEmpleado" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<form method="post" asp-page-handler="Delete" asp-route-id="@row["Id"]">
+										<div class="modal-header">
+											<h5 class="modal-title">Eliminar empleado</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+										</div>
+										<div class="modal-body">
+											<span>¿Está seguro de eliminar el empleado?</span>
+										</div>
+										<div class="modal-footer">
+											<button type="submit" class="btn btn-danger">Sí</button>
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
 		}
 	</tbody>
    </table>
  </div>
   </div>
 </div>
+
