@@ -43,6 +43,7 @@
 
             </div>
 
+<<<<<<< HEAD
             <div class="header-right">
 
                 @RenderSection("HeaderButtons", required: false)
@@ -51,6 +52,9 @@
 
         </header>
 
+=======
+        </div>
+>>>>>>> e3d69b878ce42cd927ae361bdf7f5033cb49afce
 
         <!-- CONTENEDOR PRINCIPAL -->
 
@@ -58,6 +62,7 @@
 
             <!-- SIDEBAR -->
 
+<<<<<<< HEAD
             <aside class="sidebar">
 
                 <a href="/Index" class="menu-item active">
@@ -68,9 +73,14 @@
 
                 </a>
 
+=======
 
-                <a href="/MostrarProductos" class="menu-item">
+            <div class="rectangle">
+>>>>>>> e3d69b878ce42cd927ae361bdf7f5033cb49afce
 
+                <!-- INICIO -->
+
+<<<<<<< HEAD
                     <img class="menu-icon" src="~/img/prod-lib.svg">
 
                     <span>Productos</span>
@@ -134,6 +144,64 @@
             <!-- CONTENIDO -->
 
             <main class="content-area">
+=======
+                <a href="/Index" class="menu-item active">
+
+                    <img class="menu-icon" src="~/img/home-lib.svg">
+
+                    <div class="menu-text">Inicio</div>
+
+                </a>
+
+
+                <!-- PRODUCTOS -->
+
+                <a href="/Productos/MostrarProductos" class="menu-item">
+
+                    <img class="menu-icon" src="~/img/prod-lib.svg">
+
+                    <div class="menu-text">Productos</div>
+
+                </a>
+
+
+                <!-- CLIENTES -->
+
+                <a href="/Clientes/ClientesGet" class="menu-item">
+
+                    <img class="menu-icon" src="~/img/cli-lib.svg">
+
+                    <div class="menu-text">Clientes</div>
+
+                </a>
+
+
+                <!-- EMPLEADOS -->
+
+                <a href="/Empleados/EmpleadoGet" class="menu-item">
+
+                    <img class="menu-icon" src="~/img/emp-lib.svg">
+
+                    <div class="menu-text">Empleados</div>
+
+                </a>
+
+
+                <!-- CONFIGURACION -->
+
+                <a href="/Configuracion" class="menu-item">
+
+                    <img class="menu-icon" src="~/img/config-lib.svg">
+
+                    <div class="menu-text">Configuración</div>
+
+                </a>
+
+            </div>
+
+            <!-- AREA CENTRAL -->
+            <div class="content-area">
+>>>>>>> e3d69b878ce42cd927ae361bdf7f5033cb49afce
 
                 @RenderBody()
 

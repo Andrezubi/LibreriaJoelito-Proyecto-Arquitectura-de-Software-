@@ -1,0 +1,23 @@
+﻿@page "{id:int}"
+@model LibreriaJoelito.Pages.Empleados.EmpleadoDeleteModel
+@{
+}
+
+<h2>Eliminar Empleado</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+<p>¿Estás seguro de que deseas eliminar al empleado con ID <strong>@Model.Id</strong>?</p>
+
+<form method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-page="EmpleadoGet" class="btn btn-secondary">Cancelar</a>
+</form>
