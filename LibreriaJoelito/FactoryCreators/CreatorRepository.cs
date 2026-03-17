@@ -1,6 +1,9 @@
-﻿namespace LibreriaJoelito.FactoryCreators
+﻿using LibreriaJoelito.FactoryProducts;
+
+namespace LibreriaJoelito.FactoryCreators
 {
-    public class CreatorRepository
+    public abstract class CreatorRepository<T>
     {
+        public abstract IRepository<T> CreateRepository();
     }
 }
