@@ -13,13 +13,13 @@
                 Lista de Productos
             </div>
             <div class="tabla-acciones">
-<a asp-page="ProductoCreate" class="btn btn-primary">Nuevo Producto</a>
+                <a asp-page="ProductoCreate" class="btn btn-sistema">Nuevo Producto</a>
             </div>
 
         </div>
            <div class="table-responsive">
 
-                <table class="tabla-sistema table-hover table-bordered">
+            <table class="table tabla-sistema">
 
     <thead>
         <tr>
@@ -31,7 +31,7 @@
             <th>Factor de Conversion</th>
             <th>Producto Base</th>
             <th>Fecha de Registro</th>
-            <th>Acciones</th>
+                        <th class="text-center">Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -51,12 +51,12 @@
             </td>
                 <td>@row["FechaRegistro"]</td>
                 <td>
-                    <a asp-page="ProductoUpdate" asp-route-id="@row["Id"]" class="btn btn-warning btn-sm">Editar</a>
+                            <a asp-page="ProductoUpdate" asp-route-id="@row["Id"]" class="btn btn-sistema btn-sm">Editar</a>
                     <form method="post" asp-page-handler="Delete" style="display:inline;">
                         <input type="hidden" name="id" value="@row["Id"]" />
 
                         <button type="submit"
-                                class="btn btn-danger btn-sm"
+                                        class="btn-sistema-danger" btn-sm"
                                 onclick="return confirm('¿Desea eliminar el producto @row["Nombre"] ?');">
                             Eliminar
                         </button>

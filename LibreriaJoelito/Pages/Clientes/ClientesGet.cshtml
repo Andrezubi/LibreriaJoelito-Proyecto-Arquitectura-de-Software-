@@ -15,8 +15,8 @@
             </div>
 
             <div class="tabla-acciones">
-                <a asp-page="ClienteCreate" class="btn btn-primary btn-sm">
-                    Añadir Cliente
+                <a asp-page="ClienteCreate" class="btn btn-sistema  btn-sm">
+                    Nuevo Cliente
                 </a>
             </div>
 
@@ -32,7 +32,7 @@
     }
 
         <div class="table-responsive">
-            <table class="tabla-sistema table-hover table-bordered">
+            <table class="table tabla-sistema">
                 <thead>
                     <tr>
                         <th>Nombre</th>
@@ -59,12 +59,12 @@
                                 @Convert.ToDateTime(row["FechaRegistro"]).ToString("dd/MM/yyyy HH:mm")
                             </td>
                             <td class="text-center align-middle">
-                                <div class="btn-group btn-group-sm" role="group">
+                               
                                     <a asp-page="Edit" asp-route-id="@row["Id"]"
-                                       class="btn btn-outline-warning">Editar</a>
+                                       class="btn btn-sistema">Editar</a>
                                     <a asp-page="Delete" asp-route-id="@row["Id"]"
-                                       class="btn btn-outline-danger">Eliminar</a>
-                                </div>
+                                       class="btn btn-sistema-danger ">Eliminar</a>
+                       
                             </td>
                         </tr>
                     }

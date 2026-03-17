@@ -4,7 +4,11 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="~/css/globals.css" />
     <link rel="stylesheet" href="~/css/style.css" />
@@ -18,98 +22,128 @@
     <div class="sistema-de-gestion">
 
         <!-- HEADER -->
-        <div class="overlap-group">
 
-            <div class="group-3"></div>
+        <header class="main-header">
 
-            <div class="header-text">
+            <div class="header-left">
 
-                <div class="librer-a-joelito">
-                    LIBRERÍA JOELITO
-                </div>
+                <div class="logo"></div>
 
-                <div class="sistema-de-gesti-n">
-                    Sistema De Gestión De La Librería
+                <div class="header-text">
+
+                    <div class="titulo-sistema">
+                        LIBRERÍA JOELITO
+                    </div>
+
+                    <div class="subtitulo-sistema">
+                        Sistema de Gestión de Librería
+                    </div>
+
                 </div>
 
             </div>
 
-        </div>
-    
+            <div class="header-right">
+
+                @RenderSection("HeaderButtons", required: false)
+
+            </div>
+
+        </header>
+
+
         <!-- CONTENEDOR PRINCIPAL -->
+
         <div class="main-container">
 
             <!-- SIDEBAR -->
-            
 
-                <div class="rectangle">
+            <aside class="sidebar">
 
-                    <!-- INICIO -->
+                <a href="/Index" class="menu-item active">
 
-                    <a href="/Index" class="menu-item active">
+                    <img class="menu-icon" src="~/img/home-lib.svg">
 
-                        <img class="menu-icon" src="~/img/home-lib.svg">
+                    <span>Inicio</span>
 
-                        <div class="menu-text">Inicio</div>
+                </a>
 
-                    </a>
-
-
-                    <!-- PRODUCTOS -->
 
                 <a href="/MostrarProductos" class="menu-item">
 
-                        <img class="menu-icon" src="~/img/prod-lib.svg">
+                    <img class="menu-icon" src="~/img/prod-lib.svg">
 
-                        <div class="menu-text">Productos</div>
+                    <span>Productos</span>
 
-                    </a>
-
-
-                    <!-- CLIENTES -->
-
-                    <a href="/Clientes/ClientesGet" class="menu-item">
-
-                        <img class="menu-icon" src="~/img/cli-lib.svg">
-
-                        <div class="menu-text">Clientes</div>
-
-                    </a>
+                </a>
 
 
-                    <!-- EMPLEADOS -->
+                <a href="/Clientes/ClientesGet" class="menu-item">
 
-                    <a href="/EmpleadoGet" class="menu-item">
+                    <img class="menu-icon" src="~/img/cli-lib.svg">
 
-                        <img class="menu-icon" src="~/img/emp-lib.svg">
+                    <span>Clientes</span>
 
-                        <div class="menu-text">Empleados</div>
-
-                    </a>
+                </a>
 
 
-                    <!-- CONFIGURACION -->
+                <a href="/EmpleadoGet" class="menu-item">
 
-                    <a href="/Configuracion" class="menu-item">
+                    <img class="menu-icon" src="~/img/emp-lib.svg">
 
-                        <img class="menu-icon" src="~/img/config-lib.svg">
+                    <span>Empleados</span>
 
-                        <div class="menu-text">Configuración</div>
+                </a>
 
-                    </a>
+                <a href="/Ventas" class="menu-item">
 
-                </div>
-           
-            <!-- AREA CENTRAL -->
-            <div class="content-area">
+                    <img class="menu-icon" src="~/img/ventas-lib.svg">
+
+                    <span>Ventas</span>
+
+                </a>
+
+                <a href="/Ventas" class="menu-item">
+
+                    <img class="menu-icon" src="~/img/marca-lib.svg">
+
+                    <span>Marcas Disponibles</span>
+
+                </a>
+
+                <a href="/Categoria" class="menu-item">
+
+                    <img class="menu-icon" src="~/img/categoria-lib.svg">
+
+                    <span>Categoría</span>
+
+                </a>
+
+                <a href="/Configuracion" class="menu-item">
+
+                    <img class="menu-icon" src="~/img/config-lib.svg">
+
+                    <span>Configuración</span>
+
+                </a> 
+
+
+            </aside>
+
+
+            <!-- CONTENIDO -->
+
+            <main class="content-area">
 
                 @RenderBody()
 
-            </div>
+            </main>
 
         </div>
-     
+
     </div>
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
