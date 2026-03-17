@@ -21,9 +21,6 @@ namespace LibreriaJoelito.Pages.Productos
         [BindProperty]
         public int Stock { get; set; }
         
-        [BindProperty]
-        public int? IdProductoBase { get; set; }
-        public DataTable ProductosDataTable { get; set; }
         public DataTable CategoriasDataTable { get; set; }
         public DataTable MarcasDataTable { get; set; }
 
@@ -66,7 +63,7 @@ namespace LibreriaJoelito.Pages.Productos
 
             MySqlCommand cmd = new MySqlCommand(query);
 
-            ProductosDataTable = RepositorioBD.ExecuteReturningDataTable(cmd);
+            CategoriasDataTable = RepositorioBD.ExecuteReturningDataTable(cmd);
 
         }
         void LoadMarcas()
@@ -78,7 +75,7 @@ namespace LibreriaJoelito.Pages.Productos
 
             MySqlCommand cmd = new MySqlCommand(query);
 
-            ProductosDataTable = RepositorioBD.ExecuteReturningDataTable(cmd);
+            MarcasDataTable = RepositorioBD.ExecuteReturningDataTable(cmd);
 
         }
         public class NombreSimple

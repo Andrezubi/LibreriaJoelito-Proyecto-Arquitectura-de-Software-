@@ -11,8 +11,20 @@
       "RelativeMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|solutionrelative:libreriajoelito\\pages\\productos\\productocreate.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|d:\\coasas andres\\cosas arquitectura de software\\libreriajoelito\\libreriajoelito\\pages\\productos\\productoupdate.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|solutionrelative:libreriajoelito\\pages\\productos\\productoupdate.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|d:\\coasas andres\\cosas arquitectura de software\\libreriajoelito\\libreriajoelito\\factoryproducts\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|solutionrelative:libreriajoelito\\factoryproducts\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|d:\\coasas andres\\cosas arquitectura de software\\libreriajoelito\\libreriajoelito\\factorycreators\\creatorrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|solutionrelative:libreriajoelito\\factorycreators\\creatorrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|d:\\coasas andres\\cosas arquitectura de software\\libreriajoelito\\libreriajoelito\\validators\\productvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|solutionrelative:libreriajoelito\\validators\\productvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|d:\\coasas andres\\cosas arquitectura de software\\libreriajoelito\\libreriajoelito\\pages\\productos\\productoupdate.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|solutionrelative:libreriajoelito\\pages\\productos\\productoupdate.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|d:\\coasas andres\\cosas arquitectura de software\\libreriajoelito\\libreriajoelito\\pages\\productos\\mostrarproductos.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -23,32 +35,24 @@
       "RelativeMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|solutionrelative:libreriajoelito\\pages\\productos\\mostrarproductos.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|d:\\coasas andres\\cosas arquitectura de software\\libreriajoelito\\libreriajoelito\\models\\empleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|solutionrelative:libreriajoelito\\models\\empleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|d:\\coasas andres\\cosas arquitectura de software\\libreriajoelito\\libreriajoelito\\models\\producto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|solutionrelative:libreriajoelito\\models\\producto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|d:\\coasas andres\\cosas arquitectura de software\\libreriajoelito\\libreriajoelito\\factoryproducts\\productorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|solutionrelative:libreriajoelito\\factoryproducts\\productorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|d:\\coasas andres\\cosas arquitectura de software\\libreriajoelito\\libreriajoelito\\pages\\productos\\productoupdate.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|solutionrelative:libreriajoelito\\pages\\productos\\productoupdate.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|d:\\coasas andres\\cosas arquitectura de software\\libreriajoelito\\libreriajoelito\\repositoriobd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|solutionrelative:libreriajoelito\\repositoriobd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|d:\\coasas andres\\cosas arquitectura de software\\libreriajoelito\\libreriajoelito\\factoryproducts\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|solutionrelative:libreriajoelito\\factoryproducts\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|d:\\coasas andres\\cosas arquitectura de software\\libreriajoelito\\libreriajoelito\\pages\\clientes\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|solutionrelative:libreriajoelito\\pages\\clientes\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|d:\\coasas andres\\cosas arquitectura de software\\libreriajoelito\\libreriajoelito\\validators\\productvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|solutionrelative:libreriajoelito\\validators\\productvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|d:\\coasas andres\\cosas arquitectura de software\\libreriajoelito\\libreriajoelito\\factorycreators\\creatorrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|solutionrelative:libreriajoelito\\factorycreators\\creatorrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{CCFAE26E-0B07-4A17-AE2A-A199E5CACF0B}|LibreriaJoelito\\LibreriaJoelito.csproj|d:\\coasas andres\\cosas arquitectura de software\\libreriajoelito\\libreriajoelito\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -114,45 +118,58 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MostrarProductos.cshtml",
-              "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Productos\\MostrarProductos.cshtml",
-              "RelativeDocumentMoniker": "LibreriaJoelito\\Pages\\Productos\\MostrarProductos.cshtml",
-              "ToolTip": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Productos\\MostrarProductos.cshtml",
-              "RelativeToolTip": "LibreriaJoelito\\Pages\\Productos\\MostrarProductos.cshtml",
-              "ViewState": "AgIAABsAAAAAAAAAAAAAACkAAAAmAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "ProductoUpdate.cshtml",
+              "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Productos\\ProductoUpdate.cshtml",
+              "RelativeDocumentMoniker": "LibreriaJoelito\\Pages\\Productos\\ProductoUpdate.cshtml",
+              "ToolTip": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Productos\\ProductoUpdate.cshtml",
+              "RelativeToolTip": "LibreriaJoelito\\Pages\\Productos\\ProductoUpdate.cshtml",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAACAAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-17T09:19:09.411Z",
+              "WhenOpened": "2026-03-17T17:42:10.805Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Producto.cs",
-              "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Models\\Producto.cs",
-              "RelativeDocumentMoniker": "LibreriaJoelito\\Models\\Producto.cs",
-              "ToolTip": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Models\\Producto.cs",
-              "RelativeToolTip": "LibreriaJoelito\\Models\\Producto.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAA1wBkAAAAUAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "IRepository.cs",
+              "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\FactoryProducts\\IRepository.cs",
+              "RelativeDocumentMoniker": "LibreriaJoelito\\FactoryProducts\\IRepository.cs",
+              "ToolTip": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\FactoryProducts\\IRepository.cs",
+              "RelativeToolTip": "LibreriaJoelito\\FactoryProducts\\IRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-17T02:08:12.571Z",
+              "WhenOpened": "2026-03-17T01:58:09.088Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "MostrarProductos.cshtml.cs",
-              "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Productos\\MostrarProductos.cshtml.cs",
-              "RelativeDocumentMoniker": "LibreriaJoelito\\Pages\\Productos\\MostrarProductos.cshtml.cs",
-              "ToolTip": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Productos\\MostrarProductos.cshtml.cs",
-              "RelativeToolTip": "LibreriaJoelito\\Pages\\Productos\\MostrarProductos.cshtml.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAmwEEAAAAvAAAAAAAAAA==",
+              "Title": "CreatorRepository.cs",
+              "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\FactoryCreators\\CreatorRepository.cs",
+              "RelativeDocumentMoniker": "LibreriaJoelito\\FactoryCreators\\CreatorRepository.cs",
+              "ToolTip": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\FactoryCreators\\CreatorRepository.cs",
+              "RelativeToolTip": "LibreriaJoelito\\FactoryCreators\\CreatorRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-17T03:31:53.613Z",
+              "WhenOpened": "2026-03-17T01:59:43.09Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ProductValidator.cs",
+              "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Validators\\ProductValidator.cs",
+              "RelativeDocumentMoniker": "LibreriaJoelito\\Validators\\ProductValidator.cs",
+              "ToolTip": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Validators\\ProductValidator.cs",
+              "RelativeToolTip": "LibreriaJoelito\\Validators\\ProductValidator.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T17:55:08.399Z",
               "EditorCaption": ""
             },
             {
@@ -163,7 +180,7 @@
               "RelativeDocumentMoniker": "LibreriaJoelito\\Pages\\Productos\\ProductoCreate.cshtml.cs",
               "ToolTip": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Productos\\ProductoCreate.cshtml.cs",
               "RelativeToolTip": "LibreriaJoelito\\Pages\\Productos\\ProductoCreate.cshtml.cs",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAAAFYAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAEcAAAAAAAAAAAAswEEAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-17T09:01:12.838Z",
               "EditorCaption": ""
@@ -176,40 +193,79 @@
               "RelativeDocumentMoniker": "LibreriaJoelito\\Pages\\Productos\\ProductoCreate.cshtml",
               "ToolTip": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Productos\\ProductoCreate.cshtml",
               "RelativeToolTip": "LibreriaJoelito\\Pages\\Productos\\ProductoCreate.cshtml",
-              "ViewState": "AgIAAGAAAAAAAAAAAAAuwIYAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAAFgAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-03-17T09:02:57.894Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
+              "Title": "MostrarProductos.cshtml.cs",
+              "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Productos\\MostrarProductos.cshtml.cs",
+              "RelativeDocumentMoniker": "LibreriaJoelito\\Pages\\Productos\\MostrarProductos.cshtml.cs",
+              "ToolTip": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Productos\\MostrarProductos.cshtml.cs",
+              "RelativeToolTip": "LibreriaJoelito\\Pages\\Productos\\MostrarProductos.cshtml.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABgAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T03:31:53.613Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MostrarProductos.cshtml",
+              "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Productos\\MostrarProductos.cshtml",
+              "RelativeDocumentMoniker": "LibreriaJoelito\\Pages\\Productos\\MostrarProductos.cshtml",
+              "ToolTip": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Productos\\MostrarProductos.cshtml",
+              "RelativeToolTip": "LibreriaJoelito\\Pages\\Productos\\MostrarProductos.cshtml",
+              "ViewState": "AgIAABkAAAAAAAAAAAAAACkAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-03-17T09:19:09.411Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Empleado.cs",
+              "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Models\\Empleado.cs",
+              "RelativeDocumentMoniker": "LibreriaJoelito\\Models\\Empleado.cs",
+              "ToolTip": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Models\\Empleado.cs",
+              "RelativeToolTip": "LibreriaJoelito\\Models\\Empleado.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T17:33:29.256Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Producto.cs",
+              "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Models\\Producto.cs",
+              "RelativeDocumentMoniker": "LibreriaJoelito\\Models\\Producto.cs",
+              "ToolTip": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Models\\Producto.cs",
+              "RelativeToolTip": "LibreriaJoelito\\Models\\Producto.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAwBsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T02:08:12.571Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "ProductoUpdate.cshtml.cs",
               "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Productos\\ProductoUpdate.cshtml.cs",
               "RelativeDocumentMoniker": "LibreriaJoelito\\Pages\\Productos\\ProductoUpdate.cshtml.cs",
               "ToolTip": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Productos\\ProductoUpdate.cshtml.cs",
               "RelativeToolTip": "LibreriaJoelito\\Pages\\Productos\\ProductoUpdate.cshtml.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAA5wF0AAABPAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA4AAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-17T03:46:26.912Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ProductoRepository.cs",
-              "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\FactoryProducts\\ProductoRepository.cs",
-              "RelativeDocumentMoniker": "LibreriaJoelito\\FactoryProducts\\ProductoRepository.cs",
-              "ToolTip": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\FactoryProducts\\ProductoRepository.cs",
-              "RelativeToolTip": "LibreriaJoelito\\FactoryProducts\\ProductoRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-17T03:30:57.838Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "RepositorioBD.cs",
               "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\RepositorioBD.cs",
               "RelativeDocumentMoniker": "LibreriaJoelito\\RepositorioBD.cs",
@@ -222,45 +278,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "CreatorRepository.cs",
-              "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\FactoryCreators\\CreatorRepository.cs",
-              "RelativeDocumentMoniker": "LibreriaJoelito\\FactoryCreators\\CreatorRepository.cs",
-              "ToolTip": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\FactoryCreators\\CreatorRepository.cs",
-              "RelativeToolTip": "LibreriaJoelito\\FactoryCreators\\CreatorRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-17T01:59:43.09Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "IRepository.cs",
-              "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\FactoryProducts\\IRepository.cs",
-              "RelativeDocumentMoniker": "LibreriaJoelito\\FactoryProducts\\IRepository.cs",
-              "ToolTip": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\FactoryProducts\\IRepository.cs",
-              "RelativeToolTip": "LibreriaJoelito\\FactoryProducts\\IRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-17T01:58:09.088Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "ProductValidator.cs",
-              "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Validators\\ProductValidator.cs",
-              "RelativeDocumentMoniker": "LibreriaJoelito\\Validators\\ProductValidator.cs",
-              "ToolTip": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Validators\\ProductValidator.cs",
-              "RelativeToolTip": "LibreriaJoelito\\Validators\\ProductValidator.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-10T17:55:08.399Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 12,
               "Title": "Create.cshtml",
               "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Clientes\\Create.cshtml",
               "RelativeDocumentMoniker": "LibreriaJoelito\\Pages\\Clientes\\Create.cshtml",
@@ -273,7 +291,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "Create.cshtml.cs",
               "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Clientes\\Create.cshtml.cs",
               "RelativeDocumentMoniker": "LibreriaJoelito\\Pages\\Clientes\\Create.cshtml.cs",
@@ -285,7 +303,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\appsettings.json",
               "RelativeDocumentMoniker": "LibreriaJoelito\\appsettings.json",
@@ -297,7 +315,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "Delete.cshtml.cs",
               "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Clientes\\Delete.cshtml.cs",
               "RelativeDocumentMoniker": "LibreriaJoelito\\Pages\\Clientes\\Delete.cshtml.cs",
@@ -309,7 +327,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Program.cs",
               "RelativeDocumentMoniker": "LibreriaJoelito\\Program.cs",
@@ -321,7 +339,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Clientes\\Edit.cshtml",
               "RelativeDocumentMoniker": "LibreriaJoelito\\Pages\\Clientes\\Edit.cshtml",
@@ -333,7 +351,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "Edit.cshtml.cs",
               "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Clientes\\Edit.cshtml.cs",
               "RelativeDocumentMoniker": "LibreriaJoelito\\Pages\\Clientes\\Edit.cshtml.cs",
@@ -345,7 +363,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "LibreriaJoelito\\Pages\\Shared\\_Layout.cshtml",
@@ -357,7 +375,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "Delete.cshtml",
               "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Clientes\\Delete.cshtml",
               "RelativeDocumentMoniker": "LibreriaJoelito\\Pages\\Clientes\\Delete.cshtml",
@@ -369,7 +387,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Index.cshtml",
               "RelativeDocumentMoniker": "LibreriaJoelito\\Pages\\Index.cshtml",
@@ -381,7 +399,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "Microsoft.NET.Sdk.StaticWebAssets.targets",
               "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\9.0.304\\Sdks\\Microsoft.NET.Sdk.StaticWebAssets\\targets\\Microsoft.NET.Sdk.StaticWebAssets.targets",
               "ToolTip": "C:\\Program Files\\dotnet\\sdk\\9.0.304\\Sdks\\Microsoft.NET.Sdk.StaticWebAssets\\targets\\Microsoft.NET.Sdk.StaticWebAssets.targets",
@@ -391,7 +409,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "Microsoft.Common.CurrentVersion.targets",
               "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
               "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
@@ -401,7 +419,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "Index.cshtml.cs",
               "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\Pages\\Index.cshtml.cs",
               "RelativeDocumentMoniker": "LibreriaJoelito\\Pages\\Index.cshtml.cs",
@@ -413,7 +431,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "LibreriaJoelito.csproj.user",
               "DocumentMoniker": "D:\\coasas andres\\Cosas Arquitectura de Software\\LibreriaJoelito\\LibreriaJoelito\\LibreriaJoelito.csproj.user",
               "RelativeDocumentMoniker": "LibreriaJoelito\\LibreriaJoelito.csproj.user",
@@ -425,7 +443,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "Node.h",
               "DocumentMoniker": "D:\\coasas andres\\Estructura de datos codigos\\Estructuras 3 (lista 8)\\Node.h",
               "RelativeDocumentMoniker": "..\\..\\Estructura de datos codigos\\Estructuras 3 (lista 8)\\Node.h",
@@ -437,7 +455,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "List8.h",
               "DocumentMoniker": "D:\\coasas andres\\Estructura de datos codigos\\Estructuras 3 (lista 8)\\List8.h",
               "RelativeDocumentMoniker": "..\\..\\Estructura de datos codigos\\Estructuras 3 (lista 8)\\List8.h",
