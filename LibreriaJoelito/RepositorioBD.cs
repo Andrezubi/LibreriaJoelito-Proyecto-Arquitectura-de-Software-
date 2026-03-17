@@ -7,6 +7,7 @@ namespace LibreriaJoelito
 {
     public static class RepositorioBD
     {
+
         private static string connectionStringMySql = "Server=localhost;Port=3306;uid=root;pwd=ReturnMCR2019;database=bdlibreria2";
         public static int ExecuteNonQuery(MySqlCommand comando)
         {

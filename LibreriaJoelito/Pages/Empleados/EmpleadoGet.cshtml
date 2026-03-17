@@ -1,0 +1,59 @@
+﻿@page
+@model LibreriaJoelito.Pages.Empleados.EmpleadoGetModel
+@{
+	ViewData["Title"] = "Empleados";
+}
+
+<div class="content-area">
+
+	<div class="page-container">
+
+		<div class="tabla-header">
+
+			<div class="tabla-titulo">
+				Lista de Empleados
+			</div>
+
+			<div class="tabla-acciones">
+				<a asp-page="EmpleadoCreate" class="btn btn-sistema btn-sm">
+					Añadir Empleado
+				</a>
+			</div>
+
+		</div>
+			<div class="table-responsive">
+
+			<table class="table tabla-sistema">
+	 <thead>
+		<tr>
+			<th>Nombre</th>
+			<th>Apellidos</th>
+			<th>CI</th>
+			<th>Fecha Nacimiento</th>
+			<th>Email</th>
+			<th>Fecha Ingreso</th>
+			<th class="text-center">Acciones</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		@foreach (System.Data.DataRow row in Model.EmpleadoDataTable.Rows)
+		{
+			<tr>
+				<td>@row["Nombre"]</td>
+				<td>@row["Apellidos"]</td>
+				<td>@row["CI"]</td>
+				<td>@row["Fecha_Nacimiento"]</td>
+				<td>@row["Email"]</td>
+				<td>@row["Fecha_Ingreso"]</td>
+				<td>
+								<a asp-page="/EmpleadoUpdate" asp-route-id="@row["id"]" class="btn btn-sistema btn-sm">Editar</a>
+								<a asp-page="/EmpleadoDelete" asp-route-id="@row["id"]" class=" btn btn-sistema-danger btn-sm">Eliminar</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+   </table>
+ </div>
+  </div>
+</div>
