@@ -8,6 +8,7 @@ wwwroot\img\cli-lib.svg
 wwwroot\img\config-lib.svg
 wwwroot\img\emp-lib.svg
 wwwroot\img\home-lib.svg
+wwwroot\img\logo-lib.svg
 wwwroot\img\marca-lib.svg
 wwwroot\img\prod-lib.svg
 wwwroot\img\ventas-lib.svg
@@ -72,7 +73,6 @@ wwwroot\lib\jquery\dist\jquery.slim.js
 wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
-wwwroot\img\logo-lib.svg
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\css\globals.css
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\css\site.css
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\css\style.css
@@ -82,6 +82,7 @@ D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Softwa
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\config-lib.svg
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\emp-lib.svg
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\home-lib.svg
+D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\logo-lib.svg
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\marca-lib.svg
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\prod-lib.svg
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\ventas-lib.svg
@@ -145,4 +146,3 @@ D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Softwa
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\jquery\dist\jquery.slim.min.js
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\jquery\dist\jquery.slim.min.map
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\jquery\LICENSE.txt
-D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\logo-lib.svg
