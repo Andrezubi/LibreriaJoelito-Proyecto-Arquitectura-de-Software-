@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\VANESSA\\Downloads\\PROYECTO_AS\\LibreriaJoelito\\LibreriaJoelito.csproj": {}
+    "D:\\Cosas de la U Nicole\\Arq Soft\\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\\LibreriaJoelito\\LibreriaJoelito.csproj": {}
   },
   "projects": {
-    "C:\\Users\\VANESSA\\Downloads\\PROYECTO_AS\\LibreriaJoelito\\LibreriaJoelito.csproj": {
+    "D:\\Cosas de la U Nicole\\Arq Soft\\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\\LibreriaJoelito\\LibreriaJoelito.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\VANESSA\\Downloads\\PROYECTO_AS\\LibreriaJoelito\\LibreriaJoelito.csproj",
+        "projectUniqueName": "D:\\Cosas de la U Nicole\\Arq Soft\\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\\LibreriaJoelito\\LibreriaJoelito.csproj",
         "projectName": "LibreriaJoelito",
-        "projectPath": "C:\\Users\\VANESSA\\Downloads\\PROYECTO_AS\\LibreriaJoelito\\LibreriaJoelito.csproj",
-        "packagesPath": "C:\\Users\\VANESSA\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\VANESSA\\Downloads\\PROYECTO_AS\\LibreriaJoelito\\obj\\",
+        "projectPath": "D:\\Cosas de la U Nicole\\Arq Soft\\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\\LibreriaJoelito\\LibreriaJoelito.csproj",
+        "packagesPath": "C:\\Users\\SOLPROBAG\\.nuget\\packages\\",
+        "outputPath": "D:\\Cosas de la U Nicole\\Arq Soft\\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\\LibreriaJoelito\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\VANESSA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\SOLPROBAG\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -45,7 +45,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
@@ -79,7 +79,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

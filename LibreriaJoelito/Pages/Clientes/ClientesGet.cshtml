@@ -15,13 +15,12 @@
             </div>
 
             <div class="tabla-acciones">
-<<<<<<< HEAD
+
                 <a asp-page="ClienteCreate" class="btn btn-sistema  btn-sm">
                     Nuevo Cliente
-=======
+                </a>
                 <a asp-page="Create" class="btn btn-primary btn-sm">
                     Añadir Cliente
->>>>>>> e3d69b878ce42cd927ae361bdf7f5033cb49afce
                 </a>
             </div>
 
@@ -63,7 +62,7 @@
                             <td class="align-middle text-muted" style="font-size: 0.9rem;">
                                 @Convert.ToDateTime(row["FechaRegistro"]).ToString("dd/MM/yyyy HH:mm")
                             </td>
-<<<<<<< HEAD
+
                             <td class="text-center align-middle">
                                
                                     <a asp-page="Edit" asp-route-id="@row["Id"]"
@@ -71,7 +70,7 @@
                                     <a asp-page="Delete" asp-route-id="@row["Id"]"
                                        class="btn btn-sistema-danger ">Eliminar</a>
                        
-=======
+
                             <td>
                                 
                                     <a asp-page="Edit" asp-route-id="@row["Id"]"
@@ -79,7 +78,7 @@
                                     <a asp-page="Delete" asp-route-id="@row["Id"]"
                                        class="btn btn-warning btn-sm">Eliminar</a>
                                 
->>>>>>> e3d69b878ce42cd927ae361bdf7f5033cb49afce
+
                             </td>
                         </tr>
                     }
