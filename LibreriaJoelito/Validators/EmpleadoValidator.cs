@@ -65,10 +65,10 @@
             }
             return edad;
         }
-        public static string esFechaNacimientoValidaUpdate(DateTime fechaNacimiento)
+        public static bool esFechaNacimientoValidaUpdate(DateTime fechaNacimiento)
         {
             int edad = calcularEdadUpdate(fechaNacimiento);
-            return  (edad >= 18 && edad <= 65)? "Valido" : "Invalido";
+            return edad >= 18 && edad <= 65;
         }
 
         public static bool esCorreoValido(string correo)

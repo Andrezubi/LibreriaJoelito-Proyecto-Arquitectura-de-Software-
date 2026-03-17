@@ -53,7 +53,7 @@ namespace LibreriaJoelito.Pages.Empleados
                     FROM Empleado
                     WHERE estado = 1
                     ORDER BY 1;";
-            MySql.Data.MySqlClient.MySqlCommand command = new MySql.Data.MySqlClient.MySqlCommand(query);
+            MySqlCommand command = new MySqlCommand(query);
             EmpleadoDataTable = RepositorioBD.ExecuteReturningDataTable(command);
         }
 
