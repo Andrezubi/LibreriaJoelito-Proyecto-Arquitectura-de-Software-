@@ -4,42 +4,37 @@
     {
         public int Id { get; set; }
 
-        public string Categoria { get; set; }
-
+        public int IdCategoria { get; set; }
+        public int IdMarca { get; set; }
         public string Nombre { get; set; }
 
-        public decimal Precio { get; set; }
-
         public int Stock { get; set; }
-
-        public string TipoVenta { get; set; }
-
-        public decimal? FactorConversion { get; set; }
-
-        public int? IdProductoBase { get; set; }
-
         public bool Estado { get; set; }
 
         public DateTime FechaRegistro { get; set; }
 
-        public DateTime? UltimaActualizacion { get; set; }
+        public DateTime? FechaUltimaActualizacion { get; set; }
 
-        public int? IdUsuario { get; set; }
+        public int? IdEmpleadoCambio { get; set; }
 
         public Producto()
         {
 
         }
-
-        public Producto(string categoria, string nombre, decimal precio, int stock, string tipoVenta, decimal factorConversion,int? idProductoBase)
+        public Producto(int id)
         {
-            Categoria = categoria;
+            Id = id;
+        }
+
+        public Producto(int idCategoria,int idMarca, string nombre, int stock)
+        {
+            IdCategoria = idCategoria;
+            IdMarca = idMarca;
             Nombre = nombre;
-            Precio = precio;
             Stock = stock;
-            TipoVenta = tipoVenta;
-            FactorConversion = factorConversion;
-            IdProductoBase = idProductoBase;
+            Estado = true;
+            FechaRegistro = DateTime.Now;
+            FechaUltimaActualizacion = DateTime.Now;
         }
     }
 }

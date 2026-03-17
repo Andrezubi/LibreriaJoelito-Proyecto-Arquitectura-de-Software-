@@ -1,3 +1,4 @@
+using LibreriaJoelito.FactoryProducts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
@@ -8,7 +9,7 @@ namespace LibreriaJoelito.Pages.Productos
     {
         public DataTable ProductosDataTable { get; set; } = new DataTable();
         private readonly IConfiguration configuration;
-
+        private ProductoRepository repository = new ProductoRepository();
         public MostrarProductosModel(IConfiguration configuration)
         {
             this.configuration = configuration;
@@ -21,41 +22,23 @@ namespace LibreriaJoelito.Pages.Productos
 
         void LoadProductos()
         {
-            string connectionString = configuration.GetConnectionString("MySqlConnection")!;
-            string query = @"SELECT  Id, Nombre,Categoria,Precio,Stock,Tipo_Venta,Factor_Conversion,Id_Producto_Base, FechaRegistro
-                            FROM productos
-                            WHERE estado=1
-                            ORDER BY 3";
-            MySqlCommand command = new MySqlCommand(query);
-
-            ProductosDataTable = RepositorioBD.ExecuteReturningDataTable(command);
+            ProductosDataTable = repository.GetAll();
 
         }
         public IActionResult OnPostDelete(int id)
         {
-            string query = @"UPDATE productos
-                     SET Estado = 0, UltimaActualizacion=@fechaAhora
-                     WHERE Id = @Id";
-
-            MySqlCommand cmd = new MySqlCommand(query);
-            cmd.Parameters.AddWithValue("@fechaAhora", DateTime.Now);
-            cmd.Parameters.AddWithValue("@Id", id);
-
-            RepositorioBD.ExecuteNonQuery(cmd);
-
+            repository.Delete(new Models.Producto(id));
             return RedirectToPage("MostrarProductos");
         }
-        public string getNameById(int? id)
+        
+        public string getMarcaById(int? id)
         {
-            if (id == 0)
-            {
-                return "Sin producto Base";
-            }
+            if (id == 0) { return "ERROR no tiene Marca"; }
             string query = @"SELECT Nombre 
-                            FROM productos
-                            WHERE Id=@Id";
+                            FROM marca
+                            WHERE Id=@id";
             MySqlCommand cmd = new MySqlCommand(query);
-            cmd.Parameters.AddWithValue("@Id", id);
+            cmd.Parameters.AddWithValue("@id", id);
             using (MySqlDataReader reader = RepositorioBD.ExecuteReader(cmd))
             {
                 if (reader.Read())
@@ -63,9 +46,26 @@ namespace LibreriaJoelito.Pages.Productos
                     return reader["Nombre"].ToString()!;
                 }
             }
-
-            return "No se encontro producto Base";
+            return "No se encontro La Marca";
+        }
+        public string getCategoriaById(int? id)
+        {
+            if (id == 0) { return "ERROR no tiene Categoria"; }
+            string query = @"SELECT Nombre 
+                            FROM categoria
+                            WHERE Id=@id";
+            MySqlCommand cmd = new MySqlCommand(query);
+            cmd.Parameters.AddWithValue("@id", id);
+            using (MySqlDataReader reader = RepositorioBD.ExecuteReader(cmd))
+            {
+                if (reader.Read())
+                {
+                    return reader["Nombre"].ToString()!;
+                }
+            }
+            return "No se encontro La Categoria";
         }
 
     }
+
 }

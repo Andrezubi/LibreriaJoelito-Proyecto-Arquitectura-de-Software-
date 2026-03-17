@@ -16,52 +16,120 @@
     </div>
 
 <form method="post">
-    <div class="form-group">
-        <label>Categoría</label>
-        <input asp-for="@Model.Categoria" type="text" required class="form-control"/>
-    </div>
 
     <div class="form-group">
         <label>Nombre</label>
         <input asp-for="@Model.Nombre" type="text" required class="form-control" />
     </div>
-
     <div class="form-group">
-        <label>Precio</label>
-        <input asp-for="@Model.Precio" type="number" step="any" required class="form-control" />
-    </div>
+        <label>Categoria</label>
 
-    <div class="form-group">
-        <label>Stock</label>
-        <input asp-for="@Model.Stock" type="number" required class="form-control" />
-    </div>
+        <select asp-for="@Model.IdCategoria" class="form-control">
+            <option value=0>Elija Una Marca</option>
 
-    <div class="form-group">
-        <label>Tipo de Venta</label>
-        <input asp-for="@Model.TipoVenta" type="text" required class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label>Facto de Conversión</label>
-        <input asp-for="@Model.FactorConversion" type="number" step="any" required class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Producto Base</label>
-
-        <select asp-for="@Model.IdProductoBase" class="form-control">
-            <option value="null">Sin Producto Base</option>
-
-            @foreach (System.Data.DataRow row in Model.ProductosDataTable.Rows)
+            @foreach (System.Data.DataRow row in Model.CategoriasDataTable.Rows)
             {
                 <option value="@row["Id"]">
                     @row["Nombre"]
                 </option>
             }
         </select>
+            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#modalCategoria">
+                + Nueva Categoria
+            </button>
 
     </div>
+    <div class="form-group">
+        <label>Marca</label>
+
+        <select asp-for="@Model.IdMarca" class="form-control">
+            <option value=0>Elija Una Marca</option>
+
+            @foreach (System.Data.DataRow row in Model.MarcasDataTable.Rows)
+            {
+                <option value="@row["Id"]">
+                    @row["Nombre"]
+                </option>
+            }
+        </select>
+            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#modalMarca">
+                + Nueva Marca
+            </button>
+
+    </div>
+
+    <div class="form-group">
+        <label>Stock</label>
+        <input asp-for="@Model.Stock" type="number" required class="form-control" />
+    </div>
+    
 
     <button type="submit" class="btn btn-primary" style="margin: 10px 0;">Guardar</button>
     <a asp-page="MostrarProductos" class="btn btn-secondary" style="margin: 10px 0;">Volver</a>
 </form>
 </div>
+<!-- Modal Categoria -->
+<div class="modal fade" id="modalCategoria" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Nueva Categoria</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input type="text" id="nombreCategoria" class="form-control" placeholder="Nombre de la categoria" />
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="crear('categoria')">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Marca -->
+<div class="modal fade" id="modalMarca" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Nueva Marca</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input type="text" id="nombreMarca" class="form-control" placeholder="Nombre de la marca" />
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="crear('marca')">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function crear(tipo) {
+        let inputId = tipo === "categoria" ? "nombreCategoria" : "nombreMarca";
+        let handler = tipo === "categoria" ? "CrearCategoria" : "CrearMarca";
+        let modalId = tipo === "categoria" ? "modalCategoria" : "modalMarca";
+
+        let nombre = document.getElementById(inputId).value;
+
+        if (!nombre.trim()) return;
+
+        await fetch(`?handler=${handler}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ Nombre: nombre })
+        });
+
+        // limpiar input
+        document.getElementById(inputId).value = "";
+
+        // cerrar modal
+        let modal = bootstrap.Modal.getInstance(document.getElementById(modalId));
+        modal.hide();
+    }
+</script>

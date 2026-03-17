@@ -23,13 +23,11 @@
 
     <thead>
         <tr>
-            <th>Categoria</th>
+            
             <th>Nombre del Producto</th>
-            <th>Precio</th>
+            <th>Categoria</th>
+            <th>Marca</th>
             <th>Stock</th>
-            <th>Tipo de Venta</th>
-            <th>Factor de Conversion</th>
-            <th>Producto Base</th>
             <th>Fecha de Registro</th>
             <th>Acciones</th>
         </tr>
@@ -38,17 +36,10 @@
         @foreach (System.Data.DataRow row in Model.ProductosDataTable.Rows)
         {
             <tr>
-                <td>@row["Categoria"]</td>
                 <td>@row["Nombre"]</td>
-                <td>@row["Precio"]</td>
+                <td>@Model.getCategoriaById(Convert.ToInt32(row["IdCategoria"]))</td>
+                <td>@Model.getMarcaById(Convert.ToInt32(row["Marca"]))</td>
                 <td>@row["Stock"]</td>
-                <td>@row["Tipo_Venta"]</td>
-                <td>@row["Factor_Conversion"]</td>
-            <td>
-                @Model.getNameById(row["Id_Producto_Base"] == DBNull.Value
-                                ? 0
-                                : Convert.ToInt32(row["Id_Producto_Base"]))
-            </td>
                 <td>@row["FechaRegistro"]</td>
                 <td>
                     <a asp-page="ProductoUpdate" asp-route-id="@row["Id"]" class="btn btn-warning btn-sm">Editar</a>
