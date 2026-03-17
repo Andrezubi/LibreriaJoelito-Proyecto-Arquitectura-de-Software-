@@ -10,7 +10,7 @@ namespace LibreriaJoelito.Validators
             var errores = new List<ValidationResult>();
 
             ValidarNombre(cliente.Nombre, errores);
-            ValidarApellido(cliente.Apellido, errores);
+            //ValidarApellido(cliente.Apellido, errores);
             ValidarCI(cliente.CI, errores);
             ValidarComplemento(cliente.Complemento, errores);
             ValidarEmail(cliente.Email, errores);
