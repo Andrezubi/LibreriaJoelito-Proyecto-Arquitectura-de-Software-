@@ -13,13 +13,17 @@ namespace LibreriaJoelito.Pages.Productos
         private readonly IConfiguration configuration;
 
         [BindProperty]
-        public int IdCategoria { get; set; }
+        public string Categoria { get; set; }
         [BindProperty]
         public string Nombre { get; set; }
         [BindProperty]
-        public int IdMarca{ get; set; }
+        public decimal Precio{ get; set; }
         [BindProperty]
         public int Stock { get; set; }
+        [BindProperty]
+        public string TipoVenta {  get; set; }
+        [BindProperty]
+        public decimal FactorConversion { get; set; }
         
         [BindProperty]
         public int? IdProductoBase { get; set; }
@@ -39,7 +43,7 @@ namespace LibreriaJoelito.Pages.Productos
 
         public IActionResult OnPost()
         {
-            Producto producto = new Producto(IdCategoria,IdMarca,Nombre,Stock);
+            Producto producto = new Producto(Categoria,Nombre,Precio,Stock,TipoVenta,FactorConversion,IdProductoBase);
             List<ValidationResult> errors = new List<ValidationResult>();
             errors=ProductValidator.ValidarProducto(producto); 
             if (errors.Count > 0)
