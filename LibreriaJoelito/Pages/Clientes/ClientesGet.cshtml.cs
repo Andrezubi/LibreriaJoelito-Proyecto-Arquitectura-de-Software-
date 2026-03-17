@@ -1,3 +1,7 @@
+using LibreriaJoelito.FactoryProducts;
+using LibreriaJoelito.FactoryCreators;
+using LibreriaJoelito.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
 using System.Data;
@@ -6,13 +10,11 @@ namespace LibreriaJoelito.Pages.Clientes
 {
     public class ClientesGetModel : PageModel
     {
+        private readonly IRepository<Cliente> _clienteRepository = new ClienteRepositoryCreator().CreateRepository();
         public DataTable ClientesDataTable { get; set; } = new DataTable();
-
         public void OnGet()
         {
-            // Adaptado para usar RepositorioBD existente
-           MySqlCommand cmd = new MySqlCommand("SELECT Id, Nombre, Apellido, CI, Complemento, Email, EsClienteFrecuente, FechaRegistro FROM clientes WHERE Estado = 1 ORDER BY Apellido, Nombre");
-            ClientesDataTable = RepositorioBD.ExecuteReturningDataTable(cmd);
+            ClientesDataTable = _clienteRepository.GetAll();
         }
     }
 }
