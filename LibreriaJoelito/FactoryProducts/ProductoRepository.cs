@@ -32,7 +32,7 @@ namespace LibreriaJoelito.FactoryProducts
             return RepositorioBD.ExecuteReturningDataTable(command);
         }
 
-        public DataRow GetByID(int id)
+        public DataRow GetById(int id)
         {
             string query = @"SELECT  Id, Nombre,IdCategoria,IdMarca,Stock,Estado,FechaRegistro,IdEmpleadoCambio,FechaUltimaActualizacion
                             FROM producto

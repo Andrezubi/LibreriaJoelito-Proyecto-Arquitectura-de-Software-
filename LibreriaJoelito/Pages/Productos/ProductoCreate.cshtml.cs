@@ -1,3 +1,4 @@
+using LibreriaJoelito.FactoryProducts;
 using LibreriaJoelito.Models;
 using LibreriaJoelito.Validators;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ namespace LibreriaJoelito.Pages.Productos
     public class ProductoCreateModel : PageModel
     {
         private readonly IConfiguration configuration;
+        private ProductoRepository repository= new ProductoRepository();
 
         [BindProperty]
         public int IdCategoria { get; set; }
@@ -52,6 +54,7 @@ namespace LibreriaJoelito.Pages.Productos
                 LoadMarcas();
                 return Page(); // vuelve al formulario mostrando errores
             }
+            repository.Insert(producto)
             return RedirectToPage("MostrarProductos");
         }
         void LoadCategorias()
@@ -86,13 +89,35 @@ namespace LibreriaJoelito.Pages.Productos
         {
             if (string.IsNullOrWhiteSpace(data.Nombre))
             {
-                return new JsonResult(new { ok = false, mensaje = "Nombre vac�o" });
+                return new JsonResult(new { ok = false, mensaje = "Nombre vacio" });
             }
 
             try
             {
-                
+                string query = "\"INSERT INTO categoria (Nombre) VALUES (@nombre);";
+                MySqlCommand cmd = new MySqlCommand( query);
+                cmd.Parameters.AddWithValue("@nombre",data.Nombre);
+                RepositorioBD.ExecuteNonQuery(cmd);
+                return new JsonResult(new { ok = true });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { ok = false, mensaje = ex.Message });
+            }
+        }
+        public JsonResult OnPostCrearMarca([FromBody] NombreSimple data)
+        {
+            if (string.IsNullOrWhiteSpace(data.Nombre))
+            {
+                return new JsonResult(new { ok = false, mensaje = "Nombre vacio" });
+            }
 
+            try
+            {
+                string query = "\"INSERT INTO marca (Nombre) VALUES (@nombre);";
+                MySqlCommand cmd = new MySqlCommand(query);
+                cmd.Parameters.AddWithValue("@nombre", data.Nombre);
+                RepositorioBD.ExecuteNonQuery(cmd);
                 return new JsonResult(new { ok = true });
             }
             catch (Exception ex)

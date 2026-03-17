@@ -21,13 +21,24 @@
         {
 
         }
-        public Producto(int id)
+        public Producto(int id)// constructor para Delete
         {
             Id = id;
         }
 
-        public Producto(int idCategoria,int idMarca, string nombre, int stock)
+        public Producto(int idCategoria,int idMarca, string nombre, int stock)//constructor para insert
         {
+            IdCategoria = idCategoria;
+            IdMarca = idMarca;
+            Nombre = nombre;
+            Stock = stock;
+            Estado = true;
+            FechaRegistro = DateTime.Now;
+            FechaUltimaActualizacion = DateTime.Now;
+        }
+        public Producto(int id,int idCategoria, int idMarca, string nombre, int stock)//constructor para update
+        {
+            Id = id;
             IdCategoria = idCategoria;
             IdMarca = idMarca;
             Nombre = nombre;
