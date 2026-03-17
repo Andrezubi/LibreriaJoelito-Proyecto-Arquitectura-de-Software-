@@ -89,7 +89,7 @@ namespace LibreriaJoelito.Pages.Productos
         {
             if (string.IsNullOrWhiteSpace(data.Nombre))
             {
-                return new JsonResult(new { ok = false, mensaje = "Nombre vacío" });
+                return new JsonResult(new { ok = false, mensaje = "Nombre vacï¿½o" });
             }
 
             try

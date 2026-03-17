@@ -5,9 +5,9 @@ namespace LibreriaJoelito.FactoryProducts
     public interface IRepository<T>
     {
         int Insert(T t);
-        int Update(T t);
-        int Delete(T t);
+        int Update(T t, int id);
+        int Delete(int id);
         DataTable GetAll();
-        DataRow GetByID(int id);
+        DataRow GetById(int id);
     }
 }
