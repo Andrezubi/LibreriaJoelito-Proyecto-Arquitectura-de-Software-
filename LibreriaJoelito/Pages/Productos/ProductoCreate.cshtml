@@ -1,4 +1,5 @@
 ﻿@page
+@Html.AntiForgeryToken()
 @model LibreriaJoelito.Pages.Productos.ProductoCreateModel
 @{
 }
@@ -25,7 +26,7 @@
         <label>Categoria</label>
 
         <select asp-for="@Model.IdCategoria" class="form-control">
-            <option value=0>Elija Una Marca</option>
+            <option value=0>Elija Una Categoria</option>
 
             @foreach (System.Data.DataRow row in Model.CategoriasDataTable.Rows)
             {
@@ -108,7 +109,7 @@
 </div>
 
 <script>
-    async function crear(tipo) {
+        async function crear(tipo) {
         let inputId = tipo === "categoria" ? "nombreCategoria" : "nombreMarca";
         let handler = tipo === "categoria" ? "CrearCategoria" : "CrearMarca";
         let modalId = tipo === "categoria" ? "modalCategoria" : "modalMarca";
@@ -117,18 +118,19 @@
 
         if (!nombre.trim()) return;
 
+        let token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
         await fetch(`?handler=${handler}`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "RequestVerificationToken": token
             },
             body: JSON.stringify({ Nombre: nombre })
         });
 
-        // limpiar input
         document.getElementById(inputId).value = "";
 
-        // cerrar modal
         let modal = bootstrap.Modal.getInstance(document.getElementById(modalId));
         modal.hide();
     }

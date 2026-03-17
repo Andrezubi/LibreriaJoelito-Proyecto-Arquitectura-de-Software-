@@ -12,12 +12,8 @@ namespace LibreriaJoelito.Validators
             var errores = new List<ValidationResult>();
 
             ValidarNombre(producto.Nombre, errores);
-            ValidarCategoria(producto.Categoria, errores);
-            ValidarPrecio(producto.Precio, errores);
             ValidarStock(producto.Stock, errores);
-            ValidarTipoVenta(producto.TipoVenta, errores);
-            ValidarFactorConversion(producto.FactorConversion, errores);
-            ValidarIdProductoBase(producto.IdProductoBase, errores,producto.Id);
+
 
             return errores;
         }

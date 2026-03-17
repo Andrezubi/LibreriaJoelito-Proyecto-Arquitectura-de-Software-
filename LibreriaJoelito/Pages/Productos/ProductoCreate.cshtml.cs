@@ -54,7 +54,7 @@ namespace LibreriaJoelito.Pages.Productos
                 LoadMarcas();
                 return Page(); // vuelve al formulario mostrando errores
             }
-            repository.Insert(producto)
+            repository.Insert(producto);
             return RedirectToPage("MostrarProductos");
         }
         void LoadCategorias()
@@ -85,6 +85,7 @@ namespace LibreriaJoelito.Pages.Productos
         {
             public string Nombre { get; set; }
         }
+        [ValidateAntiForgeryToken]
         public JsonResult OnPostCrearCategoria([FromBody] NombreSimple data)
         {
             if (string.IsNullOrWhiteSpace(data.Nombre))
@@ -94,10 +95,11 @@ namespace LibreriaJoelito.Pages.Productos
 
             try
             {
-                string query = "\"INSERT INTO categoria (Nombre) VALUES (@nombre);";
+                string query = "INSERT INTO categoria (Nombre) VALUES (@nombre);";
                 MySqlCommand cmd = new MySqlCommand( query);
                 cmd.Parameters.AddWithValue("@nombre",data.Nombre);
                 RepositorioBD.ExecuteNonQuery(cmd);
+                LoadCategorias();
                 return new JsonResult(new { ok = true });
             }
             catch (Exception ex)
@@ -105,6 +107,7 @@ namespace LibreriaJoelito.Pages.Productos
                 return new JsonResult(new { ok = false, mensaje = ex.Message });
             }
         }
+        [ValidateAntiForgeryToken]
         public JsonResult OnPostCrearMarca([FromBody] NombreSimple data)
         {
             if (string.IsNullOrWhiteSpace(data.Nombre))
@@ -114,10 +117,11 @@ namespace LibreriaJoelito.Pages.Productos
 
             try
             {
-                string query = "\"INSERT INTO marca (Nombre) VALUES (@nombre);";
+                string query = "INSERT INTO marca (Nombre) VALUES (@nombre);";
                 MySqlCommand cmd = new MySqlCommand(query);
                 cmd.Parameters.AddWithValue("@nombre", data.Nombre);
                 RepositorioBD.ExecuteNonQuery(cmd);
+                LoadMarcas();
                 return new JsonResult(new { ok = true });
             }
             catch (Exception ex)
