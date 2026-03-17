@@ -1,4 +1,12 @@
+using LibreriaJoelito.FactoryCreators;
+using LibreriaJoelito.FactoryProducts;
+using LibreriaJoelito.Models;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<IRepository<Empleado>>(provider => {
+    return new EmpleadoCreateRepository().CreateRepository();
+});
 
 // Add services to the container.
 builder.Services.AddRazorPages();

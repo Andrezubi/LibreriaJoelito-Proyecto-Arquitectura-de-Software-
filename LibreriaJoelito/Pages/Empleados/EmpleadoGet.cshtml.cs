@@ -14,8 +14,14 @@ namespace LibreriaJoelito.Pages.Empleados
     {
         public DataTable EmpleadoDataTable { get; set; } = new DataTable();
         private readonly IConfiguration configuration;
-        //TO DO: DEBE INYECTARSE CON DEPENDENCIAS 
-        public IRepository<Empleado> EmpleadoRepo = new EmpleadoCreateRepository().CreateRepository();
+
+        //Repository Inyectado Por dependencia
+        private readonly IRepository<Empleado> _empleadoRepo;
+
+        public EmpleadoGetModel(IRepository<Empleado> empleadoRepo)
+        {
+            _empleadoRepo = empleadoRepo;
+        }
 
 
         [BindProperty]
@@ -42,10 +48,6 @@ namespace LibreriaJoelito.Pages.Empleados
         public DateOnly FechaIngreso { get; set; }
 
 
-        public EmpleadoGetModel(IConfiguration configuration)
-        {
-            this.configuration = configuration;
-        }
         public void OnGet()
         {
             TempData.Clear();
@@ -54,7 +56,7 @@ namespace LibreriaJoelito.Pages.Empleados
 
         public void Select()
         {
-            EmpleadoDataTable = EmpleadoRepo.GetAll();
+            EmpleadoDataTable = _empleadoRepo.GetAll();
         }
 
         public IActionResult OnPostDelete(int Id)
@@ -129,7 +131,9 @@ namespace LibreriaJoelito.Pages.Empleados
             }
 
 
-            if (EmpleadoRepo.Update(new Empleado(Id, Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, DireccionDomicilio, Email, Telefono, FechaNacimiento, FechaIngreso)) == 1){
+            Empleado empleado = new Empleado(Id, Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, DireccionDomicilio, Email, Telefono, FechaNacimiento, FechaIngreso);
+
+            if (_empleadoRepo.Update(empleado) == 1){
                 return new JsonResult(new { success = true });
             }
             else
