@@ -4,14 +4,15 @@ namespace LibreriaJoelito.Models
     {
         
         public bool EsClienteFrecuente { get; set; }
-        public byte Estado { get; set; }
+        public bool Estado { get; set; } = true;
         public DateTime FechaRegistro { get; set; }
-        public DateTime? UltimaActualizacion { get; set; }
+        public DateTime? FechaUltimaActualizacion { get; set; }
+        public int? IdEmpleadoCambio { get; set; }
 
         public Cliente() { }
 
-        public Cliente(string nombre, string apellido, string ci, string email, bool esClienteFrecuente)
-            :base(nombre, apellido, ci, email)
+        public Cliente(string nombre, string apellidoPaterno, string? apellidoMaterno, string ci, string? email, bool esClienteFrecuente)
+            :base(nombre, apellidoPaterno, apellidoMaterno, ci, email)
         {
             EsClienteFrecuente = esClienteFrecuente;
         }
