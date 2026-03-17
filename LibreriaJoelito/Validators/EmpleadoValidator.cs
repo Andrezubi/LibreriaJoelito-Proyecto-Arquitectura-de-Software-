@@ -15,7 +15,7 @@
         public static bool esApellidoValido(string apellido)
         {
             if (string.IsNullOrEmpty(apellido))
-                return true;
+                return false;
 
             return apellido.Length > 3 && apellido.Length < 36;
         }
@@ -54,6 +54,23 @@
             int edad = calcularEdad(fechaNacimiento);
             return edad >= 18 && edad <= 65;
         }
+
+        public static int calcularEdadUpdate(DateTime fechaNacimiento)
+        {
+            DateTime hoy = DateTime.Now;
+            int edad = hoy.Year - fechaNacimiento.Year;
+            if (hoy < fechaNacimiento.AddYears(edad))
+            {
+                edad--;
+            }
+            return edad;
+        }
+        public static bool esFechaNacimientoValidaUpdate(DateTime fechaNacimiento)
+        {
+            int edad = calcularEdadUpdate(fechaNacimiento);
+            return edad >= 18 && edad <= 65;
+        }
+
         public static bool esCorreoValido(string correo)
         {
             return correo.Contains("@");
@@ -83,6 +100,15 @@
                 return true;
 
             DateOnly hoy = DateOnly.FromDateTime(DateTime.Now);
+            return fechaIngreso <= hoy;
+        }
+
+        public static bool esFechaIngresoValidaUpdate(DateTime? fechaIngreso)
+        {
+            if (!fechaIngreso.HasValue)
+                return true;
+
+            DateTime hoy = DateTime.Now;
             return fechaIngreso <= hoy;
         }
         #endregion

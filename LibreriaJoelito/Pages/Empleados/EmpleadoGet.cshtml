@@ -59,7 +59,23 @@
 				<td>@row["Telefono"]</td>
 				<td>@row["FechaIngreso"]</td>										
 				<td>
-					<a asp-page="EmpleadoUpdate" asp-route-id="@row["Id"]" class="btn btn-warning btn-sm">Editar</a>
+					<a onclick="abrirModalUpdate(
+						'@row["Id"]',
+						'@row["Nombre"]',
+						'@row["ApellidoPaterno"]',
+						'@row["ApellidoMaterno"]',
+						'@row["Ci"]',
+						'@row["Email"]',
+						'@row["Complemento"]',
+						'@row["DireccionDomicilio"]',
+						'@row["Telefono"]',
+						'@(row["FechaIngreso"] != DBNull.Value ? Convert.ToDateTime(row["FechaIngreso"]).ToString("yyyy-MM-dd") : "")',
+						'@(row["FechaNacimiento"] != DBNull.Value ? Convert.ToDateTime(row["FechaNacimiento"]).ToString("yyyy-MM-dd") : "")')"
+@* 									   '@(row["FechaIngreso"] != DBNull.Value ? ((DateOnly)row["FechaNacimiento"]).ToString("yyyy-MM-dd") : "")' ,
+									   '@(row["FechaNacimiento"] != DBNull.Value ? ((DateOnly)row["FechaNacimiento"]).ToString("yyyy-MM-dd") : "")' )" *@
+					           class="btn btn-warning btn-sm">
+								Editar
+						</a>
 					<a data-bs-toggle="modal" data-bs-target="#modalDelete-@row["Id"]"  class="btn btn-danger btn-sm">Eliminar</a>
 				</td>
 			</tr>
@@ -83,21 +99,134 @@
 				</div>
 			</div>
 		}
-					@if (TempData["SuccessMessage"] != null)
-					{
-						<div class="alert alert-success">
-							@TempData["SuccessMessage"]
-						</div>
-					}
-					else if (TempData["ErrorMessage"] != null)
-					{
-						<div class="alert alert-danger">
-							@TempData["ErrorMessage"]
-						</div>
-					}
 	</tbody>
    </table>
  </div>
   </div>
 </div>
+ 
+
+@* MODAL DE ACtuALIZACION *@
+<div class="modal fade" id="modalEditarEmpleado" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<form method="post" asp-page-handler="Update">
+				<div class="modal-header bg-primary text-white">
+					<h5 class="modal-title" id="editModalLabel">Editar Datos del Empleado</h5>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div id="alertaErrorModal" class="alert alert-danger" style="display:none;"></div>
+
+					<input type="hidden" name="Id" id="edit_id" />
+
+					<div class="row">
+						<div class="col-md-4 mb-3">
+							<label class="form-label font-weight-bold">Nombre</label>
+							<input type="text" name="Nombre" id="edit_nombre" class="form-control" required />
+						</div>
+						<div class="col-md-4 mb-3">
+							<label class="form-label">Apellido Paterno</label>
+							<input type="text" name="ApellidoPaterno" id="edit_paterno" class="form-control" required />
+						</div>
+						<div class="col-md-4 mb-3">
+							<label class="form-label">Apellido Materno</label>
+							<input type="text" name="ApellidoMaterno" id="edit_materno" class="form-control" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-4 mb-3">
+							<label class="form-label">CI</label>
+							<input type="text" name="Ci" id="edit_ci" class="form-control" required />
+						</div>
+						<div class="col-md-4 mb-3">
+							<label class="form-label">Complemento</label>
+							<input type="text" name="Complemento" id="edit_complemento" class="form-control" />
+						</div>
+						<div class="col-md-4 mb-3">
+							<label class="form-label">Email</label>
+							<input type="email" name="Email" id="edit_email" class="form-control" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label class="form-label">Dirección</label>
+							<input type="text" name="DireccionDomicilio" id="edit_direccion" class="form-control" />
+						</div>
+						<div class="col-md-6 mb-3">
+							<label class="form-label">Teléfono</label>
+							<input type="text" name="Telefono" id="edit_telefono" class="form-control" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label class="form-label text-primary">Fecha de Nacimiento</label>
+							<input type="date" name="FechaNacimiento" id="edit_fechaNacimiento" class="form-control" required />
+						</div>
+						<div class="col-md-6 mb-3">
+							<label class="form-label text-muted">Fecha de Ingreso</label>
+							<input type="date" name="FechaIngreso" id="edit_fechaIngreso" class="form-control" />
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+					<button type="button" class="btn btn-primary" onclick="enviarUpdate()">Guardar Cambios</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+@* SCRIPT PARA MODAL DE ACTUALIZACION *@
+<script>
+	function abrirModalUpdate(id, nombre, paterno, materno, ci, email, complemento, direccion, telefono, ingreso, nacimiento) {
+		document.getElementById('edit_id').value = id;
+		document.getElementById('edit_nombre').value = nombre;
+		document.getElementById('edit_paterno').value = paterno;
+		document.getElementById('edit_materno').value = materno;
+		document.getElementById('edit_ci').value = ci;
+		document.getElementById('edit_complemento').value = complemento;
+		document.getElementById('edit_email').value = email;
+		document.getElementById('edit_direccion').value = direccion;
+		document.getElementById('edit_telefono').value = telefono;
+		document.getElementById('edit_fechaIngreso').value = ingreso;
+		document.getElementById('edit_fechaNacimiento').value = nacimiento;
+
+		var myModal = new bootstrap.Modal(document.getElementById('modalEditarEmpleado'));
+		myModal.show();
+	}
+
+
+		// MANEJAR VALIDACIONES DENTRO MODAL
+
+	function enviarUpdate() {
+		const formData = new FormData(document.querySelector("#modalEditarEmpleado form"));
+
+		fetch('?handler=Update', {
+			method: 'POST',
+			body: formData,
+			headers: {
+				"RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
+			}
+		})
+		.then(response => response.json())
+		.then(data => {
+			if (data.success) {
+				location.reload();
+			} else {
+				const alerta = document.getElementById('alertaErrorModal');
+				console.log(data);
+				alerta.textContent = data.message;
+				alerta.style.display = 'block';
+			}
+		})
+		.catch(error => console.error('Error:', error));
+	}
+</script>
+
+
 
