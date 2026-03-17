@@ -2,7 +2,18 @@
 @model LibreriaJoelito.Pages.Productos.ProductoCreateModel
 @{
 }
-<h2>Nuevo Producto</h2>
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger shadow-sm rounded mt-3">
+        <h5 class="mb-2">⚠️ Se encontraron errores:</h5>
+        <div asp-validation-summary="All"></div>
+    </div>
+}
+<div class="form-container">
+
+    <div class="form-header">
+        Nuevo Producto
+    </div>
 
 <form method="post">
     <div class="form-group">
@@ -38,7 +49,7 @@
         <label>Producto Base</label>
 
         <select asp-for="@Model.IdProductoBase" class="form-control">
-            <option value="null">Seleccione un producto base</option>
+            <option value="null">Sin Producto Base</option>
 
             @foreach (System.Data.DataRow row in Model.ProductosDataTable.Rows)
             {
@@ -53,3 +64,4 @@
     <button type="submit" class="btn btn-primary" style="margin: 10px 0;">Guardar</button>
     <a asp-page="MostrarProductos" class="btn btn-secondary" style="margin: 10px 0;">Volver</a>
 </form>
+</div>

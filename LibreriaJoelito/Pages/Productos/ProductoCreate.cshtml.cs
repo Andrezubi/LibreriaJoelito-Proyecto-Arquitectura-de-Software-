@@ -61,7 +61,7 @@ namespace LibreriaJoelito.Pages.Productos
                         ModelState.AddModelError(member, error.ErrorMessage);
                     }
                 }
-
+                LoadProductos();
                 return Page(); // vuelve al formulario mostrando errores
             }
             RepositorioBD.ExecuteNonQuery(command);

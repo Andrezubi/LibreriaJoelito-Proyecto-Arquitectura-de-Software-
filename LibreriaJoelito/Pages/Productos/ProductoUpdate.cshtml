@@ -2,7 +2,19 @@
 @model LibreriaJoelito.Pages.Productos.ProductoUpdateModel
 @{
 }
-<h2>Editar Producto</h2>
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger shadow-sm rounded mt-3">
+        <h5 class="mb-2">⚠️ Se encontraron errores:</h5>
+        <div asp-validation-summary="All"></div>
+    </div>
+}
+<div class="form-container">
+
+    <div class="form-header">
+        Editar Producto
+    </div>
+
 
 <form method="post">
     <input asp-for="@Model.Id" type="hidden"/>
@@ -55,3 +67,4 @@
     <button type="submit" class="btn btn-primary" style="margin: 10px 0;">Guardar</button>
     <a asp-page="MostrarProductos" class="btn btn-secondary" style="margin: 10px 0;">Volver</a>
 </form>
+</div>

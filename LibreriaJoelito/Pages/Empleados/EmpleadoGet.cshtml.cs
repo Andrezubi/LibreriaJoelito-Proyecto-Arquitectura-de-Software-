@@ -16,7 +16,7 @@ namespace LibreriaJoelito.Pages.Empleados
         }
         public void OnGet()
         {
-            Select();
+         Select();
         }
 
         public void Select()

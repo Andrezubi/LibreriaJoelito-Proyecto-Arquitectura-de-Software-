@@ -1,16 +1,30 @@
 ﻿@page
 @model LibreriaJoelito.Pages.Productos.MostrarProductosModel
 @{
+    ViewData["Title"] = "Productos";
 }
-<h1>Lista Productos </h1>
+<div class="content-area">
 
+    <div class="page-container">
+
+        <div class="tabla-header">
+
+            <div class="tabla-titulo">
+                Lista de Productos
+            </div>
+            <div class="tabla-acciones">
 <a asp-page="ProductoCreate" class="btn btn-primary">Nuevo Producto</a>
+            </div>
 
-<table class="table">
+        </div>
+           <div class="table-responsive">
+
+                <table class="tabla-sistema table-hover table-bordered">
+
     <thead>
         <tr>
-            <th>Nombre del Producto</th>
             <th>Categoria</th>
+            <th>Nombre del Producto</th>
             <th>Precio</th>
             <th>Stock</th>
             <th>Tipo de Venta</th>
@@ -24,8 +38,8 @@
         @foreach (System.Data.DataRow row in Model.ProductosDataTable.Rows)
         {
             <tr>
-                <td>@row["Nombre"]</td>
                 <td>@row["Categoria"]</td>
+                <td>@row["Nombre"]</td>
                 <td>@row["Precio"]</td>
                 <td>@row["Stock"]</td>
                 <td>@row["Tipo_Venta"]</td>
@@ -50,7 +64,10 @@
                 </td>
             </tr>
         }
-
-
-    </tbody>
-</table>
+        
+       </tbody> 
+                </table>
+           </div>
+           
+    </div>
+</div>

@@ -23,7 +23,7 @@ namespace LibreriaJoelito.Pages.Empleados
         {
             try
             {
-                string query = "DELETE FROM empleados WHERE Id = @id";
+                string query = "UPDATE Empleados SET Estado=0, UltimaActualizacion = NOW() WHERE Id=@id";
                 MySqlCommand command = new MySqlCommand(query);
                 command.Parameters.AddWithValue("@id", Id);
                 int filasAfectadas = RepositorioBD.ExecuteNonQuery(command);
