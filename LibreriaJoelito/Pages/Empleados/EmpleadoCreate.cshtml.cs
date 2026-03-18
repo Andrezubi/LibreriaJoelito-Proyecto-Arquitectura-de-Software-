@@ -32,7 +32,7 @@ namespace LibreriaJoelito.Pages.Empleados
         public string DireccionDomicilio { get; set; } = string.Empty;
 
         [BindProperty]
-        public int Telefono { get; set; } 
+        public string Telefono { get; set; } 
 
         [BindProperty]
         public DateOnly FechaNacimiento { get; set; }

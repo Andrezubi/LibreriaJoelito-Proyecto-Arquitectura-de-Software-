@@ -41,7 +41,7 @@ namespace LibreriaJoelito.Pages.Empleados
         [BindProperty]
         public string DireccionDomicilio { get; set; } = "";
         [BindProperty]
-        public int Telefono { get; set; }
+        public string Telefono { get; set; } = "";
         [BindProperty]
         public DateOnly FechaNacimiento { get; set; }
         [BindProperty]
@@ -131,7 +131,7 @@ namespace LibreriaJoelito.Pages.Empleados
             }
 
 
-            Empleado empleado = new Empleado(Id, Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, DireccionDomicilio, Email, Telefono, FechaNacimiento, FechaIngreso);
+            Empleado empleado = new Empleado(Id, Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, DireccionDomicilio, Email, Convert.ToInt32(Telefono), FechaNacimiento, FechaIngreso);
 
             if (_empleadoRepo.Update(empleado) == 1){
                 return new JsonResult(new { success = true });

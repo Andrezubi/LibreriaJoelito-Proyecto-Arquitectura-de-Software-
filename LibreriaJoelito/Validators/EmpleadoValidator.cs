@@ -83,16 +83,22 @@
             return direccion.Length > 9 && direccion.Length < 121;
         }
         
-        public static bool esTelefonoValido(int telefono)
+        public static bool esTelefonoValido(string telefono)
         {
-            if(telefono == 0)
-                return true;
+            if (string.IsNullOrWhiteSpace(telefono))
+                return false;
+
+            if (!telefono.All(char.IsDigit))
+                return false;
+
+            if (!int.TryParse(telefono, out int numero))
+                return false;
 
             if (telefono.ToString()[0] == '9' || telefono.ToString()[0] == '5' || telefono.ToString()[0] == '0')
             {
                 return false;
             }
-            return telefono > 1000000 && telefono < 99999999;
+            return numero == 0;
         }
         public static bool esFechaIngresoValida(DateOnly? fechaIngreso)
         {
