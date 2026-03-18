@@ -23,7 +23,7 @@ namespace LibreriaJoelito.FactoryProducts
         {
             MySqlCommand cmd = new MySqlCommand(@"
                 SELECT Id, Nombre, ApellidoPaterno, ApellidoMaterno,
-                       Ci, Complemento, Email, ClienteFrecuente, FechaRegistro
+                       Ci AS CI, Complemento, Email, ClienteFrecuente AS EsClienteFrecuente, FechaRegistro
                 FROM Cliente
                 WHERE Estado = 1
                 ORDER BY ApellidoPaterno, Nombre");
@@ -35,7 +35,7 @@ namespace LibreriaJoelito.FactoryProducts
         {
             MySqlCommand cmd = new MySqlCommand(@"
                 SELECT Id, Nombre, ApellidoPaterno, ApellidoMaterno,
-                       Ci, Complemento, Email, ClienteFrecuente, FechaRegistro
+                       Ci AS CI, Complemento, Email, ClienteFrecuente AS EsClienteFrecuente, FechaRegistro
                 FROM Cliente
                 WHERE Id = @id AND Estado = 1");
 

@@ -62,7 +62,7 @@
                             </td>
                             <td>
                                 <button type="button" class="btn btn-warning btn-sm" 
-                                        onclick="abrirModalEditar('@row["Id"]', '@row["Nombre"]', '@row["ApellidoPaterno"]', '@(row["ApellidoMaterno"] == DBNull.Value ? "" : row["ApellidoMaterno"])', '@row["Ci"]', '@(row["Complemento"] == DBNull.Value ? "" : row["Complemento"])', '@(row["Email"] == DBNull.Value ? "" : row["Email"])', '@(Convert.ToBoolean(row["EsClienteFrecuente"]).ToString().ToLower())')">
+                                        onclick="abrirModalEditar('@row["Id"]', '@row["Nombre"]', '@row["ApellidoPaterno"]', '@(row["ApellidoMaterno"] == DBNull.Value ? "" : row["ApellidoMaterno"])', '@row["CI"]', '@(row["Complemento"] == DBNull.Value ? "" : row["Complemento"])', '@(row["Email"] == DBNull.Value ? "" : row["Email"])', '@(Convert.ToBoolean(row["EsClienteFrecuente"]).ToString().ToLower())')">
                                     Editar
                                 </button>
                                 <button type="button" class="btn btn-danger btn-sm" 
