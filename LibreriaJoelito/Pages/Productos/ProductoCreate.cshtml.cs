@@ -40,7 +40,7 @@ namespace LibreriaJoelito.Pages.Productos
         {
             Producto producto = new Producto(IdCategoria,IdMarca,Nombre,Stock);
             List<ValidationResult> errors = new List<ValidationResult>();
-            errors=ProductValidator.ValidarProducto(producto); 
+            //errors=ProductValidator.ValidarProducto(producto); 
             if (errors.Count > 0)
             {
                 foreach (var error in errors)
@@ -54,7 +54,7 @@ namespace LibreriaJoelito.Pages.Productos
                 LoadMarcas();
                 return Page(); // vuelve al formulario mostrando errores
             }
-            repository.Insert(producto)
+            repository.Insert(producto);
             return RedirectToPage("MostrarProductos");
         }
         void LoadCategorias()
@@ -87,14 +87,15 @@ namespace LibreriaJoelito.Pages.Productos
         }
         public JsonResult OnPostCrearCategoria([FromBody] NombreSimple data)
         {
-            if (string.IsNullOrWhiteSpace(data.Nombre))
+            Console.WriteLine("entro al post de crear categoria");
+            if (string.IsNullOrWhiteSpace(data.Nombre)) 
             {
                 return new JsonResult(new { ok = false, mensaje = "Nombre vacio" });
             }
 
             try
             {
-                string query = "\"INSERT INTO categoria (Nombre) VALUES (@nombre);";
+                string query = "INSERT INTO categoria (Nombre) VALUES (@nombre);";
                 MySqlCommand cmd = new MySqlCommand( query);
                 cmd.Parameters.AddWithValue("@nombre",data.Nombre);
                 RepositorioBD.ExecuteNonQuery(cmd);
@@ -114,7 +115,7 @@ namespace LibreriaJoelito.Pages.Productos
 
             try
             {
-                string query = "\"INSERT INTO marca (Nombre) VALUES (@nombre);";
+                string query = "INSERT INTO marca (Nombre) VALUES (@nombre);";
                 MySqlCommand cmd = new MySqlCommand(query);
                 cmd.Parameters.AddWithValue("@nombre", data.Nombre);
                 RepositorioBD.ExecuteNonQuery(cmd);

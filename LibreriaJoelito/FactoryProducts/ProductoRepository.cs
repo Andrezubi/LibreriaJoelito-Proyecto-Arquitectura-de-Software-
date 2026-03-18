@@ -66,7 +66,7 @@ namespace LibreriaJoelito.FactoryProducts
 	                            Nombre = @nombre,
                                 IdMarca = @idMarca,
                                 Stock = @stock,
-                                FechaUltimaActualizacion = @fechaAhora,
+                                FechaUltimaActualizacion = @fechaAhora
                                 
                             WHERE Id = @id;";
 

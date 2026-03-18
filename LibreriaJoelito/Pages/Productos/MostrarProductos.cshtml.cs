@@ -3,11 +3,27 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
 using System.Data;
+using LibreriaJoelito.Models;
 namespace LibreriaJoelito.Pages.Productos
 {
     public class MostrarProductosModel : PageModel
     {
         public DataTable ProductosDataTable { get; set; } = new DataTable();
+
+        public DataTable CategoriasDataTable { get; set; }
+        public DataTable MarcasDataTable { get; set; }
+
+        [BindProperty]
+        public int Id { get; set; }
+        [BindProperty]
+        public string Nombre { get; set; }
+        [BindProperty]
+        public int IdCategoria { get; set; }
+        [BindProperty]
+        public int IdMarca { get; set; }
+        [BindProperty]
+        public int Stock { get; set; }
+
         private readonly IConfiguration configuration;
         private ProductoRepository repository = new ProductoRepository();
         public MostrarProductosModel(IConfiguration configuration)
@@ -17,7 +33,8 @@ namespace LibreriaJoelito.Pages.Productos
         public void OnGet()
         {
            LoadProductos();
-
+           LoadCategorias();
+           LoadMarcas();
         }
 
         void LoadProductos()
@@ -25,9 +42,42 @@ namespace LibreriaJoelito.Pages.Productos
             ProductosDataTable = repository.GetAll();
 
         }
+
+        void LoadCategorias()
+        {
+            string query = @"SELECT Id, Nombre 
+                     FROM categoria
+                     WHERE estado = 1
+                     ORDER BY Nombre";
+
+            MySqlCommand cmd = new MySqlCommand(query);
+
+            CategoriasDataTable = RepositorioBD.ExecuteReturningDataTable(cmd);
+
+        }
+        void LoadMarcas()
+        {
+            string query = @"SELECT Id, Nombre 
+                     FROM marca
+                     WHERE estado = 1
+                     ORDER BY Nombre";
+
+            MySqlCommand cmd = new MySqlCommand(query);
+
+            MarcasDataTable = RepositorioBD.ExecuteReturningDataTable(cmd);
+
+        }
+
         public IActionResult OnPostDelete(int id)
         {
             repository.Delete(new Models.Producto(id));
+            return RedirectToPage("MostrarProductos");
+        }
+
+        public IActionResult OnPostUpdate()
+        {
+            Producto producto = new Producto(Id, IdCategoria, IdMarca, Nombre, Stock);
+            repository.Update(producto);
             return RedirectToPage("MostrarProductos");
         }
         
