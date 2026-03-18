@@ -1,12 +1,7 @@
 using LibreriaJoelito.Models;
 using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI;
 using System.Data;
-
 using System;
-using System.Data;
-using LibreriaJoelito.Models;
-using MySql.Data.MySqlClient;
 
 namespace LibreriaJoelito.FactoryProducts
 {

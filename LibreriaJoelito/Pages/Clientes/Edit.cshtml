@@ -1,4 +1,4 @@
-﻿@page "{id:int}"
+@page "{id:int}"
 @model LibreriaJoelito.Pages.Clientes.EditModel
 @{
     ViewData["Title"] = "Editar Cliente";
@@ -10,33 +10,47 @@
     </div>
     <form method="post">
         @Html.AntiForgeryToken()
-        <input asp-for="Cliente.Id" type="hidden" />
+        <input asp-for="_cliente.Id" type="hidden" />
         <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
 
         <div class="mb-3">
-            <label asp-for="Cliente.Nombre" class="form-label">Nombre</label>
-            <input asp-for="Cliente.Nombre" class="form-control" placeholder="Ej: Juan" required />
-            <span asp-validation-for="Cliente.Nombre" class="text-danger small"></span>
+            <label asp-for="_cliente.Nombre" class="form-label">Nombre</label>
+            <input asp-for="_cliente.Nombre" class="form-control" placeholder="Ej: Juan" required />
+            <span asp-validation-for="_cliente.Nombre" class="text-danger small"></span>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="_cliente.ApellidoPaterno" class="form-label">Apellido Paterno</label>
+                <input asp-for="_cliente.ApellidoPaterno" class="form-control" placeholder="Ej: Pérez" required />
+                <span asp-validation-for="_cliente.ApellidoPaterno" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="_cliente.ApellidoMaterno" class="form-label">Apellido Materno (Opcional)</label>
+                <input asp-for="_cliente.ApellidoMaterno" class="form-control" placeholder="Ej: López" />
+                <span asp-validation-for="_cliente.ApellidoMaterno" class="text-danger small"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 mb-3">
+                <label asp-for="_cliente.CI" class="form-label">CI (Cédula de Identidad)</label>
+                <input asp-for="_cliente.CI" class="form-control" placeholder="Ej: 1234567" required />
+                <span asp-validation-for="_cliente.CI" class="text-danger small"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label asp-for="_cliente.Complemento" class="form-label">Comp.</label>
+                <input asp-for="_cliente.Complemento" class="form-control" placeholder="Ej: 1A" />
+                <span asp-validation-for="_cliente.Complemento" class="text-danger small"></span>
+            </div>
         </div>
         <div class="mb-3">
-            <label asp-for="Cliente.Apellido" class="form-label">Apellido</label>
-            <input asp-for="Cliente.Apellido" class="form-control" placeholder="Ej: Pérez" required />
-            <span asp-validation-for="Cliente.Apellido" class="text-danger small"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Cliente.CI" class="form-label">CI (Cédula de Identidad)</label>
-            <input asp-for="Cliente.CI" class="form-control" placeholder="Ej: 1234567" required />
-            <span asp-validation-for="Cliente.CI" class="text-danger small"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Cliente.Email" class="form-label">Correo Electrónico</label>
-            <input asp-for="Cliente.Email" type="email" class="form-control" placeholder="juan@ejemplo.com" />
-            <span asp-validation-for="Cliente.Email" class="text-danger small"></span>
+            <label asp-for="_cliente.Email" class="form-label">Correo Electrónico</label>
+            <input asp-for="_cliente.Email" type="email" class="form-control" placeholder="juan@ejemplo.com" />
+            <span asp-validation-for="_cliente.Email" class="text-danger small"></span>
         </div>
         <div class="mb-3">
             <div class="form-check">
-                <input asp-for="Cliente.EsClienteFrecuente" class="form-check-input" type="checkbox" />
-                <label asp-for="Cliente.EsClienteFrecuente" class="form-check-label">
+                <input asp-for="_cliente.EsClienteFrecuente" class="form-check-input" type="checkbox" />
+                <label asp-for="_cliente.EsClienteFrecuente" class="form-check-label">
                     Cliente Frecuente
                 </label>
             </div>

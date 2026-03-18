@@ -16,11 +16,20 @@ namespace LibreriaJoelito.Pages.Clientes
 
         public IActionResult OnGet(int id)
         {
-            DataRow fila = _clienteRepository.GetByID(id);
+            DataRow? fila = _clienteRepository.GetByID(id);
             if (fila is null)
             {
                 return NotFound();
             }
+
+            _cliente.Id = Convert.ToInt32(fila["Id"]);
+            _cliente.Nombre = fila["Nombre"].ToString() ?? "";
+            _cliente.ApellidoPaterno = fila["ApellidoPaterno"].ToString() ?? "";
+            _cliente.ApellidoMaterno = fila["ApellidoMaterno"] == DBNull.Value ? null : fila["ApellidoMaterno"].ToString();
+            _cliente.CI = fila["Ci"].ToString() ?? "";
+            _cliente.Complemento = fila["Complemento"] == DBNull.Value ? null : fila["Complemento"].ToString();
+            _cliente.Email = fila["Email"] == DBNull.Value ? null : fila["Email"].ToString();
+
             return Page();
         }
 

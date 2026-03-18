@@ -1,4 +1,4 @@
-﻿@page "{id:int}"
+@page "{id:int}"
 @model LibreriaJoelito.Pages.Clientes.DeleteModel
 @{
     ViewData["Title"] = "Eliminar Cliente";
@@ -18,33 +18,34 @@
                     <table class="table table-borderless mb-4">
                         <tr>
                             <th class="text-muted fw-normal" style="width: 40%">Nombre completo</th>
-                            <td>@Model.Cliente.Nombre @Model.Cliente.Apellido</td>
+                            <td>@Model._cliente.Nombre @Model._cliente.ApellidoPaterno @Model._cliente.ApellidoMaterno</td>
                         </tr>
                         <tr>
                             <th class="text-muted fw-normal">CI</th>
-                            <td>@Model.Cliente.CI</td>
+                            <td>@Model._cliente.CI @(string.IsNullOrEmpty(Model._cliente.Complemento) ? "" : "- " + Model._cliente.Complemento)</td>
                         </tr>
                         <tr>
                             <th class="text-muted fw-normal">Correo Electrónico</th>
-                            <td>@(string.IsNullOrEmpty(Model.Cliente.Email) ? "—" : Model.Cliente.Email)</td>
+                            <td>@(string.IsNullOrEmpty(Model._cliente.Email) ? "—" : Model._cliente.Email)</td>
                         </tr>
                         <tr>
                             <th class="text-muted fw-normal">Cliente Frecuente</th>
-                            <td>@(Model.Cliente.EsClienteFrecuente ? "Sí" : "No")</td>
+                            <td>@(Model._cliente.EsClienteFrecuente ? "Sí" : "No")</td>
                         </tr>
                         <tr>
                             <th class="text-muted fw-normal">Fecha Registro</th>
                             <td class="text-muted" style="font-size: 0.9rem;">
-                                @Model.Cliente.FechaRegistro.ToString("dd/MM/yyyy HH:mm")
+                                @Model._cliente.FechaRegistro.ToString("dd/MM/yyyy HH:mm")
                             </td>
                         </tr>
                     </table>
 
                     <form method="post">
                         @Html.AntiForgeryToken()
-                        <input asp-for="Cliente.Id" type="hidden" />
-                        <input asp-for="Cliente.Nombre" type="hidden" />
-                        <input asp-for="Cliente.Apellido" type="hidden" />
+                        <input asp-for="_cliente.Id" type="hidden" />
+                        <input asp-for="_cliente.Nombre" type="hidden" />
+                        <input asp-for="_cliente.ApellidoPaterno" type="hidden" />
+                        <input asp-for="_cliente.ApellidoMaterno" type="hidden" />
 
                         <div class="d-grid gap-2 mt-2">
                             <button type="submit" class="btn btn-outline-danger">Confirmar Eliminación</button>
