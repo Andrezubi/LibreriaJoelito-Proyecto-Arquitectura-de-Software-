@@ -38,7 +38,7 @@ namespace LibreriaJoelito.Pages.Productos
 
         public IActionResult OnPost()
         {
-            string query = @"INSERT INTO productos (Categoria, Nombre, Precio, Stock, Tipo_Venta, Factor_Conversion,Id_Producto_Base)
+            string query = @"INSERT INTO producto (Categoria, Nombre, Precio, Stock, Tipo_Venta, Factor_Conversion,Id_Producto_Base)
                             VALUES (@categoria, @nombre, @precio, @stock, @tipoVenta, @factorConversion, @idProductoBase);";
             MySqlCommand command = new MySqlCommand(query);
 

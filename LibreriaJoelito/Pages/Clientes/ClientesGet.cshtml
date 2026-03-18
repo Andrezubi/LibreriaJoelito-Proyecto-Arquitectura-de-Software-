@@ -5,31 +5,26 @@
 }
 
 <div class="content-area">
-
-  <div class="page-container">
+    <div class="page-container">
 
         <div class="tabla-header">
-
             <div class="tabla-titulo">
                 Lista de Clientes
             </div>
-
             <div class="tabla-acciones">
                 <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalCrearCliente">
                     Añadir Cliente
                 </button>
             </div>
-
         </div>
 
-
-    @if (TempData["MensajeExito"] != null)
-    {
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            @TempData["MensajeExito"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    }
+        @if (TempData["MensajeExito"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["MensajeExito"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
 
         <div class="table-responsive">
             <table class="tabla-sistema table-hover table-bordered">
@@ -40,7 +35,7 @@
                         <th>Apellido Materno</th>
                         <th>CI</th>
                         <th>Email</th>
-                        <th>EsClienteFrecuente</th>
+                        <th>Cliente Frecuente</th>
                         <th>Fecha Registro</th>
                         <th class="text-center">Acciones</th>
                     </tr>
@@ -49,34 +44,65 @@
                     @foreach (System.Data.DataRow row in Model.ClientesDataTable.Rows)
                     {
                         <tr>
-                            <td class="align-middle">@row["Nombre"]</td>
-                            <td class="align-middle">@row["ApellidoPaterno"]</td>
-                            <td class="align-middle">@(row["ApellidoMaterno"] == DBNull.Value ? "—" : row["ApellidoMaterno"])</td>
-                            <td class="align-middle">
-                                @row["CI"]@(string.IsNullOrWhiteSpace(row["Complemento"]?.ToString()) ? "" : "-" + row["Complemento"])
-                            </td>
-                            <td class="align-middle">@(row["Email"] == DBNull.Value ? "—" : row["Email"])</td>
-                            <td class="align-middle">@(Convert.ToBoolean(row["EsClienteFrecuente"]) ? "Sí" : "No")</td>
-                            <td class="align-middle text-muted" style="font-size: 0.9rem;">
-                                @Convert.ToDateTime(row["FechaRegistro"]).ToString("dd/MM/yyyy HH:mm")
-                            </td>
+                            <td>@row["Nombre"]</td>
+                            <td>@row["ApellidoPaterno"]</td>
+                            <td>@(row["ApellidoMaterno"] == DBNull.Value ? "—" : row["ApellidoMaterno"])</td>
+                            @if (row["Complemento"] != DBNull.Value && !string.IsNullOrEmpty(row["Complemento"].ToString()))
+                            {
+                                <td>@(row["Ci"] + "-" + row["Complemento"])</td>
+                            }
+                            else
+                            {
+                                <td>@row["Ci"]</td>
+                            }
+                            <td>@(row["Email"] == DBNull.Value ? "—" : row["Email"])</td>
+                            <td>@(Convert.ToBoolean(row["ClienteFrecuente"]) ? "Sí" : "No")</td>
+                            <td>@Convert.ToDateTime(row["FechaRegistro"]).ToString("dd/MM/yyyy HH:mm")</td>
                             <td>
-                                <button type="button" class="btn btn-warning btn-sm" 
-                                        onclick="abrirModalEditar('@row["Id"]', '@row["Nombre"]', '@row["ApellidoPaterno"]', '@(row["ApellidoMaterno"] == DBNull.Value ? "" : row["ApellidoMaterno"])', '@row["CI"]', '@(row["Complemento"] == DBNull.Value ? "" : row["Complemento"])', '@(row["Email"] == DBNull.Value ? "" : row["Email"])', '@(Convert.ToBoolean(row["EsClienteFrecuente"]).ToString().ToLower())')">
+                                <a onclick="abrirModalEditar(
+                                        '@row["Id"]',
+                                        '@row["Nombre"]',
+                                        '@row["ApellidoPaterno"]',
+                                        '@(row["ApellidoMaterno"] == DBNull.Value ? "" : row["ApellidoMaterno"])',
+                                        '@row["Ci"]',
+                                        '@(row["Complemento"] == DBNull.Value ? "" : row["Complemento"])',
+                                        '@(row["Email"] == DBNull.Value ? "" : row["Email"])',
+                                        '@(Convert.ToBoolean(row["ClienteFrecuente"]).ToString().ToLower())')"
+                                   class="btn btn-warning btn-sm">
                                     Editar
-                                </button>
-                                <button type="button" class="btn btn-danger btn-sm" 
-                                        data-bs-toggle="modal" data-bs-target="#modalEliminarCliente" 
-                                        onclick="prepararEliminar('@row["Id"]', '@row["Nombre"] @row["ApellidoPaterno"]')">
+                                </a>
+                                <a data-bs-toggle="modal" data-bs-target="#modalDelete-@row["Id"]"
+                                   class="btn btn-danger btn-sm">
                                     Eliminar
-                                </button>
+                                </a>
                             </td>
                         </tr>
+
+                        <!-- MODAL ELIMINAR POR FILA -->
+                        <div class="modal fade" id="modalDelete-@row["Id"]" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form method="post" asp-page-handler="Delete" asp-route-id="@row["Id"]">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Eliminar cliente</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <span>¿Está seguro de eliminar al cliente <strong>@row["Nombre"] @row["ApellidoPaterno"]</strong>?</span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-danger">Sí</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     }
                     @if (Model.ClientesDataTable.Rows.Count == 0)
                     {
                         <tr>
-                            <td colspan="6" class="text-center py-4 text-muted">
+                            <td colspan="8" class="text-center py-4 text-muted">
                                 No hay clientes registrados.
                             </td>
                         </tr>
@@ -98,37 +124,40 @@
                 </div>
                 <div class="modal-body">
                     <div id="errorCrear" class="alert alert-danger" style="display:none;"></div>
-                    <div class="mb-3">
-                        <label asp-for="_cliente.Nombre" class="form-label">Nombre</label>
-                        <input asp-for="_cliente.Nombre" class="form-control" placeholder="Ej: Juan" required />
-                    </div>
+
                     <div class="row">
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="_cliente.Nombre" class="form-label">Nombre</label>
+                            <input asp-for="_cliente.Nombre" class="form-control" placeholder="Ej: Juan" required />
+                        </div>
+                        <div class="col-md-4 mb-3">
                             <label asp-for="_cliente.ApellidoPaterno" class="form-label">Apellido Paterno</label>
                             <input asp-for="_cliente.ApellidoPaterno" class="form-control" placeholder="Ej: Pérez" required />
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label asp-for="_cliente.ApellidoMaterno" class="form-label">Apellido Materno (Opcional)</label>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="_cliente.ApellidoMaterno" class="form-label">Apellido Materno</label>
                             <input asp-for="_cliente.ApellidoMaterno" class="form-control" placeholder="Ej: López" />
                         </div>
                     </div>
+
                     <div class="row">
-                        <div class="col-md-8 mb-3">
-                            <label asp-for="_cliente.CI" class="form-label">CI (Cédula de Identidad)</label>
-                            <input asp-for="_cliente.CI" class="form-control" placeholder="Ej: 1234567" required />
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="_cliente.Ci" class="form-label">CI</label>
+                            <input asp-for="_cliente.Ci" class="form-control" placeholder="Ej: 1234567" required />
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label asp-for="_cliente.Complemento" class="form-label">Comp.</label>
+                            <label asp-for="_cliente.Complemento" class="form-label">Complemento</label>
                             <input asp-for="_cliente.Complemento" class="form-control" placeholder="Ej: 1A" />
                         </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="_cliente.Email" class="form-label">Email</label>
+                            <input asp-for="_cliente.Email" type="email" class="form-control" placeholder="juan@ejemplo.com" />
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label asp-for="_cliente.Email" class="form-label">Correo Electrónico</label>
-                        <input asp-for="_cliente.Email" type="email" class="form-control" placeholder="juan@ejemplo.com" />
-                    </div>
+
                     <div class="mb-3">
                         <div class="form-check">
-                            <input asp-for="_cliente.EsClienteFrecuente" class="form-check-input" type="checkbox" id="checkFrecuenteCrear" />
+                            <input asp-for="_cliente.ClienteFrecuente" class="form-check-input" type="checkbox" id="checkFrecuenteCrear" />
                             <label class="form-check-label" for="checkFrecuenteCrear">Cliente Frecuente</label>
                         </div>
                     </div>
@@ -148,71 +177,53 @@
         <div class="modal-content">
             <form id="formEditarCliente">
                 <input type="hidden" name="Id" id="edit_id" />
-                <div class="modal-header bg-warning text-dark">
+                <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title" id="modalEditarLabel">Editar Datos del Cliente</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div id="errorEditar" class="alert alert-danger" style="display:none;"></div>
-                    <div class="mb-3">
-                        <label class="form-label">Nombre</label>
-                        <input type="text" name="_cliente.Nombre" id="edit_nombre" class="form-control" required />
-                    </div>
+                    <div id="alertaErrorModal" class="alert alert-danger" style="display:none;"></div>
+
                     <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Apellido Paterno</label>
-                            <input type="text" name="_cliente.ApellidoPaterno" id="edit_paterno" class="form-control" required />
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Apellido Materno</label>
-                            <input type="text" name="_cliente.ApellidoMaterno" id="edit_materno" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-8 mb-3">
-                            <label class="form-label">CI</label>
-                            <input type="text" name="_cliente.CI" id="edit_ci" class="form-control" required />
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" name="_cliente.Nombre" id="edit_nombre" class="form-control" placeholder="Ej: Juan" required />
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label class="form-label">Comp.</label>
-                            <input type="text" name="_cliente.Complemento" id="edit_complemento" class="form-control" />
+                            <label class="form-label">Apellido Paterno</label>
+                            <input type="text" name="_cliente.ApellidoPaterno" id="edit_paterno" class="form-control" placeholder="Ej: Pérez" required />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Apellido Materno</label>
+                            <input type="text" name="_cliente.ApellidoMaterno" id="edit_materno" class="form-control" placeholder="Ej: López" />
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Correo Electrónico</label>
-                        <input type="email" name="_cliente.Email" id="edit_email" class="form-control" />
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">CI</label>
+                            <input type="text" name="_cliente.Ci" id="edit_ci" class="form-control" placeholder="Ej: 1234567" required />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Complemento</label>
+                            <input type="text" name="_cliente.Complemento" id="edit_complemento" class="form-control" placeholder="Ej: 1A" />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="_cliente.Email" id="edit_email" class="form-control" placeholder="juan@ejemplo.com" />
+                        </div>
                     </div>
+
                     <div class="mb-3">
                         <div class="form-check">
-                            <input type="checkbox" name="_cliente.EsClienteFrecuente" class="form-check-input" id="edit_frecuente" value="true" />
+                            <input type="checkbox" name="_cliente.ClienteFrecuente" class="form-check-input" id="edit_frecuente" value="true" />
                             <label class="form-check-label" for="edit_frecuente">Cliente Frecuente</label>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-warning" onclick="enviarUpdate()">Guardar Cambios</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- MODAL ELIMINAR CLIENTE -->
-<div class="modal fade" id="modalEliminarCliente" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form method="post" id="formEliminarCliente" asp-page-handler="Delete">
-                <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title">Confirmar Eliminación</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p>¿Estás seguro de que deseas eliminar al cliente <strong id="delete_nombre"></strong>?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <button type="button" class="btn btn-primary" onclick="enviarUpdate()">Guardar Cambios</button>
                 </div>
             </form>
         </div>
@@ -225,7 +236,7 @@
     function enviarCrear() {
         const form = document.getElementById('formCrearCliente');
         const formData = new FormData(form);
-        
+
         fetch('?handler=Create', {
             method: 'POST',
             body: formData,
@@ -257,29 +268,25 @@
     }
 
     function enviarUpdate() {
-        const form = document.getElementById('formEditarCliente');
-        const formData = new FormData(form);
+        const formData = new FormData(document.querySelector('#formEditarCliente'));
 
         fetch('?handler=Update', {
             method: 'POST',
             body: formData,
-            headers: { "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value }
+            headers: {
+                "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
+            }
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
                 location.reload();
             } else {
-                const errorDiv = document.getElementById('errorEditar');
-                errorDiv.textContent = data.message;
-                errorDiv.style.display = 'block';
+                const alerta = document.getElementById('alertaErrorModal');
+                alerta.textContent = data.message;
+                alerta.style.display = 'block';
             }
-        });
-    }
-
-    function prepararEliminar(id, nombre) {
-        document.getElementById('delete_nombre').textContent = nombre;
-        const form = document.getElementById('formEliminarCliente');
-        form.action = `?handler=Delete&id=${id}`;
+        })
+        .catch(error => console.error('Error:', error));
     }
 </script>

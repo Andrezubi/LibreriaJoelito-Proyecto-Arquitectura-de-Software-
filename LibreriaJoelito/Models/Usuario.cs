@@ -8,7 +8,7 @@ namespace LibreriaJoelito.Models
         public string Nombre { get; set; } = string.Empty;
         public string ApellidoPaterno { get; set; } = string.Empty;
         public string? ApellidoMaterno { get; set; }
-        public string CI { get; set; } = string.Empty;
+        public string Ci { get; set; } = string.Empty;
         public string? Complemento { get; set; }
         public string? Email { get; set; }
 
@@ -19,7 +19,7 @@ namespace LibreriaJoelito.Models
             Nombre = nombre;
             ApellidoPaterno = apellidoPaterno;
             ApellidoMaterno = apellidoMaterno;
-            CI = cI;
+            Ci = cI;
             Complemento = complemento;
             Email = email;
         }
