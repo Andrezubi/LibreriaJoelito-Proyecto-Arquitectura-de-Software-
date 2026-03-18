@@ -1,3 +1,8 @@
+using LibreriaJoelito.Models;
+using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI;
+using System.Data;
+
 using System;
 using System.Data;
 using LibreriaJoelito.Models;
@@ -5,61 +10,105 @@ using MySql.Data.MySqlClient;
 
 namespace LibreriaJoelito.FactoryProducts
 {
-    public class RepositoryClientes : IRepository<Cliente>
+    public class ClienteRepository : IRepository<Cliente>
     {
-        public int Insert(Cliente c)
+        public int Delete(Cliente t)
         {
-            string query = @"INSERT INTO Cliente 
-                             (Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, Email, ClienteFrecuente) 
-                             VALUES (@nombre, @paterno, @materno, @ci, @complemento, @email, @frecuente)";
-            MySqlCommand cmd = new MySqlCommand(query);
-            cmd.Parameters.AddWithValue("@nombre", c.Nombre);
-            cmd.Parameters.AddWithValue("@paterno", c.ApellidoPaterno);
-            cmd.Parameters.AddWithValue("@materno", string.IsNullOrWhiteSpace(c.ApellidoMaterno) ? (object)DBNull.Value : c.ApellidoMaterno);
-            cmd.Parameters.AddWithValue("@ci", c.CI);
-            cmd.Parameters.AddWithValue("@complemento", string.IsNullOrWhiteSpace(c.Complemento) ? (object)DBNull.Value : c.Complemento);
-            cmd.Parameters.AddWithValue("@email", string.IsNullOrWhiteSpace(c.Email) ? (object)DBNull.Value : c.Email);
-            cmd.Parameters.AddWithValue("@frecuente", c.EsClienteFrecuente);
+            MySqlCommand cmd = new MySqlCommand(@"
+                UPDATE Cliente SET
+                    Estado                   = 0,
+                    FechaUltimaActualizacion = NOW()
+                WHERE Id = @id");
 
-            return RepositorioBD.ExecuteNonQuery(cmd);
-        }
-
-        public int Update(Cliente c)
-        {
-            string query = @"UPDATE Cliente 
-                             SET Nombre = @nombre, ApellidoPaterno = @paterno, ApellidoMaterno = @materno, 
-                                 Ci = @ci, Complemento = @complemento, Email = @email, ClienteFrecuente = @frecuente,
-                                 Estado = @estado
-                             WHERE Id = @id";
-            MySqlCommand cmd = new MySqlCommand(query);
-            cmd.Parameters.AddWithValue("@id", c.Id);
-            cmd.Parameters.AddWithValue("@nombre", c.Nombre);
-            cmd.Parameters.AddWithValue("@paterno", c.ApellidoPaterno);
-            cmd.Parameters.AddWithValue("@materno", string.IsNullOrWhiteSpace(c.ApellidoMaterno) ? (object)DBNull.Value : c.ApellidoMaterno);
-            cmd.Parameters.AddWithValue("@ci", c.CI);
-            cmd.Parameters.AddWithValue("@complemento", string.IsNullOrWhiteSpace(c.Complemento) ? (object)DBNull.Value : c.Complemento);
-            cmd.Parameters.AddWithValue("@email", string.IsNullOrWhiteSpace(c.Email) ? (object)DBNull.Value : c.Email);
-            cmd.Parameters.AddWithValue("@frecuente", c.EsClienteFrecuente);
-            cmd.Parameters.AddWithValue("@estado", c.Estado);
-
-            return RepositorioBD.ExecuteNonQuery(cmd);
-        }
-
-        public int Delete(Cliente c)
-        {
-            // Borrado lógico (se asume que la vista/controlador pasa el c.Id)
-            string query = @"UPDATE Cliente SET Estado = 0 WHERE Id = @id";
-            MySqlCommand cmd = new MySqlCommand(query);
-            cmd.Parameters.AddWithValue("@id", c.Id);
+            cmd.Parameters.AddWithValue("@id", t.Id);
             return RepositorioBD.ExecuteNonQuery(cmd);
         }
 
         public DataTable GetAll()
         {
-            string query = @"SELECT Id, Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, Email, ClienteFrecuente, Estado, FechaRegistro 
-                             FROM Cliente WHERE Estado = 1";
-            MySqlCommand cmd = new MySqlCommand(query);
+            MySqlCommand cmd = new MySqlCommand(@"
+                SELECT Id, Nombre, ApellidoPaterno, ApellidoMaterno,
+                       Ci, Complemento, Email, ClienteFrecuente, FechaRegistro
+                FROM Cliente
+                WHERE Estado = 1
+                ORDER BY ApellidoPaterno, Nombre");
+
             return RepositorioBD.ExecuteReturningDataTable(cmd);
         }
+
+        public DataRow GetByID(int id)
+        {
+            MySqlCommand cmd = new MySqlCommand(@"
+                SELECT Id, Nombre, ApellidoPaterno, ApellidoMaterno,
+                       Ci, Complemento, Email, ClienteFrecuente, FechaRegistro
+                FROM Cliente
+                WHERE Id = @id AND Estado = 1");
+
+            cmd.Parameters.AddWithValue("@id", id);
+
+            return RepositorioBD.ExecuteReturningDataRow(cmd);
+        }
+
+        public int Insert(Cliente t)
+        {
+            MySqlCommand cmd = new MySqlCommand(@"
+                INSERT INTO Cliente 
+                    (Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, Email, ClienteFrecuente)
+                VALUES 
+                    (@nombre, @apellidoPaterno, @apellidoMaterno, @ci, @complemento, @email, @clienteFrecuente)");
+
+            AgregarParametros(cmd, t);
+            return RepositorioBD.ExecuteNonQuery(cmd);
+
+        }
+
+        public int Update(Cliente t)
+        {
+            MySqlCommand cmd = new MySqlCommand(@"
+                UPDATE Cliente SET
+                    Nombre                   = @nombre,
+                    ApellidoPaterno          = @apellidoPaterno,
+                    ApellidoMaterno          = @apellidoMaterno,
+                    Ci                       = @ci,
+                    Complemento              = @complemento,
+                    Email                    = @email,
+                    ClienteFrecuente         = @clienteFrecuente,
+                    FechaUltimaActualizacion = NOW()
+                WHERE Id = @id");
+
+            AgregarParametros(cmd, t);
+            cmd.Parameters.AddWithValue("@id", t.Id);
+            return RepositorioBD.ExecuteNonQuery(cmd);
+        }
+
+        public bool ExisteDuplicado(Cliente cliente)
+        {
+            MySqlCommand cmd = new MySqlCommand(@"
+                SELECT COUNT(*) FROM Cliente
+                WHERE Ci          = @ci
+                  AND Complemento = @complemento
+                  AND Id         <> @id
+                  AND Estado      = 1");
+
+            cmd.Parameters.AddWithValue("@ci", cliente.CI);
+            cmd.Parameters.AddWithValue("@complemento", cliente.Complemento ?? string.Empty);
+            cmd.Parameters.AddWithValue("@id", cliente.Id);
+
+            return Convert.ToInt32(RepositorioBD.ExecuteScalar(cmd)) > 0;
+        }
+
+        // --- Métodos privados de apoyo ---
+
+        static void AgregarParametros(MySqlCommand cmd, Cliente cliente)
+        {
+            cmd.Parameters.AddWithValue("@nombre", cliente.Nombre);
+            cmd.Parameters.AddWithValue("@apellidoPaterno", cliente.ApellidoPaterno);
+            cmd.Parameters.AddWithValue("@apellidoMaterno", (object?)cliente.ApellidoMaterno ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@ci", cliente.CI);
+            cmd.Parameters.AddWithValue("@complemento", cliente.Complemento ?? string.Empty);
+            cmd.Parameters.AddWithValue("@email", (object?)cliente.Email ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@clienteFrecuente", cliente.EsClienteFrecuente);
+        }
+
     }
 }

@@ -14,12 +14,13 @@ namespace LibreriaJoelito.Models
 
         public Usuario() { }
 
-        public Usuario(string nombre, string apellidoPaterno, string? apellidoMaterno, string cI, string? email)
+        public Usuario(string nombre, string apellidoPaterno, string? apellidoMaterno, string cI, string? complemento, string? email)
         {
             Nombre = nombre;
             ApellidoPaterno = apellidoPaterno;
             ApellidoMaterno = apellidoMaterno;
             CI = cI;
+            Complemento = complemento;
             Email = email;
         }
     }

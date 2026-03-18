@@ -11,8 +11,8 @@ namespace LibreriaJoelito.Models
 
         public Cliente() { }
 
-        public Cliente(string nombre, string apellidoPaterno, string? apellidoMaterno, string ci, string? email, bool esClienteFrecuente)
-            :base(nombre, apellidoPaterno, apellidoMaterno, ci, email)
+        public Cliente(string nombre, string apellido, string ci, string email, bool esClienteFrecuente)
+            :base(nombre, apellido, ci, email)
         {
             EsClienteFrecuente = esClienteFrecuente;
         }
