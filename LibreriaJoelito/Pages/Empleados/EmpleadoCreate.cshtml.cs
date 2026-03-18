@@ -1,4 +1,6 @@
 using Google.Protobuf.WellKnownTypes;
+using LibreriaJoelito.FactoryProducts;
+using LibreriaJoelito.Models;
 using LibreriaJoelito.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -8,7 +10,13 @@ namespace LibreriaJoelito.Pages.Empleados
 {
     public class EmpleadoCreateModel : PageModel
     {
-        public EmpleadoCreateModel() { }
+        #region inyecciónDependencias
+        private readonly IRepository<Empleado> _empleadoRepo;
+
+        public EmpleadoCreateModel(IRepository<Empleado> empleadoRepo) {
+            _empleadoRepo = empleadoRepo;
+        }
+        #endregion
 
         [BindProperty]
         public string Nombre { get; set; } = string.Empty;
@@ -32,7 +40,7 @@ namespace LibreriaJoelito.Pages.Empleados
         public string DireccionDomicilio { get; set; } = string.Empty;
 
         [BindProperty]
-        public int Telefono { get; set; } 
+        public string Telefono { get; set; } 
 
         [BindProperty]
         public DateOnly FechaNacimiento { get; set; }
@@ -92,59 +100,15 @@ namespace LibreriaJoelito.Pages.Empleados
                 TempData["ErrorMessage"] = "La fecha de ingreso no es válida (no puede ser una fecha futura).";
                 return Page();
             }
-            try
-            {
-                string query = @"INSERT INTO Empleado (
-                                Nombre,
-                                ApellidoPaterno,
-                                ApellidoMaterno,
-                                Ci,
-                                Complemento,
-                                FechaNacimiento,
-                                Email,
-                                DireccionDomicilio,
-                                Telefono,
-                                FechaIngreso,
-                                Estado,
-                                FechaRegistro,
-                                FechaUltimaActualizacion,
-                                IdEmpleadoCambio) VALUES (
-                                @nombre,
-                                @apellidoPaterno,
-                                @apellidoMaterno,
-                                @ci,
-                                @extensionCi,
-                                @fechaNacimiento,
-                                @email,
-                                @direccionDomicilio,
-                                @telefono,
-                                @fechaIngreso,
-                                TRUE,
-                                CURRENT_TIMESTAMP,
-                                CURRENT_TIMESTAMP,
-                                NULL);";
-                
-                MySqlCommand command = new MySqlCommand(query);
-                command.Parameters.AddWithValue("@nombre", Nombre);
-                command.Parameters.AddWithValue("@apellidoPaterno", ApellidoPaterno);
-                command.Parameters.AddWithValue("@apellidoMaterno", ApellidoMaterno);
-                command.Parameters.AddWithValue("@ci", Ci);
-                command.Parameters.AddWithValue("@extensionCi", ExtensionCi);
-                command.Parameters.AddWithValue("@email", Email);
-                command.Parameters.AddWithValue("@direccionDomicilio", DireccionDomicilio);
-                command.Parameters.AddWithValue("@telefono", Telefono);
-                command.Parameters.AddWithValue("@fechaIngreso", FechaIngreso.ToString("yyyy-MM-dd"));
-                command.Parameters.AddWithValue("@fechaNacimiento", FechaNacimiento.ToString("yyyy-MM-dd"));
-                
-                RepositorioBD.ExecuteNonQuery(command);
+            Empleado empleado = new Empleado(Nombre, ApellidoPaterno, ApellidoMaterno, Ci, ExtensionCi, DireccionDomicilio, Email, Convert.ToInt32(Telefono), FechaNacimiento, FechaIngreso);
 
-                TempData["SuccessMessage"] = "Empleado guardado exitosamente.";
-                return RedirectToPage("EmpleadoGet");
-            }
-            catch (Exception ex)
+            if (_empleadoRepo.Insert(empleado) == 1)
             {
-                TempData["ErrorMessage"] = "Error al guardar: " + ex.Message;
-                return Page();
+                return new JsonResult(new { success = true });
+            }
+            else
+            {
+                return new JsonResult(new { success = false, message = "Error en La Base De Datos" });
             }
         }
     }

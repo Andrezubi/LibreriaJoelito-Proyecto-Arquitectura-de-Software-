@@ -1,3 +1,6 @@
+using LibreriaJoelito.FactoryCreators;
+using LibreriaJoelito.FactoryProducts;
+using LibreriaJoelito.Models;
 using LibreriaJoelito.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,6 +14,16 @@ namespace LibreriaJoelito.Pages.Empleados
     {
         public DataTable EmpleadoDataTable { get; set; } = new DataTable();
         private readonly IConfiguration configuration;
+
+        //Repository Inyectado Por dependencia
+        private readonly IRepository<Empleado> _empleadoRepo;
+
+        public EmpleadoGetModel(IRepository<Empleado> empleadoRepo)
+        {
+            _empleadoRepo = empleadoRepo;
+        }
+        
+
 
         [BindProperty]
         public int Id { get; set; }
@@ -29,17 +42,13 @@ namespace LibreriaJoelito.Pages.Empleados
         [BindProperty]
         public string DireccionDomicilio { get; set; } = "";
         [BindProperty]
-        public int Telefono { get; set; }
+        public string Telefono { get; set; } = "";
         [BindProperty]
-        public DateTime FechaNacimiento { get; set; }
+        public DateOnly FechaNacimiento { get; set; }
         [BindProperty]
-        public DateTime FechaIngreso { get; set; }
+        public DateOnly FechaIngreso { get; set; }
 
 
-        public EmpleadoGetModel(IConfiguration configuration)
-        {
-            this.configuration = configuration;
-        }
         public void OnGet()
         {
             TempData.Clear();
@@ -48,35 +57,19 @@ namespace LibreriaJoelito.Pages.Empleados
 
         public void Select()
         {
-            string connectionString = configuration.GetConnectionString("ConnectionMySql")!;
-            string query = @"SELECT Id,Nombre,ApellidoPaterno,ApellidoMaterno,Ci,Complemento,FechaNacimiento,Email,DireccionDomicilio,Telefono,FechaIngreso
-                    FROM Empleado
-                    WHERE estado = 1
-                    ORDER BY 1;";
-            MySqlCommand command = new MySqlCommand(query);
-            EmpleadoDataTable = RepositorioBD.ExecuteReturningDataTable(command);
+            EmpleadoDataTable = _empleadoRepo.GetAll();
         }
 
         public IActionResult OnPostDelete(int Id)
         {
-            try
+            Empleado empleado = new Empleado(Id);
+            if (_empleadoRepo.Delete(empleado) == 1)
             {
-                string connectionString = configuration.GetConnectionString("ConnectionMySql")!;
-                string query = "UPDATE Empleado SET Estado = FALSE,FechaUltimaActualizacion = CURRENT_TIMESTAMP WHERE Id = @Id;";
-                MySql.Data.MySqlClient.MySqlCommand command = new MySql.Data.MySqlClient.MySqlCommand(query);
-                command.Parameters.AddWithValue("@id", Id);
-                int filasAfectadas = RepositorioBD.ExecuteNonQuery(command);
-                if (filasAfectadas > 0)
-                    TempData["SuccessMessage"] = "Empleado eliminado exitosamente.";
-                else
-                    TempData["ErrorMessage"] = "No se pudo eliminar: el registro no existe.";
-
-                return RedirectToPage("EmpleadoGet");
+                return new JsonResult(new { success = true });
             }
-            catch (Exception ex)
+            else
             {
-                TempData["ErrorMessage"] = "Error crítico en la base de datos: " + ex.Message;
-                return Page();
+                return new JsonResult(new { success = false, message = "Error en La Base De Datos" });
             }
         }
 
@@ -108,7 +101,7 @@ namespace LibreriaJoelito.Pages.Empleados
                 return new JsonResult(new { success = false, message = "El formato del correo electrónico no es correcto." });
             }
 
-            if (!EmpleadoValidator.esFechaNacimientoValidaUpdate(FechaNacimiento))
+            if (!EmpleadoValidator.esFechaNacimientoValida(FechaNacimiento))
             {
                 return new JsonResult(new { success = false, message = "La fecha de nacimiento no es válida (debe ser mayor de 18 años)." });
             }
@@ -123,42 +116,22 @@ namespace LibreriaJoelito.Pages.Empleados
                 return new JsonResult(new { success = false, message = "La dirección no es válida (mínimo 10 caracteres)." });
             }
 
-            if (!EmpleadoValidator.esFechaIngresoValidaUpdate(FechaIngreso))
+            if (!EmpleadoValidator.esFechaIngresoValida(FechaIngreso))
             {
                 return new JsonResult(new { success = false, message = "La fecha de ingreso no es válida (no puede ser una fecha futura)." });
             }
 
 
-            string query = @"UPDATE empleado 
-                     SET Nombre = @nombre, 
-                         ApellidoPaterno = @apellidoPaterno, 
-                         ApellidoMaterno = @apellidoMaterno, 
-                         CI = @ci, 
-                         Complemento = @complemento,
-                         Email = @email, 
-                         DireccionDomicilio = @direccion,
-                         Telefono = @telefono,
-                         FechaNacimiento = @fechaNacimiento,
-                         FechaIngreso = @fechaIngreso,
-                         FechaUltimaActualizacion = NOW() 
-                     WHERE id = @id;";
+            Empleado empleado = new Empleado(Id, Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, DireccionDomicilio, Email, Convert.ToInt32(Telefono), FechaNacimiento, FechaIngreso);
 
-            MySqlCommand command = new MySqlCommand(query);
-            command.Parameters.AddWithValue("@nombre", Nombre);
-            command.Parameters.AddWithValue("@apellidoPaterno", ApellidoPaterno);
-            command.Parameters.AddWithValue("@apellidoMaterno", ApellidoMaterno);
-            command.Parameters.AddWithValue("@ci", Ci);
-            command.Parameters.AddWithValue("@complemento", Complemento ?? "");
-            command.Parameters.AddWithValue("@email", Email);
-            command.Parameters.AddWithValue("@direccion", DireccionDomicilio);
-            command.Parameters.AddWithValue("@telefono", Telefono);
-            command.Parameters.AddWithValue("@fechaNacimiento", FechaNacimiento.ToString("yyyy-MM-dd"));
-            command.Parameters.AddWithValue("@fechaIngreso", FechaIngreso.ToString("yyyy-MM-dd"));
-            command.Parameters.AddWithValue("@id", Id);
+            if (_empleadoRepo.Update(empleado) == 1){
+                return new JsonResult(new { success = true });
+            }
+            else
+            {
+                return new JsonResult(new { success = false, message = "Error en La Base De Datos" });
+            }
 
-            RepositorioBD.ExecuteNonQuery(command);
-
-            return new JsonResult(new { success = true });
         }
 
     }
