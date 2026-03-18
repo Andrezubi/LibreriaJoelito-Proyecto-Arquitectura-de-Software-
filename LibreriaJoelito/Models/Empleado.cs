@@ -4,8 +4,8 @@ namespace LibreriaJoelito.Models
     {
         public Empleado() { }
 
-        public Empleado(string nombre, string apellidoPaterno, string? apellidoMaterno, string ci, string email)
-            : base(nombre, apellidoPaterno, apellidoMaterno, ci, email)
+        public Empleado(string nombre, string apellidoPaterno, string? apellidoMaterno, string ci, string? complemento, string? email)
+            : base(nombre, apellidoPaterno, apellidoMaterno, ci, complemento, email)
         {
         }
 
