@@ -22,6 +22,7 @@ namespace LibreriaJoelito.Pages.Empleados
         {
             _empleadoRepo = empleadoRepo;
         }
+        
 
 
         [BindProperty]
@@ -61,24 +62,14 @@ namespace LibreriaJoelito.Pages.Empleados
 
         public IActionResult OnPostDelete(int Id)
         {
-            try
+            Empleado empleado = new Empleado(Id);
+            if (_empleadoRepo.Delete(empleado) == 1)
             {
-                string connectionString = configuration.GetConnectionString("ConnectionMySql")!;
-                string query = "UPDATE Empleado SET Estado = FALSE,FechaUltimaActualizacion = CURRENT_TIMESTAMP WHERE Id = @Id;";
-                MySql.Data.MySqlClient.MySqlCommand command = new MySql.Data.MySqlClient.MySqlCommand(query);
-                command.Parameters.AddWithValue("@id", Id);
-                int filasAfectadas = RepositorioBD.ExecuteNonQuery(command);
-                if (filasAfectadas > 0)
-                    TempData["SuccessMessage"] = "Empleado eliminado exitosamente.";
-                else
-                    TempData["ErrorMessage"] = "No se pudo eliminar: el registro no existe.";
-
-                return RedirectToPage("EmpleadoGet");
+                return new JsonResult(new { success = true });
             }
-            catch (Exception ex)
+            else
             {
-                TempData["ErrorMessage"] = "Error crítico en la base de datos: " + ex.Message;
-                return Page();
+                return new JsonResult(new { success = false, message = "Error en La Base De Datos" });
             }
         }
 

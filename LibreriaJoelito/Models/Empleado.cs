@@ -15,6 +15,7 @@
         public DateOnly FechaIngreso { get; set; }
 
         public Empleado() { }
+        public Empleado(int id) { Id = id; }
 
         public Empleado(int id, string nombre, string apellidoPaterno, string apellidoMaterno, string ci, string complemento, string direccionDomicilio, string email, int telefono, DateOnly fechaNacimiento, DateOnly fechaIngreso)
         {

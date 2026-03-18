@@ -88,7 +88,11 @@ namespace LibreriaJoelito.FactoryProducts
         }
         public int Delete(Empleado t)
         {
-            return 0;
+            string query = "UPDATE Empleado SET Estado = FALSE,FechaUltimaActualizacion = CURRENT_TIMESTAMP WHERE Id = @Id;";
+            MySqlCommand command = new MySqlCommand(query);
+            command.Parameters.AddWithValue("@id", t.Id);
+            return RepositorioBD.ExecuteNonQuery(command);
+
         }
         public DataTable GetAll()
         {
