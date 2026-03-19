@@ -1,10 +1,7 @@
-<<<<<<< HEAD
 using LibreriaJoelito;
-=======
 using LibreriaJoelito.FactoryCreators;
 using LibreriaJoelito.FactoryProducts;
 using LibreriaJoelito.Models;
->>>>>>> 019a7adaae8de863a50bc79165c3f778499acbf6
 
 var builder = WebApplication.CreateBuilder(args);
 
