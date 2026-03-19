@@ -1,6 +1,5 @@
 using LibreriaJoelito;
-=========
->>>>>>>>> Temporary merge branch 2
+
 using LibreriaJoelito.FactoryCreators;
 using LibreriaJoelito.FactoryProducts;
 using LibreriaJoelito.Models;
