@@ -236,7 +236,15 @@ body {
     }
 .tabla-header-custom h5 {
     font-size: 1.1rem;
-} 
+}
+/* CABECERA DE TABLA (thead) */
+.table thead th {
+    background-color: #7b35be !important;
+    color: white !important;
+    text-align: center;
+    font-weight: 600;
+    border: none;
+}
 
 /* BOTONES */
 .btn-sistema {
@@ -270,6 +278,20 @@ body {
     justify-content: flex-end !important;
     gap: 10px !important;
 }
+.btn-sistema-outline {
+    background-color: transparent;
+    color: #5FB8A5;
+    border: 1px solid #5FB8A5;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+    .btn-sistema-outline:hover {
+        background-color: #5FB8A5;
+        color: white;
+    }
 /* MODAL MORADO */
 .modal-header-morado {
     background-color: #7b35be;
@@ -395,4 +417,33 @@ body {
 
 .btn-register:hover {
     background: #4AA897;
+}
+/* INPUTS Y SELECTS */
+.form-control {
+    border: 1.5px solid #4a4a4a; /* borde más oscuro */
+    border-radius: 6px;
+    box-shadow: none;
+    transition: all 0.2s ease-in-out;
+}
+
+    /* HOVER */
+    .form-control:hover {
+        border-color: #7b35be; /* morado suave */
+    }
+
+    /* FOCUS (cuando haces click) */
+    .form-control:focus {
+        border-color: #7b35be;
+        box-shadow: 0 0 0 0.15rem rgba(123, 53, 190, 0.2);
+        outline: none;
+    }
+
+/* SELECT (por si acaso) */
+select.form-control {
+    border: 1.5px solid #4a4a4a;
+}
+
+/* INPUTS EN MODALES (refuerzo por Bootstrap) */
+.modal .form-control {
+    border: 1.5px solid #4a4a4a;
 }
