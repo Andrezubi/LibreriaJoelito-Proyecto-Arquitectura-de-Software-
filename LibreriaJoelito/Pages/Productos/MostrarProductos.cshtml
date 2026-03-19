@@ -7,6 +7,14 @@
 
     <div class="page-container">
 
+        @if (!string.IsNullOrEmpty(Model.MensajeExito))
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @Model.MensajeExito
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
         <div class="tabla-header">
 
             <div class="tabla-titulo">
@@ -17,57 +25,203 @@
             </div>
 
         </div>
-           <div class="table-responsive">
+        <div class="table-responsive">
 
-            <table class="table tabla-sistema">
+            <table class="tabla-sistema table-hover table-bordered">
 
-    <thead>
-        <tr>
-            <th>Categoria</th>
-            <th>Nombre del Producto</th>
-            <th>Precio</th>
-            <th>Stock</th>
-            <th>Tipo de Venta</th>
-            <th>Factor de Conversion</th>
-            <th>Producto Base</th>
-            <th>Fecha de Registro</th>
-                        <th class="text-center">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (System.Data.DataRow row in Model.ProductosDataTable.Rows)
-        {
-            <tr>
-                <td>@row["Categoria"]</td>
-                <td>@row["Nombre"]</td>
-                <td>@row["Precio"]</td>
-                <td>@row["Stock"]</td>
-                <td>@row["Tipo_Venta"]</td>
-                <td>@row["Factor_Conversion"]</td>
-            <td>
-                @Model.getNameById(row["Id_Producto_Base"] == DBNull.Value
-                                ? 0
-                                : Convert.ToInt32(row["Id_Producto_Base"]))
-            </td>
-                <td>@row["FechaRegistro"]</td>
-                <td>
-                            <a asp-page="ProductoUpdate" asp-route-id="@row["Id"]" class="btn btn-sistema btn-sm">Editar</a>
-                    <form method="post" asp-page-handler="Delete" style="display:inline;">
-                        <input type="hidden" name="id" value="@row["Id"]" />
+                <thead>
+                    <tr>
+                        <th>Nombre del Producto</th>
+                        <th>Categoria</th>
+                        <th>Marca</th>
+                        <th>Stock</th>
+                        <th>Fecha de Registro</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (System.Data.DataRow row in Model.ProductosDataTable.Rows)
+                    {
+                        <tr>
+                            <td>@row["Nombre"]</td>
+                            <td>@Model.getCategoriaById(Convert.ToInt32(row["IdCategoria"]))</td>
+                            <td>@Model.getMarcaById(Convert.ToInt32(row["IdMarca"]))</td>
+                            <td>@row["Stock"]</td>
+                            <td>@row["FechaRegistro"]</td>
+                            <td>
+                                @* <a asp-page="ProductoUpdate" asp-route-id="@row["Id"]" class="btn btn-warning btn-sm">Editar</a> *@
+                                <a class="btn btn-warning btn-sm"
+                                   onclick="abrirModalUpdate(
+                                        '@row["Id"]',
+                                        '@row["Nombre"]',
+                                        '@row["IdCategoria"]',
+                                        '@row["IdMarca"]',
+                                        '@row["Stock"]')">Editar</a>
+                                @* <form method="post" asp-page-handler="Delete" style="display:inline;">
+                            <input type="hidden" name="id" value="@row["Id"]" />
 
-                        <button type="submit"
-                                        class="btn-sistema-danger" btn-sm"
+                            <button type="submit"
+                                class="btn btn-danger btn-sm"
                                 onclick="return confirm('¿Desea eliminar el producto @row["Nombre"] ?');">
-                            Eliminar
-                        </button>
-                    </form>
-                </td>
-            </tr>
-        }
-        
-       </tbody> 
-                </table>
-           </div>
-           
+                                Eliminar
+                            </button>
+                            </form> *@
+                                <a data-bs-toggle="modal" data-bs-target="#modalDelete-@row["Id"]" class="btn btn-danger btn-sm">Eliminar</a>
+                            </td>
+                        </tr>
+
+                        <div class="modal fade" id="modalDelete-@row["Id"]" tabindex="-1" aria-labelledby="EliminarProdcuto" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form method="post" asp-page-handler="Delete" asp-route-id="@row["Id"]">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Eliminar producto</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <span>¿Está seguro de eliminar el producto?</span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-danger">Sí</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
+@* MODAL DE ACtuALIZACION *@
+<div class="modal fade" id="modalEditarProducto" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form method="post" asp-page-handler="Update">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="editModalLabel">Editar Datos del Producto</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div id="alertaErrorModal" class="alert alert-danger" style="display:none;"></div>
+
+                    <input type="hidden" name="Id" id="edit_id" />
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label font-weight-bold">Nombre</label>
+                            <input type="text" name="Nombre" id="edit_nombre" class="form-control" placeholder="Ej:Tijeras" required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Categoría</label>
+                            @* <input type="text" name="IdCateogira" id="edit_categoria" class="form-control" placeholder="Ej:Perez" required /> *@
+                            <select class="form-control" id="edit_categoria" name="IdCategoria" required>
+                                @foreach (System.Data.DataRow row in Model.CategoriasDataTable.Rows)
+                                {
+                                    <option value="@row["Id"]">
+                                        @row["Nombre"]
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Marca</label>
+                            @* <input type="text" name="IdMarca" id="edit_marca" class="form-control" placeholder="Ej:Perez" /> *@
+                            <select class="form-control" id="edit_marca" name="IdMarca" required>
+                                @foreach (System.Data.DataRow row in Model.MarcasDataTable.Rows)
+                                {
+                                    <option value="@row["Id"]">
+                                        @row["Nombre"]
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Stock</label>
+                            <input type="text" name="Stock" id="edit_stock" class="form-control" placeholder="Ej:12345678" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="enviarUpdate()">
+                        Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+        function abrirModalUpdate(id, nombre, idCategoria, idMarca, stock) {
+
+        document.getElementById('edit_id').value = id;
+        document.getElementById('edit_nombre').value = nombre;
+        document.getElementById('edit_categoria').value = idCategoria;
+        document.getElementById('edit_marca').value = idMarca;
+        document.getElementById('edit_stock').value = stock;
+
+        // 🔥 limpiar errores
+        const alerta = document.getElementById('alertaErrorModal');
+        alerta.style.display = "none";
+        alerta.textContent = "";
+
+        new bootstrap.Modal(document.getElementById('modalEditarProducto')).show();
+    }
+
+        function enviarUpdate() {
+
+        const form = document.querySelector("#modalEditarProducto form");
+        const formData = new FormData(form);
+
+        const alerta = document.getElementById('alertaErrorModal');
+
+        // limpiar antes
+        alerta.style.display = "none";
+        alerta.innerHTML = "";
+
+        fetch('?handler=Update', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            }
+            else if (data.errores) {
+
+                // 🔥 mostrar lista
+                let html = "<ul>";
+
+                data.errores.forEach(err => {
+                    html += `<li>${err}</li>`;
+                });
+
+                html += "</ul>";
+
+                alerta.innerHTML = html;
+                alerta.style.display = "block";
+            }
+            else {
+                alerta.textContent = data.message;
+                alerta.style.display = "block";
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
