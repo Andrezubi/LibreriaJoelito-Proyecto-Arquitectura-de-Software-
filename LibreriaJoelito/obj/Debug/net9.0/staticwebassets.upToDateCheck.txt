@@ -82,6 +82,7 @@ D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Softwa
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\config-lib.svg
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\emp-lib.svg
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\home-lib.svg
+D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\logo-lib.svg
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\marca-lib.svg
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\prod-lib.svg
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\ventas-lib.svg
@@ -145,4 +146,3 @@ D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Softwa
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\jquery\dist\jquery.slim.min.js
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\jquery\dist\jquery.slim.min.map
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\jquery\LICENSE.txt
-D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\logo-lib.svg

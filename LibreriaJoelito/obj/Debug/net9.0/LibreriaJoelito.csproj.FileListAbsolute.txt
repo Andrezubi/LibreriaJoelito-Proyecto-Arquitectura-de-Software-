@@ -50,7 +50,6 @@ D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Softwa
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\wk12xrzvbi-0om9sic7db.gz
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\0zsmqgcvh7-bdd29k9jzr.gz
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\9r7ylebp6n-krq68ftbbd.gz
-D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\l9un6o5xty-zpxbe0wiav.gz
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\h79mz9j8z3-4w8rfzg3kw.gz
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\37jtcwbu57-xfa3rr7zmr.gz
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\iawoaa7ulj-xtxxf3hu2r.gz
@@ -127,3 +126,4 @@ D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Softwa
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\LibreriaJoelito.genruntimeconfig.cache
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\ref\LibreriaJoelito.dll
 D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\s3ouztwna6-92mlhxtgol.gz
+D:\Cosas de la U Nicole\Arq Soft\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\l9un6o5xty-0r2bvt3mmy.gz
