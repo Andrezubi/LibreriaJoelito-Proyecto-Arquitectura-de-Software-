@@ -34,7 +34,7 @@ namespace LibreriaJoelito.Validators
             if (!Regex.IsMatch(nombre, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"))
             {
                 errores.Add(new ValidationResult(
-                    "Nombre no puede contener Caracteres Invalidos.",
+                    "Nombre no puede contener caracteres inválidos y números.",
                     new[] { "Nombre" }));
             }
         }
@@ -57,11 +57,6 @@ namespace LibreriaJoelito.Validators
         {
             if (idMarca <= 0)
                 errores.Add(new ValidationResult("La marca es obligatoria.", new[] { "IdMarca" }));
-        }
-
-        public static bool ContieneCaracteresInvalidos(string texto)
-        {
-            return !Regex.IsMatch(texto, @"^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s\-\.\&\(\),\/]+$");
         }
     }
 }
