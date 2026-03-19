@@ -2,28 +2,32 @@
 @model IndexModel
 
 @{
-    ViewData["Title"] = "Inicio";
+	ViewData["Title"] = "Inicio";
 }
 
-<div class="sistema-de-gestion">
+<img class="element" src="~/img/background-lib.png">
 
-        <div class="content-area">
 
-            <img class="element" src="~/img/background-lib.png">
+	@section HeaderButtons{
 
-            <div class="center-text">
+	<a href="/Index" class="btn-login">
+			Iniciar sesión
+		</a>
 
-                <p class="bienvenido-al">
-                    Bienvenido Al Sistema De Gestión De La Librería Joelito
-                </p>
+	<a href="/Index" class="btn-register">
+			Registrarse
+		</a>
 
-                <p class="seleccione-una-opci">
-                    Seleccione Una Opción Del Menú Para Comenzar
-                </p>
+	}
 
-            </div>
+<div class="center-text">
 
-        </div>
+	<p class="bienvenido-al">
+		Bienvenido al Sistema de Gestión de la Librería Joelito
+	</p>
 
+	<p class="seleccione-una-opci">
+		Seleccione una opción del menú para comenzar
+	</p>
 
 </div>

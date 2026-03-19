@@ -36,8 +36,9 @@
                 </option>
             }
         </select>
-            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#modalCategoria">
-                + Nueva Categoria
+            <button type="button" class="btn btn-sistema-outline btn-sm mt-2"
+                    data-bs-toggle="modal" data-bs-target="#modalCategoria">
+                + Nueva Categoría
             </button>
 
     </div>
@@ -54,7 +55,8 @@
                 </option>
             }
         </select>
-            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#modalMarca">
+            <button type="button" class="btn btn-sistema-outline btn-sm mt-2"
+                    data-bs-toggle="modal" data-bs-target="#modalMarca">
                 + Nueva Marca
             </button>
 
@@ -66,15 +68,15 @@
     </div>
     
 
-    <button type="submit" class="btn btn-primary" style="margin: 10px 0;">Guardar</button>
-    <a asp-page="MostrarProductos" class="btn btn-secondary" style="margin: 10px 0;">Volver</a>
+    <button type="submit" class="btn btn-sistema" style="margin: 10px 0;">Guardar</button>
+    <a asp-page="MostrarProductos" class="btn btn-cancelar" style="margin: 10px 0;">Volver</a>
 </form>
 </div>
 <!-- Modal Categoria -->
 <div class="modal fade" id="modalCategoria" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header modal-header-morado">
                 <h5>Nueva Categoria</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
@@ -85,7 +87,7 @@
             </div>
 
             <div class="modal-footer">
-                <button class="btn btn-primary" onclick="crear('categoria')">Guardar</button>
+                <button class="btn btn-sistema" onclick="crear('categoria')">Guardar</button>
             </div>
         </div>
     </div>
@@ -94,7 +96,7 @@
 <div class="modal fade" id="modalMarca" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header modal-header-morado">
                 <h5>Nueva Marca</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
@@ -105,7 +107,7 @@
             </div>
 
             <div class="modal-footer">
-                <button class="btn btn-primary" onclick="crear('marca')">Guardar</button>
+                <button class="btn btn-sistema" onclick="crear('marca')">Guardar</button>
             </div>
         </div>
     </div>

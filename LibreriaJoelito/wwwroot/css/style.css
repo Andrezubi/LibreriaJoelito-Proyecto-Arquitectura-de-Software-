@@ -1,121 +1,178 @@
-﻿/*
-   CONTENEDOR PRINCIPAL DEL SISTEMA
-*/
+﻿/* TIPOGRAFIA GLOBAL */
+
+body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    background: #f6f7fb;
+    color: #2f2f2f;
+}
+
+/* LAYOUT PRINCIPAL */
+
 .sistema-de-gestion {
-    width: 100%;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
 }
-/*
-/*
-   HEADER
-*/
-.overlap-group {
-    width: 100%;
-    height: clamp(90px,10vh,140px);
-    background: #7b35bed9;
+/* FONDO GENERAL DEL SISTEMA */
+.bg-sistema {
+    background-color: #cfe6e2
+}
+/* HEADER */
+
+.main-header {
+    height: 80px;
+    background: #7b35be;
     display: flex;
     align-items: center;
-    padding-left: 2vw;
-    gap: 2vw;
+    justify-content: space-between;
+    padding: 0 30px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-/* LOGO */
+/* lado izquierdo */
 
-.group-3 {
-    width: clamp(50px,6vw,90px);
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* logo */
+
+.logo {
+    width: 70px;
+    height: 70px;
     background-image: url("/img/logo-lib.svg");
     background-size: contain;
-    background-repeat: no-repeat;
     background-position: center;
-    aspect-ratio: 1/1;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
 }
 
-/* TEXTO HEADER */
+/* texto header */
 
 .header-text {
     display: flex;
     flex-direction: column;
 }
 
-.librer-a-joelito {
-    font-family: "Poppins-Bold";
-    font-size: clamp(14px,2.5vw,28px);
-    color: #000000c4;
+.titulo-sistema {
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
 }
 
-.sistema-de-gesti-n {
-    font-family: "Poppins-SemiBold";
-    font-size: clamp(10px,1.6vw,18px);
-    color: #000000c4;
+.subtitulo-sistema {
+    font-size: 13px;
+    color: #e9d9ff;
 }
 
-/*
-   CONTENEDOR PRINCIPAL
-*/
-.main-container {
-    flex: 1;
+/* status bar */
+
+.header-status {
     display: flex;
+    gap: 15px;
 }
 
-/*
-   SIDEBAR
-*/
-.rectangle {
-    width: clamp(200px,20vw,320px);
-    background: #81d2bd;
+.status-item {
+    background: rgba(255,255,255,0.18);
+    padding: 6px 14px;
+    border-radius: 20px;
+    color: white;
+    font-size: 14px;
+}
+
+
+/*MAIN CONTAINER*/
+
+
+.main-container {
+    height: calc(100vh - 80px); 
+    display: flex;
+    overflow: hidden; 
+}
+
+/*SIDEBAR*/
+
+.sidebar {
+    width: 250px;
+    background: #5FB8A5;
     display: flex;
     flex-direction: column;
-}
+    padding-top: 25px;
+    height: 100%;
+    overflow-y: auto;
 
-/*
-   BOTONES MENU
-*/
+    box-shadow: 2px 0 10px rgba(0,0,0,0.08);
+    border-right: 1px solid rgba(0,0,0,0.08);
+}
+/* menu items */
+
 .menu-item {
     display: flex;
     align-items: center;
-    gap: 1vw;
-    padding: 1.2vw;
-    border-bottom: 1px solid #00000099;
-    background: #8ad6c2;
-    cursor: pointer;
-    transition: background 0.2s ease;
+    gap: 16px;
+    padding: 16px 22px;
     text-decoration: none;
-    color: inherit;
+    color: #F5F5F5;
+    font-weight: 500;
+    font-size: 15px;
+    border-left: 4px solid transparent;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    transition: all .25s ease;
 }
 
     .menu-item:hover {
-        background: #6987d2;
+        background: #74d3bb;
+        padding-left: 28px;
     }
+    /* activo */
 
     .menu-item.active {
-        background: #8ad6c2;
+        background: #6ecab3;
+        border-left: 4px solid #7b35be;
+        font-weight: 600;
+        box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+        
     }
 
-/*
-   TEXTO MENU
-*/
-.menu-text {
-    font-family: "Poppins-SemiBold";
-    font-size: clamp(14px,1.4vw,22px);
-    color: #000000d9;
+/* iconos */
+
+.menu-icon {
+    width: 32px;
+    height: 32px;
+    opacity: 2;
+    color: white;
+    stroke-width: 6;
+    filter: brightness(0) invert(1) drop-shadow(0 0 0.7px white);
+}
+.menu-item:hover .menu-icon {
+    opacity: 1;
 }
 
-/*
-   AREA CENTRAL
-*/
+/*AREA CENTRAL*/
+
 .content-area {
-    flex:1;
+    flex: 1;
     position: relative;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
+
+/*HOME PAGE*/
 
 .element {
-    position:absolute;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    z-index: 0;
 }
 
 .center-text {
@@ -125,200 +182,268 @@
     transform: translate(-50%,-50%);
     text-align: center;
     width: 70%;
+    z-index: 2;
 }
 
 .bienvenido-al {
-    font-family: "Poppins-Bold";
-    font-size: clamp(20px,3vw,36px);
-    color: #000000c4;
-    margin-bottom: 1vh;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 8px;
 }
 
 .seleccione-una-opci {
-    font-family: "Poppins-SemiBold";
-    font-size: clamp(14px,1.8vw,22px);
-    color: #000000c4;
+    font-size: 16px;
+    font-weight: 400;
+    opacity: 0.85;
 }
 
+/* TABLAS */
+/* HEADER TABLA */
+.tabla-header-custom {
+    background-color: #7b35be;
+    color: white;
+}
 
-/*
-   CONTENEDOR DE PAGINAS INTERNAS
-*/
-.page-container {
+/* ENCABEZADO TABLA */
+.tabla-head-custom {
+    background-color: #5FB8A5;
+    color: white;
+}
 
+/* CARD */
+.tabla-wrapper {
     width: 100%;
-    overflow-x: auto;
+    max-width: 1400px;
 }
-
-/*
-   TITULO PAGINA
-*/
-.titulo-pagina {
-    font-family: "Poppins-Bold";
-    font-size: clamp(22px,2.5vw,34px);
-    margin-bottom: 2vh;
-    color: #333;
+.content-area {
+    padding-top: 20px;
 }
-
-/*
-   TABLA
-*/
-.tabla-sistema {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border-radius: 0;
+.tabla-card {
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    border: 1px solid black !important;
+    width: 100%;
 }
-
-    .tabla-sistema th {
-        background: #8ae3ff;
-        color: black;
-        padding: 12px;
-        text-align: center;
-        font-family: "Poppins-SemiBold";
-        border: 1px solid black;
-    }
-
-    .tabla-sistema td {
-        padding: 12px;
-        border-bottom: 1px solid #eee;
-        text-align: center;
-        border: 1px solid black;
-    }
-
-    .tabla-sistema tr:hover {
-        background: #f5f5f5;
-    }
-/* Bootstrap table fix inside system layout */
 
 .table {
-    margin-bottom: 0;
+    font-size: 0.9rem;
+    border: 1px solid #000 !important;
 }
-
+    .table td,
     .table th {
-        vertical-align: middle;
-        
-        
+        padding: 8px;
+        text-align: center;
+        border: 1px solid #000 !important;
+    }
+.tabla-header-custom h5 {
+    font-size: 1.1rem;
+}
+/* CABECERA DE TABLA (thead) */
+.table thead th {
+    background-color: #7b35be !important;
+    color: white !important;
+    text-align: center;
+    font-weight: 600;
+    border: none;
+}
+
+/* BOTONES */
+.btn-sistema {
+    background-color: #5FB8A5;
+    color: white;
+    border: none;
+}
+.btn-sm {
+    padding: 4px 10px;
+    font-size: 0.8rem;
+}
+
+    .btn-sistema:hover {
+        background-color: #4aa894;
     }
 
-    .table td {
-        vertical-align: middle;
-        
-        
+.btn-sistema-danger {
+    background-color: #7b35be;
+    color: white;
+    border: none;
+}
+
+    .btn-secondary:hover {
+        background-color: #6f757d !important;
     }
-/* 
-   BOTONES PERSONALIZADOS DEL SISTEMA
- */
-
-/* BOTON AÑADIR (PRIMARY) - MORADO */
-
-.btn-primary {
-    background-color: #7b35bed9;
-    border-color: #7b35bed9;
-    color: black;
+    .btn-sistema-danger:hover {
+        background-color: #5e2893;
+    }
+.modal-footer {
+    display: flex !important;
+    justify-content: flex-end !important;
+    gap: 10px !important;
+}
+.btn-sistema-outline {
+    background-color: transparent;
+    color: #5FB8A5;
+    border: 1px solid #5FB8A5;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 13px;
+    transition: all 0.2s ease;
 }
 
-    .btn-primary:hover {
-        background-color: #692bb0;
-        border-color: #692bb0;
-        
+    .btn-sistema-outline:hover {
+        background-color: #5FB8A5;
+        color: white;
+    }
+/* MODAL MORADO */
+.modal-header-morado {
+    background-color: #7b35be;
+    color: white;
+}
+/* BOTONES */
+/* BOTONES GENERALES (Añadir + Editar) */
+.btn-sistema {
+    background-color: #5FB8A5; /* verde del sistema */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+    .btn-sistema:hover {
+        background-color: #4aa894; /* verde más oscuro */
     }
 
-/* BOTON EDITAR (WARNING) - MORADO */
-
-.btn-warning {
-    background-color: #7b35bed9;
-    border-color: #7b35bed9;
-    color: black;
+/* BOTON ELIMINAR */
+.btn-sistema-danger {
+    background-color: #7b35be; /* morado del sistema */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 13px;
+    transition: 0.2s;
 }
 
-    .btn-warning:hover {
-        background-color: #692bb0;
-        border-color: #692bb0;
-        color: black;
+    .btn-sistema-danger:hover {
+        background-color: #5e2893; /* morado más oscuro */
+    }
+.btn-cancelar {
+    background-color: #8a8f98;
+    color: white;
+    border: none;
+    font-size: 13px;
+}
+
+    .btn-cancelar:hover {
+        background-color: #6f757d;
     }
 
-/* BOTON ELIMINAR (DANGER) - VERDE */
-
-.btn-danger {
-    background-color: #81d2bd;
-    border-color: #81d2bd;
-    color: black;
+/* BOTONES EN GRUPO */
+.btn-group .btn {
+    margin: 0 2px;
 }
 
-    .btn-danger:hover {
-        background-color: #6cc3ad;
-        border-color: #6cc3ad;
-        color: black;
-    }
-/* =================================
-   HEADER DE TABLAS
-   ================================= */
-
-.tabla-header {
-    width: 100%;
-    background: #8ae3ff;
-    color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    padding: 12px;
-    border-radius: 0;
-    border: 1px solid black;
-}
-
-/* TITULO CENTRADO */
-
-.tabla-titulo {
-    font-family: "Poppins-Bold";
-    font-size: 22px;
-}
-
-/* BOTON AÑADIR A LA DERECHA */
-
-.tabla-acciones {
-    position: absolute;
-    right: 15px;
-}
-/* CONTENEDOR DEL FORMULARIO */
+/* FORMULARIOS */
 
 .form-container {
     max-width: 800px;
     margin: auto;
     background: white;
+    border: 1px solid #444;
     padding: 30px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-
-/* HEADER DEL FORMULARIO */
-
 .form-header {
-    background: #7b35bed9;
+    background: #7b35be;
     color: white;
     font-size: 22px;
-    font-weight: bold;
+    font-weight: 600;
     padding: 12px;
     text-align: center;
     margin-bottom: 25px;
 }
+/* SCROLLBAR SIDEBAR */
 
-
-/* ESPACIO ENTRE FILAS */
-
-.row {
-    margin-bottom: 15px;
+.sidebar::-webkit-scrollbar {
+    width: 6px;
 }
 
+.sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
 
-/* BOTONES */
+.sidebar::-webkit-scrollbar-thumb {
+    background: #7b35be;
+    border-radius: 10px;
+}
 
-.form-buttons {
-    margin-top: 20px;
+    .sidebar::-webkit-scrollbar-thumb:hover {
+        background: #692bb0;
+    }
+/* HEADER SOLO PARA INDEX */
+.header-right {
     display: flex;
     gap: 10px;
+    align-items: center;
+    margin-right: 30px;
+}
+
+.btn-login {
+    padding: 6px 14px;
+    border-radius: 8px;
+    background: white;
+    color: #3F8F7B;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.2s;
+    font-size: 15px;
+}
+
+.btn-register {
+    padding: 6px 14px;
+    border-radius: 8px;
+    background: #5FB8A5;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.2s;
+    font-size: 15px;
+}
+
+.btn-login:hover {
+    background: #f2f2f2;
+}
+
+.btn-register:hover {
+    background: #4AA897;
+}
+/* INPUTS Y SELECTS */
+.form-control {
+    border: 1.5px solid #4a4a4a; /* borde más oscuro */
+    border-radius: 6px;
+    box-shadow: none;
+    transition: all 0.2s ease-in-out;
+}
+
+    /* HOVER */
+    .form-control:hover {
+        border-color: #7b35be; /* morado suave */
+    }
+
+    /* FOCUS (cuando haces click) */
+    .form-control:focus {
+        border-color: #7b35be;
+        box-shadow: 0 0 0 0.15rem rgba(123, 53, 190, 0.2);
+        outline: none;
+    }
+
+/* SELECT (por si acaso) */
+select.form-control {
+    border: 1.5px solid #4a4a4a;
+}
+
+/* INPUTS EN MODALES (refuerzo por Bootstrap) */
+.modal .form-control {
+    border: 1.5px solid #4a4a4a;
 }

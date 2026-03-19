@@ -4,26 +4,23 @@
 	ViewData["Title"] = "Empleados";
 }
 
+<div class="container-fluid mt-4 px-4">
+	<div class="d-flex justify-content-center">
+		<div class="tabla-wrapper">
 
 
+			<div class="card shadow-sm tabla-card">
 
-<div class="content-area">
+				<!-- HEADER -->
+				<div class="card-header d-flex justify-content-between align-items-center tabla-header-custom">
 
-	<div class="page-container">
+					<h5 class="mb-0">Lista de Empleados</h5>
 
-		<div class="tabla-header">
+					<a asp-page="EmpleadoCreate" class="btn btn-sistema btn-sm">
+						+ Nuevo Empleado
+					</a>
 
-			<div class="tabla-titulo">
-				Lista de Empleados
-			</div>
-			
-			<div class="tabla-acciones">
-				<a asp-page="EmpleadoCreate" class="btn btn-primary btn-sm">
-					Añadir Empleado
-				</a>
-			</div>
-
-		</div>
+				</div>
 		@if (TempData["SuccessMessage"] != null)
 		{
 			<div class="alert alert-success">
@@ -36,79 +33,86 @@
 				@TempData["ErrorMessage"]
 			</div>
 		}
-			<div class="table-responsive">
+				<div class="card-body p-0">
 
-				<table class="tabla-sistema table-hover table-bordered">
-	 <thead>
-		<tr>
-			<th>Nombre</th>
-			<th>Apellido Paterno</th>
-			<th>Apellido Materno</th>
-			<th>Ci</th>
-			<th>Fecha de Nacimiento</th>
-			<th>Email</th>
-			<th>Dirección</th>
-			<th>Celular</th>
-			<th>Fecha Ingreso</th>
-		</tr>
-	</thead>
+					<div class="table-responsive">
 
-	<tbody>
-		@foreach (System.Data.DataRow row in Model.EmpleadoDataTable.Rows)
-		{
-			<tr>
-				<td>@row["Nombre"]</td>
-				<td>@row["ApellidoPaterno"]</td>
-				<td>@row["ApellidoMaterno"]</td>
-				@if (row["Complemento"] != DBNull.Value && !string.IsNullOrEmpty(row["Complemento"].ToString()))
-				{
-					<td>@(row["Ci"] + "-" + row["Complemento"])</td>
-				}
-				else
-				{
-					<td>@row["Ci"]</td>
-				}
-				<td>@row["FechaNacimiento"]</td>
-				<td>@row["Email"]</td>
-				<td>@row["DireccionDomicilio"]</td>
-				<td>@row["Telefono"]</td>
-				<td>@row["FechaIngreso"]</td>										
-				<td>
-					<a onclick="abrirModalUpdate(
-						'@row["Id"]',
-						'@row["Nombre"]',
-						'@row["ApellidoPaterno"]',
-						'@row["ApellidoMaterno"]',
-						'@row["Ci"]',
-						'@row["Email"]',
-						'@row["Complemento"]',
-						'@row["DireccionDomicilio"]',
-						'@row["Telefono"]',
-						'@(row["FechaIngreso"] != DBNull.Value ? Convert.ToDateTime(row["FechaIngreso"]).ToString("yyyy-MM-dd") : "")',
-						'@(row["FechaNacimiento"] != DBNull.Value ? Convert.ToDateTime(row["FechaNacimiento"]).ToString("yyyy-MM-dd") : "")')"
-@* 									   '@(row["FechaIngreso"] != DBNull.Value ? ((DateOnly)row["FechaNacimiento"]).ToString("yyyy-MM-dd") : "")' ,
+						<table class="table table-hover align-middle mb-0">
+
+							<thead class="tabla-head-custom">
+
+								<tr>
+									<th>Nombre</th>
+									<th>Apellido Paterno</th>
+									<th>Apellido Materno</th>
+									<th>Ci</th>
+									<th>Fecha de Nacimiento</th>
+									<th>Email</th>
+									<th>Dirección</th>
+									<th>Celular</th>
+									<th>Fecha Ingreso</th>
+									<th class="text-center">Acciones</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								@foreach (System.Data.DataRow row in Model.EmpleadoDataTable.Rows)
+								{
+									<tr>
+										<td>@row["Nombre"]</td>
+										<td>@row["ApellidoPaterno"]</td>
+										<td>@row["ApellidoMaterno"]</td>
+										@if (row["Complemento"] != DBNull.Value && !string.IsNullOrEmpty(row["Complemento"].ToString()))
+										{
+											<td>@(row["Ci"] + "-" + row["Complemento"])</td>
+										}
+										else
+										{
+											<td>@row["Ci"]</td>
+										}
+										<td>@row["FechaNacimiento"]</td>
+										<td>@row["Email"]</td>
+										<td>@row["DireccionDomicilio"]</td>
+										<td>@row["Telefono"]</td>
+										<td>@row["FechaIngreso"]</td>
+										<td>
+											<a onclick="abrirModalUpdate(
+							'@row["Id"]',
+							'@row["Nombre"]',
+							'@row["ApellidoPaterno"]',
+							'@row["ApellidoMaterno"]',
+							'@row["Ci"]',
+							'@row["Email"]',
+							'@row["Complemento"]',
+							'@row["DireccionDomicilio"]',
+							'@row["Telefono"]',
+							'@(row["FechaIngreso"] != DBNull.Value ? Convert.ToDateTime(row["FechaIngreso"]).ToString("yyyy-MM-dd") : "")',
+							'@(row["FechaNacimiento"] != DBNull.Value ? Convert.ToDateTime(row["FechaNacimiento"]).ToString("yyyy-MM-dd") : "")')"
+											   @* 									   '@(row["FechaIngreso"] != DBNull.Value ? ((DateOnly)row["FechaNacimiento"]).ToString("yyyy-MM-dd") : "")' ,
 									   '@(row["FechaNacimiento"] != DBNull.Value ? ((DateOnly)row["FechaNacimiento"]).ToString("yyyy-MM-dd") : "")' )" *@
-					           class="btn btn-warning btn-sm">
+					           class="btn btn-sistema btn-sm">
 								Editar
 						</a>
-						<a data-bs-toggle="modal" onclick="prepararEliminacion(@row["Id"])" class="btn btn-danger btn-sm">Eliminar</a>
+						<a data-bs-toggle="modal" onclick="prepararEliminacion(@row["Id"])" class="btn btn-sistema-danger btn-sm">Eliminar</a>
 				</td>
 			</tr>
 			
 		}
-	</tbody>
-   </table>
- </div>
-  </div>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
- 
 
 @* MODAL ELIMINACION *@
 <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="EliminarEmpleado" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<form method="post" asp-page-handler="Delete">
-				<div class="modal-header">
+				<div class="modal-header modal-header-morado">
 					<h5 class="modal-title">Eliminar empleado</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 				</div>
@@ -117,8 +121,8 @@
 					<span>¿Está seguro de eliminar el empleado?</span>
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-danger">Sí</button>
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+					<button type="submit" class="btn btn-sistema-danger">Sí</button>
+					<button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
 				</div>
 			</form>
 		</div>
@@ -131,7 +135,7 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<form method="post" asp-page-handler="Update">
-				<div class="modal-header bg-primary text-white">
+				<div class="modal-header modal-header-morado">
 					<h5 class="modal-title" id="editModalLabel">Editar Datos del Empleado</h5>
 					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
@@ -150,7 +154,7 @@
 							<input type="text" name="ApellidoPaterno" id="edit_paterno" class="form-control" placeholder="Ej:Perez" required />
 						</div>
 						<div class="col-md-4 mb-3">
-							<label class="form-label">Apellido Materno</label>
+							<label class="form-label">Apellido Materno (Opcional)</label>
 							<input type="text" name="ApellidoMaterno" id="edit_materno" class="form-control" placeholder="Ej:Perez" />
 						</div>
 					</div>
@@ -161,7 +165,7 @@
 							<input type="text" name="Ci" id="edit_ci" class="form-control" placeholder="Ej:12345678" required />
 						</div>
 						<div class="col-md-4 mb-3">
-							<label class="form-label">Complemento</label>
+							<label class="form-label">Complemento (Opcional)</label>
 							<input type="text" name="Complemento" id="edit_complemento" class="form-control" placeholder="Ej:1A" />
 						</div>
 						<div class="col-md-4 mb-3">
@@ -172,11 +176,11 @@
 
 					<div class="row">
 						<div class="col-md-6 mb-3">
-							<label class="form-label">Dirección</label>
+							<label class="form-label">Dirección (Opcional)</label>
 							<input type="text" name="DireccionDomicilio" id="edit_direccion" class="form-control" placeholder="Ej:Plaza 14 de septiembre N°123" />
 						</div>
 						<div class="col-md-6 mb-3">
-							<label class="form-label">Teléfono</label>
+							<label class="form-label">Teléfono (Opcional)</label>
 							<input type="text" name="Telefono" id="edit_telefono" class="form-control" placeholder="Ej:77777777" />
 						</div>
 					</div>
@@ -187,14 +191,14 @@
 							<input type="date" name="FechaNacimiento" id="edit_fechaNacimiento" class="form-control" required />
 						</div>
 						<div class="col-md-6 mb-3">
-							<label class="form-label text-muted">Fecha de Ingreso</label>
+							<label class="form-label text-muted">Fecha de Ingreso (Opcional)</label>
 							<input type="date" name="FechaIngreso" id="edit_fechaIngreso" class="form-control" />
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-					<button type="button" class="btn btn-primary" onclick="enviarUpdate()">Guardar Cambios</button>
+					<button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+					<button type="button" class="btn btn-sistema" onclick="enviarUpdate()">Guardar Cambios</button>
 				</div>
 			</form>
 		</div>

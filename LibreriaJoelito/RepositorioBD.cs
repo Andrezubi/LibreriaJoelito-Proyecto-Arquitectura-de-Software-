@@ -20,6 +20,7 @@ namespace LibreriaJoelito
                 throw new ArgumentNullException("connectionString", "La cadena de conexión no puede ser nula o vacía.");
             _connectionString = connectionString;
         }
+
         public static int ExecuteNonQuery(MySqlCommand comando)
         {
             using (MySqlConnection con = new MySqlConnection(CatchStringConnection()))
