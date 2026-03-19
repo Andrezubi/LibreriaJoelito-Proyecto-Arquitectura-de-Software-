@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using LibreriaJoelito.Models;
+using System.Data;
 
 namespace LibreriaJoelito.FactoryProducts
 {
@@ -9,5 +10,6 @@ namespace LibreriaJoelito.FactoryProducts
         int Delete(T t);
         DataTable GetAll();
         DataRow GetById(int id);
+        bool ExisteDuplicado(T t);
     }
 }

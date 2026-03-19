@@ -108,5 +108,21 @@ namespace LibreriaJoelito.FactoryProducts
         {
             return new DataTable().NewRow();
         }
+
+        public bool ExisteDuplicado(Empleado empleado)
+        {
+            MySqlCommand cmd = new MySqlCommand(@"
+                SELECT COUNT(*) FROM Empleado
+                WHERE Ci          = @ci
+                  AND Complemento = @complemento
+                  AND Id         <> @id
+                  AND Estado      = 1");
+
+            cmd.Parameters.AddWithValue("@ci", empleado.Ci);
+            cmd.Parameters.AddWithValue("@complemento", empleado.Complemento ?? string.Empty);
+            cmd.Parameters.AddWithValue("@id", empleado.Id);
+
+            return Convert.ToInt32(RepositorioBD.ExecuteScalar(cmd)) > 0;
+        }
     }
 }

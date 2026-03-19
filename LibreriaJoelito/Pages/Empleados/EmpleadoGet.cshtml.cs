@@ -74,53 +74,15 @@ namespace LibreriaJoelito.Pages.Empleados
 
         public IActionResult OnPostUpdate()
         {
-            if (!EmpleadoValidator.esNombreValido(Nombre))
+            Empleado empleado = new Empleado(Id, Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, DireccionDomicilio, Email, Telefono, FechaNacimiento, FechaIngreso);
+
+            var resultados = EmpleadoValidator.Validar(empleado);
+
+            if (resultados.Any())
             {
-                return new JsonResult(new { success = false, message = "El nombre no es válido (mínimo 2 caracteres y sin espacios a los lados)." });
+                return new JsonResult(new { succes= false, message = resultados.First().ErrorMessage });
             }
-
-            if (!EmpleadoValidator.esApellidoValido(ApellidoPaterno))
-            {
-                return new JsonResult(new { success = false, message = "El apellido no es válido (mínimo 4 caracteres)." });
-            }
-
-            if (!EmpleadoValidator.esCiValido(Ci))
-            {
-                return new JsonResult(new { success = false, message = "El CI debe tener entre 6 y 11 digitos" });
-            }
-
-            if (!EmpleadoValidator.esExtensionCarnetValida(Complemento))
-            {
-                return new JsonResult(new { success = false, message = "La extensión del carnet debe estar compuesta de un número y una letra." });
-            }
-
-            if (!EmpleadoValidator.esCorreoValido(Email))
-            {
-                return new JsonResult(new { success = false, message = "El formato del correo electrónico no es correcto." });
-            }
-
-            if (!EmpleadoValidator.esFechaNacimientoValida(FechaNacimiento))
-            {
-                return new JsonResult(new { success = false, message = "La fecha de nacimiento no es válida (debe ser mayor de 18 años)." });
-            }
-
-            if (!EmpleadoValidator.esTelefonoValido(Telefono))
-            {
-                return new JsonResult(new { success = false, message = "El número de teléfono debe tener 7-8 dígitos." });
-            }
-
-            if (!EmpleadoValidator.esDireccionValida(DireccionDomicilio))
-            {
-                return new JsonResult(new { success = false, message = "La dirección no es válida (mínimo 10 caracteres)." });
-            }
-
-            if (!EmpleadoValidator.esFechaIngresoValida(FechaIngreso))
-            {
-                return new JsonResult(new { success = false, message = "La fecha de ingreso no es válida (no puede ser una fecha futura)." });
-            }
-
-
-            Empleado empleado = new Empleado(Id, Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, DireccionDomicilio, Email, Convert.ToInt32(Telefono), FechaNacimiento, FechaIngreso);
+            
 
             if (_empleadoRepo.Update(empleado) == 1){
                 return new JsonResult(new { success = true });

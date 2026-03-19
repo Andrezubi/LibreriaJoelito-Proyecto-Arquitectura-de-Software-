@@ -3,6 +3,13 @@
 @{
 }
 
+@if (TempData["CreateSucces"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["CreateSucces"]
+    </div>
+}
+
 <div class="form-container">
     <div class="form-header">
         Nuevo Empleado
