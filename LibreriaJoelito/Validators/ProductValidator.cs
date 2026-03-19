@@ -31,7 +31,7 @@ namespace LibreriaJoelito.Validators
 
             if (nombre.Length > 150)
                 errores.Add(new ValidationResult("El nombre no puede tener más de 150 caracteres.", new[] { "Nombre" }));
-            if (ContieneCaracteresInvalidos(nombre))
+            if (!Regex.IsMatch(nombre, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"))
             {
                 errores.Add(new ValidationResult(
                     "Nombre no puede contener Caracteres Invalidos.",
