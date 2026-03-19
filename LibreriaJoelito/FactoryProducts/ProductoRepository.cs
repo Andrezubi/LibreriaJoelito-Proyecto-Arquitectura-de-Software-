@@ -80,5 +80,11 @@ namespace LibreriaJoelito.FactoryProducts
             command.Parameters.AddWithValue("@id", producto.Id);
             return RepositorioBD.ExecuteNonQuery(command);
         }
+
+        public bool ExisteDuplicado(Producto producto)
+        {
+            return false;
+        }
+
     }
 }

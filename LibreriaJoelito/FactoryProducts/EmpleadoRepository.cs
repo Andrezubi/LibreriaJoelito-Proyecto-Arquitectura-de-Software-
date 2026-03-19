@@ -97,8 +97,8 @@ namespace LibreriaJoelito.FactoryProducts
         public DataTable GetAll()
         {
             string query = @"SELECT Id, Nombre, ApellidoPaterno, ApellidoMaterno, Ci,Complemento, DATE_FORMAT(FechaNacimiento, '%Y-%m-%d') AS FechaNacimiento,Email, DireccionDomicilio, Telefono, DATE_FORMAT(FechaIngreso, '%Y-%m-%d') AS FechaIngreso
-                            FROM Empleado
-                            WHERE estado = 1
+                    FROM Empleado
+                    WHERE estado = 1
                             ORDER BY 2;
                             ";
             MySqlCommand command = new MySqlCommand(query);
@@ -107,6 +107,22 @@ namespace LibreriaJoelito.FactoryProducts
         public DataRow GetById(int id)
         {
             return new DataTable().NewRow();
+        }
+
+        public bool ExisteDuplicado(Empleado empleado)
+        {
+            MySqlCommand cmd = new MySqlCommand(@"
+                SELECT COUNT(*) FROM Empleado
+                WHERE Ci          = @ci
+                  AND Complemento = @complemento
+                  AND Id         <> @id
+                  AND Estado      = 1");
+
+            cmd.Parameters.AddWithValue("@ci", empleado.Ci);
+            cmd.Parameters.AddWithValue("@complemento", empleado.Complemento ?? string.Empty);
+            cmd.Parameters.AddWithValue("@id", empleado.Id);
+
+            return Convert.ToInt32(RepositorioBD.ExecuteScalar(cmd)) > 0;
         }
     }
 }

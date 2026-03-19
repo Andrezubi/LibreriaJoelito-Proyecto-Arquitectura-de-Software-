@@ -3,16 +3,10 @@
 @{
 }
 
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success">
-        @TempData["SuccessMessage"]
-    </div>
-}
-else if (TempData["ErrorMessage"] != null)
+@if (TempData["CreateSucces"] != null)
 {
     <div class="alert alert-danger">
-        @TempData["ErrorMessage"]
+        @TempData["CreateSucces"]
     </div>
 }
 
@@ -98,7 +92,7 @@ else if (TempData["ErrorMessage"] != null)
                 @Model.messageResult
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                <a type="button" class="btn btn-primary" asp-page="EmpleadoGet">Aceptar</a>
             </div>
         </div>
     </div>

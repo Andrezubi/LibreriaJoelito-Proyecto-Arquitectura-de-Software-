@@ -1,4 +1,4 @@
-﻿namespace LibreriaJoelito.Models
+namespace LibreriaJoelito.Models
 {
     public class Empleado
     {
@@ -10,14 +10,14 @@
         public string Complemento { get; set; }
         public string DireccionDomicilio { get; set; }
         public string Email { get; set; }
-        public int Telefono { get; set; }
+        public string Telefono { get; set; }
         public DateOnly FechaNacimiento { get; set; }
         public DateOnly FechaIngreso { get; set; }
 
         public Empleado() { }
         public Empleado(int id) { Id = id; }
 
-        public Empleado(int id, string nombre, string apellidoPaterno, string apellidoMaterno, string ci, string complemento, string direccionDomicilio, string email, int telefono, DateOnly fechaNacimiento, DateOnly fechaIngreso)
+        public Empleado(int id, string nombre, string apellidoPaterno, string apellidoMaterno, string ci, string complemento, string direccionDomicilio, string email, string telefono, DateOnly fechaNacimiento, DateOnly fechaIngreso)
         {
             Id = id;
             Nombre = nombre;
@@ -32,7 +32,7 @@
             FechaIngreso = fechaIngreso;
         }
 
-        public Empleado(string nombre, string apellidoPaterno, string apellidoMaterno, string ci, string complemento, string direccionDomicilio, string email, int telefono, DateOnly fechaNacimiento, DateOnly fechaIngreso)
+        public Empleado(string nombre, string apellidoPaterno, string apellidoMaterno, string ci, string complemento, string direccionDomicilio, string email, string telefono, DateOnly fechaNacimiento, DateOnly fechaIngreso)
         {
             Nombre = nombre;
             ApellidoPaterno = apellidoPaterno;
