@@ -1,7 +1,6 @@
-<<<<<<< HEAD
-=======
+
 using LibreriaJoelito;
->>>>>>> main
+
 using LibreriaJoelito.FactoryCreators;
 using LibreriaJoelito.FactoryProducts;
 using LibreriaJoelito.Models;
