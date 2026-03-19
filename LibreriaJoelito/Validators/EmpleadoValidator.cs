@@ -31,7 +31,7 @@ namespace LibreriaJoelito.Validators
             if (string.IsNullOrEmpty(ci))
                 return false;
 
-            return ci.All(char.IsDigit) && ci.Length == 8;
+            return ci.All(char.IsDigit) && ci.Length <= 11 && ci.Length >= 6;
         }
 
         public static bool esExtensionCarnetValida(string extension)

@@ -52,7 +52,6 @@ namespace LibreriaJoelito.Pages.Empleados
 
         public void OnGet()
         {
-            TempData.Clear();
             Select();
         }
 
@@ -65,15 +64,11 @@ namespace LibreriaJoelito.Pages.Empleados
         {
             Empleado empleado = new Empleado(Id);
             if (_empleadoRepo.Delete(empleado) == 1)
-            {
-                messageResult = "Empleado eliminado exitosamente.";
-                return Page();
-            }
+                TempData["SuccessMessage"] = "Empleado eliminado con éxito.";
             else
-            {
-                messageResult = "Error al eliminar el empleado.";
-                return Page();
-            }
+                TempData["ErrorMessage"] = "Hubo un problema al eliminar.";
+
+            return RedirectToPage();
         }
 
 
@@ -91,7 +86,7 @@ namespace LibreriaJoelito.Pages.Empleados
 
             if (!EmpleadoValidator.esCiValido(Ci))
             {
-                return new JsonResult(new { success = false, message = "El CI debe tener 8 dígitos." });
+                return new JsonResult(new { success = false, message = "El CI debe tener entre 6 y 11 digitos" });
             }
 
             if (!EmpleadoValidator.esExtensionCarnetValida(Complemento))

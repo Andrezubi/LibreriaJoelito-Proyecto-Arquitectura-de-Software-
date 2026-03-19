@@ -59,7 +59,7 @@ namespace LibreriaJoelito.Pages.Empleados
                 TempData["ErrorMessage"] = "El nombre no es válido (mínimo 2 caracteres y sin espacios a los lados).";
                 return Page();
             }
-            if (!EmpleadoValidator.esApellidoValido(ApellidoMaterno) || !EmpleadoValidator.esApellidoValido(ApellidoPaterno))
+            if (!EmpleadoValidator.esApellidoValido(ApellidoPaterno))
             {
                 TempData["ErrorMessage"] = "El apellido no es válido (mínimo 4 caracteres)";
                 return Page();
@@ -67,7 +67,7 @@ namespace LibreriaJoelito.Pages.Empleados
 
             if (!EmpleadoValidator.esCiValido(Ci))
             {
-                TempData["ErrorMessage"] = "El CI debe tener 8 dígitos";
+                TempData["ErrorMessage"] = "El CI debe tener entre 6 y 11 digitos";
                 return Page();
             }
 
