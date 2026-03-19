@@ -36,6 +36,9 @@ namespace LibreriaJoelito.Validators
 
         public static bool esExtensionCarnetValida(string extension)
         {
+            if (extension == "")
+                return true;
+
             if (string.IsNullOrEmpty(extension))
                 return true;
 
@@ -59,7 +62,7 @@ namespace LibreriaJoelito.Validators
         public static bool esCorreoValido(string correo)
         {
             if (string.IsNullOrWhiteSpace(correo))
-                return false;
+                return true;
 
             try
             {
@@ -75,7 +78,7 @@ namespace LibreriaJoelito.Validators
         public static bool esDireccionValida(string direccion)
         {
             if (string.IsNullOrWhiteSpace(direccion))
-                return false;
+                return true;
 
             return direccion.Length >= 10 && direccion.Length <= 120;
         }
@@ -83,7 +86,7 @@ namespace LibreriaJoelito.Validators
         public static bool esTelefonoValido(string telefono)
         {
             if (string.IsNullOrWhiteSpace(telefono))
-                return false;
+                return true;
 
             if (!telefono.All(char.IsDigit))
                 return false;

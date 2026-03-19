@@ -21,7 +21,7 @@ else if (TempData["ErrorMessage"] != null)
         Nuevo Empleado
     </div>
 
-    <form method="post">
+    <form method="post" id="modalCreateEmpleado">
         <div class="form-group">
             <label asp-for="Nombre"></label>
             <input asp-for="Nombre" class="form-control" placeholder="Ej:Juan" required />
@@ -86,3 +86,28 @@ else if (TempData["ErrorMessage"] != null)
         <a asp-page="EmpleadoGet" class="btn btn-secondary mt-2">Volver</a>
     </form>
 </div>
+<script>
+    function enviarInsert() {
+        const formData = new FormData(document.querySelector("#modalCreateEmpleado"));
+
+        fetch('?handler=Insert', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                const alerta = document.getElementById('alertaErrorModal');
+                console.log(data);
+                alerta.textContent = data.message;
+                alerta.style.display = 'block';
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
