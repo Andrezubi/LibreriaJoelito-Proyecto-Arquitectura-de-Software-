@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using LibreriaJoelito.Models;
+﻿using LibreriaJoelito.Models;
+using System.ComponentModel.DataAnnotations;
 using System.Net.Mail;
+using System.Text.RegularExpressions;
 
 namespace LibreriaJoelito.Validators
 {
@@ -12,11 +13,14 @@ namespace LibreriaJoelito.Validators
 
             // 1. Nombre
             if (!esNombreValido(emp.Nombre))
-                errores.Add(new ValidationResult("El nombre no es válido (mínimo 2 caracteres y sin espacios a los lados).", new[] { "Nombre" }));
+                errores.Add(new ValidationResult("El nombre no es válido (mínimo 2 caracteres y sin espacios a los lados, solo letras).", new[] { "Nombre" }));
 
             // 2. Apellido
             if (!esApellidoValido(emp.ApellidoPaterno))
-                errores.Add(new ValidationResult("El apellido no es válido (mínimo 4 caracteres).", new[] { "ApellidoPaterno" }));
+                errores.Add(new ValidationResult("El apellido no es válido (mínimo 4 caracteres Solo letras).", new[] { "ApellidoPaterno" }));
+
+            if (!esApellidoMaternoValido(emp.ApellidoMaterno))
+                errores.Add(new ValidationResult("El apellido no es válido (mínimo 4 caracteres Solo letras).", new[] { "ApellidoPaterno" }));
 
             // 3. CI
             if (!esCiValido(emp.Ci))
@@ -51,11 +55,30 @@ namespace LibreriaJoelito.Validators
 
         #region funciones de Validacion
 
-        private static bool esNombreValido(string nombre) =>
-            !string.IsNullOrWhiteSpace(nombre) && nombre == nombre.Trim() && nombre.Length >= 2;
+        private static bool esNombreValido(string nombre)
+        {
+            if (string.IsNullOrWhiteSpace(nombre) || nombre != nombre.Trim() || nombre.Length < 2)
+                return false;
 
-        private static bool esApellidoValido(string apellido) =>
-            !string.IsNullOrWhiteSpace(apellido) && apellido.Length >= 4;
+            return Regex.IsMatch(nombre, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$");
+        }
+
+        private static bool esApellidoValido(string apellido)
+        {
+            if (string.IsNullOrWhiteSpace(apellido) || apellido.Length < 4)
+                return false;
+
+            return Regex.IsMatch(apellido, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$");
+        }
+
+        private static bool esApellidoMaternoValido(string apellido)
+        {
+            if(string.IsNullOrEmpty(apellido))
+            {
+                return true;
+            }
+            return esApellidoValido(apellido);
+        }
 
         private static bool esCiValido(string ci) =>
             !string.IsNullOrEmpty(ci) && ci.All(char.IsDigit) && ci.Length >= 6 && ci.Length <= 11;

@@ -70,16 +70,16 @@ wwwroot\lib\jquery\dist\jquery.slim.js
 wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
-C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\css\globals.css
-C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\css\site.css
-C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\css\style.css
-C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\favicon.ico
-C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\cli-lib.svg
-C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\config-lib.svg
-C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\emp-lib.svg
-C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\home-lib.svg
-C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\logo-lib.svg
 C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\prod-lib.svg
+C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\css\site.css
+C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\logo-lib.svg
+C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\favicon.ico
+C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\home-lib.svg
+C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\emp-lib.svg
+C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\config-lib.svg
+C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\img\cli-lib.svg
+C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\css\style.css
+C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\css\globals.css
 C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\js\site.js
 C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
