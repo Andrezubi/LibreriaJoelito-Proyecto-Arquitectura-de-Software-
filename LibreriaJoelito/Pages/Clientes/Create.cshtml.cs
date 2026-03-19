@@ -9,7 +9,12 @@ namespace LibreriaJoelito.Pages.Clientes
 {
     public class CreateModel : PageModel
     {
-        private readonly IRepository<Cliente> _clienteRepository = new ClienteRepositoryCreator().CreateRepository();
+        private readonly IRepository<Cliente> _clienteRepository;
+
+        public CreateModel(IRepository<Cliente> clienteRepository)
+        {
+            _clienteRepository = clienteRepository;
+        }
 
         [BindProperty]
         public Cliente _cliente { get; set; } = new();
