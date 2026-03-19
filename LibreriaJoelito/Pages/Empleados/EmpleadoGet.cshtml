@@ -38,55 +38,57 @@
 		}
 			<div class="table-responsive">
 
-				<table class="tabla-sistema table-hover table-bordered">
-	 <thead>
-		<tr>
-			<th>Nombre</th>
-			<th>Apellido Paterno</th>
-			<th>Apellido Materno</th>
-			<th>Ci</th>
-			<th>Fecha de Nacimiento</th>
-			<th>Email</th>
-			<th>Dirección</th>
-			<th>Celular</th>
-			<th>Fecha Ingreso</th>
-		</tr>
-	</thead>
+						<table class="table table-hover align-middle mb-0">
 
-	<tbody>
-		@foreach (System.Data.DataRow row in Model.EmpleadoDataTable.Rows)
-		{
-			<tr>
-				<td>@row["Nombre"]</td>
-				<td>@row["ApellidoPaterno"]</td>
-				<td>@row["ApellidoMaterno"]</td>
-				@if (row["Complemento"] != DBNull.Value && !string.IsNullOrEmpty(row["Complemento"].ToString()))
-				{
-					<td>@(row["Ci"] + "-" + row["Complemento"])</td>
-				}
-				else
-				{
-					<td>@row["Ci"]</td>
-				}
-				<td>@row["FechaNacimiento"]</td>
-				<td>@row["Email"]</td>
-				<td>@row["DireccionDomicilio"]</td>
-				<td>@row["Telefono"]</td>
-				<td>@row["FechaIngreso"]</td>										
-				<td>
-					<a onclick="abrirModalUpdate(
-						'@row["Id"]',
-						'@row["Nombre"]',
-						'@row["ApellidoPaterno"]',
-						'@row["ApellidoMaterno"]',
-						'@row["Ci"]',
-						'@row["Email"]',
-						'@row["Complemento"]',
-						'@row["DireccionDomicilio"]',
-						'@row["Telefono"]',
-						'@(row["FechaIngreso"] != DBNull.Value ? Convert.ToDateTime(row["FechaIngreso"]).ToString("yyyy-MM-dd") : "")',
-						'@(row["FechaNacimiento"] != DBNull.Value ? Convert.ToDateTime(row["FechaNacimiento"]).ToString("yyyy-MM-dd") : "")')"
-@* 									   '@(row["FechaIngreso"] != DBNull.Value ? ((DateOnly)row["FechaNacimiento"]).ToString("yyyy-MM-dd") : "")' ,
+							<thead class="tabla-head-custom">
+								<tr>
+									<th>Nombre</th>
+									<th>Apellido Paterno</th>
+									<th>Apellido Materno</th>
+									<th>Ci</th>
+									<th>Fecha de Nacimiento</th>
+									<th>Email</th>
+									<th>Dirección</th>
+									<th>Celular</th>
+									<th>Fecha Ingreso</th>
+									<th class="text-center">Acciones</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								@foreach (System.Data.DataRow row in Model.EmpleadoDataTable.Rows)
+								{
+									<tr>
+										<td>@row["Nombre"]</td>
+										<td>@row["ApellidoPaterno"]</td>
+										<td>@row["ApellidoMaterno"]</td>
+										@if (row["Complemento"] != DBNull.Value && !string.IsNullOrEmpty(row["Complemento"].ToString()))
+										{
+											<td>@(row["Ci"] + "-" + row["Complemento"])</td>
+										}
+										else
+										{
+											<td>@row["Ci"]</td>
+										}
+										<td>@row["FechaNacimiento"]</td>
+										<td>@row["Email"]</td>
+										<td>@row["DireccionDomicilio"]</td>
+										<td>@row["Telefono"]</td>
+										<td>@row["FechaIngreso"]</td>
+										<td>
+											<a onclick="abrirModalUpdate(
+							'@row["Id"]',
+							'@row["Nombre"]',
+							'@row["ApellidoPaterno"]',
+							'@row["ApellidoMaterno"]',
+							'@row["Ci"]',
+							'@row["Email"]',
+							'@row["Complemento"]',
+							'@row["DireccionDomicilio"]',
+							'@row["Telefono"]',
+							'@(row["FechaIngreso"] != DBNull.Value ? Convert.ToDateTime(row["FechaIngreso"]).ToString("yyyy-MM-dd") : "")',
+							'@(row["FechaNacimiento"] != DBNull.Value ? Convert.ToDateTime(row["FechaNacimiento"]).ToString("yyyy-MM-dd") : "")')"
+											   @* 									   '@(row["FechaIngreso"] != DBNull.Value ? ((DateOnly)row["FechaNacimiento"]).ToString("yyyy-MM-dd") : "")' ,
 									   '@(row["FechaNacimiento"] != DBNull.Value ? ((DateOnly)row["FechaNacimiento"]).ToString("yyyy-MM-dd") : "")' )" *@
 					           class="btn btn-warning btn-sm">
 								Editar
@@ -131,7 +133,7 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<form method="post" asp-page-handler="Update">
-				<div class="modal-header bg-primary text-white">
+				<div class="modal-header modal-header-morado">
 					<h5 class="modal-title" id="editModalLabel">Editar Datos del Empleado</h5>
 					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
@@ -193,8 +195,8 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-					<button type="button" class="btn btn-primary" onclick="enviarUpdate()">Guardar Cambios</button>
+					<button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+					<button type="button" class="btn btn-sistema" onclick="enviarUpdate()">Guardar Cambios</button>
 				</div>
 			</form>
 		</div>
