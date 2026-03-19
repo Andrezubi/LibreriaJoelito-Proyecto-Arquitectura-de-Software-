@@ -421,15 +421,12 @@ C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-S
 C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\scopedcss\bundle\LibreriaJoelito.styles.css
 C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\scopedcss\projectbundle\LibreriaJoelito.bundle.scp.css
-C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\ivfcapuadl-{0}-p2lp1k66jd-p2lp1k66jd.gz
 C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\jw1zt4um6b-{0}-b9sayid5wm-b9sayid5wm.gz
-C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\gijonhjpxy-{0}-i1sz9fiza7-i1sz9fiza7.gz
 C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\tzybwro4ob-{0}-61n19gt1b8-61n19gt1b8.gz
 C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\d1o0g8opmt-{0}-xrvb4g0avq-xrvb4g0avq.gz
 C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\siv5pu82wr-{0}-0om9sic7db-0om9sic7db.gz
 C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\5le3tz7m12-{0}-bdd29k9jzr-bdd29k9jzr.gz
 C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\6zbmp79d8n-{0}-krq68ftbbd-krq68ftbbd.gz
-C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\i88fyr8rhc-{0}-b91nbfhwm6-b91nbfhwm6.gz
 C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\mntc7ve25b-{0}-4w8rfzg3kw-4w8rfzg3kw.gz
 C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\y3jfnq0ag3-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
 C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\nayl2otfyt-{0}-t1cqhe9u97-t1cqhe9u97.gz
@@ -632,3 +629,9 @@ C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-P
 C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\LibreriaJoelito.pdb
 C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\LibreriaJoelito.genruntimeconfig.cache
 C:\Users\USUARIO\Desktop\TAREAS\ARQUITECTURA SOFTWARE\Proyecto\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\ref\LibreriaJoelito.dll
+C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\ivfcapuadl-{0}-53p9q8men1-53p9q8men1.gz
+C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\gijonhjpxy-{0}-mbp0jucq7a-mbp0jucq7a.gz
+C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\i9n13y8755-{0}-6xovg0s1lm-6xovg0s1lm.gz
+C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\i88fyr8rhc-{0}-92mlhxtgol-92mlhxtgol.gz
+C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\6mtoqwasqa-{0}-0r2bvt3mmy-0r2bvt3mmy.gz
+C:\Users\Camila Carvajal\source\repos\LibreriaJoelito-Proyecto-Arquitectura-de-Software-\LibreriaJoelito\obj\Debug\net9.0\compressed\g5fcfhw9k5-{0}-xfa3rr7zmr-xfa3rr7zmr.gz
