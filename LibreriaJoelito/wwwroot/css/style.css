@@ -14,7 +14,10 @@ body {
     flex-direction: column;
     min-height: 100vh;
 }
-
+/* FONDO GENERAL DEL SISTEMA */
+.bg-sistema {
+    background-color: #cfe6e2
+}
 /* HEADER */
 
 .main-header {
@@ -195,67 +198,82 @@ body {
 }
 
 /* TABLAS */
-.tabla-sistema {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid #000;
-    font-size: 14px;
-}
-
-/* ENCABEZADO DE COLUMNAS */
-    .tabla-sistema thead {
-        background: #7b35be; 
-        color: white;
-    }
-    .tabla-sistema th {
-        padding: 13px;
-        text-align: center;
-        border-right: 1px solid #000;
-    }
-
-/* CELDAS */
-    .tabla-sistema td {
-        padding: 12px;
-        text-align: center;
-        border-top: 1px solid #000;
-        border-right: 1px solid #000;
-    }
-
-/* quitar borde derecho en última columna */
-.tabla-sistema th:last-child,
-.tabla-sistema td:last-child {
-    border-right: none;
-}
-
-    /* HOVER */
-    .tabla-sistema tbody tr:hover {
-        background: #f8f5ff;
-    }
-.page-container {
-    padding: 25px;
-}
-.table-container {
-    margin-top: 20px;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    background: white;
-}
-.tabla-header {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; 
-    padding: 15px 20px;
-    background: #7b35be;
+/* HEADER TABLA */
+.tabla-header-custom {
+    background-color: #7b35be;
     color: white;
 }
-.tabla-titulo {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 18px;
-    font-weight: 600;
+
+/* ENCABEZADO TABLA */
+.tabla-head-custom {
+    background-color: #5FB8A5;
+    color: white;
+}
+
+/* CARD */
+.tabla-wrapper {
+    width: 100%;
+    max-width: 1400px;
+}
+.content-area {
+    padding-top: 20px;
+}
+.tabla-card {
+    border-radius: 12px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.table {
+    font-size: 0.9rem;
+    border: 1px solid #000 !important;
+}
+    .table td,
+    .table th {
+        padding: 8px;
+        text-align: center;
+        border: 1px solid #000 !important;
+    }
+.tabla-header-custom h5 {
+    font-size: 1.1rem;
+} 
+
+/* BOTONES */
+.btn-sistema {
+    background-color: #5FB8A5;
+    color: white;
+    border: none;
+}
+.btn-sm {
+    padding: 4px 10px;
+    font-size: 0.8rem;
+}
+
+    .btn-sistema:hover {
+        background-color: #4aa894;
+    }
+
+.btn-sistema-danger {
+    background-color: #7b35be;
+    color: white;
+    border: none;
+}
+
+    .btn-secondary:hover {
+        background-color: #6f757d !important;
+    }
+    .btn-sistema-danger:hover {
+        background-color: #5e2893;
+    }
+.modal-footer {
+    display: flex !important;
+    justify-content: flex-end !important;
+    gap: 10px !important;
+}
+/* MODAL MORADO */
+.modal-header-morado {
+    background-color: #7b35be;
+    color: white;
 }
 /* BOTONES */
 /* BOTONES GENERALES (Añadir + Editar) */
@@ -287,6 +305,16 @@ body {
     .btn-sistema-danger:hover {
         background-color: #5e2893; /* morado más oscuro */
     }
+.btn-cancelar {
+    background-color: #8a8f98;
+    color: white;
+    border: none;
+    font-size: 13px;
+}
+
+    .btn-cancelar:hover {
+        background-color: #6f757d;
+    }
 
 /* BOTONES EN GRUPO */
 .btn-group .btn {
@@ -299,6 +327,7 @@ body {
     max-width: 800px;
     margin: auto;
     background: white;
+    border: 1px solid #444;
     padding: 30px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
@@ -366,10 +395,4 @@ body {
 
 .btn-register:hover {
     background: #4AA897;
-}
-.tabla-sistema thead,
-.tabla-sistema thead tr,
-.tabla-sistema thead th {
-    background-color: #7b35be !important;
-    color: white !important;
 }
