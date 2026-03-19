@@ -5,9 +5,10 @@
 }
 @if (!ViewData.ModelState.IsValid)
 {
-    <div class="alert alert-danger shadow-sm rounded mt-3">
-        <h5 class="mb-2">⚠️ Se encontraron errores:</h5>
+    <div class="alert alert-danger alert-dismissible fade show mt-3">
+        <strong>⚠️ Errores:</strong>
         <div asp-validation-summary="All"></div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
 }
 <div class="form-container">
@@ -79,6 +80,7 @@
             </div>
 
             <div class="modal-body">
+                <div id="errorCategoria" class="alert alert-danger" style="display:none;"></div>
                 <input type="text" id="nombreCategoria" class="form-control" placeholder="Nombre de la categoria" />
             </div>
 
@@ -98,6 +100,7 @@
             </div>
 
             <div class="modal-body">
+                <div id="errorMarca" class="alert alert-danger" style="display:none;"></div>
                 <input type="text" id="nombreMarca" class="form-control" placeholder="Nombre de la marca" />
             </div>
 
@@ -107,20 +110,29 @@
         </div>
     </div>
 </div>
-
 <script>
-        async function crear(tipo) {
+    async function crear(tipo) {
         let inputId = tipo === "categoria" ? "nombreCategoria" : "nombreMarca";
         let handler = tipo === "categoria" ? "CrearCategoria" : "CrearMarca";
         let modalId = tipo === "categoria" ? "modalCategoria" : "modalMarca";
+        let errorId = tipo === "categoria" ? "errorCategoria" : "errorMarca";
 
         let nombre = document.getElementById(inputId).value;
+        let errorDiv = document.getElementById(errorId);
 
-        if (!nombre.trim()) return;
+        // limpiar error anterior
+        errorDiv.style.display = "none";
+        errorDiv.textContent = "";
+
+        if (!nombre.trim()) {
+            errorDiv.textContent = "El nombre es obligatorio";
+            errorDiv.style.display = "block";
+            return;
+        }
 
         let token = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
-        await fetch(`?handler=${handler}`, {
+        let response = await fetch(`?handler=${handler}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -129,9 +141,15 @@
             body: JSON.stringify({ Nombre: nombre })
         });
 
-        document.getElementById(inputId).value = "";
+        let data = await response.json();
 
-        let modal = bootstrap.Modal.getInstance(document.getElementById(modalId));
-        modal.hide();
+        if (!data.ok) {
+            errorDiv.textContent = data.mensaje || data.message;
+            errorDiv.style.display = "block";
+            return;
+        }
+
+        // éxito
+        location.reload(); // simple como tú quieres
     }
 </script>

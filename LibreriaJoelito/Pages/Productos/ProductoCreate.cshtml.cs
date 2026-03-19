@@ -4,6 +4,7 @@ using LibreriaJoelito.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 
@@ -43,7 +44,7 @@ namespace LibreriaJoelito.Pages.Productos
         {
             Producto producto = new Producto(IdCategoria,IdMarca,Nombre,Stock);
             List<ValidationResult> errors = new List<ValidationResult>();
-            //errors=ProductValidator.ValidarProducto(producto); 
+            errors=ProductValidator.ValidarProducto(producto); 
             if (errors.Count > 0)
             {
                 foreach (var error in errors)
@@ -95,13 +96,22 @@ namespace LibreriaJoelito.Pages.Productos
         public JsonResult OnPostCrearCategoria([FromBody] NombreSimple data)
         {
             Console.WriteLine("entro al post de crear categoria");
+            data.Nombre= data.Nombre.Trim();
             if (string.IsNullOrWhiteSpace(data.Nombre)) 
             {
                 return new JsonResult(new { ok = false, mensaje = "Nombre vacio" });
             }
-
+            data.Nombre = data.Nombre.Trim();
             try
             {
+                List<ValidationResult> errors = new List<ValidationResult>();
+                errors = ExtraValidator.ValidarNombreCategoria(data.Nombre);
+ 
+                if (errors.Any())
+                {
+                    Console.Write("hubo errores al validar nombre categoria");
+                    return new JsonResult(new { success = false, message = errors.First().ErrorMessage });
+                }
                 string query = "INSERT INTO categoria (Nombre) VALUES (@nombre);";
                 MySqlCommand cmd = new MySqlCommand( query);
                 cmd.Parameters.AddWithValue("@nombre",data.Nombre);
@@ -124,6 +134,11 @@ namespace LibreriaJoelito.Pages.Productos
 
             try
             {
+                var errores = ExtraValidator.ValidarNombreMarca(data.Nombre);
+                if (errores.Any())
+                {
+                    return new JsonResult(new { success = false, message = errores.First().ErrorMessage });
+                }
                 string query = "INSERT INTO marca (Nombre) VALUES (@nombre);";
                 MySqlCommand cmd = new MySqlCommand(query);
                 cmd.Parameters.AddWithValue("@nombre", data.Nombre);

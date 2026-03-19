@@ -1,9 +1,11 @@
 using LibreriaJoelito.FactoryProducts;
+using LibreriaJoelito.Models;
+using LibreriaJoelito.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
 using System.Data;
-using LibreriaJoelito.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace LibreriaJoelito.Pages.Productos
 {
     public class MostrarProductosModel : PageModel
@@ -79,14 +81,43 @@ namespace LibreriaJoelito.Pages.Productos
             return RedirectToPage("MostrarProductos");
         }
 
-        public IActionResult OnPostUpdate()
+        //public IActionResult OnPostUpdate()
+        //{
+        //    Producto producto = new Producto(Id, IdCategoria, IdMarca, Nombre, Stock);
+        //    var errores =ProductValidator.ValidarProducto(producto);
+        //    if (errores.Any())
+        //    {
+        //        return new JsonResult(new { ok = false, message = errores.First().ErrorMessage });
+        //    }
+        //    _productRepository.Update(producto);
+        //    TempData["MensajeExito"] = "El producto fue editado correctamente.";
+        //    return RedirectToPage("MostrarProductos");
+        //}
+        public JsonResult OnPostUpdate()
         {
-            Producto producto = new Producto(Id, IdCategoria, IdMarca, Nombre, Stock);
-            _productRepository.Update(producto);
-            TempData["MensajeExito"] = "El producto fue editado correctamente.";
-            return RedirectToPage("MostrarProductos");
+            try
+            {
+                Producto producto = new Producto(Id, IdCategoria, IdMarca, Nombre, Stock);
+                var errores = ProductValidator.ValidarProducto(producto);
+                // validar (tu lógica actual)
+                if (errores.Any())
+                {
+                    var listaErrores = errores
+                        .Select(e => e.ErrorMessage)
+                        .ToList();
+
+                    return new JsonResult(new { ok = false, errores = listaErrores });
+                }
+                _productRepository.Update(producto);
+                TempData["MensajeExito"] = "El producto fue editado correctamente.";
+                return new JsonResult(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { success = false, message = ex.Message });
+            }
         }
-        
+
         public string getMarcaById(int? id)
         {
             if (id == 0) { return "ERROR no tiene Marca"; }

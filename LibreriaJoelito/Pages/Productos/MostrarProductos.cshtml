@@ -107,6 +107,7 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+
                     <div id="alertaErrorModal" class="alert alert-danger" style="display:none;"></div>
 
                     <input type="hidden" name="Id" id="edit_id" />
@@ -153,7 +154,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" onclick="enviarUpdate()">Guardar Cambios</button>
+                    <button type="button" class="btn btn-primary" onclick="enviarUpdate()">
+                        Guardar Cambios
+                    </button>
                 </div>
             </form>
         </div>
@@ -161,19 +164,32 @@
 </div>
 
 <script>
-    function abrirModalUpdate(id, nombre, idCategoria, idMarca, stock) {
+        function abrirModalUpdate(id, nombre, idCategoria, idMarca, stock) {
+
         document.getElementById('edit_id').value = id;
         document.getElementById('edit_nombre').value = nombre;
         document.getElementById('edit_categoria').value = idCategoria;
         document.getElementById('edit_marca').value = idMarca;
         document.getElementById('edit_stock').value = stock;
 
-        var myModal = new bootstrap.Modal(document.getElementById('modalEditarProducto'));
-        myModal.show();
+        // 🔥 limpiar errores
+        const alerta = document.getElementById('alertaErrorModal');
+        alerta.style.display = "none";
+        alerta.textContent = "";
+
+        new bootstrap.Modal(document.getElementById('modalEditarProducto')).show();
     }
 
-    function enviarUpdate() {
-        const formData = new FormData(document.querySelector("#modalEditarProducto form"));
+        function enviarUpdate() {
+
+        const form = document.querySelector("#modalEditarProducto form");
+        const formData = new FormData(form);
+
+        const alerta = document.getElementById('alertaErrorModal');
+
+        // limpiar antes
+        alerta.style.display = "none";
+        alerta.innerHTML = "";
 
         fetch('?handler=Update', {
             method: 'POST',
@@ -186,11 +202,24 @@
         .then(data => {
             if (data.success) {
                 location.reload();
-            } else {
-                const alerta = document.getElementById('alertaErrorModal');
-                console.log(data);
+            }
+            else if (data.errores) {
+
+                // 🔥 mostrar lista
+                let html = "<ul>";
+
+                data.errores.forEach(err => {
+                    html += `<li>${err}</li>`;
+                });
+
+                html += "</ul>";
+
+                alerta.innerHTML = html;
+                alerta.style.display = "block";
+            }
+            else {
                 alerta.textContent = data.message;
-                alerta.style.display = 'block';
+                alerta.style.display = "block";
             }
         })
         .catch(error => console.error('Error:', error));
