@@ -11,8 +11,13 @@ namespace LibreriaJoelito.Pages.Clientes
 {
     public class ClientesGetModel : PageModel
     {
-        private readonly IRepository<Cliente> _clienteRepository = new ClienteRepositoryCreator().CreateRepository();
-        
+        private readonly IRepository<Cliente> _clienteRepository;
+
+        public ClientesGetModel(IRepository<Cliente> clienteRepository)
+        {
+            _clienteRepository = clienteRepository;
+        }
+
         public DataTable ClientesDataTable { get; set; } = new DataTable();
 
         [BindProperty]

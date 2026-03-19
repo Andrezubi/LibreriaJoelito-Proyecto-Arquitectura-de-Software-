@@ -73,8 +73,8 @@ namespace LibreriaJoelito.Validators
             }
             else
             {
-                if (ci.Length < 6)
-                    errores.Add(new ValidationResult("El CI debe tener al menos 6 caracteres.", new[] { "Cliente.CI" }));
+                if (ci.Length < 6 || ci.Length >10)
+                    errores.Add(new ValidationResult("El CI debe tener entre 6 y 10 caracteres.", new[] { "Cliente.CI" }));
                 if (!Regex.IsMatch(ci, @"^\d+$"))
                     errores.Add(new ValidationResult("El CI solo puede contener números.", new[] { "Cliente.CI" }));
             }

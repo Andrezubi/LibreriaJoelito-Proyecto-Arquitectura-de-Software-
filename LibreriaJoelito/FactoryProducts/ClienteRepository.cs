@@ -31,7 +31,7 @@ namespace LibreriaJoelito.FactoryProducts
             return RepositorioBD.ExecuteReturningDataTable(cmd);
         }
 
-        public DataRow GetByID(int id)
+        public DataRow GetById(int id)
         {
             MySqlCommand cmd = new MySqlCommand(@"
                 SELECT Id, Nombre, ApellidoPaterno, ApellidoMaterno,

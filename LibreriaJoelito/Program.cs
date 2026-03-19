@@ -1,15 +1,21 @@
-<<<<<<< HEAD
+
 using LibreriaJoelito;
-=======
 using LibreriaJoelito.FactoryCreators;
 using LibreriaJoelito.FactoryProducts;
 using LibreriaJoelito.Models;
->>>>>>> 019a7adaae8de863a50bc79165c3f778499acbf6
+
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Dependency inyection IRepository Empleados
 builder.Services.AddScoped<IRepository<Empleado>>(provider => {
     return new EmpleadoCreateRepository().CreateRepository();
+});
+
+//Dependency inyection IRepository Clientes
+builder.Services.AddScoped<IRepository<Cliente>>(provider =>
+{
+    return new ClienteRepositoryCreator().CreateRepository();
 });
 
 // Add services to the container.
