@@ -45,7 +45,18 @@ namespace LibreriaJoelito.Pages.Productos
 
         void LoadProductos()
         {
+<<<<<<< HEAD
             ProductosDataTable = _productRepository.GetAll();
+=======
+            string connectionString = configuration.GetConnectionString("MySqlConnection")!;
+            string query = @"SELECT  Id, Nombre,Categoria,Precio,Stock,Tipo_Venta,Factor_Conversion,Id_Producto_Base, FechaRegistro
+                            FROM producto
+                            WHERE estado=1
+                            ORDER BY 3";
+            MySqlCommand command = new MySqlCommand(query);
+
+            ProductosDataTable = RepositorioBD.ExecuteReturningDataTable(command);
+>>>>>>> main
 
         }
 
@@ -76,8 +87,21 @@ namespace LibreriaJoelito.Pages.Productos
 
         public IActionResult OnPostDelete(int id)
         {
+<<<<<<< HEAD
             _productRepository.Delete(new Models.Producto(id));
             TempData["MensajeExito"] = "El producto fue eliminado correctamente.";
+=======
+            string query = @"UPDATE producto
+                     SET Estado = 0, UltimaActualizacion=@fechaAhora
+                     WHERE Id = @Id";
+
+            MySqlCommand cmd = new MySqlCommand(query);
+            cmd.Parameters.AddWithValue("@fechaAhora", DateTime.Now);
+            cmd.Parameters.AddWithValue("@Id", id);
+
+            RepositorioBD.ExecuteNonQuery(cmd);
+
+>>>>>>> main
             return RedirectToPage("MostrarProductos");
         }
 
@@ -122,8 +146,13 @@ namespace LibreriaJoelito.Pages.Productos
         {
             if (id == 0) { return "ERROR no tiene Marca"; }
             string query = @"SELECT Nombre 
+<<<<<<< HEAD
                             FROM marca
                             WHERE Id=@id";
+=======
+                            FROM producto
+                            WHERE Id=@Id";
+>>>>>>> main
             MySqlCommand cmd = new MySqlCommand(query);
             cmd.Parameters.AddWithValue("@id", id);
             using (MySqlDataReader reader = RepositorioBD.ExecuteReader(cmd))
