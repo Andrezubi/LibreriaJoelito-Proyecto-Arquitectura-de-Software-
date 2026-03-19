@@ -32,12 +32,12 @@ namespace LibreriaJoelito.Validators
         {
             if (string.IsNullOrWhiteSpace(nombre))
             {
-                errores.Add(new ValidationResult("El Nombre es obligatorio.", new[] { "Cliente.Nombre" }));
+                errores.Add(new ValidationResult("El Nombre es obligatorio.", new[] { "_cliente.Nombre" }));
                 return;
             }
             if (!Regex.IsMatch(nombre, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"))
             {
-                errores.Add(new ValidationResult("El Nombre solo puede contener letras y espacios.", new[] { "Cliente.Nombre" }));
+                errores.Add(new ValidationResult("El Nombre solo puede contener letras y espacios.", new[] { "_cliente.Nombre" }));
             }
         }
 
@@ -45,12 +45,12 @@ namespace LibreriaJoelito.Validators
         {
             if (string.IsNullOrWhiteSpace(apellido))
             {
-                errores.Add(new ValidationResult("El Apellido Paterno es obligatorio.", new[] { "Cliente.ApellidoPaterno" }));
+                errores.Add(new ValidationResult("El Apellido Paterno es obligatorio.", new[] { "_cliente.ApellidoPaterno" }));
                 return;
             }
             if (!Regex.IsMatch(apellido, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"))
             {
-                errores.Add(new ValidationResult("El Apellido Paterno solo puede contener letras y espacios.", new[] { "Cliente.ApellidoPaterno" }));
+                errores.Add(new ValidationResult("El Apellido Paterno solo puede contener letras y espacios.", new[] { "_cliente.ApellidoPaterno" }));
             }
         }
 
@@ -60,7 +60,7 @@ namespace LibreriaJoelito.Validators
             {
                 if (!Regex.IsMatch(apellido, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"))
                 {
-                    errores.Add(new ValidationResult("El Apellido Materno solo puede contener letras y espacios.", new[] { "Cliente.ApellidoMaterno" }));
+                    errores.Add(new ValidationResult("El Apellido Materno solo puede contener letras y espacios.", new[] { "_cliente.ApellidoMaterno" }));
                 }
             }
         }
@@ -69,14 +69,14 @@ namespace LibreriaJoelito.Validators
         {
             if (string.IsNullOrWhiteSpace(ci))
             {
-                errores.Add(new ValidationResult("El CI es obligatorio.", new[] { "Cliente.Ci" }));
+                errores.Add(new ValidationResult("El CI es obligatorio.", new[] { "_cliente.Ci" }));
             }
             else
             {
                 if (ci.Length < 6 || ci.Length >10)
-                    errores.Add(new ValidationResult("El CI debe tener entre 6 y 10 caracteres.", new[] { "Cliente.Ci" }));
+                    errores.Add(new ValidationResult("El CI debe tener entre 6 y 10 caracteres.", new[] { "_cliente.Ci" }));
                 if (!Regex.IsMatch(ci, @"^\d+$"))
-                    errores.Add(new ValidationResult("El CI solo puede contener números.", new[] { "Cliente.Ci" }));
+                    errores.Add(new ValidationResult("El CI solo puede contener números.", new[] { "_cliente.Ci" }));
             }
         }
 
@@ -86,7 +86,7 @@ namespace LibreriaJoelito.Validators
             {
                 if (!Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
                 {
-                    errores.Add(new ValidationResult("El Email no tiene un formato válido.", new[] { "Cliente.Email" }));
+                    errores.Add(new ValidationResult("El Email no tiene un formato válido.", new[] { "_cliente.Email" }));
                 }
             }
         }
@@ -97,7 +97,7 @@ namespace LibreriaJoelito.Validators
             {
                 if (!Regex.IsMatch(complemento, @"^[0-9][A-Z]$"))
                 {
-                    errores.Add(new ValidationResult("El Complemento debe tener un formato de número seguido de letra mayúscula (ej: 1A).", new[] { "Cliente.Complemento" }));
+                    errores.Add(new ValidationResult("El Complemento debe tener un formato de número seguido de letra mayúscula (ej: 1A).", new[] { "_cliente.Complemento" }));
                 }
             }
         }
