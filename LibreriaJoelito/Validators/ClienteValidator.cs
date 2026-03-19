@@ -21,7 +21,7 @@ namespace LibreriaJoelito.Validators
             ValidarNombre(cliente.Nombre, errores);
             ValidarApellidoPaterno(cliente.ApellidoPaterno, errores);
             ValidarApellidoMaterno(cliente.ApellidoMaterno, errores);
-            ValidarCI(cliente.CI, errores);
+            ValidarCI(cliente.Ci, errores);
             ValidarComplemento(cliente.Complemento, errores);
             ValidarEmail(cliente.Email, errores);
 
@@ -69,14 +69,14 @@ namespace LibreriaJoelito.Validators
         {
             if (string.IsNullOrWhiteSpace(ci))
             {
-                errores.Add(new ValidationResult("El CI es obligatorio.", new[] { "Cliente.CI" }));
+                errores.Add(new ValidationResult("El CI es obligatorio.", new[] { "Cliente.Ci" }));
             }
             else
             {
                 if (ci.Length < 6 || ci.Length >10)
-                    errores.Add(new ValidationResult("El CI debe tener entre 6 y 10 caracteres.", new[] { "Cliente.CI" }));
+                    errores.Add(new ValidationResult("El CI debe tener entre 6 y 10 caracteres.", new[] { "Cliente.Ci" }));
                 if (!Regex.IsMatch(ci, @"^\d+$"))
-                    errores.Add(new ValidationResult("El CI solo puede contener números.", new[] { "Cliente.CI" }));
+                    errores.Add(new ValidationResult("El CI solo puede contener números.", new[] { "Cliente.Ci" }));
             }
         }
 

@@ -28,34 +28,7 @@ namespace LibreriaJoelito.Pages.Clientes
             ClientesDataTable = _clienteRepository.GetAll();
         }
 
-        public JsonResult OnPostCreate()
-        {
-            try 
-            {
-                _cliente.Nombre = ClienteValidator.NormalizarTexto(_cliente.Nombre);
-                _cliente.ApellidoPaterno = ClienteValidator.NormalizarTexto(_cliente.ApellidoPaterno);
-                _cliente.ApellidoMaterno = ClienteValidator.NormalizarTexto(_cliente.ApellidoMaterno);
-
-                var errores = ClienteValidator.Validar(_cliente);
-                if (errores.Any())
-                {
-                    return new JsonResult(new { success = false, message = errores.First().ErrorMessage });
-                }
-
-                if (_clienteRepository is ClienteRepository repo && repo.ExisteDuplicado(_cliente))
-                {
-                    return new JsonResult(new { success = false, message = "Ya existe un cliente con este CI y Complemento." });
-                }
-
-                _clienteRepository.Insert(_cliente);
-                TempData["MensajeExito"] = $"Cliente '{_cliente.Nombre} {_cliente.ApellidoPaterno}' creado exitosamente.";
-                return new JsonResult(new { success = true });
-            }
-            catch (Exception ex)
-            {
-                return new JsonResult(new { success = false, message = "Error al crear: " + ex.Message });
-            }
-        }
+        // La creación ahora se maneja en Create.cshtml.cs
 
         public JsonResult OnPostUpdate()
         {

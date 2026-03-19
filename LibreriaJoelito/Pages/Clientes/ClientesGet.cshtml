@@ -12,9 +12,9 @@
                 Lista de Clientes
             </div>
             <div class="tabla-acciones">
-                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalCrearCliente">
+                <a asp-page="Create" class="btn btn-primary btn-sm">
                     Añadir Cliente
-                </button>
+                </a>
             </div>
         </div>
 
@@ -36,7 +36,6 @@
                         <th>CI</th>
                         <th>Email</th>
                         <th>Cliente Frecuente</th>
-                        <th>Fecha Registro</th>
                         <th class="text-center">Acciones</th>
                     </tr>
                 </thead>
@@ -57,7 +56,6 @@
                             }
                             <td>@(row["Email"] == DBNull.Value ? "—" : row["Email"])</td>
                             <td>@(Convert.ToBoolean(row["ClienteFrecuente"]) ? "Sí" : "No")</td>
-                            <td>@Convert.ToDateTime(row["FechaRegistro"]).ToString("dd/MM/yyyy HH:mm")</td>
                             <td>
                                 <a onclick="abrirModalEditar(
                                         '@row["Id"]',
@@ -113,63 +111,6 @@
     </div>
 </div>
 
-<!-- MODAL CREAR CLIENTE -->
-<div class="modal fade" id="modalCrearCliente" tabindex="-1" aria-labelledby="modalCrearLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <form id="formCrearCliente">
-                <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="modalCrearLabel">Registrar Nuevo Cliente</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="errorCrear" class="alert alert-danger" style="display:none;"></div>
-
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <label asp-for="_cliente.Nombre" class="form-label">Nombre</label>
-                            <input asp-for="_cliente.Nombre" class="form-control" placeholder="Ej: Juan" required />
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label asp-for="_cliente.ApellidoPaterno" class="form-label">Apellido Paterno</label>
-                            <input asp-for="_cliente.ApellidoPaterno" class="form-control" placeholder="Ej: Pérez" required />
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label asp-for="_cliente.ApellidoMaterno" class="form-label">Apellido Materno</label>
-                            <input asp-for="_cliente.ApellidoMaterno" class="form-control" placeholder="Ej: López" />
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <label asp-for="_cliente.Ci" class="form-label">CI</label>
-                            <input asp-for="_cliente.Ci" class="form-control" placeholder="Ej: 1234567" required />
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label asp-for="_cliente.Complemento" class="form-label">Complemento</label>
-                            <input asp-for="_cliente.Complemento" class="form-control" placeholder="Ej: 1A" />
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label asp-for="_cliente.Email" class="form-label">Email</label>
-                            <input asp-for="_cliente.Email" type="email" class="form-control" placeholder="juan@ejemplo.com" />
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <div class="form-check">
-                            <input asp-for="_cliente.ClienteFrecuente" class="form-check-input" type="checkbox" id="checkFrecuenteCrear" />
-                            <label class="form-check-label" for="checkFrecuenteCrear">Cliente Frecuente</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="enviarCrear()">Guardar Cliente</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 <!-- MODAL EDITAR CLIENTE -->
 <div class="modal fade" id="modalEditarCliente" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
@@ -233,27 +174,6 @@
 @Html.AntiForgeryToken()
 
 <script>
-    function enviarCrear() {
-        const form = document.getElementById('formCrearCliente');
-        const formData = new FormData(form);
-
-        fetch('?handler=Create', {
-            method: 'POST',
-            body: formData,
-            headers: { "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                location.reload();
-            } else {
-                const errorDiv = document.getElementById('errorCrear');
-                errorDiv.textContent = data.message;
-                errorDiv.style.display = 'block';
-            }
-        });
-    }
-
     function abrirModalEditar(id, nombre, paterno, materno, ci, complemento, email, frecuente) {
         document.getElementById('edit_id').value = id;
         document.getElementById('edit_nombre').value = nombre;

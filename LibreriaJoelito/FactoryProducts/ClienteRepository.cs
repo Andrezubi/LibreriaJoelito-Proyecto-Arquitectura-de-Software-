@@ -35,7 +35,7 @@ namespace LibreriaJoelito.FactoryProducts
         {
             MySqlCommand cmd = new MySqlCommand(@"
                 SELECT Id, Nombre, ApellidoPaterno, ApellidoMaterno,
-                       Ci AS CI, Complemento, Email, ClienteFrecuente AS ClienteFrecuente, FechaRegistro
+                       Ci AS Ci, Complemento, Email, ClienteFrecuente AS ClienteFrecuente, FechaRegistro
                 FROM Cliente
                 WHERE Id = @id AND Estado = 1");
 
