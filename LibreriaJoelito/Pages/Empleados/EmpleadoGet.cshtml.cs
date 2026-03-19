@@ -22,8 +22,9 @@ namespace LibreriaJoelito.Pages.Empleados
         {
             _empleadoRepo = empleadoRepo;
         }
-        
 
+
+        public string messageResult { get; set; } = string.Empty;
 
         [BindProperty]
         public int Id { get; set; }
@@ -65,11 +66,13 @@ namespace LibreriaJoelito.Pages.Empleados
             Empleado empleado = new Empleado(Id);
             if (_empleadoRepo.Delete(empleado) == 1)
             {
-                return new JsonResult(new { success = true });
+                messageResult = "Empleado eliminado exitosamente.";
+                return Page();
             }
             else
             {
-                return new JsonResult(new { success = false, message = "Error en La Base De Datos" });
+                messageResult = "Error al eliminar el empleado.";
+                return Page();
             }
         }
 
