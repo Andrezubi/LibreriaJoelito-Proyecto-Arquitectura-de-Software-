@@ -36,9 +36,6 @@ namespace LibreriaJoelito.Validators
 
         public static bool esExtensionCarnetValida(string extension)
         {
-            if (extension == "")
-                return true;
-
             if (string.IsNullOrEmpty(extension))
                 return true;
 

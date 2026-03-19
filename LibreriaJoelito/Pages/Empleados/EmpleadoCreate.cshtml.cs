@@ -18,29 +18,31 @@ namespace LibreriaJoelito.Pages.Empleados
         }
         #endregion
 
+        public string messageResult { get; set; } = string.Empty;
+
         [BindProperty]
         public string Nombre { get; set; } = string.Empty;
 
         [BindProperty]
-        public string ApellidoPaterno { get; set; } = string.Empty;
+        public string? ApellidoPaterno { get; set; } = string.Empty;
 
         [BindProperty]
-        public string ApellidoMaterno { get; set; } = string.Empty;
+        public string? ApellidoMaterno { get; set; } = string.Empty;
 
         [BindProperty]
         public string Ci { get; set; } = string.Empty;
 
         [BindProperty]
-        public string ExtensionCi { get; set; } = string.Empty;
+        public string? ExtensionCi { get; set; }
 
         [BindProperty]
         public string Email { get; set; } = string.Empty;
 
         [BindProperty]
-        public string DireccionDomicilio { get; set; } = string.Empty;
+        public string? DireccionDomicilio { get; set; } = string.Empty;
 
         [BindProperty]
-        public string Telefono { get; set; } 
+        public string? Telefono { get; set; } 
 
         [BindProperty]
         public DateOnly FechaNacimiento { get; set; }
@@ -104,11 +106,13 @@ namespace LibreriaJoelito.Pages.Empleados
 
             if (_empleadoRepo.Insert(empleado) == 1)
             {
-                return new JsonResult(new { success = true });
+                messageResult = "Empleado registrado exitosamente.";
+                return Page();
             }
             else
             {
-                return new JsonResult(new { success = false, message = "Error en La Base De Datos" });
+                messageResult = "Error al registrar el empleado.";
+                return Page();
             }
         }
     }
