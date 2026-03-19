@@ -43,7 +43,20 @@ namespace LibreriaJoelito.Pages.Productos
 
         public IActionResult OnPost()
         {
-            Producto producto = new Producto(Categoria,Nombre,Precio,Stock,TipoVenta,FactorConversion,IdProductoBase);
+
+            string query = @"INSERT INTO producto (Categoria, Nombre, Precio, Stock, Tipo_Venta, Factor_Conversion,Id_Producto_Base)
+                            VALUES (@categoria, @nombre, @precio, @stock, @tipoVenta, @factorConversion, @idProductoBase);";
+            MySqlCommand command = new MySqlCommand(query);
+
+            command.Parameters.AddWithValue("@categoria", Categoria);
+            command.Parameters.AddWithValue("@nombre", Nombre);
+            command.Parameters.AddWithValue("@precio", Precio);
+            command.Parameters.AddWithValue("@stock", Stock);
+            command.Parameters.AddWithValue("@tipoVenta", TipoVenta);
+            command.Parameters.AddWithValue("@factorConversion", FactorConversion);
+            command.Parameters.AddWithValue("@idProductoBase", IdProductoBase);
+            Producto producto= new Producto(Categoria,Nombre,Precio,Stock,TipoVenta,FactorConversion,IdProductoBase);
+
             List<ValidationResult> errors = new List<ValidationResult>();
             errors=ProductValidator.ValidarProducto(producto); 
             if (errors.Count > 0)

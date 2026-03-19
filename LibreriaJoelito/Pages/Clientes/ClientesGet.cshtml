@@ -5,43 +5,38 @@
 }
 
 <div class="content-area">
-
-  <div class="page-container">
+    <div class="page-container">
 
         <div class="tabla-header">
-
             <div class="tabla-titulo">
                 Lista de Clientes
             </div>
-
             <div class="tabla-acciones">
 
                 <a asp-page="ClienteCreate" class="btn btn-sistema  btn-sm">
                     Nuevo Cliente
                 </a>
             </div>
-
         </div>
 
-
-    @if (TempData["MensajeExito"] != null)
-    {
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            @TempData["MensajeExito"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    }
+        @if (TempData["MensajeExito"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["MensajeExito"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
 
         <div class="table-responsive">
             <table class="table tabla-sistema">
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Apellido</th>
+                        <th>Apellido Paterno</th>
+                        <th>Apellido Materno</th>
                         <th>CI</th>
                         <th>Email</th>
-                        <th>EsClienteFrecuente</th>
-                        <th>Fecha Registro</th>
+                        <th>Cliente Frecuente</th>
                         <th class="text-center">Acciones</th>
                     </tr>
                 </thead>
@@ -49,30 +44,64 @@
                     @foreach (System.Data.DataRow row in Model.ClientesDataTable.Rows)
                     {
                         <tr>
-                            <td class="align-middle">@row["Nombre"]</td>
-                            <td class="align-middle">@row["Apellido"]</td>
-                            <td class="align-middle">
-                                @row["CI"]@(string.IsNullOrWhiteSpace(row["Complemento"]?.ToString()) ? "" : "-" + row["Complemento"])
+                            <td>@row["Nombre"]</td>
+                            <td>@row["ApellidoPaterno"]</td>
+                            <td>@(row["ApellidoMaterno"] == DBNull.Value ? "—" : row["ApellidoMaterno"])</td>
+                            @if (row["Complemento"] != DBNull.Value && !string.IsNullOrEmpty(row["Complemento"].ToString()))
+                            {
+                                <td>@(row["Ci"] + "-" + row["Complemento"])</td>
+                            }
+                            else
+                            {
+                                <td>@row["Ci"]</td>
+                            }
+                            <td>@(row["Email"] == DBNull.Value ? "—" : row["Email"])</td>
+                            <td>@(Convert.ToBoolean(row["ClienteFrecuente"]) ? "Sí" : "No")</td>
+                            <td>
+                                <a onclick="abrirModalEditar(
+                                        '@row["Id"]',
+                                        '@row["Nombre"]',
+                                        '@row["ApellidoPaterno"]',
+                                        '@(row["ApellidoMaterno"] == DBNull.Value ? "" : row["ApellidoMaterno"])',
+                                        '@row["Ci"]',
+                                        '@(row["Complemento"] == DBNull.Value ? "" : row["Complemento"])',
+                                        '@(row["Email"] == DBNull.Value ? "" : row["Email"])',
+                                        '@(Convert.ToBoolean(row["ClienteFrecuente"]).ToString().ToLower())')"
+                                   class="btn btn-warning btn-sm">
+                                    Editar
+                                </a>
+                                <a data-bs-toggle="modal" data-bs-target="#modalDelete-@row["Id"]"
+                                   class="btn btn-danger btn-sm">
+                                    Eliminar
+                                </a>
                             </td>
-                            <td class="align-middle">@(row["Email"] == DBNull.Value ? "—" : row["Email"])</td>
-                            <td class="align-middle">@(Convert.ToBoolean(row["EsClienteFrecuente"]) ? "Sí" : "No")</td>
-                            <td class="align-middle text-muted" style="font-size: 0.9rem;">
-                                @Convert.ToDateTime(row["FechaRegistro"]).ToString("dd/MM/yyyy HH:mm")
-                            </td>
-
-                            <td class="text-center align-middle">
-                               
-                                    <a asp-page="Edit" asp-route-id="@row["Id"]"
-                                       class="btn btn-sistema">Editar</a>
-                                    <a asp-page="Delete" asp-route-id="@row["Id"]"
-                                       class="btn btn-sistema-danger ">Eliminar</a>
-                      
                         </tr>
+
+                        <!-- MODAL ELIMINAR POR FILA -->
+                        <div class="modal fade" id="modalDelete-@row["Id"]" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form method="post" asp-page-handler="Delete" asp-route-id="@row["Id"]">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Eliminar cliente</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <span>¿Está seguro de eliminar al cliente <strong>@row["Nombre"] @row["ApellidoPaterno"]</strong>?</span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-danger">Sí</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     }
                     @if (Model.ClientesDataTable.Rows.Count == 0)
                     {
                         <tr>
-                            <td colspan="6" class="text-center py-4 text-muted">
+                            <td colspan="8" class="text-center py-4 text-muted">
                                 No hay clientes registrados.
                             </td>
                         </tr>
@@ -82,3 +111,103 @@
         </div>
     </div>
 </div>
+
+
+<!-- MODAL EDITAR CLIENTE -->
+<div class="modal fade" id="modalEditarCliente" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form id="formEditarCliente">
+                <input type="hidden" name="Id" id="edit_id" />
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="modalEditarLabel">Editar Datos del Cliente</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="alertaErrorModal" class="alert alert-danger" style="display:none;"></div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" name="_cliente.Nombre" id="edit_nombre" class="form-control" placeholder="Ej: Juan" required />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Apellido Paterno</label>
+                            <input type="text" name="_cliente.ApellidoPaterno" id="edit_paterno" class="form-control" placeholder="Ej: Pérez" required />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Apellido Materno</label>
+                            <input type="text" name="_cliente.ApellidoMaterno" id="edit_materno" class="form-control" placeholder="Ej: López" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">CI</label>
+                            <input type="text" name="_cliente.Ci" id="edit_ci" class="form-control" placeholder="Ej: 1234567" required />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Complemento</label>
+                            <input type="text" name="_cliente.Complemento" id="edit_complemento" class="form-control" placeholder="Ej: 1A" />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="_cliente.Email" id="edit_email" class="form-control" placeholder="juan@ejemplo.com" />
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" name="_cliente.ClienteFrecuente" class="form-check-input" id="edit_frecuente" value="true" />
+                            <label class="form-check-label" for="edit_frecuente">Cliente Frecuente</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="enviarUpdate()">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@Html.AntiForgeryToken()
+
+<script>
+    function abrirModalEditar(id, nombre, paterno, materno, ci, complemento, email, frecuente) {
+        document.getElementById('edit_id').value = id;
+        document.getElementById('edit_nombre').value = nombre;
+        document.getElementById('edit_paterno').value = paterno;
+        document.getElementById('edit_materno').value = materno;
+        document.getElementById('edit_ci').value = ci;
+        document.getElementById('edit_complemento').value = complemento;
+        document.getElementById('edit_email').value = email;
+        document.getElementById('edit_frecuente').checked = (frecuente === 'true');
+
+        new bootstrap.Modal(document.getElementById('modalEditarCliente')).show();
+    }
+
+    function enviarUpdate() {
+        const formData = new FormData(document.querySelector('#formEditarCliente'));
+
+        fetch('?handler=Update', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                const alerta = document.getElementById('alertaErrorModal');
+                alerta.textContent = data.message;
+                alerta.style.display = 'block';
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>

@@ -23,7 +23,7 @@ namespace LibreriaJoelito.Pages.Productos
         {
             string connectionString = configuration.GetConnectionString("MySqlConnection")!;
             string query = @"SELECT  Id, Nombre,Categoria,Precio,Stock,Tipo_Venta,Factor_Conversion,Id_Producto_Base, FechaRegistro
-                            FROM productos
+                            FROM producto
                             WHERE estado=1
                             ORDER BY 3";
             MySqlCommand command = new MySqlCommand(query);
@@ -33,7 +33,7 @@ namespace LibreriaJoelito.Pages.Productos
         }
         public IActionResult OnPostDelete(int id)
         {
-            string query = @"UPDATE productos
+            string query = @"UPDATE producto
                      SET Estado = 0, UltimaActualizacion=@fechaAhora
                      WHERE Id = @Id";
 
@@ -52,7 +52,7 @@ namespace LibreriaJoelito.Pages.Productos
                 return "Sin producto Base";
             }
             string query = @"SELECT Nombre 
-                            FROM productos
+                            FROM producto
                             WHERE Id=@Id";
             MySqlCommand cmd = new MySqlCommand(query);
             cmd.Parameters.AddWithValue("@Id", id);
