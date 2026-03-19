@@ -11,6 +11,11 @@ builder.Services.AddScoped<IRepository<Empleado>>(provider => {
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+
+builder.Services.AddScoped<IRepository<Producto>>(provider => {
+    return new ProductoCreatorRepository().CreateRepository();
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
