@@ -21,7 +21,9 @@ namespace LibreriaJoelito.Pages.Productos
         public int IdMarca{ get; set; }
         [BindProperty]
         public int Stock { get; set; }
-        
+        [TempData]
+        public string MensajeExito { get; set; }
+
         public DataTable CategoriasDataTable { get; set; }
         public DataTable MarcasDataTable { get; set; }
 
@@ -56,6 +58,9 @@ namespace LibreriaJoelito.Pages.Productos
                 return Page(); // vuelve al formulario mostrando errores
             }
             _productRepository.Insert(producto);
+
+            MensajeExito = "El producto fue creado correctamente.";
+
             return RedirectToPage("MostrarProductos");
         }
         void LoadCategorias()

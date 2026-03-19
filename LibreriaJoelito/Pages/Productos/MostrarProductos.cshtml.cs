@@ -23,8 +23,8 @@ namespace LibreriaJoelito.Pages.Productos
         public int IdMarca { get; set; }
         [BindProperty]
         public int Stock { get; set; }
-
-
+        [TempData]
+        public string MensajeExito { get; set; }
 
 
         private readonly IConfiguration configuration;
@@ -75,6 +75,7 @@ namespace LibreriaJoelito.Pages.Productos
         public IActionResult OnPostDelete(int id)
         {
             _productRepository.Delete(new Models.Producto(id));
+            TempData["MensajeExito"] = "El producto fue eliminado correctamente.";
             return RedirectToPage("MostrarProductos");
         }
 
@@ -82,6 +83,7 @@ namespace LibreriaJoelito.Pages.Productos
         {
             Producto producto = new Producto(Id, IdCategoria, IdMarca, Nombre, Stock);
             _productRepository.Update(producto);
+            TempData["MensajeExito"] = "El producto fue editado correctamente.";
             return RedirectToPage("MostrarProductos");
         }
         
