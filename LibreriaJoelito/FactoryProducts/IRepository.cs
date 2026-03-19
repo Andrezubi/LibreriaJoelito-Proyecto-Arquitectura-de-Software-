@@ -8,10 +8,6 @@ namespace LibreriaJoelito.FactoryProducts
         int Update(T t);
         int Delete(T t);
         DataTable GetAll();
-<<<<<<< HEAD
-        DataRow GetByID(int id);
-=======
         DataRow GetById(int id);
->>>>>>> empleados-crud-camila
     }
 }
