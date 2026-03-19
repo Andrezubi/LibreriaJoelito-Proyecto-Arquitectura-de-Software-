@@ -99,7 +99,7 @@ namespace LibreriaJoelito.Pages.Productos
             {
                 Producto producto = new Producto(Id, IdCategoria, IdMarca, Nombre, Stock);
                 var errores = ProductValidator.ValidarProducto(producto);
-                // validar (tu lógica actual)
+                // validar (tu lï¿½gica actual)
                 if (errores.Any())
                 {
                     var listaErrores = errores

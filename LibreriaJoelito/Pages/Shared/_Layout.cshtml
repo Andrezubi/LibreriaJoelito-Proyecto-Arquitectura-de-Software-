@@ -4,7 +4,12 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    
+
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="~/css/globals.css" />
     <link rel="stylesheet" href="~/css/style.css" />
@@ -13,103 +18,134 @@
 
 </head>
 
-<body>
+<body class="@(ViewData["Title"]?.ToString() == "Index" ? "" : "bg-sistema")">
 
     <div class="sistema-de-gestion">
 
         <!-- HEADER -->
-        <div class="overlap-group">
 
-            <div class="group-3"></div>
+        <header class="main-header">
 
-            <div class="header-text">
+            <div class="header-left">
 
-                <div class="librer-a-joelito">
-                    LIBRERÕA JOELITO
-                </div>
+                <div class="logo"></div>
 
-                <div class="sistema-de-gesti-n">
-                    Sistema De GestiÛn De La LibrerÌa
+                <div class="header-text">
+
+                    <div class="titulo-sistema">
+                        LIBRER√çA JOELITO
+                    </div>
+
+                    <div class="subtitulo-sistema">
+                        Sistema de Gesti√≥n de Librer√≠a
+                    </div>
+
                 </div>
 
             </div>
 
-        </div>
+            <div class="header-right">
+
+                @RenderSection("HeaderButtons", required: false)
+
+            </div>
+
+        </header>
+
 
         <!-- CONTENEDOR PRINCIPAL -->
+
         <div class="main-container">
 
             <!-- SIDEBAR -->
 
-
-            <div class="rectangle">
-
-                <!-- INICIO -->
+            <aside class="sidebar">
 
                 <a href="/Index" class="menu-item active">
 
                     <img class="menu-icon" src="~/img/home-lib.svg">
 
-                    <div class="menu-text">Inicio</div>
+                    <span>Inicio</span>
 
                 </a>
 
 
-                <!-- PRODUCTOS -->
-
+                <!-- INICIO -->
                 <a href="/Productos/MostrarProductos" class="menu-item">
 
                     <img class="menu-icon" src="~/img/prod-lib.svg">
 
-                    <div class="menu-text">Productos</div>
+                    <span>Productos</span>
 
                 </a>
 
-
-                <!-- CLIENTES -->
 
                 <a href="/Clientes/ClientesGet" class="menu-item">
 
                     <img class="menu-icon" src="~/img/cli-lib.svg">
 
-                    <div class="menu-text">Clientes</div>
+                    <span>Clientes</span>
 
                 </a>
 
-
-                <!-- EMPLEADOS -->
 
                 <a href="/Empleados/EmpleadoGet" class="menu-item">
 
                     <img class="menu-icon" src="~/img/emp-lib.svg">
 
-                    <div class="menu-text">Empleados</div>
+                    <span>Empleados</span>
 
                 </a>
 
+                <a href="/Index" class="menu-item">
 
-                <!-- CONFIGURACION -->
+                    <img class="menu-icon" src="~/img/ventas-lib.svg">
 
-                <a href="/Configuracion" class="menu-item">
+                    <span>Ventas</span>
+
+                </a>
+
+                <a href="/Index" class="menu-item">
+
+                    <img class="menu-icon" src="~/img/marca-lib.svg">
+
+                    <span>Marcas Disponibles</span>
+
+                </a>
+
+                <a href="/Index" class="menu-item">
+
+                    <img class="menu-icon" src="~/img/categoria-lib.svg">
+
+                    <span>Categor√≠a</span>
+
+                </a>
+
+                <a href="/Index" class="menu-item">
 
                     <img class="menu-icon" src="~/img/config-lib.svg">
 
-                    <div class="menu-text">ConfiguraciÛn</div>
+                    <span>Configuraci√≥n</span>
 
-                </a>
+                </a> 
 
-            </div>
 
-            <!-- AREA CENTRAL -->
-            <div class="content-area">
+            </aside>
+
+
+            <!-- CONTENIDO -->
+
+            <main class="content-area">
 
                 @RenderBody()
 
-            </div>
+            </main>
 
         </div>
 
     </div>
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

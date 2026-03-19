@@ -4,121 +4,130 @@
     ViewData["Title"] = "Clientes";
 }
 
-<div class="content-area">
-    <div class="page-container">
+<div class="container-fluid mt-4 px-4">
+    <div class="d-flex justify-content-center">
+        <div class="tabla-wrapper">
 
-        <div class="tabla-header">
-            <div class="tabla-titulo">
-                Lista de Clientes
-            </div>
-            <div class="tabla-acciones">
-                <a asp-page="Create" class="btn btn-primary btn-sm">
-                    Añadir Cliente
-                </a>
-            </div>
-        </div>
 
-        @if (TempData["MensajeExito"] != null)
-        {
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                @TempData["MensajeExito"]
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        }
+            <div class="card shadow-sm tabla-card">
 
-        <div class="table-responsive">
-            <table class="tabla-sistema table-hover table-bordered">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Apellido Paterno</th>
-                        <th>Apellido Materno</th>
-                        <th>CI</th>
-                        <th>Email</th>
-                        <th>Cliente Frecuente</th>
-                        <th class="text-center">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (System.Data.DataRow row in Model.ClientesDataTable.Rows)
-                    {
-                        <tr>
-                            <td>@row["Nombre"]</td>
-                            <td>@row["ApellidoPaterno"]</td>
-                            <td>@(row["ApellidoMaterno"] == DBNull.Value ? "—" : row["ApellidoMaterno"])</td>
-                            @if (row["Complemento"] != DBNull.Value && !string.IsNullOrEmpty(row["Complemento"].ToString()))
-                            {
-                                <td>@(row["Ci"] + "-" + row["Complemento"])</td>
-                            }
-                            else
-                            {
-                                <td>@row["Ci"]</td>
-                            }
-                            <td>@(row["Email"] == DBNull.Value ? "—" : row["Email"])</td>
-                            <td>@(Convert.ToBoolean(row["ClienteFrecuente"]) ? "Sí" : "No")</td>
-                            <td>
-                                <a onclick="abrirModalEditar(
-                                        '@row["Id"]',
-                                        '@row["Nombre"]',
-                                        '@row["ApellidoPaterno"]',
-                                        '@(row["ApellidoMaterno"] == DBNull.Value ? "" : row["ApellidoMaterno"])',
-                                        '@row["Ci"]',
-                                        '@(row["Complemento"] == DBNull.Value ? "" : row["Complemento"])',
-                                        '@(row["Email"] == DBNull.Value ? "" : row["Email"])',
-                                        '@(Convert.ToBoolean(row["ClienteFrecuente"]).ToString().ToLower())')"
-                                   class="btn btn-warning btn-sm">
-                                    Editar
-                                </a>
-                                <a data-bs-toggle="modal" data-bs-target="#modalDelete-@row["Id"]"
-                                   class="btn btn-danger btn-sm">
-                                    Eliminar
-                                </a>
-                            </td>
-                        </tr>
+                <!-- HEADER -->
+                <div class="card-header d-flex justify-content-between align-items-center tabla-header-custom">
 
-                        <!-- MODAL ELIMINAR POR FILA -->
-                        <div class="modal fade" id="modalDelete-@row["Id"]" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <form method="post" asp-page-handler="Delete" asp-route-id="@row["Id"]">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Eliminar cliente</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <h5 class="mb-0">Lista de Clientes</h5>
+
+                    <a asp-page="Create" class="btn btn-sistema btn-sm">
+                        + Nuevo Cliente
+                    </a>
+
+                </div>
+
+                @if (TempData["MensajeExito"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        @TempData["MensajeExito"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                }
+
+                <div class="card-body p-0">
+
+                    <div class="table-responsive">
+
+                        <table class="table table-hover align-middle mb-0">
+
+                            <thead class="tabla-head-custom">
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Apellido Paterno</th>
+                                    <th>Apellido Materno</th>
+                                    <th>CI</th>
+                                    <th>Email</th>
+                                    <th>Cliente Frecuente</th>
+                                    <th class="text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (System.Data.DataRow row in Model.ClientesDataTable.Rows)
+                                {
+                                    <tr>
+                                        <td>@row["Nombre"]</td>
+                                        <td>@row["ApellidoPaterno"]</td>
+                                        <td>@(row["ApellidoMaterno"] == DBNull.Value ? "—" : row["ApellidoMaterno"])</td>
+                                        @if (row["Complemento"] != DBNull.Value && !string.IsNullOrEmpty(row["Complemento"].ToString()))
+                                        {
+                                            <td>@(row["Ci"] + "-" + row["Complemento"])</td>
+                                        }
+                                        else
+                                        {
+                                            <td>@row["Ci"]</td>
+                                        }
+                                        <td>@(row["Email"] == DBNull.Value ? "—" : row["Email"])</td>
+                                        <td>@(Convert.ToBoolean(row["ClienteFrecuente"]) ? "Sí" : "No")</td>
+                                        <td>
+                                            <a onclick="abrirModalEditar(
+                                                '@row["Id"]',
+                                                '@row["Nombre"]',
+                                                '@row["ApellidoPaterno"]',
+                                                '@(row["ApellidoMaterno"] == DBNull.Value ? "" : row["ApellidoMaterno"])',
+                                                '@row["Ci"]',
+                                                '@(row["Complemento"] == DBNull.Value ? "" : row["Complemento"])',
+                                                '@(row["Email"] == DBNull.Value ? "" : row["Email"])',
+                                                '@(Convert.ToBoolean(row["ClienteFrecuente"]).ToString().ToLower())')"
+                                               class="btn btn-sistema btn-sm">
+                                                Editar
+                                            </a>
+                                            <a data-bs-toggle="modal" data-bs-target="#modalDelete-@row["Id"]"
+                                               class="btn btn-sistema-danger btn-sm">
+                                                Eliminar
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                    <!-- MODAL ELIMINAR POR FILA -->
+                                    <div class="modal fade" id="modalDelete-@row["Id"]" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form method="post" asp-page-handler="Delete" asp-route-id="@row["Id"]">
+                                                    <div class="modal-header modal-header-morado">
+                                                        <h5 class="modal-title">Eliminar cliente</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <span>¿Está seguro de eliminar al cliente <strong>@row["Nombre"] @row["ApellidoPaterno"]</strong>?</span>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-sistema-danger">Sí</button>
+                                                        <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
-                                        <div class="modal-body">
-                                            <span>¿Está seguro de eliminar al cliente <strong>@row["Nombre"] @row["ApellidoPaterno"]</strong>?</span>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-danger">Sí</button>
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                    @if (Model.ClientesDataTable.Rows.Count == 0)
-                    {
-                        <tr>
-                            <td colspan="8" class="text-center py-4 text-muted">
-                                No hay clientes registrados.
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                                    </div>
+                                }
+                                @if (Model.ClientesDataTable.Rows.Count == 0)
+                                {
+                                    <tr>
+                                        <td colspan="8" class="text-center py-4 text-muted">
+                                            No hay clientes registrados.
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
-
 <!-- MODAL EDITAR CLIENTE -->
 <div class="modal fade" id="modalEditarCliente" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form id="formEditarCliente">
                 <input type="hidden" name="Id" id="edit_id" />
-                <div class="modal-header bg-primary text-white">
+                <div class="modal-header modal-header-morado">
                     <h5 class="modal-title" id="modalEditarLabel">Editar Datos del Cliente</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -163,8 +172,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="enviarUpdate()">Guardar Cambios</button>
+                    <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-sistema" onclick="enviarUpdate()">Guardar Cambios</button>
                 </div>
             </form>
         </div>
