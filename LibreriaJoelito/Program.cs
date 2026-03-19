@@ -19,6 +19,11 @@ builder.Services.AddScoped<IRepository<Cliente>>(provider =>
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+//Dependency inyection IRepository Productos
+builder.Services.AddScoped<IRepository<Producto>>(provider => {
+    return new ProductoCreatorRepository().CreateRepository();
+});
+
 var app = builder.Build();
 
 // select connection string from appsettings
