@@ -1,6 +1,6 @@
-
 using LibreriaJoelito;
-
+=========
+>>>>>>>>> Temporary merge branch 2
 using LibreriaJoelito.FactoryCreators;
 using LibreriaJoelito.FactoryProducts;
 using LibreriaJoelito.Models;
@@ -21,7 +21,7 @@ builder.Services.AddScoped<IRepository<Cliente>>(provider =>
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-
+//Dependency inyection IRepository Productos
 builder.Services.AddScoped<IRepository<Producto>>(provider => {
     return new ProductoCreatorRepository().CreateRepository();
 });

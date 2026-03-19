@@ -7,8 +7,6 @@ namespace LibreriaJoelito
 {
     public static class RepositorioBD
     {
-
-        private static string connectionStringMySql = "Server=localhost;Port=3306;uid=root;pwd=1234;database=bdlibreria";
         private static string? _connectionString;
         private static string CatchStringConnection()
         {

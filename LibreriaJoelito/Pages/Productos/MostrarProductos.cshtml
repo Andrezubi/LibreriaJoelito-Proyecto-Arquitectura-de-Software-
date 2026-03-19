@@ -42,22 +42,22 @@
                 <tbody>
                     @foreach (System.Data.DataRow row in Model.ProductosDataTable.Rows)
                     {
-                    <tr>
-                        <td>@row["Nombre"]</td>
-                        <td>@Model.getCategoriaById(Convert.ToInt32(row["IdCategoria"]))</td>
-                        <td>@Model.getMarcaById(Convert.ToInt32(row["IdMarca"]))</td>
-                        <td>@row["Stock"]</td>
-                        <td>@row["FechaRegistro"]</td>
-                        <td>
-                            @* <a asp-page="ProductoUpdate" asp-route-id="@row["Id"]" class="btn btn-warning btn-sm">Editar</a> *@
-                            <a class="btn btn-warning btn-sm"
-                                onclick="abrirModalUpdate(
-                                    '@row["Id"]',
-                                    '@row["Nombre"]',
-                                    '@row["IdCategoria"]',
-                                    '@row["IdMarca"]',
-                                    '@row["Stock"]')">Editar</a>
-                            @* <form method="post" asp-page-handler="Delete" style="display:inline;">
+                        <tr>
+                            <td>@row["Nombre"]</td>
+                            <td>@Model.getCategoriaById(Convert.ToInt32(row["IdCategoria"]))</td>
+                            <td>@Model.getMarcaById(Convert.ToInt32(row["IdMarca"]))</td>
+                            <td>@row["Stock"]</td>
+                            <td>@row["FechaRegistro"]</td>
+                            <td>
+                                @* <a asp-page="ProductoUpdate" asp-route-id="@row["Id"]" class="btn btn-warning btn-sm">Editar</a> *@
+                                <a class="btn btn-warning btn-sm"
+                                   onclick="abrirModalUpdate(
+                                        '@row["Id"]',
+                                        '@row["Nombre"]',
+                                        '@row["IdCategoria"]',
+                                        '@row["IdMarca"]',
+                                        '@row["Stock"]')">Editar</a>
+                                @* <form method="post" asp-page-handler="Delete" style="display:inline;">
                             <input type="hidden" name="id" value="@row["Id"]" />
 
                             <button type="submit"
@@ -66,34 +66,34 @@
                                 Eliminar
                             </button>
                             </form> *@
-                            <a data-bs-toggle="modal" data-bs-target="#modalDelete-@row["Id"]" class="btn btn-danger btn-sm">Eliminar</a>
-                        </td>
-                    </tr>
+                                <a data-bs-toggle="modal" data-bs-target="#modalDelete-@row["Id"]" class="btn btn-danger btn-sm">Eliminar</a>
+                            </td>
+                        </tr>
 
-                    <div class="modal fade" id="modalDelete-@row["Id"]" tabindex="-1" aria-labelledby="EliminarProdcuto" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <form method="post" asp-page-handler="Delete" asp-route-id="@row["Id"]">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Eliminar producto</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <span>¿Está seguro de eliminar el producto?</span>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-danger">Sí</button>
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    </div>
-                                </form>
+                        <div class="modal fade" id="modalDelete-@row["Id"]" tabindex="-1" aria-labelledby="EliminarProdcuto" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form method="post" asp-page-handler="Delete" asp-route-id="@row["Id"]">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Eliminar producto</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <span>¿Está seguro de eliminar el producto?</span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-danger">Sí</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
                     }
-                </tbody> 
+                </tbody>
             </table>
-        </div>   
+        </div>
     </div>
 </div>
 
