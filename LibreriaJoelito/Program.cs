@@ -1,23 +1,7 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> 56204a28d07bfee6d681b292c703fad49a80a3c5
-=======
-
->>>>>>> 56204a28d07bfee6d681b292c703fad49a80a3c5
 using LibreriaJoelito;
 using LibreriaJoelito.FactoryCreators;
 using LibreriaJoelito.FactoryProducts;
 using LibreriaJoelito.Models;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> 56204a28d07bfee6d681b292c703fad49a80a3c5
-=======
-
->>>>>>> 56204a28d07bfee6d681b292c703fad49a80a3c5
 
 var builder = WebApplication.CreateBuilder(args);
 

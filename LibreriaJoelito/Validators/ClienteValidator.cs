@@ -21,7 +21,7 @@ namespace LibreriaJoelito.Validators
             ValidarNombre(cliente.Nombre, errores);
             ValidarApellidoPaterno(cliente.ApellidoPaterno, errores);
             ValidarApellidoMaterno(cliente.ApellidoMaterno, errores);
-            ValidarCI(cliente.Ci, errores);
+            ValidarCI(cliente.CI, errores);
             ValidarComplemento(cliente.Complemento, errores);
             ValidarEmail(cliente.Email, errores);
 
