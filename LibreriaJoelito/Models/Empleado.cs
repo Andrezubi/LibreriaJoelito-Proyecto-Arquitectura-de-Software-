@@ -1,4 +1,4 @@
-﻿namespace LibreriaJoelito.Models
+namespace LibreriaJoelito.Models
 {
     public class Empleado
     {

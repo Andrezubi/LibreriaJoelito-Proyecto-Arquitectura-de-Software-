@@ -1,23 +1,18 @@
+using LibreriaJoelito.FactoryCreators;
+using LibreriaJoelito.FactoryProducts;
+using LibreriaJoelito.Models;
+using LibreriaJoelito.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MySql.Data.MySqlClient;
 
 namespace LibreriaJoelito.Pages.Clientes
 {
     public class CreateModel : PageModel
     {
+        private readonly IRepository<Cliente> _clienteRepository = new ClienteRepositoryCreator().CreateRepository();
+
         [BindProperty]
-        public string Nombre { get; set; }
-        [BindProperty]
-        public string Apellido { get; set; }
-        [BindProperty]
-        public string CI { get; set; } = string.Empty;
-        [BindProperty]
-        public string? Complemento { get; set; }
-        [BindProperty]
-        public string? Email { get; set; }
-        [BindProperty]
-        public bool EsclienteFrecuente { get; set; }
+        public Cliente _cliente { get; set; } = new();
 
         public void OnGet()
         {
@@ -25,18 +20,31 @@ namespace LibreriaJoelito.Pages.Clientes
 
         public IActionResult OnPost()
         {
-            if (!ModelState.IsValid) return Page();
+            // Normalización
+            _cliente.Nombre = ClienteValidator.NormalizarTexto(_cliente.Nombre);
+            _cliente.ApellidoPaterno = ClienteValidator.NormalizarTexto(_cliente.ApellidoPaterno);
+            _cliente.ApellidoMaterno = ClienteValidator.NormalizarTexto(_cliente.ApellidoMaterno);
 
-            // Usando RepositorioBD para insertar
-            MySqlCommand cmd = new MySqlCommand("INSERT INTO clientes (Nombre, Apellido, CI, Complemento, Email, EsClienteFrecuente) VALUES (@nombre, @apellido, @ci, @complemento, @email, @EsClienteFrecuente)");
-            cmd.Parameters.AddWithValue("@nombre", Nombre);
-            cmd.Parameters.AddWithValue("@apellido", Apellido);
-            cmd.Parameters.AddWithValue("@ci", CI);
-            cmd.Parameters.AddWithValue("@complemento", Complemento ?? string.Empty);
-            cmd.Parameters.AddWithValue("@email", Email ?? string.Empty);
-            cmd.Parameters.AddWithValue("@EsClienteFrecuente", EsclienteFrecuente);
+            // Validación
+            var errores = ClienteValidator.Validar(_cliente);
+            if (errores.Any())
+            {
+                foreach (var err in errores)
+                {
+                    ModelState.AddModelError(err.MemberNames.First(), err.ErrorMessage ?? "Error");
+                }
+                return Page();
+            }
 
-            RepositorioBD.ExecuteNonQuery(cmd);
+            // Verificar Duplicados (CI + Complemento)
+            if (_clienteRepository is ClienteRepository repo && repo.ExisteDuplicado(_cliente))
+            {
+                ModelState.AddModelError("_cliente.Ci", "Ya existe un cliente registrado con este CI y Complemento.");
+                return Page();
+            }
+
+            _clienteRepository.Insert(_cliente);
+            TempData["MensajeExito"] = $"Cliente '{_cliente.Nombre} {_cliente.ApellidoPaterno}' creado exitosamente.";
 
             return RedirectToPage("ClientesGet");
         }

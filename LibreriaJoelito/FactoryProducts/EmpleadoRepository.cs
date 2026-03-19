@@ -97,8 +97,8 @@ namespace LibreriaJoelito.FactoryProducts
         public DataTable GetAll()
         {
             string query = @"SELECT Id, Nombre, ApellidoPaterno, ApellidoMaterno, Ci,Complemento, DATE_FORMAT(FechaNacimiento, '%Y-%m-%d') AS FechaNacimiento,Email, DireccionDomicilio, Telefono, DATE_FORMAT(FechaIngreso, '%Y-%m-%d') AS FechaIngreso
-                            FROM Empleado
-                            WHERE estado = 1
+                    FROM Empleado
+                    WHERE estado = 1
                             ORDER BY 2;
                             ";
             MySqlCommand command = new MySqlCommand(query);
