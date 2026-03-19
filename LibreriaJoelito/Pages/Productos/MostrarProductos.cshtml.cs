@@ -24,11 +24,15 @@ namespace LibreriaJoelito.Pages.Productos
         [BindProperty]
         public int Stock { get; set; }
 
+
+
+
         private readonly IConfiguration configuration;
-        private ProductoRepository repository = new ProductoRepository();
-        public MostrarProductosModel(IConfiguration configuration)
+        private readonly IRepository<Producto> _productRepository;
+        public MostrarProductosModel(IConfiguration configuration,IRepository<Producto> productoRepo)
         {
             this.configuration = configuration;
+            this._productRepository = productoRepo;
         }
         public void OnGet()
         {
@@ -39,7 +43,7 @@ namespace LibreriaJoelito.Pages.Productos
 
         void LoadProductos()
         {
-            ProductosDataTable = repository.GetAll();
+            ProductosDataTable = _productRepository.GetAll();
 
         }
 
@@ -70,14 +74,14 @@ namespace LibreriaJoelito.Pages.Productos
 
         public IActionResult OnPostDelete(int id)
         {
-            repository.Delete(new Models.Producto(id));
+            _productRepository.Delete(new Models.Producto(id));
             return RedirectToPage("MostrarProductos");
         }
 
         public IActionResult OnPostUpdate()
         {
             Producto producto = new Producto(Id, IdCategoria, IdMarca, Nombre, Stock);
-            repository.Update(producto);
+            _productRepository.Update(producto);
             return RedirectToPage("MostrarProductos");
         }
         

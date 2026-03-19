@@ -12,7 +12,6 @@ namespace LibreriaJoelito.Pages.Productos
     public class ProductoCreateModel : PageModel
     {
         private readonly IConfiguration configuration;
-        private ProductoRepository repository= new ProductoRepository();
 
         [BindProperty]
         public int IdCategoria { get; set; }
@@ -26,9 +25,11 @@ namespace LibreriaJoelito.Pages.Productos
         public DataTable CategoriasDataTable { get; set; }
         public DataTable MarcasDataTable { get; set; }
 
-        public ProductoCreateModel(IConfiguration configuration)
+        private readonly IRepository<Producto> _productRepository;
+        public ProductoCreateModel(IConfiguration configuration, IRepository<Producto> productRepository)
         {
             this.configuration = configuration;
+            _productRepository = productRepository;
         }
         public void OnGet()
         {
@@ -54,7 +55,7 @@ namespace LibreriaJoelito.Pages.Productos
                 LoadMarcas();
                 return Page(); // vuelve al formulario mostrando errores
             }
-            repository.Insert(producto);
+            _productRepository.Insert(producto);
             return RedirectToPage("MostrarProductos");
         }
         void LoadCategorias()
