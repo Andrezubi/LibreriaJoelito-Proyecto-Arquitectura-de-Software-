@@ -27,7 +27,7 @@
         <label>Categoria</label>
 
         <select asp-for="@Model.IdCategoria" class="form-control">
-            <option value=0>Elija Una Categoria</option>
+            <option value=0>Elija una categoría</option>
 
             @foreach (System.Data.DataRow row in Model.CategoriasDataTable.Rows)
             {
@@ -46,7 +46,7 @@
         <label>Marca</label>
 
         <select asp-for="@Model.IdMarca" class="form-control">
-            <option value=0>Elija Una Marca</option>
+            <option value=0>Elija una marca</option>
 
             @foreach (System.Data.DataRow row in Model.MarcasDataTable.Rows)
             {
@@ -77,13 +77,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-header-morado">
-                <h5>Nueva Categoria</h5>
+                <h5>Nueva Categoría</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
             <div class="modal-body">
                 <div id="errorCategoria" class="alert alert-danger" style="display:none;"></div>
-                <input type="text" id="nombreCategoria" class="form-control" placeholder="Nombre de la categoria" />
+                <input type="text" id="nombreCategoria" class="form-control" placeholder="Nombre de la categoría" />
             </div>
 
             <div class="modal-footer">
