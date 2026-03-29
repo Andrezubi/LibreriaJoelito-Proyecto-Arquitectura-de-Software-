@@ -1,0 +1,70 @@
+﻿@page
+@model LibreriaJoelito.Pages.LogIn.InicioSesionModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+</head>
+
+<body>
+
+<header class="main-header">
+    <div class="header-left">
+        <div class="logo"></div>
+        <div class="header-text">
+            <div class="titulo-sistema">LIBRERÍA JOELITO</div>
+            <div class="subtitulo-sistema">Sistema de Gestión de Librería</div>
+        </div>
+    </div>
+</header>
+
+<!-- LOGIN -->
+<div class="login-container">
+
+    <div class="login-card">
+
+        <div class="login-header">
+            <h3>Iniciar Sesión</h3>
+        </div>
+
+        <div class="login-body">
+
+            <div class="input-group-custom">
+                <span>👤</span>
+                <input type="text" placeholder="Usuario">
+            </div>
+
+            <div class="input-group-custom">
+                <span>🔒</span>
+                <input type="password" placeholder="Contraseña">
+            </div>
+
+                <div class="login-btn-container">
+                    <button class="btn btn-sistema-danger">Ingresar</button>
+                </div>
+
+            <div class="login-extra">
+                <label><input type="checkbox"> Recordarme</label>
+                <a href="#">¿Olvidaste contraseña?</a>
+            </div>
+
+            <div class="login-buttons">
+                    <button type="submit" class="btn btn-sistema">Crear Cuenta</button>
+                    <a href="/Index" class="btn btn-cancelar">Volver al inicio</a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -389,35 +389,6 @@ body {
     margin-right: 30px;
 }
 
-.btn-login {
-    padding: 6px 14px;
-    border-radius: 8px;
-    background: white;
-    color: #3F8F7B;
-    text-decoration: none;
-    font-weight: 500;
-    transition: 0.2s;
-    font-size: 15px;
-}
-
-.btn-register {
-    padding: 6px 14px;
-    border-radius: 8px;
-    background: #5FB8A5;
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    transition: 0.2s;
-    font-size: 15px;
-}
-
-.btn-login:hover {
-    background: #f2f2f2;
-}
-
-.btn-register:hover {
-    background: #4AA897;
-}
 /* INPUTS Y SELECTS */
 .form-control {
     border: 1.5px solid #4a4a4a; /* borde más oscuro */
@@ -498,3 +469,160 @@ select.form-control {
     color: white;
     width: 100%;
 }
+/* LOGIN */
+.login-container {
+    height: calc(100vh - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #cde3e1;
+}
+
+.login-card {
+    width: 350px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.login-header {
+    background: #7b35be;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.login-body {
+    padding: 25px;
+}
+
+.input-group-custom {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid #bbb;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 15px;
+}
+
+    .input-group-custom input {
+        border: none;
+        outline: none;
+        width: 100%;
+        margin-left: 10px;
+    }
+
+.btn-login {
+    padding: 6px 14px;
+    border-radius: 8px;
+    background: white;
+    color: #3F8F7B;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.2s;
+    font-size: 15px;
+}
+
+    .btn-login:hover {
+        background: #f2f2f2;
+    }
+.login-extra {
+    font-size: 12px; 
+    margin-top: 15px; 
+    margin-bottom: 20px; 
+}
+/* REGISTER */
+.register-container {
+    height: calc(100vh - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #cde3e1;
+}
+
+.register-card {
+    display: flex;
+    width: 750px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.register-form {
+    width: 50%;
+    background: white;
+    padding: 30px;
+}
+
+    .register-form input {
+        width: 100%;
+        margin-bottom: 12px;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1.5px solid #bbb;
+    }
+
+.register-info {
+    width: 50%;
+    background: linear-gradient(135deg, #7b35be, #5FB8A5);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-register {
+    padding: 6px 14px;
+    border-radius: 8px;
+    background: #5FB8A5;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.2s;
+    font-size: 15px;
+}
+
+.btn-register:hover {
+    background: #4AA897;
+}
+.login-btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+    /* BOTON SOLO EN LOGIN */
+    .login-btn-container .btn-sistema-danger {
+        width: 70%;
+        max-width: 250px; 
+        padding: 10px;
+        font-size: 15px;
+        text-align: center;
+    }
+/* BOTON REGISTRARSE */
+.register-btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+    .register-btn-container .btn {
+        width: 70%;
+        max-width: 280px;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+/* BOTON VOLVER */
+.volver-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+}
+
+    .volver-container .btn {
+        font-size: 15px;
+        padding: 6px 12px;
+    }

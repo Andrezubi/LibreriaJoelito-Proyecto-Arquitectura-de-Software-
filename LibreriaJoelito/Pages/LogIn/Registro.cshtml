@@ -1,0 +1,67 @@
+﻿@page
+@model LibreriaJoelito.Pages.LogIn.RegistroModel
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Registro</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="main-header">
+    <div class="header-left">
+        <div class="logo"></div>
+        <div class="header-text">
+            <div class="titulo-sistema">LIBRERÍA JOELITO</div>
+            <div class="subtitulo-sistema">Sistema de Gestión de Librería</div>
+        </div>
+    </div>
+</header>
+
+<!-- REGISTER -->
+<div class="register-container">
+
+    <div class="register-card">
+
+        <!-- FORM -->
+        <div class="register-form">
+
+            <h4>Crear Cuenta</h4>
+
+            <input type="text" placeholder="Nombre">
+            <input type="email" placeholder="Correo">
+            <input type="password" placeholder="Contraseña">
+            <input type="password" placeholder="Confirmar Contraseña">
+
+                <div class="register-btn-container">
+                    <button class="btn btn-sistema-danger">Registrarse</button>
+                </div>
+
+                <div class="volver-container">
+                    <a href="/" class="btn btn-secondary">Volver al inicio</a>
+                </div>
+
+        </div>
+
+        <!-- PANEL DERECHO -->
+        <div class="register-info">
+            <h3>Bienvenido</h3>
+            <p>Regístrate para acceder al sistema de gestión.</p>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
