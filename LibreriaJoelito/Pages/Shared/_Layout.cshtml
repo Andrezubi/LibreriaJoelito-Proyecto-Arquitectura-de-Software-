@@ -6,7 +6,6 @@
     <meta charset="utf-8" />
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    
 
     <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -23,136 +22,98 @@
     <div class="sistema-de-gestion">
 
         <!-- HEADER -->
-
         <header class="main-header">
 
             <div class="header-left">
-
                 <div class="logo"></div>
 
                 <div class="header-text">
-
                     <div class="titulo-sistema">
                         LIBRERÍA JOELITO
                     </div>
-
                     <div class="subtitulo-sistema">
                         Sistema de Gestión de Librería
                     </div>
-
                 </div>
-
             </div>
 
             <div class="header-right">
-
                 @RenderSection("HeaderButtons", required: false)
-
             </div>
 
         </header>
 
-
         <!-- CONTENEDOR PRINCIPAL -->
-
         <div class="main-container">
 
+            @{
+                var ocultarSidebar = ViewData["OcultarSidebar"] != null && (bool)ViewData["OcultarSidebar"];
+            }
+
             <!-- SIDEBAR -->
+            @if (!ocultarSidebar)
+            {
+                <aside class="sidebar">
 
-            <aside class="sidebar">
-
-                <a href="/Index" class="menu-item active">
-
-                    <img class="menu-icon" src="~/img/home-lib.svg">
-
-                    <span>Inicio</span>
-
-                </a>
-
-
-                <!-- INICIO -->
-             <!-- PRODUCTOS DESPLEGABLE -->
-                <div class="menu-item d-flex justify-content-between align-items-center">
-
-                    <!-- CLICK NORMAL (IR A PÁGINA) -->
-                    <a href="/Productos/MostrarProductos" class="menu-link d-flex align-items-center">
-                        <img class="menu-icon" src="~/img/prod-lib.svg">
-                        <span>Productos</span>
+                    <a href="/Index" class="menu-item active">
+                        <img class="menu-icon" src="~/img/home-lib.svg">
+                        <span>Inicio</span>
                     </a>
 
-                    <!-- SOLO FLECHA DESPLIEGA -->
-                    <span class="flecha-toggle" data-bs-toggle="collapse" data-bs-target="#menuProductos">
-                        ▾
-                    </span>
+                    <!-- PRODUCTOS -->
+                    <div class="menu-item d-flex justify-content-between align-items-center">
 
-                </div>
+                        <a href="/Productos/MostrarProductos" class="menu-link d-flex align-items-center">
+                            <img class="menu-icon" src="~/img/prod-lib.svg">
+                            <span>Productos</span>
+                        </a>
 
-<!-- SUBMENÚ -->
-<div class="collapse submenu" id="menuProductos">
+                        <span class="flecha-toggle" data-bs-toggle="collapse" data-bs-target="#menuProductos">
+                            ▾
+                        </span>
+                    </div>
 
-                    <a href="/Index" class="submenu-item">
+                    <!-- SUBMENÚ -->
+                    <div class="collapse submenu" id="menuProductos">
 
-                        <img class="menu-icon" src="~/img/categoria-lib.svg">
+                        <a href="/Index" class="submenu-item">
+                            <img class="menu-icon" src="~/img/categoria-lib.svg">
+                            <span>Categoría</span>
+                        </a>
 
-                        <span>Categoría</span>
+                        <a href="/Index" class="submenu-item">
+                            <img class="menu-icon" src="~/img/marca-lib.svg">
+                            <span>Marcas Disponibles</span>
+                        </a>
 
+                    </div>
+
+                    <a href="/Clientes/ClientesGet" class="menu-item">
+                        <img class="menu-icon" src="~/img/cli-lib.svg">
+                        <span>Clientes</span>
                     </a>
 
-
-                    <a href="/Index" class="submenu-item">
-
-                        <img class="menu-icon" src="~/img/marca-lib.svg">
-
-                        <span>Marcas Disponibles</span>
-
+                    <a href="/Empleados/EmpleadoGet" class="menu-item">
+                        <img class="menu-icon" src="~/img/emp-lib.svg">
+                        <span>Empleados</span>
                     </a>
 
-</div>
+                    <a href="/Index" class="menu-item">
+                        <img class="menu-icon" src="~/img/ventas-lib.svg">
+                        <span>Ventas</span>
+                    </a>
 
-                <a href="/Clientes/ClientesGet" class="menu-item">
+                    <a href="/Index" class="menu-item">
+                        <img class="menu-icon" src="~/img/config-lib.svg">
+                        <span>Configuración</span>
+                    </a>
 
-                    <img class="menu-icon" src="~/img/cli-lib.svg">
-
-                    <span>Clientes</span>
-
-                </a>
-
-
-                <a href="/Empleados/EmpleadoGet" class="menu-item">
-
-                    <img class="menu-icon" src="~/img/emp-lib.svg">
-
-                    <span>Empleados</span>
-
-                </a>
-
-                <a href="/Index" class="menu-item">
-
-                    <img class="menu-icon" src="~/img/ventas-lib.svg">
-
-                    <span>Ventas</span>
-
-                </a>
-
-
-                <a href="/Index" class="menu-item">
-
-                    <img class="menu-icon" src="~/img/config-lib.svg">
-
-                    <span>Configuración</span>
-
-                </a> 
-
-
-            </aside>
-
+                </aside>
+            }
 
             <!-- CONTENIDO -->
-
-            <main class="content-area">
-
+            <main class="content-area @(ocultarSidebar ? "full-width" : "")">
                 @RenderBody()
-
             </main>
 
         </div>
