@@ -1,9 +1,8 @@
-﻿
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using System.Data;
 using System.Data.Common;
 
-namespace LibreriaJoelito
+namespace LibreriaJoelito.Infraestructura.Persistencia
 {
     public static class RepositorioBD
     {
