@@ -1,10 +1,10 @@
-﻿using LibreriaJoelito.Models;
+﻿using LibreriaJoelito.Dominio.Models;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
-namespace LibreriaJoelito.Validators
+namespace LibreriaJoelito.Dominio.Validators
 {
     public static class ProductValidator
     {

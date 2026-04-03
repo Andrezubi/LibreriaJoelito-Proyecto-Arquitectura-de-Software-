@@ -1,10 +1,11 @@
-﻿using LibreriaJoelito.Models;
+﻿using LibreriaJoelito.Aplicacion.Interfaces;
+using LibreriaJoelito.Dominio.Models;
 using MySql.Data.MySqlClient;
 using System.Configuration;
 using System.Data;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace LibreriaJoelito.FactoryProducts
+namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 {
     public class EmpleadoRepository : IRepository<Empleado>
     {

@@ -1,9 +1,9 @@
-﻿using LibreriaJoelito.Models;
+﻿using LibreriaJoelito.Dominio.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
 
-namespace LibreriaJoelito.Validators
+namespace LibreriaJoelito.Dominio.Validators
 {
     public static class EmpleadoValidator
     {
@@ -84,7 +84,7 @@ namespace LibreriaJoelito.Validators
             !string.IsNullOrEmpty(ci) && ci.All(char.IsDigit) && ci.Length >= 6 && ci.Length <= 11;
 
         private static bool esExtensionCarnetValida(string ext) =>
-            string.IsNullOrEmpty(ext) || (ext.Length == 2 && char.IsDigit(ext[0]) && char.IsLetter(ext[1]));
+            string.IsNullOrEmpty(ext) || ext.Length == 2 && char.IsDigit(ext[0]) && char.IsLetter(ext[1]);
 
         private static bool esFechaNacimientoValida(DateOnly fecha)
         {
@@ -101,7 +101,7 @@ namespace LibreriaJoelito.Validators
         }
 
         private static bool esDireccionValida(string dir) =>
-            string.IsNullOrWhiteSpace(dir) || (dir.Length >= 10 && dir.Length <= 120);
+            string.IsNullOrWhiteSpace(dir) || dir.Length >= 10 && dir.Length <= 120;
 
         private static bool esTelefonoValido(string tel)
         {

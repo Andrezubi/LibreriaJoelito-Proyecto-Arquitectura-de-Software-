@@ -1,6 +1,6 @@
-using LibreriaJoelito.FactoryProducts;
-using LibreriaJoelito.Models;
-using LibreriaJoelito.Validators;
+using LibreriaJoelito.Aplicacion.Interfaces;
+using LibreriaJoelito.Dominio.Models;
+using LibreriaJoelito.Dominio.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
@@ -76,7 +76,7 @@ namespace LibreriaJoelito.Pages.Productos
 
         public IActionResult OnPostDelete(int id)
         {
-            _productRepository.Delete(new Models.Producto(id));
+            _productRepository.Delete(new Dominio.Models.Producto(id));
             TempData["MensajeExito"] = "El producto fue eliminado correctamente.";
             return RedirectToPage("MostrarProductos");
         }

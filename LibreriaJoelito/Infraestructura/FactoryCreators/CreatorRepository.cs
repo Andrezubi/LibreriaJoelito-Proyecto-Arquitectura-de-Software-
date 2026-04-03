@@ -1,6 +1,6 @@
-﻿using LibreriaJoelito.FactoryProducts;
+﻿using LibreriaJoelito.Aplicacion.Interfaces;
 
-namespace LibreriaJoelito.FactoryCreators
+namespace LibreriaJoelito.Infraestructura.FactoryCreators
 {
     public abstract class CreatorRepository<T>
     {

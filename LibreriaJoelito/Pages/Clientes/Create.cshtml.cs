@@ -1,7 +1,8 @@
-using LibreriaJoelito.FactoryCreators;
-using LibreriaJoelito.FactoryProducts;
-using LibreriaJoelito.Models;
-using LibreriaJoelito.Validators;
+using LibreriaJoelito.Aplicacion.Interfaces;
+using LibreriaJoelito.Dominio.Models;
+using LibreriaJoelito.Dominio.Validators;
+using LibreriaJoelito.Infraestructura.FactoryCreators;
+using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
