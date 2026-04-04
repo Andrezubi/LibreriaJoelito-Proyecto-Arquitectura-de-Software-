@@ -75,8 +75,8 @@ namespace LibreriaJoelito.Pages.Empleados
 
             if (_empleadoRepo.Insert(empleado) == 1)
             {
-                messageResult = "Empleado registrado exitosamente.";
-                return Page();
+                TempData["SuccessMessage"] = "Empleado creado exitosamente.";
+                return RedirectToPage("EmpleadoGet");
             }
             else
             {
