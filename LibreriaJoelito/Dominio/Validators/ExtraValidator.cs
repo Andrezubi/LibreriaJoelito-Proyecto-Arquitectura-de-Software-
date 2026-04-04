@@ -1,9 +1,10 @@
-﻿using MySql.Data.MySqlClient;
+﻿using LibreriaJoelito.Infraestructura.Persistencia;
+using MySql.Data.MySqlClient;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace LibreriaJoelito.Validators
+namespace LibreriaJoelito.Dominio.Validators
 {
     public static class ExtraValidator
     {

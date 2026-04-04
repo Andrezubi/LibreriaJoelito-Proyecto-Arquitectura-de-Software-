@@ -1,7 +1,8 @@
-using LibreriaJoelito.FactoryProducts;
-using LibreriaJoelito.Models;
+using LibreriaJoelito.Aplicacion.Interfaces;
+using LibreriaJoelito.Dominio.Models;
+using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
 
-namespace LibreriaJoelito.FactoryCreators
+namespace LibreriaJoelito.Infraestructura.FactoryCreators
 {
     public class ClienteRepositoryCreator : CreatorRepository<Cliente>
     {

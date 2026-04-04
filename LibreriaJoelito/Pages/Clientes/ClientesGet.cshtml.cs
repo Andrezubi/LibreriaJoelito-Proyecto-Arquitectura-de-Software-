@@ -1,11 +1,12 @@
-using LibreriaJoelito.FactoryProducts;
-using LibreriaJoelito.FactoryCreators;
-using LibreriaJoelito.Models;
+using LibreriaJoelito.Infraestructura.FactoryCreators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
 using System.Data;
-using LibreriaJoelito.Validators;
+using LibreriaJoelito.Dominio.Models;
+using LibreriaJoelito.Dominio.Validators;
+using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
+using LibreriaJoelito.Aplicacion.Interfaces;
 
 namespace LibreriaJoelito.Pages.Clientes
 {

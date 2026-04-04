@@ -1,7 +1,7 @@
-﻿using LibreriaJoelito.Models;
+﻿using LibreriaJoelito.Dominio.Models;
 using System.Data;
 
-namespace LibreriaJoelito.FactoryProducts
+namespace LibreriaJoelito.Aplicacion.Interfaces
 {
     public interface IRepository<T>
     {
