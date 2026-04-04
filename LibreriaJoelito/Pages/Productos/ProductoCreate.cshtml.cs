@@ -1,6 +1,7 @@
-using LibreriaJoelito.FactoryProducts;
-using LibreriaJoelito.Models;
-using LibreriaJoelito.Validators;
+using LibreriaJoelito.Aplicacion.Interfaces;
+using LibreriaJoelito.Dominio.Models;
+using LibreriaJoelito.Dominio.Validators;
+using LibreriaJoelito.Infraestructura.Persistencia;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;

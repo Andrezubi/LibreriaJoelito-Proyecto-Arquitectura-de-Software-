@@ -1,9 +1,9 @@
-using LibreriaJoelito.Models;
+using LibreriaJoelito.Dominio.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace LibreriaJoelito.Validators
+namespace LibreriaJoelito.Dominio.Validators
 {
     public static class ClienteValidator
     {

@@ -1,7 +1,7 @@
 using Google.Protobuf.WellKnownTypes;
-using LibreriaJoelito.FactoryProducts;
-using LibreriaJoelito.Models;
-using LibreriaJoelito.Validators;
+using LibreriaJoelito.Aplicacion.Interfaces;
+using LibreriaJoelito.Dominio.Models;
+using LibreriaJoelito.Dominio.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
@@ -75,8 +75,8 @@ namespace LibreriaJoelito.Pages.Empleados
 
             if (_empleadoRepo.Insert(empleado) == 1)
             {
-                messageResult = "Empleado registrado exitosamente.";
-                return Page();
+                TempData["SuccessMessage"] = "Empleado creado exitosamente.";
+                return RedirectToPage("EmpleadoGet");
             }
             else
             {

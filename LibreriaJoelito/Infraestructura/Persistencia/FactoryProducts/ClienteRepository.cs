@@ -1,9 +1,10 @@
-using LibreriaJoelito.Models;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System;
+using LibreriaJoelito.Dominio.Models;
+using LibreriaJoelito.Aplicacion.Interfaces;
 
-namespace LibreriaJoelito.FactoryProducts
+namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 {
     public class ClienteRepository : IRepository<Cliente>
     {
