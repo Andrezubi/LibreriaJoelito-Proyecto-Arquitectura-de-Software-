@@ -31,13 +31,7 @@ namespace LibreriaJoelito.Pages.Productos
         public DataTable CategoriasDataTable { get; set; }
         public DataTable MarcasDataTable { get; set; }
 
-        //private readonly IRepository<Producto> _productRepository;
         private readonly ProductoServicio productoServicio;
-        //public ProductoCreateModel(IConfiguration configuration, IRepository<Producto> productRepository)
-        //{
-        //    this.configuration = configuration;
-        //    _productRepository = productRepository;
-        //}
 
         public ProductoCreateModel(IConfiguration configuration, ProductoServicio productoServicio)
         {
@@ -54,22 +48,6 @@ namespace LibreriaJoelito.Pages.Productos
         public IActionResult OnPost()
         {
             Producto producto = new Producto(IdCategoria, IdMarca, Nombre, Stock);
-            //List<ValidationResult> errors = new List<ValidationResult>();
-            //errors = ProductValidator.ValidarProducto(producto);
-            //if (errors.Count > 0)
-            //{
-            //    foreach (var error in errors)
-            //    {
-            //        foreach (var member in error.MemberNames)
-            //        {
-            //            ModelState.AddModelError(member, error.ErrorMessage);
-            //        }
-            //    }
-            //    LoadCategorias();
-            //    LoadMarcas();
-            //    return Page(); // vuelve al formulario mostrando errores
-            //}
-            //_productRepository.Insert(producto);
 
             var result = productoServicio.Insert(producto);
 
@@ -77,7 +55,7 @@ namespace LibreriaJoelito.Pages.Productos
             {
                 foreach (var error in result.Errors)
                 {
-                    //Console.WriteLine(error);
+                    Console.WriteLine(error);
 
                     var parts = error.Split(':', 2);
 

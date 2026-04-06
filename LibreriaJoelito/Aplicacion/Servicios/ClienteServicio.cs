@@ -64,9 +64,7 @@ namespace LibreriaJoelito.Aplicacion.Servicios
                 var errors = validationResults
                     .Select(v =>
                     {
-                        //return $"{v.ErrorMessage}";
-                        var field = v.MemberNames.FirstOrDefault() ?? "General";
-                        return $"{field}: {v.ErrorMessage}";
+                        return $"{v.ErrorMessage}";
                     })
                     .ToList();
 

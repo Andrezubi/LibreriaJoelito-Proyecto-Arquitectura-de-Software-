@@ -11,14 +11,8 @@ namespace LibreriaJoelito.Pages.Clientes
 {
     public class CreateModel : PageModel
     {
-        //private readonly IRepository<Cliente> _clienteRepository;
         private readonly ClienteServicio clienteServicio;
         private readonly ClienteValidator clienteValidator;
-
-        //public CreateModel(IRepository<Cliente> clienteRepository)
-        //{
-        //    _clienteRepository = clienteRepository;
-        //}
 
         public CreateModel(ClienteServicio clienteServicio, ClienteValidator clienteValidator)
         {
@@ -64,33 +58,10 @@ namespace LibreriaJoelito.Pages.Clientes
                 return Page();
             }
 
-            // Validación
-            //var errores = ClienteValidator.Validar(_cliente);
-            //if (errores.Any())
-            //{
-            //    foreach (var err in errores)
-            //    {
-            //        ModelState.AddModelError(err.MemberNames.First(), err.ErrorMessage ?? "Error");
-            //    }
-            //    return Page();
-            //}
-
-            // Verificar Duplicados (CI + Complemento)
-            //if (_clienteRepository is ClienteRepository repo && repo.ExisteDuplicado(_cliente))
-            //{
-            //    ModelState.AddModelError("_cliente.Ci", "Ya existe un cliente registrado con este CI y Complemento.");
-            //    return Page();
-            //}
-
             TempData["MensajeExito"] =
                 $"Cliente '{_cliente.Nombre} {_cliente.ApellidoPaterno}' creado exitosamente.";
 
             return RedirectToPage("ClientesGet");
-
-            //_clienteRepository.Insert(_cliente);
-            //TempData["MensajeExito"] = $"Cliente '{_cliente.Nombre} {_cliente.ApellidoPaterno}' creado exitosamente.";
-
-            //return RedirectToPage("ClientesGet");
         }
     }
 }

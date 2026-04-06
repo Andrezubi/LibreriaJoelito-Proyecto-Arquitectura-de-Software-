@@ -13,14 +13,8 @@ namespace LibreriaJoelito.Pages.Clientes
 {
     public class ClientesGetModel : PageModel
     {
-        //private readonly IRepository<Cliente> _clienteRepository;
         private readonly ClienteServicio clienteServicio;
         private readonly ClienteValidator clienteValidator;
-
-        //public ClientesGetModel(IRepository<Cliente> clienteRepository)
-        //{
-        //    _clienteRepository = clienteRepository;
-        //}
 
         public ClientesGetModel(ClienteServicio clienteServicio, ClienteValidator clienteValidator)
         {
@@ -66,25 +60,9 @@ namespace LibreriaJoelito.Pages.Clientes
                     $"Cliente '{_cliente.Nombre} {_cliente.ApellidoPaterno}' actualizado exitosamente.";
 
                 return new JsonResult(new { success = true });
-
-                //var errores = ClienteValidator.Validar(_cliente);
-                //if (errores.Any())
-                //{
-                //    return new JsonResult(new { success = false, message = errores.First().ErrorMessage });
-                //}
-
-                //if (_clienteRepository is ClienteRepository repo && repo.ExisteDuplicado(_cliente))
-                //{
-                //    return new JsonResult(new { success = false, message = "Ya existe otro cliente con este CI y Complemento." });
-                //}
-
-                //_clienteRepository.Update(_cliente);
-                //TempData["MensajeExito"] = $"Cliente '{_cliente.Nombre} {_cliente.ApellidoPaterno}' actualizado exitosamente.";
-                //return new JsonResult(new { success = true });
             }
             catch (Exception ex)
             {
-                //return new JsonResult(new { success = false, message = "Error al actualizar: " + ex.Message });
                 return new JsonResult(new
                 {
                     success = false,
