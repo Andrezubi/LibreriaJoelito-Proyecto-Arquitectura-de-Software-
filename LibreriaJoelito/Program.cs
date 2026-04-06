@@ -3,11 +3,12 @@ using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Infraestructura.FactoryCreators;
 using LibreriaJoelito.Infraestructura.Persistencia;
 using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
-
-
-
+using LibreriaJoelito.Infraestructura.ServiciosExternos;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Registro de IEmailService
+builder.Services.AddTransient<IEmailService, EmailService>();
 
 //Dependency inyection IRepository Empleados
 builder.Services.AddScoped<IRepository<Empleado>>(provider => {
