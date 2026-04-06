@@ -5,16 +5,16 @@ using System.Text.RegularExpressions;
 
 namespace LibreriaJoelito.Dominio.Validators
 {
-    public static class ClienteValidator
+    public class ClienteValidator
     {
-        public static string NormalizarTexto(string? texto)
+        public string NormalizarTexto(string? texto)
         {
             if (string.IsNullOrWhiteSpace(texto)) return string.Empty;
             texto = Regex.Replace(texto.Trim(), @"\s+", " ");
             return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(texto.ToLower());
         }
 
-        public static List<ValidationResult> Validar(Cliente cliente)
+        public List<ValidationResult> Validar(Cliente cliente)
         {
             var errores = new List<ValidationResult>();
 
@@ -28,7 +28,7 @@ namespace LibreriaJoelito.Dominio.Validators
             return errores;
         }
 
-        static void ValidarNombre(string nombre, List<ValidationResult> errores)
+        void ValidarNombre(string nombre, List<ValidationResult> errores)
         {
             if (string.IsNullOrWhiteSpace(nombre))
             {
@@ -41,7 +41,7 @@ namespace LibreriaJoelito.Dominio.Validators
             }
         }
 
-        static void ValidarApellidoPaterno(string apellido, List<ValidationResult> errores)
+        void ValidarApellidoPaterno(string apellido, List<ValidationResult> errores)
         {
             if (string.IsNullOrWhiteSpace(apellido))
             {
@@ -54,7 +54,7 @@ namespace LibreriaJoelito.Dominio.Validators
             }
         }
 
-        static void ValidarApellidoMaterno(string? apellido, List<ValidationResult> errores)
+        void ValidarApellidoMaterno(string? apellido, List<ValidationResult> errores)
         {
             if (!string.IsNullOrWhiteSpace(apellido))
             {
@@ -65,7 +65,7 @@ namespace LibreriaJoelito.Dominio.Validators
             }
         }
 
-        static void ValidarCI(string ci, List<ValidationResult> errores)
+        void ValidarCI(string ci, List<ValidationResult> errores)
         {
             if (string.IsNullOrWhiteSpace(ci))
             {
@@ -80,7 +80,7 @@ namespace LibreriaJoelito.Dominio.Validators
             }
         }
 
-        static void ValidarEmail(string? email, List<ValidationResult> errores)
+        void ValidarEmail(string? email, List<ValidationResult> errores)
         {
             if (!string.IsNullOrWhiteSpace(email))
             {
@@ -91,7 +91,7 @@ namespace LibreriaJoelito.Dominio.Validators
             }
         }
 
-        static void ValidarComplemento(string? complemento, List<ValidationResult> errores)
+        void ValidarComplemento(string? complemento, List<ValidationResult> errores)
         {
             if (!string.IsNullOrWhiteSpace(complemento))
             {

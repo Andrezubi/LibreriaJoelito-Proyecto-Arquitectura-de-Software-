@@ -6,9 +6,9 @@ using System.Text.RegularExpressions;
 
 namespace LibreriaJoelito.Dominio.Validators
 {
-    public static class ProductValidator
+    public  class ProductValidator
     {
-        public static List<ValidationResult> ValidarProducto(Producto producto)
+        public List<ValidationResult> ValidarProducto(Producto producto)
         {
             var errores = new List<ValidationResult>();
 
@@ -21,7 +21,7 @@ namespace LibreriaJoelito.Dominio.Validators
             return errores;
         }
 
-        public static void ValidarNombre(string nombre, List<ValidationResult> errores)
+        public void ValidarNombre(string nombre, List<ValidationResult> errores)
         {
             if (string.IsNullOrWhiteSpace(nombre))
                 errores.Add(new ValidationResult("El nombre es obligatorio.", new[] { "Nombre" }));
@@ -39,13 +39,13 @@ namespace LibreriaJoelito.Dominio.Validators
             }
         }
 
-        public static void ValidarCategoria(int idCategoria, List<ValidationResult> errores)
+        public void ValidarCategoria(int idCategoria, List<ValidationResult> errores)
         {
             if (idCategoria <= 0)
                 errores.Add(new ValidationResult("La categoría es obligatoria.", new[] { "IdCategoria" }));
         }
 
-        public static void ValidarStock(int stock, List<ValidationResult> errores)
+        public void ValidarStock(int stock, List<ValidationResult> errores)
         {
             if (stock < 0)
                 errores.Add(new ValidationResult("El stock no puede ser negativo.", new[] { "Stock" }));
@@ -53,7 +53,7 @@ namespace LibreriaJoelito.Dominio.Validators
                 errores.Add(new ValidationResult("El stock no puede sobrepasar los 100000000"));
         }
 
-        public static void ValidarIdMarca(int idMarca, List<ValidationResult> errores)
+        public void ValidarIdMarca(int idMarca, List<ValidationResult> errores)
         {
             if (idMarca <= 0)
                 errores.Add(new ValidationResult("La marca es obligatoria.", new[] { "IdMarca" }));
