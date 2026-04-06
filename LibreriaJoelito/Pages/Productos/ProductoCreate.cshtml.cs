@@ -14,6 +14,7 @@ namespace LibreriaJoelito.Pages.Productos
     public class ProductoCreateModel : PageModel
     {
         private readonly IConfiguration configuration;
+        public RepositorioBD bd { get; set; } = RepositorioBD.Instancia;
 
         [BindProperty]
         public int IdCategoria { get; set; }
@@ -74,7 +75,7 @@ namespace LibreriaJoelito.Pages.Productos
 
             MySqlCommand cmd = new MySqlCommand(query);
 
-            CategoriasDataTable = RepositorioBD.ExecuteReturningDataTable(cmd);
+            CategoriasDataTable = bd.ExecuteReturningDataTable(cmd);
 
         }
         void LoadMarcas()
@@ -86,7 +87,7 @@ namespace LibreriaJoelito.Pages.Productos
 
             MySqlCommand cmd = new MySqlCommand(query);
 
-            MarcasDataTable = RepositorioBD.ExecuteReturningDataTable(cmd);
+            MarcasDataTable = bd.ExecuteReturningDataTable(cmd);
 
         }
         public class NombreSimple
@@ -116,7 +117,7 @@ namespace LibreriaJoelito.Pages.Productos
                 string query = "INSERT INTO categoria (Nombre) VALUES (@nombre);";
                 MySqlCommand cmd = new MySqlCommand(query);
                 cmd.Parameters.AddWithValue("@nombre", data.Nombre);
-                RepositorioBD.ExecuteNonQuery(cmd);
+                bd.ExecuteNonQuery(cmd);
                 LoadCategorias();
                 return new JsonResult(new { ok = true });
             }
@@ -143,7 +144,8 @@ namespace LibreriaJoelito.Pages.Productos
                 string query = "INSERT INTO marca (Nombre) VALUES (@nombre);";
                 MySqlCommand cmd = new MySqlCommand(query);
                 cmd.Parameters.AddWithValue("@nombre", data.Nombre);
-                RepositorioBD.ExecuteNonQuery(cmd);
+                var bd = RepositorioBD.Instancia;
+                bd.ExecuteNonQuery(cmd);
                 LoadMarcas();
                 return new JsonResult(new { ok = true });
             }

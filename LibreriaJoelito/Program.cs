@@ -30,9 +30,11 @@ builder.Services.AddScoped<IRepository<Producto>>(provider => {
 
 var app = builder.Build();
 
+var bd = RepositorioBD.Instancia;
+
 // select connection string from appsettings
 var connectionString = builder.Configuration.GetConnectionString("ConnectionMySql");
-RepositorioBD.Initiate(connectionString);
+bd.Initiate(connectionString);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

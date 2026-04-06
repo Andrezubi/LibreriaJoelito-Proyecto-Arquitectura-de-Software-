@@ -4,23 +4,45 @@ using System.Data.Common;
 
 namespace LibreriaJoelito.Infraestructura.Persistencia
 {
-    public static class RepositorioBD
+    public class RepositorioBD
     {
         private static string? _connectionString;
-        private static string CatchStringConnection()
+        private static RepositorioBD instancia;
+
+        private static readonly object bloqueo = new object();
+
+        public static RepositorioBD Instancia
+        {
+            get
+            {
+                if (instancia == null)
+                {
+                    lock (bloqueo)
+                    {
+                        if (instancia == null)
+                        {
+                            instancia = new RepositorioBD();
+                        }
+                    }
+                }
+                return instancia;
+            }
+        }
+
+        private string CatchStringConnection()
         {
             return _connectionString
                 ?? throw new InvalidOperationException("La cadena de conexión no ha sido configurada. Por favor, configure la cadena de conexión antes de usar el repositorio.");
         }
 
-        public static void Initiate(string connectionString)
+        public void Initiate(string connectionString)
         {
             if (string.IsNullOrEmpty(connectionString))
                 throw new ArgumentNullException("connectionString", "La cadena de conexión no puede ser nula o vacía.");
             _connectionString = connectionString;
         }
 
-        public static int ExecuteNonQuery(MySqlCommand comando)
+        public int ExecuteNonQuery(MySqlCommand comando)
         {
             using (MySqlConnection con = new MySqlConnection(CatchStringConnection()))
             {
@@ -29,20 +51,20 @@ namespace LibreriaJoelito.Infraestructura.Persistencia
                 return comando.ExecuteNonQuery();
             }
         }
-        public static MySqlDataReader ExecuteReader(MySqlCommand comando)
+        public MySqlDataReader ExecuteReader(MySqlCommand comando)
         {
             MySqlConnection con = new MySqlConnection(CatchStringConnection());
             con.Open();
             comando.Connection = con;
             return comando.ExecuteReader(CommandBehavior.CloseConnection);
         }
-        public static MySqlDataAdapter ExecuteDataAdapter(MySqlCommand comando)
+        public MySqlDataAdapter ExecuteDataAdapter(MySqlCommand comando)
         {
             MySqlConnection con = new MySqlConnection(CatchStringConnection());
             comando.Connection = con;
             return new MySqlDataAdapter(comando);
         }
-        public static DataTable ExecuteReturningDataTable(MySqlCommand comando)
+        public DataTable ExecuteReturningDataTable(MySqlCommand comando)
         {
             using (MySqlConnection con = new MySqlConnection(CatchStringConnection()))
             {
@@ -58,7 +80,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia
             }
         }
 
-        public static DataRow? ExecuteReturningDataRow(MySqlCommand comando)
+        public DataRow? ExecuteReturningDataRow(MySqlCommand comando)
         {
             DataTable dt = ExecuteReturningDataTable(comando);
             if (dt.Rows.Count > 0)
@@ -66,7 +88,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia
             return null;
         }
 
-        public static object? ExecuteScalar(MySqlCommand comando)
+        public object? ExecuteScalar(MySqlCommand comando)
         {
             using (MySqlConnection con = new MySqlConnection(CatchStringConnection()))
             {

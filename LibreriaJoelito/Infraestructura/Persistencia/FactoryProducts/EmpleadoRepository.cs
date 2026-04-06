@@ -7,7 +7,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 {
-    public class EmpleadoRepository : IRepository<Empleado>
+    public class EmpleadoRepository : RepositorioBD, IRepository<Empleado>
     {
         public int Insert(Empleado t)
         {
@@ -53,7 +53,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             command.Parameters.AddWithValue("@fechaIngreso", t.FechaIngreso.ToString("yyyy-MM-dd"));
             command.Parameters.AddWithValue("@fechaNacimiento", t.FechaNacimiento.ToString("yyyy-MM-dd"));
 
-            return RepositorioBD.ExecuteNonQuery(command);
+            return ExecuteNonQuery(command);
         }
         public int Update(Empleado t)
         {
@@ -85,14 +85,14 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             command.Parameters.AddWithValue("@id", t.Id);
 
             
-            return RepositorioBD.ExecuteNonQuery(command);
+            return ExecuteNonQuery(command);
         }
         public int Delete(Empleado t)
         {
             string query = "UPDATE Empleado SET Estado = FALSE,FechaUltimaActualizacion = CURRENT_TIMESTAMP WHERE Id = @Id;";
             MySqlCommand command = new MySqlCommand(query);
             command.Parameters.AddWithValue("@id", t.Id);
-            return RepositorioBD.ExecuteNonQuery(command);
+            return ExecuteNonQuery(command);
 
         }
         public DataTable GetAll()
@@ -103,7 +103,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
                             ORDER BY 2;
                             ";
             MySqlCommand command = new MySqlCommand(query);
-            return RepositorioBD.ExecuteReturningDataTable(command);
+            return ExecuteReturningDataTable(command);
         }
         public DataRow GetById(int id)
         {
@@ -123,7 +123,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             cmd.Parameters.AddWithValue("@complemento", empleado.Complemento ?? string.Empty);
             cmd.Parameters.AddWithValue("@id", empleado.Id);
 
-            return Convert.ToInt32(RepositorioBD.ExecuteScalar(cmd)) > 0;
+            return Convert.ToInt32(ExecuteScalar(cmd)) > 0;
         }
     }
 }

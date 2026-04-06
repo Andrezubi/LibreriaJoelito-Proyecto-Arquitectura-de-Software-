@@ -15,6 +15,7 @@ namespace LibreriaJoelito.Pages.Productos
 
         public DataTable CategoriasDataTable { get; set; }
         public DataTable MarcasDataTable { get; set; }
+        public RepositorioBD bd { get; set; } = RepositorioBD.Instancia;
 
         [BindProperty]
         public int Id { get; set; }
@@ -59,7 +60,7 @@ namespace LibreriaJoelito.Pages.Productos
 
             MySqlCommand cmd = new MySqlCommand(query);
 
-            CategoriasDataTable = RepositorioBD.ExecuteReturningDataTable(cmd);
+            CategoriasDataTable = bd.ExecuteReturningDataTable(cmd);
 
         }
         void LoadMarcas()
@@ -71,7 +72,7 @@ namespace LibreriaJoelito.Pages.Productos
 
             MySqlCommand cmd = new MySqlCommand(query);
 
-            MarcasDataTable = RepositorioBD.ExecuteReturningDataTable(cmd);
+            MarcasDataTable = bd.ExecuteReturningDataTable(cmd);
 
         }
 
@@ -127,7 +128,7 @@ namespace LibreriaJoelito.Pages.Productos
                             WHERE Id=@id";
             MySqlCommand cmd = new MySqlCommand(query);
             cmd.Parameters.AddWithValue("@id", id);
-            using (MySqlDataReader reader = RepositorioBD.ExecuteReader(cmd))
+            using (MySqlDataReader reader = bd.ExecuteReader(cmd))
             {
                 if (reader.Read())
                 {
@@ -144,7 +145,7 @@ namespace LibreriaJoelito.Pages.Productos
                             WHERE Id=@id";
             MySqlCommand cmd = new MySqlCommand(query);
             cmd.Parameters.AddWithValue("@id", id);
-            using (MySqlDataReader reader = RepositorioBD.ExecuteReader(cmd))
+            using (MySqlDataReader reader = bd.ExecuteReader(cmd))
             {
                 if (reader.Read())
                 {
