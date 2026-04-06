@@ -1,7 +1,9 @@
 using LibreriaJoelito.Aplicacion.Interfaces;
+using LibreriaJoelito.Aplicacion.Servicios;
 using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Dominio.Validators;
 using LibreriaJoelito.Infraestructura.Persistencia;
+using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
@@ -30,12 +32,14 @@ namespace LibreriaJoelito.Pages.Productos
         public DataTable CategoriasDataTable { get; set; }
         public DataTable MarcasDataTable { get; set; }
 
-        private readonly IRepository<Producto> _productRepository;
-        public ProductoCreateModel(IConfiguration configuration, IRepository<Producto> productRepository)
+        private readonly ProductoServicio productoServicio;
+
+        public ProductoCreateModel(IConfiguration configuration, ProductoServicio productoServicio)
         {
             this.configuration = configuration;
-            _productRepository = productRepository;
+            this.productoServicio = productoServicio;
         }
+
         public void OnGet()
         {
             LoadCategorias();
@@ -45,22 +49,34 @@ namespace LibreriaJoelito.Pages.Productos
         public IActionResult OnPost()
         {
             Producto producto = new Producto(IdCategoria, IdMarca, Nombre, Stock);
-            List<ValidationResult> errors = new List<ValidationResult>();
-            errors = ProductValidator.ValidarProducto(producto);
-            if (errors.Count > 0)
+
+            var result = productoServicio.Insert(producto);
+
+            if (result.IsFailure)
             {
-                foreach (var error in errors)
+                foreach (var error in result.Errors)
                 {
-                    foreach (var member in error.MemberNames)
+                    Console.WriteLine(error);
+
+                    var parts = error.Split(':', 2);
+
+                    if (parts.Length == 2)
                     {
-                        ModelState.AddModelError(member, error.ErrorMessage);
+                        var field = parts[0].Trim();
+                        var message = parts[1].Trim();
+
+                        ModelState.AddModelError(field, message);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, error);
                     }
                 }
+
                 LoadCategorias();
                 LoadMarcas();
-                return Page(); // vuelve al formulario mostrando errores
+                return Page();
             }
-            _productRepository.Insert(producto);
 
             MensajeExito = "El producto fue creado correctamente.";
 

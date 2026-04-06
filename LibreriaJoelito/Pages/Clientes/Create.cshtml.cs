@@ -1,4 +1,5 @@
 using LibreriaJoelito.Aplicacion.Interfaces;
+using LibreriaJoelito.Aplicacion.Servicios;
 using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Dominio.Validators;
 using LibreriaJoelito.Infraestructura.FactoryCreators;
@@ -10,11 +11,13 @@ namespace LibreriaJoelito.Pages.Clientes
 {
     public class CreateModel : PageModel
     {
-        private readonly IRepository<Cliente> _clienteRepository;
+        private readonly ClienteServicio clienteServicio;
+        private readonly ClienteValidator clienteValidator;
 
-        public CreateModel(IRepository<Cliente> clienteRepository)
+        public CreateModel(ClienteServicio clienteServicio, ClienteValidator clienteValidator)
         {
-            _clienteRepository = clienteRepository;
+            this.clienteServicio = clienteServicio;
+            this.clienteValidator = clienteValidator;
         }
 
         [BindProperty]
@@ -27,30 +30,36 @@ namespace LibreriaJoelito.Pages.Clientes
         public IActionResult OnPost()
         {
             // Normalización
-            _cliente.Nombre = ClienteValidator.NormalizarTexto(_cliente.Nombre);
-            _cliente.ApellidoPaterno = ClienteValidator.NormalizarTexto(_cliente.ApellidoPaterno);
-            _cliente.ApellidoMaterno = ClienteValidator.NormalizarTexto(_cliente.ApellidoMaterno);
+            _cliente.Nombre = clienteValidator.NormalizarTexto(_cliente.Nombre);
+            _cliente.ApellidoPaterno = clienteValidator.NormalizarTexto(_cliente.ApellidoPaterno);
+            _cliente.ApellidoMaterno = clienteValidator.NormalizarTexto(_cliente.ApellidoMaterno);
 
-            // Validación
-            var errores = ClienteValidator.Validar(_cliente);
-            if (errores.Any())
+            var result = clienteServicio.Insert(_cliente);
+
+            if (result.IsFailure)
             {
-                foreach (var err in errores)
+                foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError(err.MemberNames.First(), err.ErrorMessage ?? "Error");
+                    var parts = error.Split(':', 2);
+
+                    if (parts.Length == 2)
+                    {
+                        var field = parts[0].Trim();
+                        var message = parts[1].Trim();
+
+                        ModelState.AddModelError(field, message);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, error);
+                    }
                 }
+
                 return Page();
             }
 
-            // Verificar Duplicados (CI + Complemento)
-            if (_clienteRepository is ClienteRepository repo && repo.ExisteDuplicado(_cliente))
-            {
-                ModelState.AddModelError("_cliente.Ci", "Ya existe un cliente registrado con este CI y Complemento.");
-                return Page();
-            }
-
-            _clienteRepository.Insert(_cliente);
-            TempData["MensajeExito"] = $"Cliente '{_cliente.Nombre} {_cliente.ApellidoPaterno}' creado exitosamente.";
+            TempData["MensajeExito"] =
+                $"Cliente '{_cliente.Nombre} {_cliente.ApellidoPaterno}' creado exitosamente.";
 
             return RedirectToPage("ClientesGet");
         }
