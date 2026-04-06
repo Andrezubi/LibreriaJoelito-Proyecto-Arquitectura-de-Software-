@@ -15,15 +15,7 @@ namespace LibreriaJoelito.Pages.Empleados
     {
         public DataTable EmpleadoDataTable { get; set; } = new DataTable();
         private readonly IConfiguration configuration;
-
-        //Repository Inyectado Por dependencia
-        //private readonly IRepository<Empleado> _empleadoRepo;
         private readonly UsuarioServicio usuarioServicio;
-
-        //public empleadogetmodel(irepository<empleado> empleadorepo)
-        //{
-        //    _empleadorepo = empleadorepo;
-        //}
 
         public EmpleadoGetModel(UsuarioServicio usuarioServicio)
         {
@@ -82,7 +74,6 @@ namespace LibreriaJoelito.Pages.Empleados
         {
             Empleado empleado = new Empleado(Id, Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, DireccionDomicilio, Email, Telefono, FechaNacimiento, FechaIngreso);
 
-            //var resultados = EmpleadoValidator.Validar(empleado);
             var result = usuarioServicio.Update(empleado);
 
             if (result.IsFailure)
@@ -97,20 +88,6 @@ namespace LibreriaJoelito.Pages.Empleados
             }
 
             return new JsonResult(new { success = true });
-
-            //if (resultados.Any())
-            //{
-            //    return new JsonResult(new { succes= false, message = resultados.First().ErrorMessage });
-            //}
-
-            //if (_empleadoRepo.Update(empleado) == 1){
-            //    return new JsonResult(new { success = true });
-            //}
-            //else
-            //{
-            //    return new JsonResult(new { success = false, message = "Error en La Base De Datos" });
-            //}
-
         }
 
     }

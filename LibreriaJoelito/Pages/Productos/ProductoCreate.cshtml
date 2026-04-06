@@ -3,14 +3,7 @@
 @model LibreriaJoelito.Pages.Productos.ProductoCreateModel
 @{
 }
-@if (!ViewData.ModelState.IsValid)
-{
-    <div class="alert alert-danger alert-dismissible fade show mt-3">
-        <strong>⚠️ Errores:</strong>
-        <div asp-validation-summary="All"></div>
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-}
+
 <div class="form-container">
 
     <div class="form-header">
@@ -22,6 +15,7 @@
     <div class="form-group">
         <label>Nombre</label>
         <input asp-for="@Model.Nombre" type="text" required class="form-control" placeholder="Ej: Lapiz"/>
+        <span asp-validation-for="Nombre" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label>Categoria</label>
@@ -36,10 +30,11 @@
                 </option>
             }
         </select>
-            <button type="button" class="btn btn-sistema-outline btn-sm mt-2"
-                    data-bs-toggle="modal" data-bs-target="#modalCategoria">
-                + Nueva Categoría
-            </button>
+        <span asp-validation-for="IdCategoria" class="text-danger d-block"></span>
+        <button type="button" class="btn btn-sistema-outline btn-sm mt-2"
+                data-bs-toggle="modal" data-bs-target="#modalCategoria">
+            + Nueva Categoría
+        </button>
 
     </div>
     <div class="form-group">
@@ -55,16 +50,18 @@
                 </option>
             }
         </select>
-            <button type="button" class="btn btn-sistema-outline btn-sm mt-2"
-                    data-bs-toggle="modal" data-bs-target="#modalMarca">
-                + Nueva Marca
-            </button>
+        <span asp-validation-for="IdMarca" class="text-danger d-block"></span>
+        <button type="button" class="btn btn-sistema-outline btn-sm mt-2"
+                data-bs-toggle="modal" data-bs-target="#modalMarca">
+            + Nueva Marca
+        </button>
 
     </div>
 
     <div class="form-group">
         <label>Stock</label>
         <input asp-for="@Model.Stock" type="number" value="" required class="form-control" placeholder="Ej: 20" />
+        <span asp-validation-for="Stock" class="text-danger"></span>
     </div>
     
 

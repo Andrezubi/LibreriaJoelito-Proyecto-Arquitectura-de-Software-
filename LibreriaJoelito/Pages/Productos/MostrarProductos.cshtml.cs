@@ -34,13 +34,6 @@ namespace LibreriaJoelito.Pages.Productos
         private readonly IConfiguration configuration;
         private readonly ProductoServicio productoServicio;
 
-        //private readonly IRepository<Producto> _productRepository;
-        //public MostrarProductosModel(IConfiguration configuration,IRepository<Producto> productoRepo)
-        //{
-        //    this.configuration = configuration;
-        //    this._productRepository = productoRepo;
-        //}
-
         public MostrarProductosModel(IConfiguration configuration, ProductoServicio productoServicio)
         {
             this.configuration = configuration;
