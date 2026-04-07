@@ -128,7 +128,7 @@ namespace LibreriaJoelito.Aplicacion.Servicios
             {
                 loginResult.Success = true;
                 loginResult.Message = "Acceso concedido.";
-                loginResult.Token = tokenService.GenerarToken(username, user.Rol);
+                loginResult.Token = tokenService.GenerarToken(username, user.Rol, user.IdUsuario.ToString());
             }
             else
             {

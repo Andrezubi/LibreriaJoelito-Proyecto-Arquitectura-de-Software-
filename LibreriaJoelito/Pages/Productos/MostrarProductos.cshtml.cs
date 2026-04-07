@@ -102,7 +102,8 @@ namespace LibreriaJoelito.Pages.Productos
         {
             try
             {
-                Producto producto = new Producto(Id, IdCategoria, IdMarca, Nombre, Stock);
+                // falta el  userid
+                Producto producto = new Producto(Id, IdCategoria, IdMarca, Nombre, Stock,1);
                 //var errores = ProductValidator.ValidarProducto(producto);
                 var result = productoServicio.Update(producto);
 

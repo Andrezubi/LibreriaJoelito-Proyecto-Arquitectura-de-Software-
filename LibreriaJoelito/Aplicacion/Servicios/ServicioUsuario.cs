@@ -85,7 +85,7 @@ namespace LibreriaJoelito.Aplicacion.Servicios
             if (_passwordHasher.Verify(password, datosUsuario.Password))
             {
                 // 3. Generar el JWT real usando el Rol de la BD
-                string token = _tokenService.GenerarToken(username, datosUsuario.Rol);
+                string token = _tokenService.GenerarToken(username, datosUsuario.Rol,datosUsuario.IdUsuario.ToString());
 
                 return new LoginResult {
                     Success = true,

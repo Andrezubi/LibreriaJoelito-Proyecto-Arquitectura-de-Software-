@@ -21,7 +21,7 @@
 
         public DateTime? FechaUltimaActualizacion { get; set; }
 
-        public int? IdEmpleadoCambio { get; set; }
+        public int? IdUsuario { get; set; }
 
         public Producto()
         {
@@ -32,7 +32,7 @@
             Id = id;
         }
 
-        public Producto(int idCategoria,int idMarca, string nombre, int stock)//constructor para insert
+        public Producto(int idCategoria,int idMarca, string nombre, int stock,int idUsuario)//constructor para insert
         {
             IdCategoria = idCategoria;
             IdMarca = idMarca;
@@ -41,8 +41,9 @@
             Estado = true;
             FechaRegistro = DateTime.Now;
             FechaUltimaActualizacion = DateTime.Now;
+            IdUsuario = idUsuario;
         }
-        public Producto(int id,int idCategoria, int idMarca, string nombre, int stock)//constructor para update
+        public Producto(int id,int idCategoria, int idMarca, string nombre, int stock,int idUsuario)//constructor para update
         {
             Id = id;
             IdCategoria = idCategoria;
@@ -52,6 +53,7 @@
             Estado = true;
             FechaRegistro = DateTime.Now;
             FechaUltimaActualizacion = DateTime.Now;
+            IdUsuario = idUsuario;
         }
 
         public Producto(string categoria, string nombre, decimal precio, int stock, string tipoVenta, decimal factorConversion, int? idProductoBase)

@@ -162,7 +162,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 
         public Usuario GetDatosLogin(string username)
         {
-            string query = "SELECT Password, Rol FROM Usuario WHERE Username = @username AND Estado = 1 LIMIT 1";
+            string query = "SELECT Password, Rol,IdUsuario FROM Usuario WHERE Username = @username AND Estado = 1 LIMIT 1";
             MySqlCommand command = new MySqlCommand(query);
             command.Parameters.AddWithValue("@username", username);
 
@@ -174,7 +174,8 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
                     {
                         Username = username,
                         Password = reader["Password"].ToString(),
-                        Rol = reader["Rol"].ToString()
+                        Rol = reader["Rol"].ToString(),
+                        IdUsuario = int.Parse(reader["IdUsuario"].ToString())
                     };
                 }
             }

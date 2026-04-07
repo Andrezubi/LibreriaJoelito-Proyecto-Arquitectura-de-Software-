@@ -48,7 +48,8 @@ namespace LibreriaJoelito.Pages.Productos
 
         public IActionResult OnPost()
         {
-            Producto producto = new Producto(IdCategoria, IdMarca, Nombre, Stock);
+            //falta UserId
+            Producto producto = new Producto(IdCategoria, IdMarca, Nombre, Stock,1);
 
             var result = productoServicio.Insert(producto);
 
