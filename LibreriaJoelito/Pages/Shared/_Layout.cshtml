@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
 
@@ -14,73 +13,79 @@
     <link rel="stylesheet" href="~/css/style.css" />
 
     <title>@ViewData["Title"]</title>
-
 </head>
-@{
-            var enSistema = User.Identity != null && User.Identity.IsAuthenticated;
-            var esAdministrador = User.IsInRole("Administrador");
-            var esEmpleado = User.IsInRole("Empleado");
-}
 
 @{
-            var ocultarSidebar = ViewData["OcultarSidebar"] != null && (bool)ViewData["OcultarSidebar"];
+        var enSistema = User.Identity != null && User.Identity.IsAuthenticated;
+        var esAdministrador = User.IsInRole("Administrador");
+        var esEmpleado = User.IsInRole("Empleado");
+        var ocultarSidebar = ViewData["OcultarSidebar"] != null && (bool)ViewData["OcultarSidebar"];
 }
 
-<body class="@(enSistema ? "bg-sistema" : "") @(ocultarSidebar ? "sin-fondo" : "")">
+<body class="@(enSistema && !ocultarSidebar ? "bg-sistema" : "")">
 
-    <div class="sistema-de-gestion">
+    <!-- ===================== -->
+    <!-- HEADER -->
+    <!-- ===================== -->
+    <header class="main-header">
 
-        <!-- HEADER -->
-        <header class="main-header">
+        <div class="header-left">
+            <div class="logo"></div>
 
-            <div class="header-left">
-                <div class="logo"></div>
-
-                <div class="header-text">
-                    <div class="titulo-sistema">
-                        LIBRERÍA JOELITO
-                    </div>
-                    <div class="subtitulo-sistema">
-                        Sistema de Gestión de Librería
-                    </div>
+            <div class="header-text">
+                <div class="titulo-sistema">
+                    LIBRERÍA JOELITO
+                </div>
+                <div class="subtitulo-sistema">
+                    Sistema de Gestión de Librería
                 </div>
             </div>
+        </div>
 
-            <div class="header-right">
-
-                @if (enSistema)
-                {
-                    <div class="user-info">
-
-                        <span class="user-name">
-                            @User.Identity?.Name
-                        </span>
-
-                        <a asp-page="/LogIn/InicioSesion" asp-page-handler="Logout" class="btn-logout">
-                            Cerrar sesión
-                        </a>
-
-                    </div>
-                }
-
-                <div style="display:@(enSistema ? "none" : "flex")">
-                    @RenderSection("HeaderButtons", required: false)
-                </div>
-            </div>
-        </header>
-
-        <!-- CONTENEDOR PRINCIPAL -->
-        <div class="main-container">
+        <div class="header-right">
 
             @if (enSistema)
             {
+                <div class="user-info">
+                    <span class="user-name">
+                        @User.Identity?.Name
+                    </span>
+
+                    <a asp-page="/LogIn/InicioSesion" asp-page-handler="Logout" class="btn-logout">
+                        Cerrar sesión
+                    </a>
+                </div>
+            }
+
+            @* 🔥 FIX: SIEMPRE evaluar la sección sin romper *@
+            @if (IsSectionDefined("HeaderButtons"))
+            {
+                <div style="display:@(enSistema ? "none" : "flex")">
+                    @RenderSection("HeaderButtons")
+                </div>
+            }
+
+        </div>
+    </header>
+
+    <!-- ===================== -->
+    <!-- CONTENIDO PRINCIPAL -->
+    <!-- ===================== -->
+    @if (enSistema && !ocultarSidebar)
+    {
+        <div class="sistema-de-gestion">
+
+            <div class="main-container">
+
+                <!-- SIDEBAR -->
                 <aside class="sidebar">
 
                     <a href="/Index" class="menu-item active">
                         <img class="menu-icon" src="~/img/home-lib.svg">
                         <span>Inicio</span>
                     </a>
-                      @if (esAdministrador || esEmpleado)
+
+                    @if (esAdministrador || esEmpleado)
                     {
                         <!-- PRODUCTOS -->
                         <div class="menu-item d-flex justify-content-between align-items-center">
@@ -95,9 +100,7 @@
                             </span>
                         </div>
 
-                        <!-- SUBMENÚ -->
                         <div class="collapse submenu" id="menuProductos">
-
                             <a href="/Index" class="submenu-item">
                                 <img class="menu-icon" src="~/img/categoria-lib.svg">
                                 <span>Categoría</span>
@@ -107,48 +110,58 @@
                                 <img class="menu-icon" src="~/img/marca-lib.svg">
                                 <span>Marcas Disponibles</span>
                             </a>
-
                         </div>
                     }
-                     @if (esAdministrador || esEmpleado)
+
+                    @if (esAdministrador || esEmpleado)
                     {
                         <a href="/Clientes/ClientesGet" class="menu-item">
                             <img class="menu-icon" src="~/img/cli-lib.svg">
                             <span>Clientes</span>
                         </a>
                     }
-                     @if (esAdministrador)
+
+                    @if (esAdministrador)
                     {
                         <a href="/Usuarios/UsuarioIndex" class="menu-item">
                             <img class="menu-icon" src="~/img/emp-lib.svg">
                             <span>Usuarios</span>
                         </a>
                     }
-                     @if (esAdministrador || esEmpleado)
+
+                    @if (esAdministrador || esEmpleado)
                     {
                         <a href="/Index" class="menu-item">
                             <img class="menu-icon" src="~/img/ventas-lib.svg">
                             <span>Ventas</span>
                         </a>
                     }
-                     @if (esAdministrador || esEmpleado)
+
+                    @if (esAdministrador || esEmpleado)
                     {
                         <a href="/Index" class="menu-item">
                             <img class="menu-icon" src="~/img/config-lib.svg">
                             <span>Configuración</span>
                         </a>
                     }
+
                 </aside>
-            }
 
-            <!-- CONTENIDO -->
-            <main class="content-area @(enSistema ? "" : "full-width")">
-                @RenderBody()
-            </main>
+                <!-- CONTENIDO -->
+                <main class="content-area">
+                    @RenderBody()
+                </main>
 
+            </div>
         </div>
-
-    </div>
+    }
+    else
+    {
+        <!-- 🔥 SIN LOGIN -->
+        <main class="content-area full-width">
+            @RenderBody()
+        </main>
+    }
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI;
 
 namespace LibreriaJoelito.Pages.Usuarios
 {
@@ -69,15 +70,27 @@ namespace LibreriaJoelito.Pages.Usuarios
             Usuario empleado = new Usuario(Nombre, ApellidoPaterno, ApellidoMaterno, Ci, ExtensionCi, DireccionDomicilio, Email, Telefono ?? "", FechaNacimiento, FechaIngreso, tempUsername, tempPassword, Rol, 1);
 
             var result = _usuarioServicio.Insert(empleado);
+      ;
 
             if (result.IsFailure)
             {
                 foreach (var error in result.Errors)
                 {
-                    Console.WriteLine(error);
+                    var parts = error.Split(':', 2);
 
-                    ModelState.AddModelError(string.Empty, error);
+                    if (parts.Length == 2)
+                    {
+                        var field = parts[0].Trim();
+                        var message = parts[1].Trim();
+
+                        ModelState.AddModelError(field, message);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, error);
+                    }
                 }
+
                 return Page();
             }
 
