@@ -1,5 +1,7 @@
 using LibreriaJoelito.Aplicacion.Interfaces;
+using LibreriaJoelito.Aplicacion.Servicios;
 using LibreriaJoelito.Dominio.Models;
+using LibreriaJoelito.Dominio.Validators;
 using LibreriaJoelito.Infraestructura.FactoryCreators;
 using LibreriaJoelito.Infraestructura.Persistencia;
 using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
@@ -28,6 +30,14 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IRepository<Producto>>(provider => {
     return new ProductoCreatorRepository().CreateRepository();
 });
+
+builder.Services.AddScoped<ClienteValidator>();
+builder.Services.AddScoped<ProductValidator>();
+builder.Services.AddScoped<EmpleadoValidator>();
+
+builder.Services.AddScoped<ClienteServicio>();
+builder.Services.AddScoped<ProductoServicio>();
+builder.Services.AddScoped<UsuarioServicio>();
 
 var app = builder.Build();
 

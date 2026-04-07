@@ -1,4 +1,5 @@
 using LibreriaJoelito.Aplicacion.Interfaces;
+using LibreriaJoelito.Aplicacion.Servicios;
 using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Dominio.Validators;
 using LibreriaJoelito.Infraestructura.Persistencia;
@@ -31,12 +32,14 @@ namespace LibreriaJoelito.Pages.Productos
 
 
         private readonly IConfiguration configuration;
-        private readonly IRepository<Producto> _productRepository;
-        public MostrarProductosModel(IConfiguration configuration,IRepository<Producto> productoRepo)
+        private readonly ProductoServicio productoServicio;
+
+        public MostrarProductosModel(IConfiguration configuration, ProductoServicio productoServicio)
         {
             this.configuration = configuration;
-            this._productRepository = productoRepo;
+            this.productoServicio = productoServicio;
         }
+
         public void OnGet()
         {
            LoadProductos();
@@ -46,7 +49,7 @@ namespace LibreriaJoelito.Pages.Productos
 
         void LoadProductos()
         {
-            ProductosDataTable = _productRepository.GetAll();
+            ProductosDataTable = productoServicio.GetAll();
 
         }
 
@@ -77,7 +80,7 @@ namespace LibreriaJoelito.Pages.Productos
 
         public IActionResult OnPostDelete(int id)
         {
-            _productRepository.Delete(new Dominio.Models.Producto(id));
+            productoServicio.Delete(new Dominio.Models.Producto(id));
             TempData["MensajeExito"] = "El producto fue eliminado correctamente.";
             return RedirectToPage("MostrarProductos");
         }
@@ -99,17 +102,31 @@ namespace LibreriaJoelito.Pages.Productos
             try
             {
                 Producto producto = new Producto(Id, IdCategoria, IdMarca, Nombre, Stock);
-                var errores = ProductValidator.ValidarProducto(producto);
-                // validar (tu l�gica actual)
-                if (errores.Any())
-                {
-                    var listaErrores = errores
-                        .Select(e => e.ErrorMessage)
-                        .ToList();
+                //var errores = ProductValidator.ValidarProducto(producto);
+                var result = productoServicio.Update(producto);
 
-                    return new JsonResult(new { ok = false, errores = listaErrores });
+                // validar (tu l�gica actual)
+                //if (errores.Any())
+                //{
+                //    var listaErrores = errores
+                //        .Select(e => e.ErrorMessage)
+                //        .ToList();
+
+                //    return new JsonResult(new { ok = false, errores = listaErrores });
+                //}
+                //_productRepository.Update(producto);
+
+                if (result.IsFailure)
+                {
+                    return new JsonResult(
+                        new
+                        {
+                            success = false,
+                            message = result.Errors
+                        }
+                    );
                 }
-                _productRepository.Update(producto);
+
                 TempData["MensajeExito"] = "El producto fue editado correctamente.";
                 return new JsonResult(new { success = true });
             }

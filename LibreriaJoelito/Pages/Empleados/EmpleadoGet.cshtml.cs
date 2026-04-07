@@ -1,4 +1,5 @@
 using LibreriaJoelito.Aplicacion.Interfaces;
+using LibreriaJoelito.Aplicacion.Servicios;
 using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Dominio.Validators;
 using LibreriaJoelito.Infraestructura.FactoryCreators;
@@ -14,15 +15,12 @@ namespace LibreriaJoelito.Pages.Empleados
     {
         public DataTable EmpleadoDataTable { get; set; } = new DataTable();
         private readonly IConfiguration configuration;
+        private readonly UsuarioServicio usuarioServicio;
 
-        //Repository Inyectado Por dependencia
-        private readonly IRepository<Empleado> _empleadoRepo;
-
-        public EmpleadoGetModel(IRepository<Empleado> empleadoRepo)
+        public EmpleadoGetModel(UsuarioServicio usuarioServicio)
         {
-            _empleadoRepo = empleadoRepo;
+            this.usuarioServicio = usuarioServicio;
         }
-
 
         public string messageResult { get; set; } = string.Empty;
 
@@ -57,13 +55,13 @@ namespace LibreriaJoelito.Pages.Empleados
 
         public void Select()
         {
-            EmpleadoDataTable = _empleadoRepo.GetAll();
+            EmpleadoDataTable = usuarioServicio.GetAll();
         }
 
         public IActionResult OnPostDelete(int Id)
         {
             Empleado empleado = new Empleado(Id);
-            if (_empleadoRepo.Delete(empleado) == 1)
+            if (usuarioServicio.Delete(empleado) == 1)
                 TempData["SuccessMessage"] = "Empleado eliminado con éxito.";
             else
                 TempData["ErrorMessage"] = "Hubo un problema al eliminar.";
@@ -76,22 +74,20 @@ namespace LibreriaJoelito.Pages.Empleados
         {
             Empleado empleado = new Empleado(Id, Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, DireccionDomicilio, Email, Telefono, FechaNacimiento, FechaIngreso);
 
-            var resultados = EmpleadoValidator.Validar(empleado);
+            var result = usuarioServicio.Update(empleado);
 
-            if (resultados.Any())
+            if (result.IsFailure)
             {
-                return new JsonResult(new { succes= false, message = resultados.First().ErrorMessage });
-            }
-            
-
-            if (_empleadoRepo.Update(empleado) == 1){
-                return new JsonResult(new { success = true });
-            }
-            else
-            {
-                return new JsonResult(new { success = false, message = "Error en La Base De Datos" });
+                return new JsonResult(
+                    new
+                    {
+                        success = false,
+                        message = result.Errors.First()
+                    }
+                );
             }
 
+            return new JsonResult(new { success = true });
         }
 
     }
