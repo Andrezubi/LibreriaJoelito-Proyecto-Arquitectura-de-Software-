@@ -12,6 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Registro de IEmailService
 builder.Services.AddTransient<IEmailService, EmailService>();
 
+// Registro de Password Hasher
+builder.Services.AddTransient<IPasswordHasher, LibreriaJoelito.Infraestructura.Encryptacion.SimpleHasher>();
+
 //Dependency inyection IRepository Empleados
 builder.Services.AddScoped<IRepository<Usuario>>(provider => {
     return new EmpleadoCreateRepository().CreateRepository();

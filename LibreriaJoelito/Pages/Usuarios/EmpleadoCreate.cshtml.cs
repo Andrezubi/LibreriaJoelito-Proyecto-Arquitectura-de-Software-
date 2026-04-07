@@ -21,7 +21,6 @@ namespace LibreriaJoelito.Pages.Usuarios
             _usuarioServicio = usuarioServicio;
             _emailService = emailService;
         }
-        }
         #endregion
 
         public string messageResult { get; set; } = string.Empty;
@@ -60,9 +59,13 @@ namespace LibreriaJoelito.Pages.Usuarios
 
         public void OnGet() { }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
-            Usuario empleado = new Usuario(Nombre, ApellidoPaterno, ApellidoMaterno, Ci, ExtensionCi, DireccionDomicilio, Email, Telefono, FechaNacimiento, FechaIngreso, _usuarioServicio.GenerarUsername(Nombre, ApellidoPaterno), _usuarioServicio.GenerarPassword(10), Rol, 1);
+            string tempPassword = _usuarioServicio.GenerarPassword(10);
+            string tempUsername = _usuarioServicio.GenerarUsername(Nombre, ApellidoPaterno);
+
+            // 1 como IdUsuario creador (ajustar luego al usuario logueado)
+            Usuario empleado = new Usuario(Nombre, ApellidoPaterno, ApellidoMaterno, Ci, ExtensionCi, DireccionDomicilio, Email, Telefono ?? "", FechaNacimiento, FechaIngreso, tempUsername, tempPassword, Rol, 1);
 
             var result = _usuarioServicio.Insert(empleado);
 
@@ -81,8 +84,8 @@ namespace LibreriaJoelito.Pages.Usuarios
                 string mensaje = $@"
                     <h3>¡Bienvenido a Librería Joelito!</h3>
                     <p>Tu cuenta ha sido creada exitosamente.</p>
-                    <p><b>Usuario:</b> {empleado.Username}</p>
-                    <p><b>Contraseña Temporal:</b> {empleado.Password}</p>
+                    <p><b>Usuario:</b> {tempUsername}</p>
+                    <p><b>Contraseña Temporal:</b> {tempPassword}</p>
                     <p>Por favor, cambia tu contraseña al iniciar sesión por primera vez.</p>";
                 
                 await _emailService.SendEmailAsync(empleado.Email, "Tus Credenciales - Librería Joelito", mensaje);

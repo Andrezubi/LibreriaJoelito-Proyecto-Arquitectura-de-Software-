@@ -55,7 +55,7 @@ namespace LibreriaJoelito.Dominio.Validators
 
         #region funciones de Validacion
 
-        private bool esNombreValido(string nombre)
+        private static bool esNombreValido(string nombre)
         {
             if (string.IsNullOrWhiteSpace(nombre) || nombre != nombre.Trim() || nombre.Length < 2)
                 return false;
@@ -63,7 +63,7 @@ namespace LibreriaJoelito.Dominio.Validators
             return Regex.IsMatch(nombre, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$");
         }
 
-        private bool esApellidoValido(string apellido)
+        private static bool esApellidoValido(string apellido)
         {
             if (string.IsNullOrWhiteSpace(apellido) || apellido.Length < 4)
                 return false;
@@ -71,7 +71,7 @@ namespace LibreriaJoelito.Dominio.Validators
             return Regex.IsMatch(apellido, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$");
         }
 
-        private bool esApellidoMaternoValido(string apellido)
+        private static bool esApellidoMaternoValido(string apellido)
         {
             if(string.IsNullOrEmpty(apellido))
             {
@@ -80,13 +80,13 @@ namespace LibreriaJoelito.Dominio.Validators
             return esApellidoValido(apellido);
         }
 
-        private bool esCiValido(string ci) =>
+        private static bool esCiValido(string ci) =>
             !string.IsNullOrEmpty(ci) && ci.All(char.IsDigit) && ci.Length >= 6 && ci.Length <= 11;
 
-        private bool esExtensionCarnetValida(string ext) =>
+        private static bool esExtensionCarnetValida(string ext) =>
             string.IsNullOrEmpty(ext) || ext.Length == 2 && char.IsDigit(ext[0]) && char.IsLetter(ext[1]);
 
-        private bool esFechaNacimientoValida(DateOnly fecha)
+        private static bool esFechaNacimientoValida(DateOnly fecha)
         {
             var hoy = DateOnly.FromDateTime(DateTime.Today);
             int edad = hoy.Year - fecha.Year;
@@ -94,22 +94,22 @@ namespace LibreriaJoelito.Dominio.Validators
             return edad >= 18 && edad <= 65;
         }
 
-        private bool esCorreoValido(string correo)
+        private static bool esCorreoValido(string correo)
         {
             if (string.IsNullOrWhiteSpace(correo)) return true;
             try { new MailAddress(correo); return true; } catch { return false; }
         }
 
-        private bool esDireccionValida(string dir) =>
+        private static bool esDireccionValida(string dir) =>
             string.IsNullOrWhiteSpace(dir) || dir.Length >= 10 && dir.Length <= 120;
 
-        private bool esTelefonoValido(string tel)
+        private static bool esTelefonoValido(string tel)
         {
             if (string.IsNullOrWhiteSpace(tel)) return true;
             return tel.All(char.IsDigit) && tel.Length == 8 && !new[] { '0', '5', '9' }.Contains(tel[0]);
         }
 
-        private bool esFechaIngresoValida(DateOnly? fecha) =>
+        private static bool esFechaIngresoValida(DateOnly? fecha) =>
             !fecha.HasValue || fecha.Value <= DateOnly.FromDateTime(DateTime.Today);
 
         #endregion

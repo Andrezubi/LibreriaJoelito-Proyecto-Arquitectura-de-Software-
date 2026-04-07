@@ -14,9 +14,11 @@ namespace LibreriaJoelito.Pages.Usuarios
     public class EmpleadoGetModel : PageModel
     {
         public DataTable EmpleadoDataTable { get; set; } = new DataTable();
+        private readonly UsuarioServicio _usuarioServicio;
+
         public EmpleadoGetModel(UsuarioServicio usuarioServicio)
         {
-            this.usuarioServicio = usuarioServicio;
+            _usuarioServicio = usuarioServicio;
         }
 
         public string messageResult { get; set; } = string.Empty;
@@ -60,13 +62,13 @@ namespace LibreriaJoelito.Pages.Usuarios
 
         public void Select()
         {
-            EmpleadoDataTable = usuarioServicio.GetAll();
+            EmpleadoDataTable = _usuarioServicio.GetAll();
         }
 
         public IActionResult OnPostDelete(int Id)
         {
             Usuario usuario = new Usuario(Id);
-            if (usuarioServicio.Delete(usuario) == 1)
+            if (_usuarioServicio.Delete(usuario) == 1)
                 TempData["SuccessMessage"] = "Empleado eliminado con éxito.";
             else
                 TempData["ErrorMessage"] = "Hubo un problema al eliminar.";
@@ -79,7 +81,7 @@ namespace LibreriaJoelito.Pages.Usuarios
         {
             Usuario empleado = new Usuario(Id, Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, DireccionDomicilio, Email, Telefono, FechaNacimiento, FechaIngreso,Username,Password,Rol);
 
-            var result = usuarioServicio.Update(empleado);
+            var result = _usuarioServicio.Update(empleado);
 
             if (result.IsFailure)
             {
