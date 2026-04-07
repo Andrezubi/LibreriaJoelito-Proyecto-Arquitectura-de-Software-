@@ -10,12 +10,14 @@ namespace LibreriaJoelito.Aplicacion.Servicios
         private readonly IRepository<Usuario> _usuarioRepo;
         private readonly IUsuarioRepository _extraRepo;
         private readonly IPasswordHasher _passwordHasher;
+        private readonly ITokenService _tokenService;
 
-        public ServicioUsuario(IRepository<Usuario> usuarioRepo, IUsuarioRepository extraRepo,IPasswordHasher passwordHasher)
+        public ServicioUsuario(IRepository<Usuario> usuarioRepo, IUsuarioRepository extraRepo,IPasswordHasher passwordHasher, ITokenService tokenService)
         {
             _usuarioRepo = usuarioRepo;
             _extraRepo = extraRepo;
             _passwordHasher = passwordHasher;
+            _tokenService = tokenService;
         }
         public int InsertUsuario(Usuario usuario)
         {
@@ -69,32 +71,30 @@ namespace LibreriaJoelito.Aplicacion.Servicios
             return new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
+        
         public LoginResult Login(string username, string password)
         {
-            var loginResult = new LoginResult();
-            string userPassword = _extraRepo.GetPasswordByUsername(username);
+            var datosUsuario = _extraRepo.GetDatosLogin(username); 
 
-            if (userPassword == null)
+            if (datosUsuario == null)
             {
-                loginResult.Success = false;
-                loginResult.Message = "NO se encontro a ese usuario";
-                loginResult.Token = null;
-            }
-            if(_passwordHasher.Verify(password, userPassword))
-            {
-                loginResult.Success = true;
-                loginResult.Message = "Cuenta verificada correctamente se envio el jwt";
-                //aqui se manda el jwt 
-                loginResult.Token = "jwt";
-            }
-            else
-            {
-                loginResult.Success = false;
-                loginResult.Message = "Contrase;a incorrecta";
-                loginResult.Token = null;
+                return new LoginResult { Success = false, Message = "Usuario no encontrado" };
             }
 
-            return loginResult;
+            // 2. Verificar password usando el hasher actual (SimpleHasher o BCrypt)
+            if (_passwordHasher.Verify(password, datosUsuario.Password))
+            {
+                // 3. Generar el JWT real usando el Rol de la BD
+                string token = _tokenService.GenerarToken(username, datosUsuario.Rol);
+
+                return new LoginResult {
+                    Success = true,
+                    Message = "Acceso concedido",
+                    Token = token
+                };
+            }
+
+            return new LoginResult { Success = false, Message = "Contraseña incorrecta" };
         }
 
         

@@ -33,6 +33,9 @@ builder.Services.AddScoped<IRepository<Producto>>(provider => {
     return new ProductoCreatorRepository().CreateRepository();
 });
 
+//Dependency inyection token service
+builder.Services.AddScoped<ITokenService, TokenService>();
+
 var app = builder.Build();
 
 // select connection string from appsettings

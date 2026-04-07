@@ -31,7 +31,13 @@ namespace LibreriaJoelito.Pages.LogIn
 
             if (result.Success)
             {
-                // luego puedes guardar sesión o JWT
+                Response.Cookies.Append("AuthToken", result.Token, new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict,
+                    Expires = DateTimeOffset.UtcNow.AddHours(8)
+                });
                 return RedirectToPage("/Index");
             }
 
