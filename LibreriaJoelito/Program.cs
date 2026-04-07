@@ -2,6 +2,7 @@ using LibreriaJoelito.Aplicacion.Interfaces;
 using LibreriaJoelito.Aplicacion.Servicios;
 using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Dominio.Validators;
+using LibreriaJoelito.Infraestructura.Encryptacion;
 using LibreriaJoelito.Infraestructura.FactoryCreators;
 using LibreriaJoelito.Infraestructura.Persistencia;
 using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
@@ -17,11 +18,10 @@ builder.Services.AddTransient<IPasswordHasher, LibreriaJoelito.Infraestructura.E
 
 //Dependency inyection IRepository Empleados
 builder.Services.AddScoped<IRepository<Usuario>>(provider => {
-    return new EmpleadoCreateRepository().CreateRepository();
+    return new UsuarioCreatorRepository().CreateRepository();
 });
-builder.Services.AddTransient<IUsuarioRepository, EmpleadoRepository>();
+builder.Services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddTransient<IServicioUsuario, ServicioUsuario>();
-
 
 //Dependency inyection IRepository Clientes
 builder.Services.AddScoped<IRepository<Cliente>>(provider =>
