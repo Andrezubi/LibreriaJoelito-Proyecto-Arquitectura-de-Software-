@@ -8,7 +8,7 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace LibreriaJoelito.Pages.Empleados
+namespace LibreriaJoelito.Pages.Usuarios
 {
     public class EmpleadoGetModel : PageModel
     {
@@ -16,9 +16,9 @@ namespace LibreriaJoelito.Pages.Empleados
         private readonly IConfiguration configuration;
 
         //Repository Inyectado Por dependencia
-        private readonly IRepository<Empleado> _empleadoRepo;
+        private readonly IRepository<Usuario> _empleadoRepo;
 
-        public EmpleadoGetModel(IRepository<Empleado> empleadoRepo)
+        public EmpleadoGetModel(IRepository<Usuario> empleadoRepo)
         {
             _empleadoRepo = empleadoRepo;
         }
@@ -48,6 +48,14 @@ namespace LibreriaJoelito.Pages.Empleados
         public DateOnly FechaNacimiento { get; set; }
         [BindProperty]
         public DateOnly FechaIngreso { get; set; }
+        [BindProperty]
+        public string Rol { get; set; }
+        [BindProperty]
+        public string Username { get; set; }
+        [BindProperty]
+        public string Password { get; set; }
+        
+
 
 
         public void OnGet()
@@ -62,7 +70,7 @@ namespace LibreriaJoelito.Pages.Empleados
 
         public IActionResult OnPostDelete(int Id)
         {
-            Empleado empleado = new Empleado(Id);
+            Usuario empleado = new Usuario(Id);
             if (_empleadoRepo.Delete(empleado) == 1)
                 TempData["SuccessMessage"] = "Empleado eliminado con éxito.";
             else
@@ -74,7 +82,7 @@ namespace LibreriaJoelito.Pages.Empleados
 
         public IActionResult OnPostUpdate()
         {
-            Empleado empleado = new Empleado(Id, Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, DireccionDomicilio, Email, Telefono, FechaNacimiento, FechaIngreso);
+            Usuario empleado = new Usuario(Id, Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, DireccionDomicilio, Email, Telefono, FechaNacimiento, FechaIngreso,Username,Password,Rol);
 
             var resultados = EmpleadoValidator.Validar(empleado);
 

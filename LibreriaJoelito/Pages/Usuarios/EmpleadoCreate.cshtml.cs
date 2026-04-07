@@ -6,15 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
 
-namespace LibreriaJoelito.Pages.Empleados
+namespace LibreriaJoelito.Pages.Usuarios
 {
     public class EmpleadoCreateModel : PageModel
     {
         #region inyecciónDependencias
-        private readonly IRepository<Empleado> _empleadoRepo;
+        private readonly IRepository<Usuario> _empleadoRepo;
+        private readonly IServicioUsuario _servicioUsuario;
 
-        public EmpleadoCreateModel(IRepository<Empleado> empleadoRepo) {
+        public EmpleadoCreateModel(IRepository<Usuario> empleadoRepo, IServicioUsuario servicioUsuario )
+        {
             _empleadoRepo = empleadoRepo;
+            _servicioUsuario = servicioUsuario;
         }
         #endregion
 
@@ -49,13 +52,15 @@ namespace LibreriaJoelito.Pages.Empleados
 
         [BindProperty]
         public DateOnly FechaIngreso{ get; set; }
+        [BindProperty]
+        public string Rol {  get; set; } 
 
         public void OnGet() { }
 
         public IActionResult OnPost()
         {
-            
-            Empleado empleado = new Empleado(Nombre, ApellidoPaterno, ApellidoMaterno, Ci, ExtensionCi, DireccionDomicilio, Email, Telefono, FechaNacimiento, FechaIngreso);
+            //en vez de 1 en el constructor a;adir el id del usuario el cual haya creado al usuario
+            Usuario empleado = new Usuario(Nombre, ApellidoPaterno, ApellidoMaterno, Ci, ExtensionCi, DireccionDomicilio, Email, Telefono, FechaNacimiento, FechaIngreso, _servicioUsuario.GenerarUsername(Nombre, ApellidoPaterno), _servicioUsuario.GenerarPassword(10),Rol,1);
 
             var resultados = EmpleadoValidator.Validar(empleado);
 
@@ -66,17 +71,18 @@ namespace LibreriaJoelito.Pages.Empleados
                 return Page();
             }
 
-            if(_empleadoRepo.ExisteDuplicado(empleado))
+            if(_servicioUsuario.ExisteUsuarioDuplicado(empleado))
             {
                 TempData["CreateSucces"] = "El empleado con ese CI ya existe";
                 return Page();
             }
 
 
-            if (_empleadoRepo.Insert(empleado) == 1)
+            if (_servicioUsuario.InsertUsuario(empleado) == 1)
             {
                 TempData["SuccessMessage"] = "Empleado creado exitosamente.";
                 return RedirectToPage("EmpleadoGet");
+                //aqui hacer la logica de envio de correos con empleado.Username y empleado.Password
             }
             else
             {

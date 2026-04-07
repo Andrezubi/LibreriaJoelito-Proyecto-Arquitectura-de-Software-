@@ -1,6 +1,6 @@
 namespace LibreriaJoelito.Dominio.Models
 {
-    public class Cliente: Usuario
+    public class Cliente: Persona
     {
         
         public bool ClienteFrecuente { get; set; }

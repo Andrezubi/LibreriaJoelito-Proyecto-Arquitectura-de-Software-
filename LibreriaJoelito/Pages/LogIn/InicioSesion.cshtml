@@ -4,9 +4,7 @@
     ViewData["OcultarSidebar"] = true;
 }
 
-<!-- LOGIN -->
 <div class="login-container">
-
     <div class="login-card">
 
         <div class="login-header">
@@ -15,31 +13,36 @@
 
         <div class="login-body">
 
-            <div class="input-group-custom">
-                <span>👤</span>
-                <input type="text" placeholder="Usuario">
-            </div>
+            <form method="post">
 
-            <div class="input-group-custom">
-                <span>🔒</span>
-                <input type="password" placeholder="Contraseña">
-            </div>
-
-                <div class="login-btn-container">
-                    <button class="btn btn-sistema-danger">Ingresar</button>
+                <div class="input-group-custom">
+                    <span>👤</span>
+                    <input asp-for="Username" type="text" placeholder="Usuario" />
                 </div>
 
-            <div class="login-extra">
-                <label><input type="checkbox"> Recordarme</label>
-                <a href="#">¿Olvidaste contraseña?</a>
-            </div>
+                <div class="input-group-custom">
+                    <span>🔒</span>
+                    <input asp-for="Password" type="password" placeholder="Contraseña" />
+                </div>
 
-            <div class="login-buttons">
-                    <button type="submit" class="btn btn-sistema">Crear Cuenta</button>
+                <div class="login-btn-container">
+                    <button type="submit" class="btn btn-sistema-danger">Ingresar</button>
+                </div>
+
+                <p style="color:red">@Model.ErrorMessage</p>
+
+                <div class="login-extra">
+                    <label><input type="checkbox"> Recordarme</label>
+                    <a href="#">¿Olvidaste contraseña?</a>
+                </div>
+
+                <div class="login-buttons">
+                    <a href="/Registro" class="btn btn-sistema">Crear Cuenta</a>
                     <a href="/Index" class="btn btn-cancelar">Volver al inicio</a>
-            </div>
+                </div>
+
+            </form>
+
         </div>
-
     </div>
-
 </div>

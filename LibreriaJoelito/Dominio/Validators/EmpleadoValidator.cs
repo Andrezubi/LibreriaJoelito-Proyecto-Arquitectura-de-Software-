@@ -7,7 +7,7 @@ namespace LibreriaJoelito.Dominio.Validators
 {
     public static class EmpleadoValidator
     {
-        public static List<ValidationResult> Validar(Empleado emp)
+        public static List<ValidationResult> Validar(Usuario emp)
         {
             var errores = new List<ValidationResult>();
 
