@@ -72,6 +72,8 @@ namespace LibreriaJoelito.Pages.Usuarios
             {
                 foreach (var error in result.Errors)
                 {
+                    Console.WriteLine(error);
+
                     ModelState.AddModelError(string.Empty, error);
                 }
                 return Page();
