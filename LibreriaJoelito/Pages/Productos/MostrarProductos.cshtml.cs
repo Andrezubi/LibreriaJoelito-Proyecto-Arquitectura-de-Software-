@@ -3,6 +3,7 @@ using LibreriaJoelito.Aplicacion.Servicios;
 using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Dominio.Validators;
 using LibreriaJoelito.Infraestructura.Persistencia;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
@@ -10,12 +11,14 @@ using System.Data;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace LibreriaJoelito.Pages.Productos
 {
+    [Authorize(Roles = "Administrador,Empleado")]
     public class MostrarProductosModel : PageModel
     {
         public DataTable ProductosDataTable { get; set; } = new DataTable();
 
         public DataTable CategoriasDataTable { get; set; }
         public DataTable MarcasDataTable { get; set; }
+        public RepositorioBD bd { get; set; } = RepositorioBD.Instancia;
 
         [BindProperty]
         public int Id { get; set; }
@@ -62,7 +65,7 @@ namespace LibreriaJoelito.Pages.Productos
 
             MySqlCommand cmd = new MySqlCommand(query);
 
-            CategoriasDataTable = RepositorioBD.ExecuteReturningDataTable(cmd);
+            CategoriasDataTable = bd.ExecuteReturningDataTable(cmd);
 
         }
         void LoadMarcas()
@@ -74,7 +77,7 @@ namespace LibreriaJoelito.Pages.Productos
 
             MySqlCommand cmd = new MySqlCommand(query);
 
-            MarcasDataTable = RepositorioBD.ExecuteReturningDataTable(cmd);
+            MarcasDataTable = bd.ExecuteReturningDataTable(cmd);
 
         }
 
@@ -101,7 +104,8 @@ namespace LibreriaJoelito.Pages.Productos
         {
             try
             {
-                Producto producto = new Producto(Id, IdCategoria, IdMarca, Nombre, Stock);
+                // falta el  userid
+                Producto producto = new Producto(Id, IdCategoria, IdMarca, Nombre, Stock,1);
                 //var errores = ProductValidator.ValidarProducto(producto);
                 var result = productoServicio.Update(producto);
 
@@ -144,7 +148,7 @@ namespace LibreriaJoelito.Pages.Productos
                             WHERE Id=@id";
             MySqlCommand cmd = new MySqlCommand(query);
             cmd.Parameters.AddWithValue("@id", id);
-            using (MySqlDataReader reader = RepositorioBD.ExecuteReader(cmd))
+            using (MySqlDataReader reader = bd.ExecuteReader(cmd))
             {
                 if (reader.Read())
                 {
@@ -161,7 +165,7 @@ namespace LibreriaJoelito.Pages.Productos
                             WHERE Id=@id";
             MySqlCommand cmd = new MySqlCommand(query);
             cmd.Parameters.AddWithValue("@id", id);
-            using (MySqlDataReader reader = RepositorioBD.ExecuteReader(cmd))
+            using (MySqlDataReader reader = bd.ExecuteReader(cmd))
             {
                 if (reader.Read())
                 {

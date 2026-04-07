@@ -8,9 +8,13 @@ namespace LibreriaJoelito.Dominio.Validators
 {
     public static class ExtraValidator
     {
+
+
         public static List<ValidationResult> ValidarNombreCategoria(string nombre)
         {
             var errores = new List<ValidationResult>();
+            var bd = RepositorioBD.Instancia;
+
             if (string.IsNullOrWhiteSpace(nombre))
             {
                 errores.Add(new ValidationResult(
@@ -52,7 +56,8 @@ namespace LibreriaJoelito.Dominio.Validators
             {
                 cmd.Parameters.AddWithValue("@nombre", nombre);
 
-                using (var reader = RepositorioBD.ExecuteReader(cmd))
+
+                using (var reader = bd.ExecuteReader(cmd))
                 {
                     if (reader.HasRows)
                     {
@@ -67,6 +72,8 @@ namespace LibreriaJoelito.Dominio.Validators
         public static List<ValidationResult> ValidarNombreMarca(string nombre)
         {
             var errores = new List<ValidationResult>();
+            var bd = RepositorioBD.Instancia;
+
             if (string.IsNullOrWhiteSpace(nombre))
             {
                 errores.Add(new ValidationResult(
@@ -108,7 +115,7 @@ namespace LibreriaJoelito.Dominio.Validators
             {
                 cmd.Parameters.AddWithValue("@nombre", nombre);
 
-                using (var reader = RepositorioBD.ExecuteReader(cmd))
+                using (var reader = bd.ExecuteReader(cmd))
                 {
                     if (reader.HasRows)
                     {
