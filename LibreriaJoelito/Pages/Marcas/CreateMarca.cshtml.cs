@@ -4,6 +4,7 @@ using LibreriaJoelito.Dominio.Validators;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Security.Claims;
 
 namespace LibreriaJoelito.Pages.Marcas
 {
@@ -30,6 +31,7 @@ namespace LibreriaJoelito.Pages.Marcas
         {
             Marca.Nombre = _marcaValidator.NormalizarTexto(Marca.Nombre);
             Marca.Industria = _marcaValidator.NormalizarTexto(Marca.Industria);
+            Marca.Id = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
             var result = _marcaServicio.Insert(Marca);
 
