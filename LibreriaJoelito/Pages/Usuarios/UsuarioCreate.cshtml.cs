@@ -3,12 +3,14 @@ using LibreriaJoelito.Aplicacion.Interfaces;
 using LibreriaJoelito.Aplicacion.Servicios;
 using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Dominio.Validators;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
 
 namespace LibreriaJoelito.Pages.Usuarios
 {
+    [Authorize(Roles = "Administrador")]
     public class EmpleadoCreateModel : PageModel
     {
         #region inyecciónDependencias

@@ -1,12 +1,14 @@
+using LibreriaJoelito.Aplicacion.Servicios;
+using LibreriaJoelito.Dominio.Models;
+using LibreriaJoelito.Dominio.Validators;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data;
-using LibreriaJoelito.Dominio.Models;
-using LibreriaJoelito.Dominio.Validators;
-using LibreriaJoelito.Aplicacion.Servicios;
 
 namespace LibreriaJoelito.Pages.Marcas
 {
+    [Authorize(Roles = "Administrador,Empleado")]
     public class VerMarcasModel : PageModel
     {
         private readonly MarcaServicio _marcaServicio;

@@ -3,6 +3,7 @@ using LibreriaJoelito.Aplicacion.Servicios;
 using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Dominio.Validators;
 using LibreriaJoelito.Infraestructura.Persistencia;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
@@ -10,6 +11,7 @@ using System.Data;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace LibreriaJoelito.Pages.Productos
 {
+    [Authorize(Roles = "Administrador,Empleado")]
     public class MostrarProductosModel : PageModel
     {
         public DataTable ProductosDataTable { get; set; } = new DataTable();
