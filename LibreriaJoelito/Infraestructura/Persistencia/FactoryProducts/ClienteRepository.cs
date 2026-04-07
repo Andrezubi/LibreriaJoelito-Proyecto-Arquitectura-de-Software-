@@ -49,11 +49,14 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
         {
             MySqlCommand cmd = new MySqlCommand(@"
                 INSERT INTO Cliente 
-                    (Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, Email, ClienteFrecuente)
+                    (Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, Email, ClienteFrecuente, IdUsuario)
                 VALUES 
-                    (@nombre, @apellidoPaterno, @apellidoMaterno, @ci, @complemento, @email, @clienteFrecuente)");
+                    (@nombre, @apellidoPaterno, @apellidoMaterno, @ci, @complemento, @email, @clienteFrecuente, @idUsuario)");
 
             AgregarParametros(cmd, t);
+            // IdUsuario es NOT NULL en la BD: debe asignarse desde la capa de servicio (usuario autenticado)
+            cmd.Parameters.AddWithValue("@idUsuario", t.IdUsuario);
+
             return ExecuteNonQuery(cmd);
 
         }

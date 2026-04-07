@@ -29,7 +29,7 @@ namespace LibreriaJoelito.Pages.Marcas
         {
             Marca.Nombre = _marcaValidator.NormalizarTexto(Marca.Nombre);
             Marca.Industria = _marcaValidator.NormalizarTexto(Marca.Industria);
-            Marca.Id = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            //Marca.Id = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
             var result = _marcaServicio.Insert(Marca);
 

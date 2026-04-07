@@ -3,8 +3,6 @@ using LibreriaJoelito.Aplicacion.Results;
 using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Dominio.Validators;
 using System.Data;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 
 namespace LibreriaJoelito.Aplicacion.Servicios
 {
@@ -12,7 +10,6 @@ namespace LibreriaJoelito.Aplicacion.Servicios
     {
         private readonly IRepository<Marca> marcaRepository;
         private readonly MarcaValidator marcaValidator;
-
 
         public MarcaServicio(IRepository<Marca> marcaRepository, MarcaValidator marcaValidator)
         {
@@ -47,7 +44,7 @@ namespace LibreriaJoelito.Aplicacion.Servicios
                 return Result.Failure("Marca.Nombre: Ya existe una marca registrada con este nombre.");
             }
 
-            //marca.IdUsuario = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            marca.IdUsuario = 1; //CAMBIAR POR EL USUARIO LOGUEADO UNA VES MERGEADO CON AUTENTICACION
 
             marcaRepository.Insert(marca);
 

@@ -49,6 +49,8 @@ namespace LibreriaJoelito.Aplicacion.Servicios
             {
                 return Result.Failure("_cliente.Ci: Ya existe un cliente con este CI y Complemento.");
             }
+            // Temporal: asignar un usuario por defecto hasta que se implemente autenticación
+            cliente.IdUsuario = 1; // reemplazar por id del usuario autenticado
 
             clienteRepository.Insert(cliente);
 

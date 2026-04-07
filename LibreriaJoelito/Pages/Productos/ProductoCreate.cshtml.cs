@@ -131,7 +131,7 @@ namespace LibreriaJoelito.Pages.Productos
                     Console.Write("hubo errores al validar nombre categoria");
                     return new JsonResult(new { success = false, message = errors.First().ErrorMessage });
                 }
-                string query = "INSERT INTO categoria (Nombre) VALUES (@nombre);";
+                string query = "INSERT INTO categoria (Nombre, IdUsuario) VALUES (@nombre, 1);";
                 MySqlCommand cmd = new MySqlCommand(query);
                 cmd.Parameters.AddWithValue("@nombre", data.Nombre);
                 bd.ExecuteNonQuery(cmd);

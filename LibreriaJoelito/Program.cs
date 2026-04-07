@@ -49,7 +49,7 @@ builder.Services.AddScoped<ClienteValidator>();
 builder.Services.AddScoped<ProductValidator>();
 builder.Services.AddScoped<MarcaValidator>();
 
-// Servicios de Aplicación
+// Servicios de Aplicación  
 builder.Services.AddScoped<ClienteServicio>();
 builder.Services.AddScoped<ProductoServicio>();
 builder.Services.AddScoped<UsuarioServicio>();
