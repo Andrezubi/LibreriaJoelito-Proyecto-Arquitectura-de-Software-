@@ -10,10 +10,11 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
         public int Delete(Marca marca)
         {
             string query = @"UPDATE Marca 
-                             SET Estado = 0, FechaUltimaActualizacion = @fecha 
+                             SET Estado = 0, FechaUltimaActualizacion = @fecha, IdUsuario = @userId
                              WHERE Id = @id";
             MySqlCommand cmd = new MySqlCommand(query);
             cmd.Parameters.AddWithValue("@fecha", DateTime.Now);
+            cmd.Parameters.AddWithValue("@userId", marca.IdUsuario);
             cmd.Parameters.AddWithValue("@id", marca.Id);
             return ExecuteNonQuery(cmd);
         }
@@ -58,7 +59,8 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
                                  Descripcion = @desc, 
                                  PaginaWeb = @web, 
                                  Industria = @ind, 
-                                 FechaUltimaActualizacion = @fecha 
+                                 FechaUltimaActualizacion = @fecha,
+                                 IdUsuario = @userId
                              WHERE Id = @id";
             MySqlCommand cmd = new MySqlCommand(query);
             cmd.Parameters.AddWithValue("@nombre", marca.Nombre);
@@ -66,6 +68,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             cmd.Parameters.AddWithValue("@web", marca.PaginaWeb);
             cmd.Parameters.AddWithValue("@ind", marca.Industria);
             cmd.Parameters.AddWithValue("@fecha", DateTime.Now);
+            cmd.Parameters.AddWithValue("@userId", marca.IdUsuario);
             cmd.Parameters.AddWithValue("@id", marca.Id);
             return ExecuteNonQuery(cmd);
         }

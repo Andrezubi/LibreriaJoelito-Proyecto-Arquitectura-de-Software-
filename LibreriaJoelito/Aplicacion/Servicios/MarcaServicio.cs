@@ -44,7 +44,7 @@ namespace LibreriaJoelito.Aplicacion.Servicios
                 return Result.Failure("Marca.Nombre: Ya existe una marca registrada con este nombre.");
             }
 
-            marca.IdUsuario = 1; //CAMBIAR POR EL USUARIO LOGUEADO UNA VES MERGEADO CON AUTENTICACION
+            //marca.IdUsuario = 1; //CAMBIAR POR EL USUARIO LOGUEADO UNA VES MERGEADO CON AUTENTICACION
 
             marcaRepository.Insert(marca);
 

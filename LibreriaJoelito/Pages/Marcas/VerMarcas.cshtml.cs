@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data;
+using System.Security.Claims;
 
 namespace LibreriaJoelito.Pages.Marcas
 {
@@ -36,6 +37,7 @@ namespace LibreriaJoelito.Pages.Marcas
             {
                 Marca.Nombre = _marcaValidator.NormalizarTexto(Marca.Nombre);
                 Marca.Industria = _marcaValidator.NormalizarTexto(Marca.Industria);
+                Marca.IdUsuario = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
                 var result = _marcaServicio.Update(Marca);
 
@@ -58,6 +60,7 @@ namespace LibreriaJoelito.Pages.Marcas
         public IActionResult OnPostDelete(int id)
         {
             Marca.Id = id;
+            Marca.IdUsuario = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             _marcaServicio.Delete(Marca);
             TempData["MensajeExito"] = "Marca eliminada correctamente.";
             return RedirectToPage();
