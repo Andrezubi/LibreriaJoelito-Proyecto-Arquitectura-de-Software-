@@ -170,7 +170,6 @@
                 location.reload();
             } else {
                 const alerta = document.getElementById('alertaErrorModal');
-                // Al usar innerHTML respetará los saltos de línea (<br/>) que mandaremos desde C#
                 alerta.innerHTML = data.message;
                 alerta.style.display = 'block';
             }

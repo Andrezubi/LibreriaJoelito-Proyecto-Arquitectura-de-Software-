@@ -43,6 +43,7 @@ builder.Services.AddScoped<MarcaValidator>();
 builder.Services.AddScoped<ClienteServicio>();
 builder.Services.AddScoped<ProductoServicio>();
 builder.Services.AddScoped<UsuarioServicio>();
+builder.Services.AddScoped<MarcaServicio>();
 
 var app = builder.Build();
 

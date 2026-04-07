@@ -1,4 +1,4 @@
-using LibreriaJoelito.Aplicacion.Interfaces;
+using LibreriaJoelito.Aplicacion.Servicios;
 using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Dominio.Validators;
 using Microsoft.AspNetCore.Mvc;
@@ -8,12 +8,12 @@ namespace LibreriaJoelito.Pages.Marcas
 {
     public class CreateMarcaModel : PageModel
     {
-        private readonly IRepository<Marca> _marcaRepo;
+        private readonly MarcaServicio _marcaServicio;
         private readonly MarcaValidator _marcaValidator;
 
-        public CreateMarcaModel(IRepository<Marca> marcaRepo, MarcaValidator marcaValidator)
+        public CreateMarcaModel(MarcaServicio marcaServicio, MarcaValidator marcaValidator)
         {
-            _marcaRepo = marcaRepo;
+            _marcaServicio = marcaServicio;
             _marcaValidator = marcaValidator;
         }
 
@@ -22,7 +22,6 @@ namespace LibreriaJoelito.Pages.Marcas
 
         public void OnGet()
         {
-            // Solo carga la vista inicial
         }
 
         public IActionResult OnPost()
@@ -30,35 +29,28 @@ namespace LibreriaJoelito.Pages.Marcas
             Marca.Nombre = _marcaValidator.NormalizarTexto(Marca.Nombre);
             Marca.Industria = _marcaValidator.NormalizarTexto(Marca.Industria);
 
-            var errores = _marcaValidator.Validar(Marca);
+            var result = _marcaServicio.Insert(Marca);
 
-            if (errores.Any())
+            if (result.IsFailure)
             {
-                foreach (var error in errores)
+                // Procesar errores devueltos por el servicio
+                foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError(error.MemberNames.First(), error.ErrorMessage);
+                    var parts = error.Split(':', 2);
+                    if (parts.Length == 2)
+                    {
+                        ModelState.AddModelError(parts[0].Trim(), parts[1].Trim());
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, error);
+                    }
                 }
                 return Page();
             }
 
-            if (_marcaRepo.ExisteDuplicado(Marca))
-            {
-                ModelState.AddModelError("Marca.Nombre", "Ya existe una marca registrada con este nombre.");
-                return Page();
-            }
-
-            Marca.IdUsuario = 1; 
-
-            if (_marcaRepo.Insert(Marca) > 0)
-            {
-                TempData["MensajeExito"] = $"Marca '{Marca.Nombre}' registrada exitosamente.";
-                return RedirectToPage("VerMarcas");
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, "Ocurrió un error al guardar en la base de datos.");
-                return Page();
-            }
+            TempData["MensajeExito"] = $"Marca '{Marca.Nombre}' registrada exitosamente.";
+            return RedirectToPage("VerMarcas");
         }
     }
 }
