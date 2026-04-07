@@ -7,25 +7,14 @@ namespace LibreriaJoelito.Infraestructura.Persistencia
     public class RepositorioBD
     {
         private static string? _connectionString;
-        private static RepositorioBD instancia;
+        private static readonly Lazy<RepositorioBD> _instancia = new Lazy<RepositorioBD>(() => new RepositorioBD());
 
-        private static readonly object bloqueo = new object();
 
         public static RepositorioBD Instancia
         {
             get
             {
-                if (instancia == null)
-                {
-                    lock (bloqueo)
-                    {
-                        if (instancia == null)
-                        {
-                            instancia = new RepositorioBD();
-                        }
-                    }
-                }
-                return instancia;
+                return _instancia.Value;
             }
         }
 

@@ -22,6 +22,11 @@ builder.Services.AddScoped<IRepository<Cliente>>(provider =>
     return new ClienteRepositoryCreator().CreateRepository();
 });
 
+//Dependency inyection IRepository Marcas
+builder.Services.AddScoped<IRepository<Marca>>(provider => {
+    return new MarcaCreatorRepository().CreateRepository();
+});
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 
@@ -33,6 +38,7 @@ builder.Services.AddScoped<IRepository<Producto>>(provider => {
 builder.Services.AddScoped<ClienteValidator>();
 builder.Services.AddScoped<ProductValidator>();
 builder.Services.AddScoped<EmpleadoValidator>();
+builder.Services.AddScoped<MarcaValidator>();
 
 builder.Services.AddScoped<ClienteServicio>();
 builder.Services.AddScoped<ProductoServicio>();
