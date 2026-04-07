@@ -1,7 +1,7 @@
 ﻿@page
 @model LibreriaJoelito.Pages.Usuarios.EmpleadoGetModel
 @{
-	ViewData["Title"] = "Empleados";
+	ViewData["Title"] = "Usuarios";
 }
 
 <div class="container-fluid mt-4 px-4">
@@ -16,8 +16,8 @@
 
 					<h5 class="mb-0">Lista de Empleados</h5>
 
-					<a asp-page="EmpleadoCreate" class="btn btn-sistema btn-sm">
-						+ Nuevo Empleado
+					<a asp-page="UsuarioCreate" class="btn btn-sistema btn-sm">
+						+ Nuevo Usuario
 					</a>
 
 				</div>
@@ -47,10 +47,12 @@
 									<th>Apellido Materno</th>
 									<th>Carnet de Identidad</th>
 									<th>Fecha de Nacimiento</th>
+									<th>Rol</th>
 									<th>Email</th>
 									<th>Dirección</th>
 									<th>Celular</th>
 									<th>Fecha Ingreso</th>
+									
 									<th class="text-center">Acciones</th>
 								</tr>
 							</thead>
@@ -71,16 +73,20 @@
 											<td>@row["Ci"]</td>
 										}
 										<td>@row["FechaNacimiento"]</td>
+										<td>@row["Rol"]</td>
 										<td>@row["Email"]</td>
 										<td>@row["DireccionDomicilio"]</td>
 										<td>@row["Telefono"]</td>
 										<td>@row["FechaIngreso"]</td>
+
 										<td>
-											<a onclick="abrirModalUpdate(
+											<!--
+																						<a onclick="abrirModalUpdate(
 							'@row["Id"]',
 							'@row["Nombre"]',
 							'@row["ApellidoPaterno"]',
 							'@row["ApellidoMaterno"]',
+							'@row["Rol"]',
 							'@row["Ci"]',
 							'@row["Email"]',
 							'@row["Complemento"]',
@@ -93,6 +99,7 @@
 					           class="btn btn-sistema btn-sm">
 								Editar
 						</a>
+											-->
 						<a data-bs-toggle="modal" onclick="prepararEliminacion(@row["Id"])" class="btn btn-sistema-danger btn-sm">Eliminar</a>
 				</td>
 			</tr>

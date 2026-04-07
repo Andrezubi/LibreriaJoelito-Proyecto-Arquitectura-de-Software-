@@ -7,41 +7,41 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 {
-    public class EmpleadoRepository :IUsuarioRepository ,IRepository<Usuario>
+    public class UsuarioRepository :IUsuarioRepository ,IRepository<Usuario>
     {
         public int Insert(Usuario t)
         {
             string query = @"INSERT INTO Usuario (
-                                Nombre,
-                                ApellidoPaterno,
-                                ApellidoMaterno,
-                                Ci,
-                                Complemento,
-                                FechaNacimiento,
-                                Email,
-                                DireccionDomicilio,
-                                Telefono,
-                                FechaIngreso,
-                                Rol
-                                Username
-                                Password
-                                IdUsuario
-                                ) VALUES (
-                                @nombre,
-                                @apellidoPaterno,
-                                @apellidoMaterno,
-                                @ci,
-                                @extensionCi,
-                                @fechaNacimiento,
-                                @email,
-                                @direccionDomicilio,
-                                @telefono,
-                                @fechaIngreso,
-                                @rol
-                                @username
-                                @password
-                                @idusuario
-                                );";
+                    Nombre,
+                    ApellidoPaterno,
+                    ApellidoMaterno,
+                    Ci,
+                    Complemento,
+                    FechaNacimiento,
+                    Email,
+                    DireccionDomicilio,
+                    Telefono,
+                    FechaIngreso,
+                    Rol,
+                    Username,
+                    Password,
+                    IdUsuario
+                ) VALUES (
+                    @nombre,
+                    @apellidoPaterno,
+                    @apellidoMaterno,
+                    @ci,
+                    @extensionCi,
+                    @fechaNacimiento,
+                    @email,
+                    @direccionDomicilio,
+                    @telefono,
+                    @fechaIngreso,
+                    @rol,
+                    @username,
+                    @password,
+                    @idusuario
+                );";
 
             MySqlCommand command = new MySqlCommand(query);
             command.Parameters.AddWithValue("@nombre", t.Nombre);
@@ -103,7 +103,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
         }
         public DataTable GetAll()
         {
-            string query = @"SELECT Id, Nombre, ApellidoPaterno, ApellidoMaterno, Ci,Complemento, DATE_FORMAT(FechaNacimiento, '%Y-%m-%d') AS FechaNacimiento,Email, DireccionDomicilio, Telefono, DATE_FORMAT(FechaIngreso, '%Y-%m-%d') AS FechaIngreso
+            string query = @"SELECT Id, Nombre, ApellidoPaterno, ApellidoMaterno, Ci,Complemento, DATE_FORMAT(FechaNacimiento, '%Y-%m-%d') AS FechaNacimiento,Email, DireccionDomicilio,Rol, Telefono, DATE_FORMAT(FechaIngreso, '%Y-%m-%d') AS FechaIngreso
                     FROM Usuario
                     WHERE estado = 1
                             ORDER BY 2;
