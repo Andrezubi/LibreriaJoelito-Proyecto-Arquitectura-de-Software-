@@ -4,11 +4,11 @@ using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
 
 namespace LibreriaJoelito.Infraestructura.FactoryCreators
 {
-    public class EmpleadoCreateRepository : CreatorRepository<Empleado>
+    public class UsuarioCreatorRepository : CreatorRepository<Usuario>
     {
-        public override IRepository<Empleado> CreateRepository()
+        public override IRepository<Usuario> CreateRepository()
         {
-            return new EmpleadoRepository();
+            return new UsuarioRepository();
         }
     }
 }
