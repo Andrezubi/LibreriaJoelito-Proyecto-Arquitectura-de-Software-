@@ -2,19 +2,25 @@ using LibreriaJoelito.Aplicacion.Interfaces;
 using LibreriaJoelito.Aplicacion.Servicios;
 using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Dominio.Validators;
+using LibreriaJoelito.Infraestructura.Encryptacion;
 using LibreriaJoelito.Infraestructura.FactoryCreators;
 using LibreriaJoelito.Infraestructura.Persistencia;
 using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
-
-
-
+using LibreriaJoelito.Infraestructura.ServiciosExternos;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Registro de IEmailService
+builder.Services.AddTransient<IEmailService, EmailService>();
+
+// Registro de Password Hasher
+builder.Services.AddTransient<IPasswordHasher, LibreriaJoelito.Infraestructura.Encryptacion.SimpleHasher>();
+
 //Dependency inyection IRepository Empleados
-builder.Services.AddScoped<IRepository<Empleado>>(provider => {
-    return new EmpleadoCreateRepository().CreateRepository();
+builder.Services.AddScoped<IRepository<Usuario>>(provider => {
+    return new UsuarioCreatorRepository().CreateRepository();
 });
+builder.Services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 
 //Dependency inyection IRepository Clientes
 builder.Services.AddScoped<IRepository<Cliente>>(provider =>
@@ -35,11 +41,15 @@ builder.Services.AddScoped<IRepository<Producto>>(provider => {
     return new ProductoCreatorRepository().CreateRepository();
 });
 
+//Dependency inyection token service
+builder.Services.AddScoped<ITokenService, TokenService>();
+
+// Validadores
 builder.Services.AddScoped<ClienteValidator>();
 builder.Services.AddScoped<ProductValidator>();
-builder.Services.AddScoped<EmpleadoValidator>();
 builder.Services.AddScoped<MarcaValidator>();
 
+// Servicios de Aplicación
 builder.Services.AddScoped<ClienteServicio>();
 builder.Services.AddScoped<ProductoServicio>();
 builder.Services.AddScoped<UsuarioServicio>();
