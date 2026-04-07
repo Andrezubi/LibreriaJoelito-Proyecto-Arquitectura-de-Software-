@@ -17,7 +17,7 @@ namespace LibreriaJoelito.Pages
         public async Task OnGet()
         {
             // PRUEBA DE ENVÍO (Descomenta para probar después de configurar appsettings.json)
-            // await _emailService.SendEmailAsync("tu-correo@gmail.com", "Prueba Librería Joelito", "Este es un correo de prueba.");
+            // await _emailService.SendEmailAsync("tu-correo@example.com", "Prueba Librería Joelito", "Este es un correo de prueba.");
         }
     }
 }
