@@ -1,16 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using LibreriaJoelito.Aplicacion.Interfaces;
+using LibreriaJoelito.Aplicacion.Servicios;
 
 namespace LibreriaJoelito.Pages.LogIn
 {
     public class InicioSesionModel : PageModel
     {
-        private readonly IServicioUsuario _servicioUsuario;
+        private readonly UsuarioServicio _usuarioServicio;
 
-        public InicioSesionModel(IServicioUsuario servicioUsuario)
+        public InicioSesionModel(UsuarioServicio usuarioServicio)
         {
-            _servicioUsuario = servicioUsuario;
+            _usuarioServicio = usuarioServicio;
         }
 
         [BindProperty]
@@ -27,11 +27,17 @@ namespace LibreriaJoelito.Pages.LogIn
 
         public IActionResult OnPost()
         {
-            var result = _servicioUsuario.Login(Username, Password);
+            var result = _usuarioServicio.Login(Username, Password);
 
             if (result.Success)
             {
-                // luego puedes guardar sesión o JWT
+                Response.Cookies.Append("AuthToken", result.Token, new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict,
+                    Expires = DateTimeOffset.UtcNow.AddHours(8)
+                });
                 return RedirectToPage("/Index");
             }
 

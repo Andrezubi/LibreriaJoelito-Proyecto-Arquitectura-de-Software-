@@ -6,7 +6,6 @@ using LibreriaJoelito.Dominio.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI;
 
 namespace LibreriaJoelito.Pages.Usuarios
 {

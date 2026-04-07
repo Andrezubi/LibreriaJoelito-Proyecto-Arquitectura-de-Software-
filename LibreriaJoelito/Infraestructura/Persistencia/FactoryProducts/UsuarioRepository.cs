@@ -159,5 +159,26 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 
             return null; // o string.Empty si prefieres
         }
+
+        public Usuario GetDatosLogin(string username)
+        {
+            string query = "SELECT Password, Rol FROM Usuario WHERE Username = @username AND Estado = 1 LIMIT 1";
+            MySqlCommand command = new MySqlCommand(query);
+            command.Parameters.AddWithValue("@username", username);
+
+            using (var reader = RepositorioBD.ExecuteReader(command))
+            {
+                if (reader.Read())
+                {
+                    return new Usuario
+                    {
+                        Username = username,
+                        Password = reader["Password"].ToString(),
+                        Rol = reader["Rol"].ToString()
+                    };
+                }
+            }
+            return null;
+        }
     }
 }

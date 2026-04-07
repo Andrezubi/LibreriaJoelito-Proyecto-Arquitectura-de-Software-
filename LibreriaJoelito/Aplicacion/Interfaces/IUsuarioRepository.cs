@@ -6,5 +6,8 @@ namespace LibreriaJoelito.Aplicacion.Interfaces
     {
         bool ExisteUsername(string username);
         string GetPasswordByUsername(string username);
+        
+        Usuario GetDatosLogin(string username);
+
     }
 }

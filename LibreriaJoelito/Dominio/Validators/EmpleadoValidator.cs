@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace LibreriaJoelito.Dominio.Validators
 {
-    public class EmpleadoValidator
+    public static class EmpleadoValidator
     {
         public static List<ValidationResult> Validar(Usuario emp)
         {

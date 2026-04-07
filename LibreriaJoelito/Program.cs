@@ -21,7 +21,6 @@ builder.Services.AddScoped<IRepository<Usuario>>(provider => {
     return new UsuarioCreatorRepository().CreateRepository();
 });
 builder.Services.AddTransient<IUsuarioRepository, UsuarioRepository>();
-builder.Services.AddTransient<IServicioUsuario, ServicioUsuario>();
 
 //Dependency inyection IRepository Clientes
 builder.Services.AddScoped<IRepository<Cliente>>(provider =>
@@ -37,10 +36,14 @@ builder.Services.AddScoped<IRepository<Producto>>(provider => {
     return new ProductoCreatorRepository().CreateRepository();
 });
 
+//Dependency inyection token service
+builder.Services.AddScoped<ITokenService, TokenService>();
+
+// Validadores
 builder.Services.AddScoped<ClienteValidator>();
 builder.Services.AddScoped<ProductValidator>();
-builder.Services.AddScoped<EmpleadoValidator>();
 
+// Servicios de Aplicación
 builder.Services.AddScoped<ClienteServicio>();
 builder.Services.AddScoped<ProductoServicio>();
 builder.Services.AddScoped<UsuarioServicio>();

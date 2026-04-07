@@ -21,6 +21,7 @@ namespace LibreriaJoelito.Pages.Usuarios
             _usuarioServicio = usuarioServicio;
         }
 
+
         public string messageResult { get; set; } = string.Empty;
 
         [BindProperty]
@@ -85,14 +86,9 @@ namespace LibreriaJoelito.Pages.Usuarios
 
             if (result.IsFailure)
             {
-                return new JsonResult(
-                    new
-                    {
-                        success = false,
-                        message = result.Errors.First()
-                    }
-                );
+                return new JsonResult(new { success = false, message = result.Errors.First() });
             }
+            
 
             return new JsonResult(new { success = true });
         }

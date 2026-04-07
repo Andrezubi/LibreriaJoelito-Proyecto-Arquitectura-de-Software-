@@ -11,12 +11,14 @@ namespace LibreriaJoelito.Aplicacion.Servicios
         private readonly IRepository<Usuario> usuarioRepository;
         private readonly IUsuarioRepository extraRepo;
         private readonly IPasswordHasher passwordHasher;
+        private readonly ITokenService tokenService;
 
-        public UsuarioServicio(IRepository<Usuario> usuarioRepository, IUsuarioRepository extraRepo, IPasswordHasher passwordHasher)
+        public UsuarioServicio(IRepository<Usuario> usuarioRepository, IUsuarioRepository extraRepo, IPasswordHasher passwordHasher, ITokenService tokenService)
         {
             this.usuarioRepository = usuarioRepository;
             this.extraRepo = extraRepo;
             this.passwordHasher = passwordHasher;
+            this.tokenService = tokenService;
         }
 
         public DataTable GetAll()
@@ -114,19 +116,19 @@ namespace LibreriaJoelito.Aplicacion.Servicios
         public LoginResult Login(string username, string password)
         {
             var loginResult = new LoginResult();
-            string userPassword = extraRepo.GetPasswordByUsername(username);
+            var user = extraRepo.GetDatosLogin(username);
 
-            if (userPassword == null)
+            if (user == null)
             {
                 loginResult.Success = false;
                 loginResult.Message = "Usuario no encontrado.";
                 loginResult.Token = null;
             }
-            else if (passwordHasher.Verify(password, userPassword))
+            else if (passwordHasher.Verify(password, user.Password))
             {
                 loginResult.Success = true;
-                loginResult.Message = "Login exitoso.";
-                loginResult.Token = "jwt"; // Luego debes implementar JWT
+                loginResult.Message = "Acceso concedido.";
+                loginResult.Token = tokenService.GenerarToken(username, user.Rol);
             }
             else
             {
