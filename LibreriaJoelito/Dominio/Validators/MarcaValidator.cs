@@ -11,7 +11,6 @@ namespace LibreriaJoelito.Dominio.Validators
         public string NormalizarTexto(string? texto)
         {
             if (string.IsNullOrWhiteSpace(texto)) return string.Empty;
-            // Elimina espacios duplicados y recorta extremos
             texto = Regex.Replace(texto.Trim(), @"\s+", " ");
             return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(texto.ToLower());
         }
@@ -33,7 +32,7 @@ namespace LibreriaJoelito.Dominio.Validators
             if (string.IsNullOrWhiteSpace(nombre))
             {
                 errores.Add(new ValidationResult("El Nombre de la marca es obligatorio.", new[] { "Marca.Nombre" }));
-                return;
+                return; 
             }
 
             if (nombre.Length < 2 || nombre.Length > 250)
@@ -41,7 +40,6 @@ namespace LibreriaJoelito.Dominio.Validators
                 errores.Add(new ValidationResult("El Nombre debe tener entre 2 y 250 caracteres.", new[] { "Marca.Nombre" }));
             }
 
-            // Permite letras, números, espacios y algunos caracteres comunes en marcas (como & o -)
             if (!Regex.IsMatch(nombre, @"^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s&\.\-]+$"))
             {
                 errores.Add(new ValidationResult("El Nombre contiene caracteres no permitidos.", new[] { "Marca.Nombre" }));
@@ -50,12 +48,15 @@ namespace LibreriaJoelito.Dominio.Validators
 
         private void ValidarDescripcion(string? descripcion, List<ValidationResult> errores)
         {
-            if (!string.IsNullOrWhiteSpace(descripcion))
+            if (string.IsNullOrWhiteSpace(descripcion))
             {
-                if (descripcion.Length > 500)
-                {
-                    errores.Add(new ValidationResult("La Descripción no puede exceder los 500 caracteres.", new[] { "Marca.Descripcion" }));
-                }
+                errores.Add(new ValidationResult("La Descripción de la marca es obligatoria.", new[] { "Marca.Descripcion" }));
+                return;
+            }
+
+            if (descripcion.Length > 500)
+            {
+                errores.Add(new ValidationResult("La Descripción no puede exceder los 500 caracteres.", new[] { "Marca.Descripcion" }));
             }
         }
 
@@ -63,7 +64,6 @@ namespace LibreriaJoelito.Dominio.Validators
         {
             if (!string.IsNullOrWhiteSpace(url))
             {
-                // Validación simple de URL (debe contener un punto y no espacios)
                 if (!Regex.IsMatch(url, @"^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$"))
                 {
                     errores.Add(new ValidationResult("El formato de la Página Web no es válido.", new[] { "Marca.PaginaWeb" }));
@@ -77,12 +77,15 @@ namespace LibreriaJoelito.Dominio.Validators
 
         private void ValidarIndustria(string? industria, List<ValidationResult> errores)
         {
-            if (!string.IsNullOrWhiteSpace(industria))
+            if (string.IsNullOrWhiteSpace(industria))
             {
-                if (industria.Length < 3 || industria.Length > 100)
-                {
-                    errores.Add(new ValidationResult("El campo Industria debe tener entre 3 y 100 caracteres.", new[] { "Marca.Industria" }));
-                }
+                errores.Add(new ValidationResult("La Industria es obligatoria.", new[] { "Marca.Industria" }));
+                return;
+            }
+
+            if (industria.Length < 3 || industria.Length > 100)
+            {
+                errores.Add(new ValidationResult("El campo Industria debe tener entre 3 y 100 caracteres.", new[] { "Marca.Industria" }));
             }
         }
     }

@@ -6,9 +6,9 @@ namespace LibreriaJoelito.Dominio.Models
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public string Descripcion { get; set; }
-        public string PaginaWeb { get; set; }
-        public string Industria { get; set; }
+        public string? Descripcion { get; set; }
+        public string? PaginaWeb { get; set; }
+        public string? Industria { get; set; }
         public bool Estado { get; set; } 
         public DateTime FechaRegistro { get; set; }
         public DateTime? FechaUltimaActualizacion { get; set; } // Puede ser NULL
