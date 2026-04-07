@@ -31,6 +31,7 @@ namespace LibreriaJoelito.Pages.LogIn
 
             if (result.Success)
             {
+
                 Response.Cookies.Append("AuthToken", result.Token, new CookieOptions
                 {
                     HttpOnly = true,

@@ -3,12 +3,15 @@ using LibreriaJoelito.Aplicacion.Interfaces;
 using LibreriaJoelito.Aplicacion.Servicios;
 using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Dominio.Validators;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI;
 
 namespace LibreriaJoelito.Pages.Usuarios
 {
+    [Authorize(Roles = "Administrador")]
     public class EmpleadoCreateModel : PageModel
     {
         #region inyecciónDependencias
@@ -67,6 +70,7 @@ namespace LibreriaJoelito.Pages.Usuarios
             Usuario empleado = new Usuario(Nombre, ApellidoPaterno, ApellidoMaterno, Ci, ExtensionCi, DireccionDomicilio, Email, Telefono ?? "", FechaNacimiento, FechaIngreso, tempUsername, tempPassword, Rol, 1);
 
             var result = _usuarioServicio.Insert(empleado);
+      ;
 
             if (result.IsFailure)
             {

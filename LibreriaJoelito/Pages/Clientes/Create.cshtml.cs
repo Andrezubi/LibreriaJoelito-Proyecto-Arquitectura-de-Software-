@@ -4,11 +4,13 @@ using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Dominio.Validators;
 using LibreriaJoelito.Infraestructura.FactoryCreators;
 using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace LibreriaJoelito.Pages.Clientes
 {
+    [Authorize(Roles = "Administrador,Empleado")]
     public class CreateModel : PageModel
     {
         private readonly ClienteServicio clienteServicio;

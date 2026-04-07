@@ -1,16 +1,18 @@
+using LibreriaJoelito.Aplicacion.Interfaces;
+using LibreriaJoelito.Aplicacion.Servicios;
+using LibreriaJoelito.Dominio.Models;
+using LibreriaJoelito.Dominio.Validators;
 using LibreriaJoelito.Infraestructura.FactoryCreators;
+using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
 using System.Data;
-using LibreriaJoelito.Dominio.Models;
-using LibreriaJoelito.Dominio.Validators;
-using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
-using LibreriaJoelito.Aplicacion.Interfaces;
-using LibreriaJoelito.Aplicacion.Servicios;
 
 namespace LibreriaJoelito.Pages.Clientes
 {
+    [Authorize(Roles = "Administrador,Empleado")]
     public class ClientesGetModel : PageModel
     {
         private readonly ClienteServicio clienteServicio;

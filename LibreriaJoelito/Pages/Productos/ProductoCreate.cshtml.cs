@@ -4,6 +4,7 @@ using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Dominio.Validators;
 using LibreriaJoelito.Infraestructura.Persistencia;
 using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
@@ -13,6 +14,7 @@ using System.Data;
 
 namespace LibreriaJoelito.Pages.Productos
 {
+    [Authorize(Roles = "Administrador,Empleado")]
     public class ProductoCreateModel : PageModel
     {
         private readonly IConfiguration configuration;
