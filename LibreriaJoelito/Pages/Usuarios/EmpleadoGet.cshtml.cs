@@ -9,14 +9,11 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace LibreriaJoelito.Pages.Empleados
+namespace LibreriaJoelito.Pages.Usuarios
 {
     public class EmpleadoGetModel : PageModel
     {
         public DataTable EmpleadoDataTable { get; set; } = new DataTable();
-        private readonly IConfiguration configuration;
-        private readonly UsuarioServicio usuarioServicio;
-
         public EmpleadoGetModel(UsuarioServicio usuarioServicio)
         {
             this.usuarioServicio = usuarioServicio;
@@ -46,6 +43,14 @@ namespace LibreriaJoelito.Pages.Empleados
         public DateOnly FechaNacimiento { get; set; }
         [BindProperty]
         public DateOnly FechaIngreso { get; set; }
+        [BindProperty]
+        public string Rol { get; set; }
+        [BindProperty]
+        public string Username { get; set; }
+        [BindProperty]
+        public string Password { get; set; }
+        
+
 
 
         public void OnGet()
@@ -60,8 +65,8 @@ namespace LibreriaJoelito.Pages.Empleados
 
         public IActionResult OnPostDelete(int Id)
         {
-            Empleado empleado = new Empleado(Id);
-            if (usuarioServicio.Delete(empleado) == 1)
+            Usuario usuario = new Usuario(Id);
+            if (usuarioServicio.Delete(usuario) == 1)
                 TempData["SuccessMessage"] = "Empleado eliminado con éxito.";
             else
                 TempData["ErrorMessage"] = "Hubo un problema al eliminar.";
@@ -72,7 +77,7 @@ namespace LibreriaJoelito.Pages.Empleados
 
         public IActionResult OnPostUpdate()
         {
-            Empleado empleado = new Empleado(Id, Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, DireccionDomicilio, Email, Telefono, FechaNacimiento, FechaIngreso);
+            Usuario empleado = new Usuario(Id, Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, DireccionDomicilio, Email, Telefono, FechaNacimiento, FechaIngreso,Username,Password,Rol);
 
             var result = usuarioServicio.Update(empleado);
 

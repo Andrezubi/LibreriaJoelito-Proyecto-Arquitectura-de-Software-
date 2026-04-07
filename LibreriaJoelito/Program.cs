@@ -13,9 +13,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<IEmailService, EmailService>();
 
 //Dependency inyection IRepository Empleados
-builder.Services.AddScoped<IRepository<Empleado>>(provider => {
+builder.Services.AddScoped<IRepository<Usuario>>(provider => {
     return new EmpleadoCreateRepository().CreateRepository();
 });
+builder.Services.AddTransient<IUsuarioRepository, EmpleadoRepository>();
+builder.Services.AddTransient<IServicioUsuario, ServicioUsuario>();
+
 
 //Dependency inyection IRepository Clientes
 builder.Services.AddScoped<IRepository<Cliente>>(provider =>

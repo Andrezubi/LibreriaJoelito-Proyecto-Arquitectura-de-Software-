@@ -7,11 +7,11 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 {
-    public class EmpleadoRepository : IRepository<Empleado>
+    public class EmpleadoRepository :IUsuarioRepository ,IRepository<Usuario>
     {
-        public int Insert(Empleado t)
+        public int Insert(Usuario t)
         {
-            string query = @"INSERT INTO Empleado (
+            string query = @"INSERT INTO Usuario (
                                 Nombre,
                                 ApellidoPaterno,
                                 ApellidoMaterno,
@@ -22,10 +22,11 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
                                 DireccionDomicilio,
                                 Telefono,
                                 FechaIngreso,
-                                Estado,
-                                FechaRegistro,
-                                FechaUltimaActualizacion,
-                                IdEmpleadoCambio) VALUES (
+                                Rol
+                                Username
+                                Password
+                                IdUsuario
+                                ) VALUES (
                                 @nombre,
                                 @apellidoPaterno,
                                 @apellidoMaterno,
@@ -36,10 +37,11 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
                                 @direccionDomicilio,
                                 @telefono,
                                 @fechaIngreso,
-                                TRUE,
-                                CURRENT_TIMESTAMP,
-                                CURRENT_TIMESTAMP,
-                                NULL);";
+                                @rol
+                                @username
+                                @password
+                                @idusuario
+                                );";
 
             MySqlCommand command = new MySqlCommand(query);
             command.Parameters.AddWithValue("@nombre", t.Nombre);
@@ -52,12 +54,16 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             command.Parameters.AddWithValue("@telefono", t.Telefono);
             command.Parameters.AddWithValue("@fechaIngreso", t.FechaIngreso.ToString("yyyy-MM-dd"));
             command.Parameters.AddWithValue("@fechaNacimiento", t.FechaNacimiento.ToString("yyyy-MM-dd"));
+            command.Parameters.AddWithValue("@rol", t.Rol);
+            command.Parameters.AddWithValue("@username", t.Username);
+            command.Parameters.AddWithValue("@password", t.Password);
+            command.Parameters.AddWithValue("@idusuario", t.IdUsuario);
 
             return RepositorioBD.ExecuteNonQuery(command);
         }
-        public int Update(Empleado t)
+        public int Update(Usuario t)
         {
-            string query = @"UPDATE empleado 
+            string query = @"UPDATE Usuario
                      SET Nombre = @nombre, 
                          ApellidoPaterno = @apellidoPaterno, 
                          ApellidoMaterno = @apellidoMaterno, 
@@ -87,9 +93,9 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             
             return RepositorioBD.ExecuteNonQuery(command);
         }
-        public int Delete(Empleado t)
+        public int Delete(Usuario t)
         {
-            string query = "UPDATE Empleado SET Estado = FALSE,FechaUltimaActualizacion = CURRENT_TIMESTAMP WHERE Id = @Id;";
+            string query = "UPDATE Usuario SET Estado = FALSE,FechaUltimaActualizacion = CURRENT_TIMESTAMP WHERE Id = @Id;";
             MySqlCommand command = new MySqlCommand(query);
             command.Parameters.AddWithValue("@id", t.Id);
             return RepositorioBD.ExecuteNonQuery(command);
@@ -98,7 +104,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
         public DataTable GetAll()
         {
             string query = @"SELECT Id, Nombre, ApellidoPaterno, ApellidoMaterno, Ci,Complemento, DATE_FORMAT(FechaNacimiento, '%Y-%m-%d') AS FechaNacimiento,Email, DireccionDomicilio, Telefono, DATE_FORMAT(FechaIngreso, '%Y-%m-%d') AS FechaIngreso
-                    FROM Empleado
+                    FROM Usuario
                     WHERE estado = 1
                             ORDER BY 2;
                             ";
@@ -110,10 +116,10 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             return new DataTable().NewRow();
         }
 
-        public bool ExisteDuplicado(Empleado empleado)
+        public bool ExisteDuplicado(Usuario empleado)
         {
             MySqlCommand cmd = new MySqlCommand(@"
-                SELECT COUNT(*) FROM Empleado
+                SELECT COUNT(*) FROM Usuario
                 WHERE Ci          = @ci
                   AND Complemento = @complemento
                   AND Id         <> @id
@@ -124,6 +130,34 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             cmd.Parameters.AddWithValue("@id", empleado.Id);
 
             return Convert.ToInt32(RepositorioBD.ExecuteScalar(cmd)) > 0;
+        }
+        public bool ExisteUsername(string username) {
+            MySqlCommand cmd = new MySqlCommand(@"
+                SELECT COUNT(*) FROM Usuario
+                WHERE username =@username
+                AND Estado=1");
+            cmd.Parameters.AddWithValue("@username", username);
+            return Convert.ToInt32(RepositorioBD.ExecuteScalar(cmd))>0;
+        }
+        public string GetPasswordByUsername(string username) {
+            MySqlCommand cmd = new MySqlCommand(@"
+                SELECT Password 
+                FROM Usuario
+                WHERE Username = @username
+                AND Estado = 1
+                LIMIT 1");
+
+            cmd.Parameters.AddWithValue("@username", username);
+
+            using (var reader = RepositorioBD.ExecuteReader(cmd))
+            {
+                if (reader.Read())
+                {
+                    return reader["password"].ToString();
+                }
+            }
+
+            return null; // o string.Empty si prefieres
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using LibreriaJoelito.Dominio.Models;
+using LibreriaJoelito.Dominio.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
@@ -7,7 +7,7 @@ namespace LibreriaJoelito.Dominio.Validators
 {
     public class EmpleadoValidator
     {
-        public List<ValidationResult> Validar(Empleado emp)
+        public static List<ValidationResult> Validar(Usuario emp)
         {
             var errores = new List<ValidationResult>();
 
