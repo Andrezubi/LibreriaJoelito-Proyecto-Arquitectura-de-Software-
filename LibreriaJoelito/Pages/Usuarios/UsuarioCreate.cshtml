@@ -17,71 +17,71 @@
 
     <form method="post" id="modalCreateEmpleado">
         <div class="form-group">
-            <label asp-for="Nombre"></label>
-            <input asp-for="Nombre" class="form-control" placeholder="Ej:Juan" required />
-            <span asp-validation-for="Nombre" class="text-danger"></span>
+            <label asp-for="usuario.Nombre"></label>
+            <input asp-for="usuario.Nombre" class="form-control" placeholder="Ej:Juan" required />
+            <span asp-validation-for="usuario.Nombre" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="ApellidoPaterno">Apellido Paterno</label>
-            <input asp-for="ApellidoPaterno" placeholder="Ej:Perez" class="form-control" />
-            <span asp-validation-for="ApellidoPaterno" class="text-danger"></span>
+            <label asp-for="usuario.ApellidoPaterno">Apellido Paterno</label>
+            <input asp-for="usuario.ApellidoPaterno" placeholder="Ej:Perez" class="form-control" />
+            <span asp-validation-for="usuario.ApellidoPaterno" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="ApellidoMaterno">Apellido Materno (Opcional)</label>
-            <input asp-for="ApellidoMaterno" placeholder="Ej:Perez" class="form-control" />
-            <span asp-validation-for="ApellidoMaterno" class="text-danger"></span>
+            <label asp-for="usuario.ApellidoMaterno">Apellido Materno (Opcional)</label>
+            <input asp-for="usuario.ApellidoMaterno" placeholder="Ej:Perez" class="form-control" />
+            <span asp-validation-for="usuario.ApellidoMaterno" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Ci">Carnet de Identidad</label>
-            <input asp-for="Ci" class="form-control" placeholder="Ej:12345678" required />
-            <span asp-validation-for="Ci" class="text-danger"></span>
+            <label asp-for="usuario.Ci">Carnet de Identidad</label>
+            <input asp-for="usuario.Ci" class="form-control" placeholder="Ej:12345678" required />
+            <span asp-validation-for="usuario.Ci" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="ExtensionCi">Extensión Carne de Identidad (Opcional)</label>
-            <input asp-for="ExtensionCi" class="form-control" placeholder="Ej:1A" />
-            <span asp-validation-for="ExtensionCi" class="text-danger"></span>
+            <label asp-for="usuario.Complemento">Extensión Carne de Identidad (Opcional)</label>
+            <input asp-for="usuario.Complemento" class="form-control" placeholder="Ej:1A" />
+            <span asp-validation-for="usuario.Complemento" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Email"></label>
-            <input asp-for="Email" class="form-control" type="email" placeholder="Ej:ejemplo@gmail.com"  required />
-            <span asp-validation-for="Email" class="text-danger"></span>
+            <label asp-for="usuario.Email"></label>
+            <input asp-for="usuario.Email" class="form-control" type="email" placeholder="Ej:ejemplo@gmail.com"  required />
+            <span asp-validation-for="usuario.Email" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="DireccionDomicilio">Dirección Domicilio (Opcional)</label>
-            <input asp-for="DireccionDomicilio" class="form-control" placeholder="Ej:Plaza 14 de septiembre N°123" />
-            <span asp-validation-for="DireccionDomicilio" class="text-danger"></span>
+            <label asp-for="usuario.DireccionDomicilio">Dirección Domicilio (Opcional)</label>
+            <input asp-for="usuario.DireccionDomicilio" class="form-control" placeholder="Ej:Plaza 14 de septiembre N°123" />
+            <span asp-validation-for="usuario.DireccionDomicilio" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Telefono">Teléfono (Opcional)</label>
-            <input asp-for="Telefono" class="form-control" type="number" placeholder="Ej:77777777" />
-            <span asp-validation-for="Telefono" class="text-danger"></span>
+            <label asp-for="usuario.Telefono">Teléfono (Opcional)</label>
+            <input asp-for="usuario.Telefono" class="form-control" type="number" placeholder="Ej:77777777" />
+            <span asp-validation-for="usuario.Telefono" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="FechaNacimiento">Fecha de Nacimiento</label>
-            <input asp-for="FechaNacimiento" class="form-control" type="date" required />
-            <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+            <label asp-for="usuario.FechaNacimiento">Fecha de Nacimiento</label>
+            <input asp-for="usuario.FechaNacimiento" class="form-control" type="date" required />
+            <span asp-validation-for="usuario.FechaNacimiento" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="FechaIngreso">Fecha Ingreso (Opcional)</label>
-            <input asp-for="FechaIngreso" class="form-control" type="date" />
-            <span asp-validation-for="FechaIngreso" class="text-danger"></span>
+            <label asp-for="usuario.FechaIngreso">Fecha Ingreso (Opcional)</label>
+            <input asp-for="usuario.FechaIngreso" class="form-control" type="date" />
+            <span asp-validation-for="usuario.FechaIngreso" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="Rol">Rol</label>
-            <select asp-for="Rol" class="form-control">
+            <label asp-for="usuario.Rol">Rol</label>
+            <select asp-for="usuario.Rol" class="form-control">
                 <option>Empleado</option>
                 <option>Administrador</option>
             </select>
-            <span asp-validation-for="Rol" class="text-danger"></span>
+            <span asp-validation-for="usuario.Rol" class="text-danger"></span>
         </div>
 
         <button type="submit" class="btn btn-sistema mt-2">Registrar Empleado</button>
