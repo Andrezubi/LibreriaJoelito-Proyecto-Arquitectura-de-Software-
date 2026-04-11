@@ -7,7 +7,7 @@ namespace LibreriaJoelito.Dominio.Models
         public bool Estado { get; set; } = true;
         public DateTime FechaRegistro { get; set; }
         public DateTime? FechaUltimaActualizacion { get; set; }
-        public int? IdEmpleadoCambio { get; set; }
+        public int? IdUsuario { get; set; }
 
         public Cliente() { }
 

@@ -13,10 +13,11 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             MySqlCommand cmd = new MySqlCommand(@"
                 UPDATE Cliente SET
                     Estado                   = 0,
+                    IdUsuario = @idUsuario,
                     FechaUltimaActualizacion = NOW()
                 WHERE Id = @id");
-
-            cmd.Parameters.AddWithValue("@id", t.Id);
+            cmd.Parameters.AddWithValue("idUsuario", t.IdUsuario);
+            cmd.Parameters.AddWithValue("id", t.Id);
             return ExecuteNonQuery(cmd);
         }
 
@@ -49,11 +50,12 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
         {
             MySqlCommand cmd = new MySqlCommand(@"
                 INSERT INTO Cliente 
-                    (Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, Email, ClienteFrecuente)
+                    (Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, Email, ClienteFrecuente, IdUsuario)
                 VALUES 
-                    (@nombre, @apellidoPaterno, @apellidoMaterno, @ci, @complemento, @email, @clienteFrecuente)");
+                    (@nombre, @apellidoPaterno, @apellidoMaterno, @ci, @complemento, @email, @clienteFrecuente, @idUsuario)");
 
             AgregarParametros(cmd, t);
+
             return ExecuteNonQuery(cmd);
 
         }
@@ -69,6 +71,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
                     Complemento              = @complemento,
                     Email                    = @email,
                     ClienteFrecuente         = @clienteFrecuente,
+                    IdUsuario                = @idUsuario,
                     FechaUltimaActualizacion = NOW()
                 WHERE Id = @id");
 
@@ -104,6 +107,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             cmd.Parameters.AddWithValue("@complemento", cliente.Complemento ?? string.Empty);
             cmd.Parameters.AddWithValue("@email", (object?)cliente.Email ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@clienteFrecuente", cliente.ClienteFrecuente);
+            cmd.Parameters.AddWithValue("@idUsuario", cliente.IdUsuario);
         }
 
     }

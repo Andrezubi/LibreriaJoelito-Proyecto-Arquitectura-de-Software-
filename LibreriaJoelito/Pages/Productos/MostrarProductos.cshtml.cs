@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
 using System.Data;
+using System.Security.Claims;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace LibreriaJoelito.Pages.Productos
 {
@@ -20,16 +21,18 @@ namespace LibreriaJoelito.Pages.Productos
         public DataTable MarcasDataTable { get; set; }
         public RepositorioBD bd { get; set; } = RepositorioBD.Instancia;
 
+        //[BindProperty]
+        //public int Id { get; set; }
+        //[BindProperty]
+        //public string Nombre { get; set; }
+        //[BindProperty]
+        //public int IdCategoria { get; set; }
+        //[BindProperty]
+        //public int IdMarca { get; set; }
+        //[BindProperty]
+        //public int Stock { get; set; }
         [BindProperty]
-        public int Id { get; set; }
-        [BindProperty]
-        public string Nombre { get; set; }
-        [BindProperty]
-        public int IdCategoria { get; set; }
-        [BindProperty]
-        public int IdMarca { get; set; }
-        [BindProperty]
-        public int Stock { get; set; }
+        public Producto producto { get; set; }
         [TempData]
         public string MensajeExito { get; set; }
 
@@ -83,7 +86,8 @@ namespace LibreriaJoelito.Pages.Productos
 
         public IActionResult OnPostDelete(int id)
         {
-            productoServicio.Delete(new Dominio.Models.Producto(id));
+            producto.IdUsuario = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            productoServicio.Delete(producto);
             TempData["MensajeExito"] = "El producto fue eliminado correctamente.";
             return RedirectToPage("MostrarProductos");
         }
@@ -105,7 +109,7 @@ namespace LibreriaJoelito.Pages.Productos
             try
             {
                 // falta el  userid
-                Producto producto = new Producto(Id, IdCategoria, IdMarca, Nombre, Stock,1);
+                producto.IdUsuario = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
                 //var errores = ProductValidator.ValidarProducto(producto);
                 var result = productoServicio.Update(producto);
 

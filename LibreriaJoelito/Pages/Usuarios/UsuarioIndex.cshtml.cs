@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
 using System.Data;
+using System.Security.Claims;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LibreriaJoelito.Pages.Usuarios
@@ -26,35 +27,38 @@ namespace LibreriaJoelito.Pages.Usuarios
 
         public string messageResult { get; set; } = string.Empty;
 
+        //[BindProperty]
+        //public int Id { get; set; }
+        //[BindProperty]
+        //public string Nombre { get; set; } = "";
+        //[BindProperty]
+        //public string ApellidoPaterno { get; set; } = "";
+        //[BindProperty]
+        //public string ApellidoMaterno { get; set; } = "";
+        //[BindProperty]
+        //public string Ci { get; set; } = "";
+        //[BindProperty]
+        //public string Complemento { get; set; } = "";
+        //[BindProperty]
+        //public string Email { get; set; } = "";
+        //[BindProperty]
+        //public string DireccionDomicilio { get; set; } = "";
+        //[BindProperty]
+        //public string Telefono { get; set; } = "";
+        //[BindProperty]
+        //public DateOnly FechaNacimiento { get; set; }
+        //[BindProperty]
+        //public DateOnly FechaIngreso { get; set; }
+        //[BindProperty]
+        //public string Rol { get; set; }
+        //[BindProperty]
+        //public string Username { get; set; }
+        //[BindProperty]
+        //public string Password { get; set; }
+
         [BindProperty]
-        public int Id { get; set; }
-        [BindProperty]
-        public string Nombre { get; set; } = "";
-        [BindProperty]
-        public string ApellidoPaterno { get; set; } = "";
-        [BindProperty]
-        public string ApellidoMaterno { get; set; } = "";
-        [BindProperty]
-        public string Ci { get; set; } = "";
-        [BindProperty]
-        public string Complemento { get; set; } = "";
-        [BindProperty]
-        public string Email { get; set; } = "";
-        [BindProperty]
-        public string DireccionDomicilio { get; set; } = "";
-        [BindProperty]
-        public string Telefono { get; set; } = "";
-        [BindProperty]
-        public DateOnly FechaNacimiento { get; set; }
-        [BindProperty]
-        public DateOnly FechaIngreso { get; set; }
-        [BindProperty]
-        public string Rol { get; set; }
-        [BindProperty]
-        public string Username { get; set; }
-        [BindProperty]
-        public string Password { get; set; }
-        
+        public Usuario usuario { get; set; } = new();
+
 
 
 
@@ -70,7 +74,8 @@ namespace LibreriaJoelito.Pages.Usuarios
 
         public IActionResult OnPostDelete(int Id)
         {
-            Usuario usuario = new Usuario(Id);
+            usuario.Id = Id;
+            usuario.IdUsuario = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             if (_usuarioServicio.Delete(usuario) == 1)
                 TempData["SuccessMessage"] = "Empleado eliminado con éxito.";
             else
@@ -82,9 +87,10 @@ namespace LibreriaJoelito.Pages.Usuarios
 
         public IActionResult OnPostUpdate()
         {
-            Usuario empleado = new Usuario(Id, Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, DireccionDomicilio, Email, Telefono, FechaNacimiento, FechaIngreso,Username,Password,Rol);
 
-            var result = _usuarioServicio.Update(empleado);
+            usuario.IdUsuario = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);    
+
+            var result = _usuarioServicio.Update(usuario);
 
             if (result.IsFailure)
             {
