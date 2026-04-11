@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI;
+using System.Security.Claims;
 
 namespace LibreriaJoelito.Pages.Usuarios
 {
@@ -26,50 +27,22 @@ namespace LibreriaJoelito.Pages.Usuarios
         #endregion
 
         public string messageResult { get; set; } = string.Empty;
-
         [BindProperty]
-        public string Nombre { get; set; } = string.Empty;
-
-        [BindProperty]
-        public string? ApellidoPaterno { get; set; } = string.Empty;
-
-        [BindProperty]
-        public string? ApellidoMaterno { get; set; } = string.Empty;
-
-        [BindProperty]
-        public string Ci { get; set; } = string.Empty;
-
-        [BindProperty]
-        public string? ExtensionCi { get; set; }
-
-        [BindProperty]
-        public string Email { get; set; } = string.Empty;
-
-        [BindProperty]
-        public string? DireccionDomicilio { get; set; } = string.Empty;
-
-        [BindProperty]
-        public string? Telefono { get; set; } 
-
-        [BindProperty]
-        public DateOnly FechaNacimiento { get; set; }
-
-        [BindProperty]
-        public DateOnly FechaIngreso{ get; set; }
-        [BindProperty]
-        public string Rol {  get; set; } 
+        public Usuario usuario { get; set; } = new();
 
         public void OnGet() { }
 
         public async Task<IActionResult> OnPostAsync()
         {
             string tempPassword = _usuarioServicio.GenerarPassword(10);
-            string tempUsername = _usuarioServicio.GenerarUsername(Nombre, ApellidoPaterno);
+            string tempUsername = _usuarioServicio.GenerarUsername(usuario.Nombre, usuario.ApellidoPaterno);
+            usuario.IdUsuario = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            usuario.Password = tempPassword;
+            usuario.Username = tempUsername;
 
-            // 1 como IdUsuario creador (ajustar luego al usuario logueado)
-            Usuario empleado = new Usuario(Nombre, ApellidoPaterno, ApellidoMaterno, Ci, ExtensionCi, DireccionDomicilio, Email, Telefono ?? "", FechaNacimiento, FechaIngreso, tempUsername, tempPassword, Rol, 1);
+   
 
-            var result = _usuarioServicio.Insert(empleado);
+            var result = _usuarioServicio.Insert(usuario);
       ;
 
             if (result.IsFailure)
@@ -104,7 +77,7 @@ namespace LibreriaJoelito.Pages.Usuarios
                     <p><b>Contraseña Temporal:</b> {tempPassword}</p>
                     <p>Por favor, cambia tu contraseña al iniciar sesión por primera vez.</p>";
                 
-                await _emailService.SendEmailAsync(empleado.Email, "Tus Credenciales - Librería Joelito", mensaje);
+                await _emailService.SendEmailAsync(usuario.Email, "Tus Credenciales - Librería Joelito", mensaje);
             }
             catch (Exception ex)
             {

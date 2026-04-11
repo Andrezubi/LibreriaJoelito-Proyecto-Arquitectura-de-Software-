@@ -16,36 +16,36 @@
         Registrarse
     </a>
 }
-<div class="center-text">
+    <div class="center-text">
 
-    <p class="texto-bienvenida">
+        <p class="texto-bienvenida">
 
-        @if (User.Identity != null && User.Identity.IsAuthenticated)
-        {
-            <text>
-                Bienvenido al Sistema de Gestión de la Librería Joelito, @User.Identity.Name
-            </text>
-        }
-        else
-        {
-            <text>
-                Bienvenido al Sistema de Gestión de la Librería Joelito
-            </text>
-        }
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                <text>
+                    Bienvenido al Sistema de Gestión de la Librería Joelito, @User.Identity.Name
+                </text>
+            }
+            else
+            {
+                <text>
+                    Bienvenido al Sistema de Gestión de la Librería Joelito
+                </text>
+            }
 
-    </p>
+        </p>
 
-    <p class="mensaje-inicio">
+        <p class="mensaje-inicio">
 
-        @if (User.Identity != null && User.Identity.IsAuthenticated)
-        {
-            <text>Seleccione una opción del menú para comenzar</text>
-        }
-        else
-        {
-            <text>Por favor inicie sesión o regístrese</text>
-        }
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                <text>Seleccione una opción del menú para comenzar</text>
+            }
+            else
+            {
+                <text>Por favor inicie sesión o regístrese</text>
+            }
 
-    </p>
+        </p>
 
-</div>
+    </div>

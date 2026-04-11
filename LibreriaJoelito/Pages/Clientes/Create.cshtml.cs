@@ -7,6 +7,7 @@ using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Security.Claims;
 
 namespace LibreriaJoelito.Pages.Clientes
 {
@@ -35,6 +36,7 @@ namespace LibreriaJoelito.Pages.Clientes
             _cliente.Nombre = clienteValidator.NormalizarTexto(_cliente.Nombre);
             _cliente.ApellidoPaterno = clienteValidator.NormalizarTexto(_cliente.ApellidoPaterno);
             _cliente.ApellidoMaterno = clienteValidator.NormalizarTexto(_cliente.ApellidoMaterno);
+            _cliente.IdUsuario = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
             var result = clienteServicio.Insert(_cliente);
 

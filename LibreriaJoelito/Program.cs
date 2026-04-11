@@ -2,13 +2,10 @@ using LibreriaJoelito.Aplicacion.Interfaces;
 using LibreriaJoelito.Aplicacion.Servicios;
 using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Dominio.Validators;
-using LibreriaJoelito.Infraestructura.Encryptacion;
 using LibreriaJoelito.Infraestructura.FactoryCreators;
 using LibreriaJoelito.Infraestructura.Persistencia;
 using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
 using LibreriaJoelito.Infraestructura.ServiciosExternos;
-
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -54,7 +51,7 @@ builder.Services.AddScoped<ClienteValidator>();
 builder.Services.AddScoped<ProductValidator>();
 builder.Services.AddScoped<MarcaValidator>();
 
-// Servicios de Aplicación
+// Servicios de Aplicación  
 builder.Services.AddScoped<ClienteServicio>();
 builder.Services.AddScoped<ProductoServicio>();
 builder.Services.AddScoped<UsuarioServicio>();
@@ -96,8 +93,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 
 var app = builder.Build();
-app.UseAuthentication();
-app.UseAuthorization();
 var bd = RepositorioBD.Instancia;
 
 // select connection string from appsettings

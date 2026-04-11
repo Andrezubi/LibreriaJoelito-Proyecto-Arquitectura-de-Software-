@@ -1,0 +1,36 @@
+﻿@page
+@model LibreriaJoelito.Pages.Usuarios.LogoutModel
+@{
+    ViewData["Title"] = "Cerrar sesión";
+    ViewData["OcultarSidebar"] = true;
+}
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+
+    <div class="card shadow-lg p-4 text-center" style="max-width: 400px; width: 100%; border-radius: 16px;">
+
+        <h3 class="mb-3">Cerrar sesión</h3>
+
+        <p class="text-muted mb-4">
+            ¿Estás seguro de que deseas cerrar sesión?
+        </p>
+
+        <form method="post">
+            <div class="d-flex justify-content-between gap-2">
+
+                <!-- Cancelar -->
+                <a href="/Index" class="btn btn-outline-secondary w-50">
+                    Cancelar
+                </a>
+
+                <!-- Confirmar -->
+                <button type="submit" class="btn btn-danger w-50">
+                    Cerrar sesión
+                </button>
+
+            </div>
+        </form>
+
+    </div>
+
+</div>
