@@ -37,7 +37,8 @@ namespace LibreriaJoelito.Pages.LogIn
                     HttpOnly = true,
                     Secure = true,
                     SameSite = SameSiteMode.Strict,
-                    Expires = DateTimeOffset.UtcNow.AddHours(8)
+                    Expires = DateTimeOffset.UtcNow.AddHours(8),
+                    Path = "/"
                 });
                 return RedirectToPage("/Index");
             }
