@@ -95,9 +95,10 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
         }
         public int Delete(Usuario t)
         {
-            string query = "UPDATE Usuario SET Estado = FALSE,FechaUltimaActualizacion = CURRENT_TIMESTAMP WHERE Id = @Id;";
+            string query = "UPDATE Usuario SET Estado = FALSE,FechaUltimaActualizacion = CURRENT_TIMESTAMP, IdUsuario = @idUsuario WHERE Id = @Id;";
             MySqlCommand command = new MySqlCommand(query);
             command.Parameters.AddWithValue("@id", t.Id);
+            command.Parameters.AddWithValue("@idUsuario", t.IdUsuario);
             return ExecuteNonQuery(command);
 
         }

@@ -12,10 +12,11 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
         public int Delete(Producto producto)
         {
             string query = @"UPDATE producto
-                     SET Estado = 0, FechaUltimaActualizacion=@fechaAhora
+                     SET Estado = 0, FechaUltimaActualizacion=@fechaAhora, IdUsuario=@idUsuario
                      WHERE Id = @Id";
             MySqlCommand cmd = new MySqlCommand(query);
             cmd.Parameters.AddWithValue("@fechaAhora", DateTime.Now);
+            cmd.Parameters.AddWithValue("@idUsuario", producto.IdUsuario);
             cmd.Parameters.AddWithValue("@Id", producto.Id);
 
             return ExecuteNonQuery(cmd);
