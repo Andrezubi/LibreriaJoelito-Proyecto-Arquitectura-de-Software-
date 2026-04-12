@@ -22,10 +22,8 @@
         var enSistema = esAdministrador || esEmpleado;
         var ocultarSidebar = ViewData["OcultarSidebar"] != null && (bool)ViewData["OcultarSidebar"];
 }
-<!-- 
+
 <body class="@(enSistema && !ocultarSidebar ? "bg-sistema" : "")">
-    -->
-<body class="bg-sistema">
 
     <header class="main-header">
 
@@ -57,7 +55,6 @@
                 </div>
             }
 
-            @* 🔥 FIX: SIEMPRE evaluar la sección sin romper *@
             @if (IsSectionDefined("HeaderButtons"))
             {
                 <div style="display:@(enSistema ? "none" : "flex")">
@@ -68,9 +65,6 @@
         </div>
     </header>
 
-    <!-- ===================== -->
-    <!-- CONTENIDO PRINCIPAL -->
-    <!-- ===================== -->
     @if (enSistema && !ocultarSidebar)
     {
         <div class="sistema-de-gestion">
@@ -157,7 +151,7 @@
     }
     else
     {
-        <!-- 🔥 SIN LOGIN -->
+        
         <main class="content-area full-width">
             @RenderBody()
         </main>

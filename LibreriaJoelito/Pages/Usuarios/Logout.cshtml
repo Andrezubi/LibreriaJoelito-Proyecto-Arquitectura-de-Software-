@@ -5,26 +5,28 @@
     ViewData["OcultarSidebar"] = true;
 }
 
-<div class="d-flex justify-content-center align-items-center vh-100">
+<div class="logout-container">
 
-    <div class="card shadow-lg p-4 text-center" style="max-width: 400px; width: 100%; border-radius: 16px;">
+    <div class="logout-card">
 
-        <h3 class="mb-3">Cerrar sesión</h3>
+        <div class="logout-icon">
+            🔒
+        </div>
 
-        <p class="text-muted mb-4">
-            ¿Estás seguro de que deseas cerrar sesión?
+        <h3>Cerrar sesión</h3>
+
+        <p>
+            ¿Estás seguro que deseas salir del sistema?
         </p>
 
         <form method="post">
-            <div class="d-flex justify-content-between gap-2">
+            <div class="logout-buttons">
 
-                <!-- Cancelar -->
-                <a href="/Index" class="btn btn-outline-secondary w-50">
+                <a href="/Index" class="btn-cancelarlog">
                     Cancelar
                 </a>
 
-                <!-- Confirmar -->
-                <button type="submit" class="btn btn-danger w-50">
+                <button type="submit" class="btn-confirmar">
                     Cerrar sesión
                 </button>
 
