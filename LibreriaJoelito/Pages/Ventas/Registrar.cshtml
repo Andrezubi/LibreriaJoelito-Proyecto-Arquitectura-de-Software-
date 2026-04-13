@@ -1,0 +1,129 @@
+@page
+@model LibreriaJoelito.Pages.Ventas.RegistrarModel
+@{
+    ViewData["Title"] = "Registrar Venta";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">REGISTRO DE VENTA</h2>
+    
+    <div class="card p-4 shadow-sm mb-4">
+        <form method="post" id="ventaForm">
+            <!-- Token anti-falsificación para futuras peticiones POST si es necesario -->
+            @Html.AntiForgeryToken()
+            
+            <div class="row g-3 align-items-center bg-light p-3 rounded border">
+                <!-- Fecha (Simulada, usualmente autogenerada) -->
+                <div class="col-md-3">
+                    <label class="form-label fw-bold">Fecha:</label>
+                    <input type="text" class="form-control" value="@DateTime.Now.ToString("dd/MM/yyyy")" disabled>
+                </div>
+
+                <!-- Buscador CI/NIT Cliente -->
+                <div class="col-md-3">
+                    <label for="ciCliente" class="form-label fw-bold">CI/NIT Cliente: <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <input type="text" id="ciCliente" class="form-control" placeholder="Buscar CI/NIT..." required autocomplete="off">
+                        <!-- Icono de lupa simbólico -->
+                        <span class="input-group-text bg-white"><i class="bi bi-search"></i>O</span>
+                    </div>
+                    <small id="clienteFeedback" class="form-text text-muted"></small>
+                </div>
+
+                <!-- Nombre del Cliente y Botón "+" -->
+                <div class="col-md-6">
+                    <label for="nombreCliente" class="form-label fw-bold">Cliente/Razón Social:</label>
+                    <div class="input-group">
+                        <!-- El ID del cliente lo guardaremos de forma oculta para enviarlo en el submit final de la venta -->
+                        <input type="hidden" id="idCliente" name="IdCliente" required>
+                        <input type="text" id="nombreCliente" class="form-control bg-white" readonly placeholder="El nombre aparecerá automáticamente">
+                        
+                        <!-- Botón "+" para crear cliente rápido (HU-03 Rol B) -->
+                        <button type="button" class="btn btn-primary" id="btnCrearClienteRapido" title="Crear Cliente Rápidamente">
+                            +
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aquí iría el resto de la HU-02 (el buscador de productos, tabla de detalle, etc) -->
+            <div class="mt-4 text-center">
+                <button type="submit" class="btn btn-success px-5 py-2 fw-bold" id="btnGuardarVenta">Guardar Venta</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const ciInput = document.getElementById('ciCliente');
+            const nombreInput = document.getElementById('nombreCliente');
+            const idClienteInput = document.getElementById('idCliente');
+            const feedback = document.getElementById('clienteFeedback');
+            const btnGuardarVenta = document.getElementById('btnGuardarVenta');
+            let timeoutId;
+
+            // Bloquear formulario si no hay idCliente
+            const form = document.getElementById('ventaForm');
+            form.addEventListener('submit', function(e) {
+                if (!idClienteInput.value) {
+                    e.preventDefault();
+                    feedback.textContent = "Debe buscar y seleccionar un cliente válido para continuar.";
+                    feedback.className = "form-text text-danger fw-bold";
+                    // Pequeña animación visual
+                    ciInput.classList.add('is-invalid');
+                }
+            });
+
+            ciInput.addEventListener('input', function () {
+                const ciValue = this.value.trim();
+                
+                // Limpiar siempre que el usuario empiece a escribir
+                nombreInput.value = '';
+                idClienteInput.value = '';
+                feedback.textContent = '';
+                ciInput.classList.remove('is-invalid', 'is-valid');
+
+                if (ciValue.length >= 4) { // Evitar llamadas con muy pocos caracteres
+                    clearTimeout(timeoutId);
+                    
+                    // Esperar 400ms después de que dejó de escribir para hacer el fetch
+                    timeoutId = setTimeout(() => {
+                        feedback.textContent = "Buscando...";
+                        feedback.className = "form-text text-info";
+
+                        fetch(`?handler=BuscarCliente&ci=${encodeURIComponent(ciValue)}`)
+                            .then(response => {
+                                if (!response.ok) throw new Error("Error en la conexión");
+                                return response.json();
+                            })
+                            .then(data => {
+                                if (data.success) {
+                                    // Cliente encontrado
+                                    const c = data.cliente;
+                                    const apellidoM = c.apellidoMaterno ? ' ' + c.apellidoMaterno : '';
+                                    nombreInput.value = `${c.nombre} ${c.apellidoPaterno}${apellidoM}`;
+                                    idClienteInput.value = c.id;
+                                    
+                                    feedback.textContent = "Cliente encontrado.";
+                                    feedback.className = "form-text text-success";
+                                    ciInput.classList.add('is-valid');
+                                } else {
+                                    // Cliente no encontrado
+                                    feedback.textContent = "Cliente no encontrado. Use el botón '+' para agregarlo.";
+                                    feedback.className = "form-text text-danger";
+                                    ciInput.classList.add('is-invalid');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error fetching client:', error);
+                                feedback.textContent = "Error al buscar cliente.";
+                                feedback.className = "form-text text-danger";
+                            });
+                    }, 400); 
+                }
+            });
+        });
+    </script>
+}
