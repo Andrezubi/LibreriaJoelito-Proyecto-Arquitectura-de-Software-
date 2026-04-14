@@ -53,8 +53,6 @@ namespace LibreriaJoelito.Pages.Productos
             {
                 foreach (var error in result.Errors)
                 {
-                    Console.WriteLine(error);
-
                     var parts = error.Split(':', 2);
 
                     if (parts.Length == 2)
