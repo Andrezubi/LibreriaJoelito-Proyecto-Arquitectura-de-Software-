@@ -6,7 +6,7 @@ using LibreriaJoelito.Aplicacion.Interfaces;
 
 namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 {
-    public class ClienteRepository : RepositorioBD, IRepository<Cliente>
+    public class ClienteRepository : IClienteRepository
     {
         public int Delete(Cliente t)
         {
@@ -18,7 +18,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
                 WHERE Id = @id");
             cmd.Parameters.AddWithValue("idUsuario", t.IdUsuario);
             cmd.Parameters.AddWithValue("id", t.Id);
-            return ExecuteNonQuery(cmd);
+            return RepositorioBD.Instancia.ExecuteNonQuery(cmd);
         }
 
         public DataTable GetAll()
@@ -30,7 +30,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
                 WHERE Estado = 1
                 ORDER BY ApellidoPaterno, Nombre");
 
-            return ExecuteReturningDataTable(cmd);
+            return RepositorioBD.Instancia.ExecuteReturningDataTable(cmd);
         }
 
         public DataRow GetById(int id)
@@ -43,7 +43,21 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 
             cmd.Parameters.AddWithValue("@id", id);
 
-            return ExecuteReturningDataRow(cmd);
+            return RepositorioBD.Instancia.ExecuteReturningDataRow(cmd);
+        }
+
+        public DataRow GetByCi(string ci)
+        {
+            MySqlCommand cmd = new MySqlCommand(@"
+                SELECT Id, Nombre, ApellidoPaterno, ApellidoMaterno,
+                       Ci AS Ci, Complemento, Email, ClienteFrecuente AS ClienteFrecuente, FechaRegistro
+                FROM Cliente
+                WHERE Ci = @ci AND Estado = 1
+                LIMIT 1");
+
+            cmd.Parameters.AddWithValue("@ci", ci);
+
+            return RepositorioBD.Instancia.ExecuteReturningDataRow(cmd);
         }
 
         public int Insert(Cliente t)
@@ -52,12 +66,12 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
                 INSERT INTO Cliente 
                     (Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, Email, ClienteFrecuente, IdUsuario)
                 VALUES 
-                    (@nombre, @apellidoPaterno, @apellidoMaterno, @ci, @complemento, @email, @clienteFrecuente, @idUsuario)");
+                    (@nombre, @apellidoPaterno, @apellidoMaterno, @ci, @complemento, @email, @clienteFrecuente, @idUsuario);
+                SELECT LAST_INSERT_ID();");
 
             AgregarParametros(cmd, t);
 
-            return ExecuteNonQuery(cmd);
-
+            return Convert.ToInt32(RepositorioBD.Instancia.ExecuteScalar(cmd));
         }
 
         public int Update(Cliente t)
@@ -77,7 +91,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 
             AgregarParametros(cmd, t);
             cmd.Parameters.AddWithValue("@id", t.Id);
-            return ExecuteNonQuery(cmd);
+            return RepositorioBD.Instancia.ExecuteNonQuery(cmd);
         }
 
         public bool ExisteDuplicado(Cliente cliente)
@@ -93,7 +107,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             cmd.Parameters.AddWithValue("@complemento", cliente.Complemento ?? string.Empty);
             cmd.Parameters.AddWithValue("@id", cliente.Id);
 
-            return Convert.ToInt32(ExecuteScalar(cmd)) > 0;
+            return Convert.ToInt32(RepositorioBD.Instancia.ExecuteScalar(cmd)) > 0;
         }
 
         // --- Métodos privados de apoyo ---

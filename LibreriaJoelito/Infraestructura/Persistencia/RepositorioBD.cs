@@ -1,6 +1,7 @@
-﻿using MySql.Data.MySqlClient;
+using MySql.Data.MySqlClient;
 using System.Data;
 using System.Data.Common;
+using System.Threading;
 
 namespace LibreriaJoelito.Infraestructura.Persistencia
 {
@@ -8,7 +9,10 @@ namespace LibreriaJoelito.Infraestructura.Persistencia
     {
         private static string? _connectionString;
         private static readonly Lazy<RepositorioBD> _instancia = new Lazy<RepositorioBD>(() => new RepositorioBD());
-
+        
+        // Soporte para transacciones concurrentes por hilo/tarea
+        private readonly AsyncLocal<MySqlTransaction?> _activeTransaction = new();
+        private readonly AsyncLocal<MySqlConnection?> _activeConnection = new();
 
         public static RepositorioBD Instancia
         {
@@ -31,8 +35,65 @@ namespace LibreriaJoelito.Infraestructura.Persistencia
             _connectionString = connectionString;
         }
 
+        #region Manejo de Transacciones
+        public void BeginTransaction()
+        {
+            if (_activeTransaction.Value != null) return;
+
+            var connection = new MySqlConnection(CatchStringConnection());
+            connection.Open();
+            var transaction = connection.BeginTransaction();
+
+            _activeConnection.Value = connection;
+            _activeTransaction.Value = transaction;
+        }
+
+        public void Commit()
+        {
+            try
+            {
+                _activeTransaction.Value?.Commit();
+            }
+            finally
+            {
+                CloseAndClearTransaction();
+            }
+        }
+
+        public void Rollback()
+        {
+            try
+            {
+                _activeTransaction.Value?.Rollback();
+            }
+            finally
+            {
+                CloseAndClearTransaction();
+            }
+        }
+
+        private void CloseAndClearTransaction()
+        {
+            if (_activeConnection.Value != null)
+            {
+                if (_activeConnection.Value.State == ConnectionState.Open)
+                    _activeConnection.Value.Close();
+                _activeConnection.Value.Dispose();
+            }
+            _activeConnection.Value = null;
+            _activeTransaction.Value = null;
+        }
+        #endregion
+
         public int ExecuteNonQuery(MySqlCommand comando)
         {
+            if (_activeTransaction.Value != null)
+            {
+                comando.Connection = _activeConnection.Value;
+                comando.Transaction = _activeTransaction.Value;
+                return comando.ExecuteNonQuery();
+            }
+
             using (MySqlConnection con = new MySqlConnection(CatchStringConnection()))
             {
                 con.Open();
@@ -40,21 +101,50 @@ namespace LibreriaJoelito.Infraestructura.Persistencia
                 return comando.ExecuteNonQuery();
             }
         }
+
         public MySqlDataReader ExecuteReader(MySqlCommand comando)
         {
+            if (_activeTransaction.Value != null)
+            {
+                comando.Connection = _activeConnection.Value;
+                comando.Transaction = _activeTransaction.Value;
+                return comando.ExecuteReader();
+            }
+
             MySqlConnection con = new MySqlConnection(CatchStringConnection());
             con.Open();
             comando.Connection = con;
             return comando.ExecuteReader(CommandBehavior.CloseConnection);
         }
+
         public MySqlDataAdapter ExecuteDataAdapter(MySqlCommand comando)
         {
+            if (_activeTransaction.Value != null)
+            {
+                comando.Connection = _activeConnection.Value;
+                comando.Transaction = _activeTransaction.Value;
+                return new MySqlDataAdapter(comando);
+            }
+
             MySqlConnection con = new MySqlConnection(CatchStringConnection());
             comando.Connection = con;
             return new MySqlDataAdapter(comando);
         }
+
         public DataTable ExecuteReturningDataTable(MySqlCommand comando)
         {
+            if (_activeTransaction.Value != null)
+            {
+                comando.Connection = _activeConnection.Value;
+                comando.Transaction = _activeTransaction.Value;
+                using (MySqlDataAdapter dataAdapter = new MySqlDataAdapter(comando))
+                {
+                    DataTable dataTable = new DataTable();
+                    dataAdapter.Fill(dataTable);
+                    return dataTable;
+                }
+            }
+
             using (MySqlConnection con = new MySqlConnection(CatchStringConnection()))
             {
                 con.Open();
@@ -79,6 +169,13 @@ namespace LibreriaJoelito.Infraestructura.Persistencia
 
         public object? ExecuteScalar(MySqlCommand comando)
         {
+            if (_activeTransaction.Value != null)
+            {
+                comando.Connection = _activeConnection.Value;
+                comando.Transaction = _activeTransaction.Value;
+                return comando.ExecuteScalar();
+            }
+
             using (MySqlConnection con = new MySqlConnection(CatchStringConnection()))
             {
                 con.Open();

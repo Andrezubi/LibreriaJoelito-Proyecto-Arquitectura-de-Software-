@@ -1,23 +1,24 @@
-﻿using LibreriaJoelito.Aplicacion.Interfaces;
+using LibreriaJoelito.Aplicacion.Interfaces;
 using LibreriaJoelito.Dominio.Models;
 using MySql.Data.MySqlClient;
 using System.Data;
 
 namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 {
-    public class VentaRepository : RepositorioBD, IVentaRepository, IRepository<Venta>
+    public class VentaRepository : IVentaRepository, IRepository<Venta>
     {
         public int Insert(Venta venta)
         {
             string query = @"INSERT INTO venta (IdCliente,Total,IdUsuario)
-                             VALUES (@idCliente,@total,@idUsuario);";
+                             VALUES (@idCliente,@total,@idUsuario);
+                             SELECT LAST_INSERT_ID();";
             MySqlCommand command = new MySqlCommand(query);
 
             command.Parameters.AddWithValue("@idCliente", venta.IdCliente);
             command.Parameters.AddWithValue("@total", venta.Total);
             command.Parameters.AddWithValue("@idUsuario", venta.IdUsuario);
 
-            return ExecuteNonQuery(command);
+            return Convert.ToInt32(RepositorioBD.Instancia.ExecuteScalar(command));
         }
 
         public int Delete(Venta venta)
@@ -31,7 +32,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             command.Parameters.AddWithValue("@idUsuario", venta.IdUsuario);
             command.Parameters.AddWithValue("@Id", venta.Id);
 
-            return ExecuteNonQuery(command);
+            return RepositorioBD.Instancia.ExecuteNonQuery(command);
         }
 
         public DataTable GetAll()
@@ -42,7 +43,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
                             ORDER BY 3";
             MySqlCommand command = new MySqlCommand(query);
 
-            return ExecuteReturningDataTable(command);
+            return RepositorioBD.Instancia.ExecuteReturningDataTable(command);
         }
 
         public DataRow GetById(int id)
@@ -55,7 +56,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             MySqlCommand command = new MySqlCommand(query);
             command.Parameters.AddWithValue("@id", id);
 
-            return ExecuteReturningDataRow(command);
+            return RepositorioBD.Instancia.ExecuteReturningDataRow(command);
         }
 
         public DataTable GetByDate(DateTime fechaInicio, DateTime fechaFin)
@@ -70,7 +71,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             command.Parameters.AddWithValue("@fechaInicio", fechaInicio);
             command.Parameters.AddWithValue("@fechaFin", fechaFin);
 
-            return ExecuteReturningDataTable(command);
+            return RepositorioBD.Instancia.ExecuteReturningDataTable(command);
         }
 
         public DataTable GetByIdCliente(int idCliente)
@@ -84,7 +85,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 
             command.Parameters.AddWithValue("@idCliente", idCliente);
 
-            return ExecuteReturningDataTable(command);
+            return RepositorioBD.Instancia.ExecuteReturningDataTable(command);
         }
 
         public int Update(Venta venta)
@@ -105,7 +106,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             command.Parameters.AddWithValue("@fechaAhora", DateTime.Now);
             command.Parameters.AddWithValue("@Id", venta.Id);
 
-            return ExecuteNonQuery(command);
+            return RepositorioBD.Instancia.ExecuteNonQuery(command);
         }
 
         public bool ExisteDuplicado(Venta venta)
