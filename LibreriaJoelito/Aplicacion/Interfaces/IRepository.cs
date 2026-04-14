@@ -9,7 +9,7 @@ namespace LibreriaJoelito.Aplicacion.Interfaces
         int Update(T t);
         int Delete(T t);
         DataTable GetAll();
-        DataRow GetById(int id);
+        DataRow? GetById(int id);
         bool ExisteDuplicado(T t);
     }
 }

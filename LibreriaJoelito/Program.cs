@@ -29,6 +29,7 @@ builder.Services.AddScoped<IRepository<Cliente>>(provider =>
 {
     return new ClienteRepositoryCreator().CreateRepository();
 });
+builder.Services.AddTransient<IClienteRepository, ClienteRepository>();
 
 //Dependency inyection IRepository Marcas
 builder.Services.AddScoped<IRepository<Marca>>(provider => {
@@ -41,6 +42,15 @@ builder.Services.AddRazorPages();
 //Dependency inyection IRepository Productos
 builder.Services.AddScoped<IRepository<Producto>>(provider => {
     return new ProductoCreatorRepository().CreateRepository();
+});
+builder.Services.AddTransient<IProductoRepository, ProductoRepository>();
+
+builder.Services.AddScoped<IVentaRepository>(provider => {
+    return (IVentaRepository)new VentaCreatorRepository().CreateRepository();
+});
+
+builder.Services.AddScoped<IDetalleVentaRepository>(provider => {
+    return (IDetalleVentaRepository)new DetalleVentaCreatorRepository().CreateRepository();
 });
 
 //Dependency inyection token service
@@ -56,6 +66,7 @@ builder.Services.AddScoped<ClienteServicio>();
 builder.Services.AddScoped<ProductoServicio>();
 builder.Services.AddScoped<UsuarioServicio>();
 builder.Services.AddScoped<MarcaServicio>();
+builder.Services.AddScoped<IVentaService, VentaService>();
 
 // AGREGAR AUTENTICACION
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

@@ -1,4 +1,4 @@
-﻿namespace LibreriaJoelito.Aplicacion.Results
+namespace LibreriaJoelito.Aplicacion.Results
 {
     public class Result
     {
@@ -25,6 +25,31 @@
         public static Result Failure(string error)
         {
             return new Result(false, new List<string> { error });
+        }
+    }
+
+    public class Result<T> : Result
+    {
+        public T Value { get; private set; }
+
+        private Result(bool isSuccess, List<string> errors, T value) : base(isSuccess, errors)
+        {
+            Value = value;
+        }
+
+        public static Result<T> Success(T value)
+        {
+            return new Result<T>(true, new List<string>(), value);
+        }
+
+        public static new Result<T> Failure(List<string> errors)
+        {
+            return new Result<T>(false, errors, default);
+        }
+
+        public static new Result<T> Failure(string error)
+        {
+            return new Result<T>(false, new List<string> { error }, default);
         }
     }
 }
