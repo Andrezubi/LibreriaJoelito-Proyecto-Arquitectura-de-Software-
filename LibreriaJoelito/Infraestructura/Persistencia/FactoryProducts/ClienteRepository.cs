@@ -6,8 +6,21 @@ using LibreriaJoelito.Aplicacion.Interfaces;
 
 namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 {
-    public class ClienteRepository : RepositorioBD, IRepository<Cliente>
+    public class ClienteRepository : RepositorioBD, IRepository<Cliente>, IClienteRepository
     {
+        public DataRow GetByCi(string ci)
+        {
+            MySqlCommand cmd = new MySqlCommand(@"
+                SELECT Id, Nombre, ApellidoPaterno, ApellidoMaterno,
+                       Ci AS Ci, Complemento, Email, ClienteFrecuente AS ClienteFrecuente, FechaRegistro
+                FROM Cliente
+                WHERE Ci = @ci AND Estado = 1");
+
+            cmd.Parameters.AddWithValue("@ci", ci);
+
+            return ExecuteReturningDataRow(cmd);
+        }
+
         public int Delete(Cliente t)
         {
             MySqlCommand cmd = new MySqlCommand(@"
@@ -96,7 +109,6 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             return Convert.ToInt32(ExecuteScalar(cmd)) > 0;
         }
 
-        // --- Métodos privados de apoyo ---
 
         static void AgregarParametros(MySqlCommand cmd, Cliente cliente)
         {

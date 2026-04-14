@@ -1,4 +1,4 @@
-﻿using LibreriaJoelito.Aplicacion.Interfaces;
+using LibreriaJoelito.Aplicacion.Interfaces;
 using LibreriaJoelito.Aplicacion.Results;
 using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Dominio.Validators;
@@ -9,13 +9,34 @@ namespace LibreriaJoelito.Aplicacion.Servicios
 {
     public class ClienteServicio
     {
-        private readonly IRepository<Cliente> clienteRepository;
+        private readonly IClienteRepository clienteRepository;
         private readonly ClienteValidator clienteValidator;
 
-        public ClienteServicio(IRepository<Cliente> clienteRepository, ClienteValidator clienteValidator)
+        public ClienteServicio(IClienteRepository clienteRepository, ClienteValidator clienteValidator)
         {
             this.clienteRepository = clienteRepository;
             this.clienteValidator = clienteValidator;
+        }
+
+        public Cliente? BuscarPorCi(string ci)
+        {
+            DataRow row = clienteRepository.GetByCi(ci);
+            if (row != null)
+            {
+                return new Cliente
+                {
+                    Id = Convert.ToInt32(row["Id"]),
+                    Nombre = row["Nombre"].ToString(),
+                    ApellidoPaterno = row["ApellidoPaterno"].ToString(),
+                    // add other properties if needed, but for HU-03 we only need Nombre and Apellido
+                    // according to the table, columns returned by GetByCi are: 
+                    // Id, Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, Email, ClienteFrecuente, FechaRegistro
+                    ApellidoMaterno = row["ApellidoMaterno"] == DBNull.Value ? null : row["ApellidoMaterno"].ToString(),
+                    Ci = row["Ci"].ToString(),
+                    Complemento = row["Complemento"] == DBNull.Value ? null : row["Complemento"].ToString()
+                };
+            }
+            return null;
         }
 
         public DataTable GetAll()
