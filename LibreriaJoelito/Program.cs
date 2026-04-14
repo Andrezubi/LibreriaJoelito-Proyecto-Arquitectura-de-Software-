@@ -29,6 +29,7 @@ builder.Services.AddScoped<IRepository<Cliente>>(provider =>
 {
     return new ClienteRepositoryCreator().CreateRepository();
 });
+builder.Services.AddTransient<IClienteRepository, ClienteRepository>();
 
 //Dependency inyection IRepository Marcas
 builder.Services.AddScoped<IRepository<Marca>>(provider => {
