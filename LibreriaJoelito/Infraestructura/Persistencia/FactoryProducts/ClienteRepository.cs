@@ -109,7 +109,6 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             return Convert.ToInt32(ExecuteScalar(cmd)) > 0;
         }
 
-        // --- Métodos privados de apoyo ---
 
         static void AgregarParametros(MySqlCommand cmd, Cliente cliente)
         {
