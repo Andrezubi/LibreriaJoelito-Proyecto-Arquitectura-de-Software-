@@ -5,7 +5,7 @@ using System.Data;
 
 namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 {
-    public class VentaRepository //: IVentaRepository
+    public class VentaRepository : IVentaRepository
     {
         public int Insert(Venta venta)
         {

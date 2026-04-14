@@ -30,6 +30,14 @@ builder.Services.AddScoped<IRepository<Producto>>(provider => {
     return new ProductoCreatorRepository().CreateRepository();
 });
 
+builder.Services.AddScoped<IVentaRepository>(provider => {
+    return new VentaCreatorRepository().CreateRepository();
+});
+
+builder.Services.AddScoped<IDetalleVentaRepository>(provider => {
+    return new DetalleVentaCreatorRepository().CreateRepository();
+});
+
 builder.Services.AddScoped<ClienteValidator>();
 builder.Services.AddScoped<ProductValidator>();
 builder.Services.AddScoped<EmpleadoValidator>();
