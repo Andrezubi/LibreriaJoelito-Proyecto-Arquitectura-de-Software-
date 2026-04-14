@@ -12,6 +12,7 @@
 
         public decimal Subtotal => Cantidad * PrecioUnitario;
     #endregion
+
         #region Constructores
         public DetalleVenta() { }
         public DetalleVenta(int idVenta, int idProducto, int idPresentacion, int cantidad, decimal precioUnitario)
