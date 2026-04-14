@@ -4,7 +4,6 @@
     background: #f6f7fb;
     color: #2f2f2f;
     height: 100%;
-    overflow: hidden;
 }
 
 /* LAYOUT PRINCIPAL */
@@ -13,12 +12,12 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
-    overflow: hidden;
+  
 }
 /* FONDO GENERAL DEL SISTEMA */
 .bg-sistema {
     background-color: #cfe6e2;
-    overflow: hidden;
+   
 }
 /* HEADER */
 
@@ -96,7 +95,7 @@
     flex: 1;
     display: flex;
     min-height: 0;
-    overflow: hidden;
+
 }
 
 /*SIDEBAR*/
@@ -108,10 +107,9 @@
     flex-direction: column;
     padding-top: 25px;
     height: calc(100vh - 80px);
-    overflow-y: auto;
     box-shadow: 2px 0 10px rgba(0,0,0,0.08);
     border-right: 1px solid rgba(0,0,0,0.08);
-    box-sizing: border-box;
+    
 }
 /* menu items */
 
@@ -162,12 +160,12 @@
 .content-area {
     flex: 1;
     position: relative;
-    overflow: hidden;
+  ;
 }
     .content-area.full-width {
         height: calc(100vh - 80px);
         position: relative;
-        overflow: hidden;
+      
     }
 /*HOME PAGE*/
 
@@ -626,29 +624,7 @@ select.form-control {
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     max-width: 450px;
     width: 90%;
-}
-
-/* CODIGO 403 */
-.error-code {
-    font-size: 80px;
-    font-weight: 700;
-    color: #7b35be;
-    margin-bottom: 10px;
-}
-
-/* TITULO */
-.error-title {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-
-/* MENSAJE */
-.error-message {
-    font-size: 15px;
-    opacity: 0.8;
-    margin-bottom: 30px;
-}
+}a
 
 /* BOTON */
 .btn-volver {
@@ -685,54 +661,121 @@ select.form-control {
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
-/* ICONO */
-.logout-icon {
-    font-size: 40px;
-    margin-bottom: 10px;
+/* CONTENEDOR GENERAL (SEPARACIÓN DEL SIDEBAR Y HEADER) */
+.ventas-container {
+    padding: 30px;
 }
 
-/* TITULO */
-.logout-card h3 {
-    margin-bottom: 10px;
+/* CARD PRINCIPAL */
+.ventas-card {
+    background: white;
+    border-radius: 14px;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    padding: 0; 
+    overflow: hidden;
 }
 
-/* TEXTO */
-.logout-card p {
-    color: #e9d9ff;
-    margin-bottom: 25px;
-}
-
-/* BOTONES */
-.logout-buttons {
-    display: flex;
-    gap: 10px;
-}
-.btn-cancelarlog {
-    flex: 1;
-    padding: 10px;
-    border-radius: 10px;
-    background: white; 
-    text-decoration: none;
-    color: #7b35be; 
-    font-weight: 500;
-    transition: 0.2s;
-}
-
-    .btn-cancelarlog:hover {
-        background: #f2e9ff;
-    }
-/* CONFIRMAR */
-.btn-confirmar {
-    flex: 1;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    background: #ff4d4d;
+/* HEADER MORADO */
+.ventas-titulo {
+    background: #7b35be;
     color: white;
-    font-weight: 500;
+    padding: 15px;
+    margin: 0;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    border-radius: 14px 14px 0 0;
+}
+
+/* CONTENIDO INTERNO */
+.ventas-card .card {
+    border: none;
+    box-shadow: none;
+    padding: 25px;
+}
+
+/* BARRA CLIENTE */
+.barra-cliente {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+/* INPUT GROUP */
+.input-group-text {
+    border: 1.5px solid #4a4a4a;
+    background: white;
+}
+
+/* BOTÓN + */
+.btn-crear {
+    background: #5FB8A5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    width: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: 0.2s;
 }
 
-    .btn-confirmar:hover {
-        background: #e63c3c;
+    .btn-crear:hover {
+        background: #4aa894;
     }
+
+/* BOTÓN GUARDAR */
+.btn-guardar {
+    background: #7b35be;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 45px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+    .btn-guardar:hover {
+        background: #5e2893;
+        transform: translateY(-1px);
+    }
+
+/* FOOTER */
+.ventas-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+/* VALIDACIONES */
+.is-valid {
+    border-color: #5FB8A5 !important;
+}
+
+.is-invalid {
+    border-color: #dc3545 !important;
+}
+
+/* FEEDBACK */
+#clienteFeedback {
+    font-size: 13px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .ventas-container {
+        padding: 15px;
+    }
+
+    .ventas-card .card {
+        padding: 15px;
+    }
+}
+.ventas-page {
+    padding: 20px 25px;
+    height: 100%;
+}

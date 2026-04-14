@@ -1,6 +1,7 @@
+using LibreriaJoelito.Aplicacion.Servicios;
+using LibreriaJoelito.Dominio.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using LibreriaJoelito.Aplicacion.Servicios;
 
 namespace LibreriaJoelito.Pages.Ventas
 {
@@ -13,12 +14,7 @@ namespace LibreriaJoelito.Pages.Ventas
             _clienteServicio = clienteServicio;
         }
 
-        public void OnGet()
-        {
-            // Initial load
-        }
-
-        // Handler for AJAX search
+        public void OnGet() { }
         public JsonResult OnGetBuscarCliente(string ci)
         {
             if (string.IsNullOrWhiteSpace(ci))
@@ -35,7 +31,7 @@ namespace LibreriaJoelito.Pages.Ventas
                     success = true,
                     cliente = new
                     {
-                        cliente.Id, // Need ID to attach to the sale
+                        cliente.Id,
                         cliente.Nombre,
                         cliente.ApellidoPaterno,
                         cliente.ApellidoMaterno
@@ -44,6 +40,46 @@ namespace LibreriaJoelito.Pages.Ventas
             }
 
             return new JsonResult(new { success = false, message = "Cliente no encontrado" });
+        }
+
+        [ValidateAntiForgeryToken]
+        public JsonResult OnPostCrearCliente([FromBody] Cliente cliente)
+        {
+            if (cliente == null)
+            {
+                return new JsonResult(new { success = false, message = "Datos inválidos" });
+            }
+
+            cliente.Estado = true;
+            cliente.FechaRegistro = DateTime.Now;
+
+            cliente.IdUsuario = 1;
+
+            var result = _clienteServicio.Insert(cliente);
+
+            if (!result.IsSuccess)
+            {
+                return new JsonResult(new
+                {
+                    success = false,
+                    message = string.Join(", ", result.Errors)
+                });
+            }
+
+            var nuevo = _clienteServicio.BuscarPorCi(cliente.Ci);
+
+            return new JsonResult(new
+            {
+                success = true,
+                cliente = new
+                {
+                    nuevo.Id,
+                    nuevo.Nombre,
+                    nuevo.ApellidoPaterno,
+                    nuevo.ApellidoMaterno,
+                    nuevo.Ci
+                }
+            });
         }
     }
 }
