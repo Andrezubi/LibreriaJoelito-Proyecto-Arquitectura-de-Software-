@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using LibreriaJoelito.Dominio.Models;
+using System.Data;
 
 namespace LibreriaJoelito.Aplicacion.Interfaces
 {

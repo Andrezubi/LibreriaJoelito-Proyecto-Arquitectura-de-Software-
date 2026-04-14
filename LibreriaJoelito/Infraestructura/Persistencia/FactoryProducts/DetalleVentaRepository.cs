@@ -5,7 +5,7 @@ using System.Data;
 
 namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 {
-    public class DetalleVentaRepository : IDetalleVentaRepository
+    public class DetalleVentaRepository : RepositorioBD, IDetalleVentaRepository, IRepository<DetalleVenta>
     {
         public int Insert(DetalleVenta detalleVenta)
         {
@@ -19,7 +19,26 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             command.Parameters.AddWithValue("@cantidad", detalleVenta.Cantidad);
             command.Parameters.AddWithValue("@precioUnitario", detalleVenta.PrecioUnitario);
             command.Parameters.AddWithValue("@subtotal", detalleVenta.Subtotal);
-            return RepositorioBD.ExecuteNonQuery(command);
+            return ExecuteNonQuery(command);
+        }
+
+        public int Update(DetalleVenta detalleVenta)
+        {
+            return 0;
+        }
+
+        public DataRow GetById(int id)
+        {
+            return null;
+        }
+
+        public DataTable GetAll()
+        {
+            string query = @"SELECT * 
+                             FROM detalleventa";
+            MySqlCommand command = new MySqlCommand(query);
+
+            return ExecuteReturningDataTable(command);
         }
 
         public int Delete(DetalleVenta detalleVenta)
@@ -34,7 +53,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             command.Parameters.AddWithValue("@idProducto", detalleVenta.IdProducto);
             command.Parameters.AddWithValue("@idPresentacion", detalleVenta.IdPresentacion);
 
-            return RepositorioBD.ExecuteNonQuery(command);
+            return ExecuteNonQuery(command);
         }
 
         public DataTable GetByIdVenta(int idVenta)
@@ -45,7 +64,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 
             command.Parameters.AddWithValue("@idVenta", idVenta);
 
-            return RepositorioBD.ExecuteReturningDataTable(command);
+            return ExecuteReturningDataTable(command);
         }
 
         public int DeleteByIdVenta(int idVenta)
@@ -56,7 +75,12 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 
             command.Parameters.AddWithValue("@idVenta", idVenta);
 
-            return RepositorioBD.ExecuteNonQuery(command);
+            return ExecuteNonQuery(command);
+        }
+
+        public bool ExisteDuplicado (DetalleVenta detalleVenta)
+        {
+            return false;
         }
     }
 }

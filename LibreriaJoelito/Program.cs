@@ -43,11 +43,11 @@ builder.Services.AddScoped<IRepository<Producto>>(provider => {
     return new ProductoCreatorRepository().CreateRepository();
 });
 
-builder.Services.AddScoped<IVentaRepository>(provider => {
+builder.Services.AddScoped<IRepository<Venta>>(provider => {
     return new VentaCreatorRepository().CreateRepository();
 });
 
-builder.Services.AddScoped<IDetalleVentaRepository>(provider => {
+builder.Services.AddScoped<IRepository<DetalleVenta>>(provider => {
     return new DetalleVentaCreatorRepository().CreateRepository();
 });
 
