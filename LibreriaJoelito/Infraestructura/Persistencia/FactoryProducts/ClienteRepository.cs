@@ -6,18 +6,19 @@ using LibreriaJoelito.Aplicacion.Interfaces;
 
 namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 {
-    public class ClienteRepository : IRepository<Cliente>
+    public class ClienteRepository : RepositorioBD, IRepository<Cliente>
     {
         public int Delete(Cliente t)
         {
             MySqlCommand cmd = new MySqlCommand(@"
                 UPDATE Cliente SET
                     Estado                   = 0,
+                    IdUsuario = @idUsuario,
                     FechaUltimaActualizacion = NOW()
                 WHERE Id = @id");
-
-            cmd.Parameters.AddWithValue("@id", t.Id);
-            return RepositorioBD.ExecuteNonQuery(cmd);
+            cmd.Parameters.AddWithValue("idUsuario", t.IdUsuario);
+            cmd.Parameters.AddWithValue("id", t.Id);
+            return ExecuteNonQuery(cmd);
         }
 
         public DataTable GetAll()
@@ -29,7 +30,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
                 WHERE Estado = 1
                 ORDER BY ApellidoPaterno, Nombre");
 
-            return RepositorioBD.ExecuteReturningDataTable(cmd);
+            return ExecuteReturningDataTable(cmd);
         }
 
         public DataRow GetById(int id)
@@ -42,19 +43,20 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 
             cmd.Parameters.AddWithValue("@id", id);
 
-            return RepositorioBD.ExecuteReturningDataRow(cmd);
+            return ExecuteReturningDataRow(cmd);
         }
 
         public int Insert(Cliente t)
         {
             MySqlCommand cmd = new MySqlCommand(@"
                 INSERT INTO Cliente 
-                    (Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, Email, ClienteFrecuente)
+                    (Nombre, ApellidoPaterno, ApellidoMaterno, Ci, Complemento, Email, ClienteFrecuente, IdUsuario)
                 VALUES 
-                    (@nombre, @apellidoPaterno, @apellidoMaterno, @ci, @complemento, @email, @clienteFrecuente)");
+                    (@nombre, @apellidoPaterno, @apellidoMaterno, @ci, @complemento, @email, @clienteFrecuente, @idUsuario)");
 
             AgregarParametros(cmd, t);
-            return RepositorioBD.ExecuteNonQuery(cmd);
+
+            return ExecuteNonQuery(cmd);
 
         }
 
@@ -69,12 +71,13 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
                     Complemento              = @complemento,
                     Email                    = @email,
                     ClienteFrecuente         = @clienteFrecuente,
+                    IdUsuario                = @idUsuario,
                     FechaUltimaActualizacion = NOW()
                 WHERE Id = @id");
 
             AgregarParametros(cmd, t);
             cmd.Parameters.AddWithValue("@id", t.Id);
-            return RepositorioBD.ExecuteNonQuery(cmd);
+            return ExecuteNonQuery(cmd);
         }
 
         public bool ExisteDuplicado(Cliente cliente)
@@ -90,7 +93,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             cmd.Parameters.AddWithValue("@complemento", cliente.Complemento ?? string.Empty);
             cmd.Parameters.AddWithValue("@id", cliente.Id);
 
-            return Convert.ToInt32(RepositorioBD.ExecuteScalar(cmd)) > 0;
+            return Convert.ToInt32(ExecuteScalar(cmd)) > 0;
         }
 
         // --- Métodos privados de apoyo ---
@@ -104,6 +107,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             cmd.Parameters.AddWithValue("@complemento", cliente.Complemento ?? string.Empty);
             cmd.Parameters.AddWithValue("@email", (object?)cliente.Email ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@clienteFrecuente", cliente.ClienteFrecuente);
+            cmd.Parameters.AddWithValue("@idUsuario", cliente.IdUsuario);
         }
 
     }

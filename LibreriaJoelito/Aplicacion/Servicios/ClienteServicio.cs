@@ -49,6 +49,7 @@ namespace LibreriaJoelito.Aplicacion.Servicios
             {
                 return Result.Failure("_cliente.Ci: Ya existe un cliente con este CI y Complemento.");
             }
+        
 
             clienteRepository.Insert(cliente);
 

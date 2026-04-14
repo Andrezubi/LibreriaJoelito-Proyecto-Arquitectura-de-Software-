@@ -1,0 +1,99 @@
+﻿@page
+@model LibreriaJoelito.Pages.Usuarios.EmpleadoCreateModel
+@{
+}
+
+@if (TempData["CreateSucces"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["CreateSucces"]
+    </div>
+}
+
+<div class="form-container">
+    <div class="form-header">
+        Nuevo Empleado
+    </div>
+
+    <form method="post" id="modalCreateEmpleado">
+        <div class="form-group">
+            <label asp-for="usuario.Nombre"></label>
+            <input asp-for="usuario.Nombre" class="form-control" placeholder="Ej:Juan" required />
+            <span asp-validation-for="usuario.Nombre" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="usuario.ApellidoPaterno">Apellido Paterno</label>
+            <input asp-for="usuario.ApellidoPaterno" placeholder="Ej:Perez" class="form-control" />
+            <span asp-validation-for="usuario.ApellidoPaterno" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="usuario.ApellidoMaterno">Apellido Materno (Opcional)</label>
+            <input asp-for="usuario.ApellidoMaterno" placeholder="Ej:Perez" class="form-control" />
+            <span asp-validation-for="usuario.ApellidoMaterno" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="usuario.Ci">Carnet de Identidad</label>
+            <input asp-for="usuario.Ci" class="form-control" placeholder="Ej:12345678" required />
+            <span asp-validation-for="usuario.Ci" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="usuario.Complemento">Extensión Carne de Identidad (Opcional)</label>
+            <input asp-for="usuario.Complemento" class="form-control" placeholder="Ej:1A" />
+            <span asp-validation-for="usuario.Complemento" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="usuario.Email"></label>
+            <input asp-for="usuario.Email" class="form-control" type="email" placeholder="Ej:ejemplo@gmail.com"  required />
+            <span asp-validation-for="usuario.Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="usuario.DireccionDomicilio">Dirección Domicilio (Opcional)</label>
+            <input asp-for="usuario.DireccionDomicilio" class="form-control" placeholder="Ej:Plaza 14 de septiembre N°123" />
+            <span asp-validation-for="usuario.DireccionDomicilio" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="usuario.Telefono">Teléfono (Opcional)</label>
+            <input asp-for="usuario.Telefono" class="form-control" type="number" placeholder="Ej:77777777" />
+            <span asp-validation-for="usuario.Telefono" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="usuario.FechaNacimiento">Fecha de Nacimiento</label>
+            <input asp-for="usuario.FechaNacimiento" class="form-control" type="date" required />
+            <span asp-validation-for="usuario.FechaNacimiento" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="usuario.FechaIngreso">Fecha Ingreso (Opcional)</label>
+            <input asp-for="usuario.FechaIngreso" class="form-control" type="date" />
+            <span asp-validation-for="usuario.FechaIngreso" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="usuario.Rol">Rol</label>
+            <select asp-for="usuario.Rol" class="form-control">
+                <option>Empleado</option>
+                <option>Administrador</option>
+            </select>
+            <span asp-validation-for="usuario.Rol" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-sistema mt-2">Registrar Usuario</button>
+        <a asp-page="UsuarioIndex" class="btn btn-cancelar mt-2">Volver</a>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    var mensaje = "@Model.messageResult";
+    if (mensaje) {
+            var modal = new bootstrap.Modal(document.getElementById('alertModal'));
+            modal.show();
+        }
+</script>

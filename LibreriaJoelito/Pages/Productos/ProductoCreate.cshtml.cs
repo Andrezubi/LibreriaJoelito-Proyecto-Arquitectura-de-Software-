@@ -4,27 +4,25 @@ using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Dominio.Validators;
 using LibreriaJoelito.Infraestructura.Persistencia;
 using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Security.Claims;
 
 namespace LibreriaJoelito.Pages.Productos
 {
+    [Authorize(Roles = "Administrador,Empleado")]
     public class ProductoCreateModel : PageModel
     {
         private readonly IConfiguration configuration;
+        public RepositorioBD bd { get; set; } = RepositorioBD.Instancia;
 
         [BindProperty]
-        public int IdCategoria { get; set; }
-        [BindProperty]
-        public string Nombre { get; set; }
-        [BindProperty]
-        public int IdMarca { get; set; }
-        [BindProperty]
-        public int Stock { get; set; }
+        public Producto producto { get; set; }
         [TempData]
         public string MensajeExito { get; set; }
 
@@ -47,7 +45,7 @@ namespace LibreriaJoelito.Pages.Productos
 
         public IActionResult OnPost()
         {
-            Producto producto = new Producto(IdCategoria, IdMarca, Nombre, Stock);
+            producto.IdUsuario = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
             var result = productoServicio.Insert(producto);
 
@@ -90,7 +88,7 @@ namespace LibreriaJoelito.Pages.Productos
 
             MySqlCommand cmd = new MySqlCommand(query);
 
-            CategoriasDataTable = RepositorioBD.ExecuteReturningDataTable(cmd);
+            CategoriasDataTable = bd.ExecuteReturningDataTable(cmd);
 
         }
         void LoadMarcas()
@@ -102,7 +100,7 @@ namespace LibreriaJoelito.Pages.Productos
 
             MySqlCommand cmd = new MySqlCommand(query);
 
-            MarcasDataTable = RepositorioBD.ExecuteReturningDataTable(cmd);
+            MarcasDataTable = bd.ExecuteReturningDataTable(cmd);
 
         }
         public class NombreSimple
@@ -129,10 +127,11 @@ namespace LibreriaJoelito.Pages.Productos
                     Console.Write("hubo errores al validar nombre categoria");
                     return new JsonResult(new { success = false, message = errors.First().ErrorMessage });
                 }
-                string query = "INSERT INTO categoria (Nombre) VALUES (@nombre);";
+                string query = "INSERT INTO categoria (Nombre, IdUsuario) VALUES (@nombre, @idUsuario);";
                 MySqlCommand cmd = new MySqlCommand(query);
                 cmd.Parameters.AddWithValue("@nombre", data.Nombre);
-                RepositorioBD.ExecuteNonQuery(cmd);
+                cmd.Parameters.AddWithValue("@idUsuario", int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value));
+                bd.ExecuteNonQuery(cmd);
                 LoadCategorias();
                 return new JsonResult(new { ok = true });
             }
@@ -159,7 +158,8 @@ namespace LibreriaJoelito.Pages.Productos
                 string query = "INSERT INTO marca (Nombre) VALUES (@nombre);";
                 MySqlCommand cmd = new MySqlCommand(query);
                 cmd.Parameters.AddWithValue("@nombre", data.Nombre);
-                RepositorioBD.ExecuteNonQuery(cmd);
+                var bd = RepositorioBD.Instancia;
+                bd.ExecuteNonQuery(cmd);
                 LoadMarcas();
                 return new JsonResult(new { ok = true });
             }

@@ -1,32 +1,47 @@
 ﻿@page
 @model IndexModel
-
 @{
-	ViewData["Title"] = "Inicio";
+    ViewData["Title"] = "Inicio";
 }
 
 <img class="element" src="~/img/background-lib.png">
 
+@section HeaderButtons {
 
-	@section HeaderButtons{
+    <a href="/LogIn/InicioSesion" class="btn-login">
+        Iniciar sesión
+    </a>
+}
+    <div class="center-text">
 
-	<a href="/LogIn/InicioSesion" class="btn-login">
-			Iniciar sesión
-		</a>
+        <p class="texto-bienvenida">
 
-	<a href="/LogIn/Registro" class="btn-register">
-			Registrarse
-		</a>
-	}
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                <text>
+                    Bienvenido al Sistema de Gestión de la Librería Joelito, @User.Identity.Name
+                </text>
+            }
+            else
+            {
+                <text>
+                    Bienvenido al Sistema de Gestión de la Librería Joelito
+                </text>
+            }
 
-<div class="center-text">
+        </p>
 
-	<p class="bienvenido-al">
-		Bienvenido al Sistema de Gestión de la Librería Joelito
-	</p>
+        <p class="mensaje-inicio">
 
-	<p class="seleccione-una-opci">
-		Seleccione una opción del menú para comenzar
-	</p>
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                <text>Seleccione una opción del menú para comenzar</text>
+            }
+            else
+            {
+                <text>Por favor inicie sesión</text>
+            }
 
-</div>
+        </p>
+
+    </div>

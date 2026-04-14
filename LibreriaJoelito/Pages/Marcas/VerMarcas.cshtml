@@ -1,0 +1,178 @@
+﻿@page
+@model LibreriaJoelito.Pages.Marcas.VerMarcasModel
+@{
+    ViewData["Title"] = "Gestión de Marcas";
+}
+
+<div class="container-fluid mt-4 px-4">
+    <div class="d-flex justify-content-center">
+        <div class="tabla-wrapper">
+            <div class="card shadow-sm tabla-card">
+                
+                <!-- HEADER MORADO -->
+                <div class="card-header d-flex justify-content-between align-items-center tabla-header-custom">
+                    <h5 class="mb-0">Lista de Marcas</h5>
+                    <a asp-page="CreateMarca" class="btn btn-sistema btn-sm">
+                        + Nueva Marca
+                    </a>
+                </div>
+
+                @if (TempData["MensajeExito"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible fade show m-3" role="alert">
+                        @TempData["MensajeExito"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                }
+
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <!-- CABECERA MORADA -->
+                            <thead class="tabla-head-custom">
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Industria</th>
+                                    <th>Página Web</th>
+                                    <th class="text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (System.Data.DataRow row in Model.MarcasDataTable.Rows)
+                                {
+                                    <tr>
+                                        <td>@row["Nombre"]</td>
+                                        <td>@(row["Industria"] == DBNull.Value || string.IsNullOrEmpty(row["Industria"].ToString()) ? "—" : row["Industria"])</td>
+                                        <td>
+                                            @if (row["PaginaWeb"] != DBNull.Value && !string.IsNullOrEmpty(row["PaginaWeb"].ToString()))
+                                            {
+                                                <a href="@row["PaginaWeb"]" target="_blank">@row["PaginaWeb"]</a>
+                                            }
+                                            else
+                                            {
+                                                <span>—</span>
+                                            }
+                                        </td>
+                                        <td class="text-center">
+                                            <a onclick="abrirModalEditar('@row["Id"]', '@row["Nombre"]', '@row["Descripcion"]', '@row["PaginaWeb"]', '@row["Industria"]')"
+                                                   class="btn btn-sistema btn-sm">
+                                                Editar
+                                            </a>
+                                            <a data-bs-toggle="modal" data-bs-target="#modalDelete-@row["Id"]"
+                                                   class="btn btn-sistema-danger btn-sm">
+                                                Eliminar
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                    <!-- MODAL ELIMINAR POR FILA (Igual a Clientes) -->
+                                    <div class="modal fade" id="modalDelete-@row["Id"]" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form method="post" asp-page-handler="Delete" asp-route-id="@row["Id"]">
+                                                    <div class="modal-header modal-header-morado">
+                                                        <h5 class="modal-title">Eliminar marca</h5>
+                                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <span>¿Está seguro de eliminar la marca <strong>@row["Nombre"]</strong>?</span>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-sistema-danger">Sí</button>
+                                                        <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                @if (Model.MarcasDataTable.Rows.Count == 0)
+                                {
+                                    <tr>
+                                        <td colspan="4" class="text-center py-4 text-muted">
+                                            No hay marcas registradas.
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL EDITAR MARCA -->
+<div class="modal fade" id="modalEditarMarca" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="formEditarMarca">
+                <input type="hidden" id="edit_id" name="Marca.Id" />
+                <div class="modal-header modal-header-morado">
+                    <h5 class="modal-title">Editar Datos de la Marca</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Aquí se mostrarán TODOS los errores a la vez -->
+                    <div id="alertaErrorModal" class="alert alert-danger" style="display:none;"></div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" id="edit_nombre" name="Marca.Nombre" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Industria</label>
+                        <input type="text" id="edit_industria" name="Marca.Industria" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Página Web</label>
+                        <input type="text" id="edit_web" name="Marca.PaginaWeb" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Descripción</label>
+                        <textarea id="edit_desc" name="Marca.Descripcion" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-sistema" onclick="enviarUpdate()">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@Html.AntiForgeryToken()
+
+<script>
+    function abrirModalEditar(id, nombre, desc, web, industria) {
+        document.getElementById('edit_id').value = id;
+        document.getElementById('edit_nombre').value = nombre;
+        document.getElementById('edit_desc').value = desc !== 'null' ? desc : '';
+        document.getElementById('edit_web').value = web !== 'null' ? web : '';
+        document.getElementById('edit_industria').value = industria !== 'null' ? industria : '';
+        
+        document.getElementById('alertaErrorModal').style.display = 'none'; // Limpiar errores previos
+        new bootstrap.Modal(document.getElementById('modalEditarMarca')).show();
+    }
+
+    function enviarUpdate() {
+        const formData = new FormData(document.querySelector('#formEditarMarca'));
+        fetch('?handler=Update', {
+            method: 'POST',
+            body: formData,
+            headers: { "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                const alerta = document.getElementById('alertaErrorModal');
+                alerta.innerHTML = data.message;
+                alerta.style.display = 'block';
+            }
+        });
+    }
+</script>

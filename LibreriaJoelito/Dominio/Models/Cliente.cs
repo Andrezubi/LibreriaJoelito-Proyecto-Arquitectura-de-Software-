@@ -1,13 +1,13 @@
 namespace LibreriaJoelito.Dominio.Models
 {
-    public class Cliente: Usuario
+    public class Cliente: Persona
     {
         
         public bool ClienteFrecuente { get; set; }
         public bool Estado { get; set; } = true;
         public DateTime FechaRegistro { get; set; }
         public DateTime? FechaUltimaActualizacion { get; set; }
-        public int? IdEmpleadoCambio { get; set; }
+        public int? IdUsuario { get; set; }
 
         public Cliente() { }
 

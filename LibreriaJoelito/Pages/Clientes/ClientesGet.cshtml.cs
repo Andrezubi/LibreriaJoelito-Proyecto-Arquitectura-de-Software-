@@ -1,16 +1,19 @@
+using LibreriaJoelito.Aplicacion.Interfaces;
+using LibreriaJoelito.Aplicacion.Servicios;
+using LibreriaJoelito.Dominio.Models;
+using LibreriaJoelito.Dominio.Validators;
 using LibreriaJoelito.Infraestructura.FactoryCreators;
+using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
 using System.Data;
-using LibreriaJoelito.Dominio.Models;
-using LibreriaJoelito.Dominio.Validators;
-using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
-using LibreriaJoelito.Aplicacion.Interfaces;
-using LibreriaJoelito.Aplicacion.Servicios;
+using System.Security.Claims;
 
 namespace LibreriaJoelito.Pages.Clientes
 {
+    [Authorize(Roles = "Administrador,Empleado")]
     public class ClientesGetModel : PageModel
     {
         private readonly ClienteServicio clienteServicio;
@@ -42,6 +45,7 @@ namespace LibreriaJoelito.Pages.Clientes
                 _cliente.Nombre = clienteValidator.NormalizarTexto(_cliente.Nombre);
                 _cliente.ApellidoPaterno = clienteValidator.NormalizarTexto(_cliente.ApellidoPaterno);
                 _cliente.ApellidoMaterno = clienteValidator.NormalizarTexto(_cliente.ApellidoMaterno);
+                _cliente.IdUsuario = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
                 var result = clienteServicio.Update(_cliente);
 
@@ -74,6 +78,7 @@ namespace LibreriaJoelito.Pages.Clientes
         public IActionResult OnPostDelete(int id)
         {
             _cliente.Id = id;
+            _cliente.IdUsuario = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             clienteServicio.Delete(_cliente);
             TempData["MensajeExito"] = "Cliente eliminado correctamente.";
             return RedirectToPage();
