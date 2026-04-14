@@ -21,16 +21,6 @@ namespace LibreriaJoelito.Pages.Productos
         public DataTable MarcasDataTable { get; set; }
         public RepositorioBD bd { get; set; } = RepositorioBD.Instancia;
 
-        //[BindProperty]
-        //public int Id { get; set; }
-        //[BindProperty]
-        //public string Nombre { get; set; }
-        //[BindProperty]
-        //public int IdCategoria { get; set; }
-        //[BindProperty]
-        //public int IdMarca { get; set; }
-        //[BindProperty]
-        //public int Stock { get; set; }
         [BindProperty]
         public Producto producto { get; set; }
         [TempData]
@@ -92,18 +82,6 @@ namespace LibreriaJoelito.Pages.Productos
             return RedirectToPage("MostrarProductos");
         }
 
-        //public IActionResult OnPostUpdate()
-        //{
-        //    Producto producto = new Producto(Id, IdCategoria, IdMarca, Nombre, Stock);
-        //    var errores =ProductValidator.ValidarProducto(producto);
-        //    if (errores.Any())
-        //    {
-        //        return new JsonResult(new { ok = false, message = errores.First().ErrorMessage });
-        //    }
-        //    _productRepository.Update(producto);
-        //    TempData["MensajeExito"] = "El producto fue editado correctamente.";
-        //    return RedirectToPage("MostrarProductos");
-        //}
         public JsonResult OnPostUpdate()
         {
             try
@@ -112,17 +90,6 @@ namespace LibreriaJoelito.Pages.Productos
                 producto.IdUsuario = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
                 //var errores = ProductValidator.ValidarProducto(producto);
                 var result = productoServicio.Update(producto);
-
-                // validar (tu l�gica actual)
-                //if (errores.Any())
-                //{
-                //    var listaErrores = errores
-                //        .Select(e => e.ErrorMessage)
-                //        .ToList();
-
-                //    return new JsonResult(new { ok = false, errores = listaErrores });
-                //}
-                //_productRepository.Update(producto);
 
                 if (result.IsFailure)
                 {
