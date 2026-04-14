@@ -93,8 +93,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 
 var app = builder.Build();
-app.UseAuthentication();
-app.UseAuthorization();
 var bd = RepositorioBD.Instancia;
 
 // select connection string from appsettings

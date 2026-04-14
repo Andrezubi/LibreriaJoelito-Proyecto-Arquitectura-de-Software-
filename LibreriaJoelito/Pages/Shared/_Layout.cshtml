@@ -16,17 +16,15 @@
 </head>
 
 @{
-        var enSistema = User.Identity != null && User.Identity.IsAuthenticated;
+        //var enSistema = User.Identity != null && User.Identity.IsAuthenticated;
         var esAdministrador = User.IsInRole("Administrador");
         var esEmpleado = User.IsInRole("Empleado");
+        var enSistema = esAdministrador || esEmpleado;
         var ocultarSidebar = ViewData["OcultarSidebar"] != null && (bool)ViewData["OcultarSidebar"];
 }
 
 <body class="@(enSistema && !ocultarSidebar ? "bg-sistema" : "")">
 
-    <!-- ===================== -->
-    <!-- HEADER -->
-    <!-- ===================== -->
     <header class="main-header">
 
         <div class="header-left">
@@ -51,13 +49,12 @@
                         @User.Identity?.Name
                     </span>
 
-                    <a asp-page="/LogIn/InicioSesion" asp-page-handler="Logout" class="btn-logout">
-                        Cerrar sesión
-                    </a>
+                    <form method="get" action="/Usuarios/Logout">
+                        <button type="submit" class="btn-logout">Cerrar sesión</button>
+                    </form>
                 </div>
             }
 
-            @* 🔥 FIX: SIEMPRE evaluar la sección sin romper *@
             @if (IsSectionDefined("HeaderButtons"))
             {
                 <div style="display:@(enSistema ? "none" : "flex")">
@@ -68,9 +65,6 @@
         </div>
     </header>
 
-    <!-- ===================== -->
-    <!-- CONTENIDO PRINCIPAL -->
-    <!-- ===================== -->
     @if (enSistema && !ocultarSidebar)
     {
         <div class="sistema-de-gestion">
@@ -157,7 +151,7 @@
     }
     else
     {
-        <!-- 🔥 SIN LOGIN -->
+        
         <main class="content-area full-width">
             @RenderBody()
         </main>
