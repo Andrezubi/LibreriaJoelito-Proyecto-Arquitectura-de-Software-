@@ -43,10 +43,24 @@
                             </div>
                         </div>
                     </div>
+                    <br />
+                    <div class="position-relative w-50 mx-auto">
+                        <div class="input-group">
+                            <input type="text" id="productoBusqueda" class="form-control"
+                                   placeholder="Producto A Agregar" autocomplete="off">
+                            <span class="input-group-text bg-white">🔍</span>
+                        </div>
+
+                        <ul id="listaProductos" class="list-group position-absolute w-100 shadow"
+                            style="z-index: 1050; display: none; max-height: 200px; overflow-y: auto;">
+                        </ul>
+
+                        <small id="productoFeedback" class="form-text text-muted"></small>
+                    </div>
 
                     <div class="ventas-footer">
                         <button type="submit" class="btn btn-guardar" id="btnGuardarVenta">
-                            Guardar Venta
+                            Registrar Venta
                         </button>
                     </div>
                 </form>
@@ -141,30 +155,33 @@
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-
-
+            // --- VARIABLES CLIENTE ---
             const ciInput = document.getElementById('ciCliente');
             const nombreInput = document.getElementById('nombreCliente');
             const idClienteInput = document.getElementById('idCliente');
             const feedback = document.getElementById('clienteFeedback');
             const btnGuardarVenta = document.getElementById('btnGuardarVenta');
+            
+            // --- VARIABLES MODAL ---
+            const modalElement = document.getElementById('modalCliente');
+            const modal = new bootstrap.Modal(modalElement);
+            const btnCrearCliente = document.getElementById('btnCrearClienteRapido');
+            const btnGuardarClienteModal = document.getElementById('btnGuardarClienteModal');
+            
+            const modalCi = document.getElementById('modalCi');
+            const modalNombre = document.getElementById('modalNombre');
+            const modalApellidoP = document.getElementById('modalApellidoP');
+            const modalApellidoM = document.getElementById('modalApellidoM');
             const modalComplemento = document.getElementById('modalComplemento');
+            const modalEmail = document.getElementById('modalEmail');
             const modalFrecuente = document.getElementById('modalFrecuente');
+            const modalFeedback = document.getElementById('modalFeedback');
+
             let timeoutId;
 
-            const form = document.getElementById('ventaForm');
-            form.addEventListener('submit', function(e) {
-                if (!idClienteInput.value) {
-                    e.preventDefault();
-                    feedback.textContent = "Debe buscar y seleccionar un cliente válido para continuar.";
-                    feedback.className = "form-text text-danger fw-bold";
-                    ciInput.classList.add('is-invalid');
-                }
-            });
-
+            // --- LÓGICA BUSCAR CLIENTE ---
             ciInput.addEventListener('input', function () {
                 const ciValue = this.value.trim();
-
                 nombreInput.value = '';
                 idClienteInput.value = '';
                 feedback.textContent = '';
@@ -172,75 +189,53 @@
 
                 if (ciValue.length >= 4) {
                     clearTimeout(timeoutId);
-
                     timeoutId = setTimeout(() => {
                         feedback.textContent = "Buscando...";
                         feedback.className = "form-text text-info";
 
                         fetch(`?handler=BuscarCliente&ci=${encodeURIComponent(ciValue)}`)
-                            .then(response => {
-                                if (!response.ok) throw new Error("Error en la conexión");
-                                return response.json();
-                            })
+                            .then(response => response.json())
                             .then(data => {
                                 if (data.success) {
                                     const c = data.cliente;
                                     const apellidoM = c.apellidoMaterno ? ' ' + c.apellidoMaterno : '';
                                     nombreInput.value = `${c.nombre} ${c.apellidoPaterno}${apellidoM}`;
                                     idClienteInput.value = c.id;
-
                                     feedback.textContent = "Cliente encontrado.";
                                     feedback.className = "form-text text-success";
                                     ciInput.classList.add('is-valid');
                                 } else {
-                                    feedback.textContent = "Cliente no encontrado. Use el botón '+' para agregarlo.";
+                                    feedback.textContent = "Cliente no encontrado. Use '+'";
                                     feedback.className = "form-text text-danger";
                                     ciInput.classList.add('is-invalid');
                                 }
-                            })
-                            .catch(error => {
-                                console.error('Error fetching client:', error);
-                                feedback.textContent = "Error al buscar cliente.";
-                                feedback.className = "form-text text-danger";
                             });
                     }, 400);
                 }
             });
 
-            const modal = new bootstrap.Modal(document.getElementById('modalCliente'));
-            const btnCrearCliente = document.getElementById('btnCrearClienteRapido');
-
-            const modalCi = document.getElementById('modalCi');
-            const modalNombre = document.getElementById('modalNombre');
-            const modalApellidoP = document.getElementById('modalApellidoP');
-            const modalApellidoM = document.getElementById('modalApellidoM');
-            const modalEmail = document.getElementById('modalEmail');
-            const modalFeedback = document.getElementById('modalFeedback');
-
-            const btnGuardarClienteModal = document.getElementById('btnGuardarClienteModal');
-
+            // --- LÓGICA MODAL CLIENTE ---
             btnCrearCliente.addEventListener('click', () => {
                 modalCi.value = ciInput.value;
                 modal.show();
             });
 
             btnGuardarClienteModal.addEventListener('click', () => {
+                const data = {
+                    Ci: modalCi.value,
+                    Nombre: modalNombre.value,
+                    ApellidoPaterno: modalApellidoP.value,
+                    ApellidoMaterno: modalApellidoM.value,
+                    Complemento: modalComplemento.value,
+                    Email: modalEmail.value,
+                    ClienteFrecuente: modalFrecuente.checked
+                };
 
-                       const data = {
-            Ci: modalCi.value,
-            Nombre: modalNombre.value,
-            ApellidoPaterno: modalApellidoP.value,
-            ApellidoMaterno: modalApellidoM.value,
-            Complemento: modalComplemento.value,
-            Email: modalEmail.value,
-            ClienteFrecuente: modalFrecuente.checked
-        };
                 fetch('?handler=CrearCliente', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'RequestVerificationToken':
-                            document.querySelector('input[name="__RequestVerificationToken"]').value
+                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
                     },
                     body: JSON.stringify(data)
                 })
@@ -248,31 +243,69 @@
                 .then(data => {
                     if (data.success) {
                         const c = data.cliente;
-                        const apellidoM = c.apellidoMaterno ? ' ' + c.apellidoMaterno : '';
-
-                        nombreInput.value = `${c.nombre} ${c.apellidoPaterno}${apellidoM}`;
+                        nombreInput.value = `${c.nombre} ${c.apellidoPaterno} ${c.apellidoMaterno || ''}`.trim();
                         idClienteInput.value = c.id;
                         ciInput.value = c.ci;
-
-                        feedback.textContent = "Cliente creado y seleccionado.";
-                        feedback.className = "form-text text-success";
-
-                        ciInput.classList.remove('is-invalid');
                         ciInput.classList.add('is-valid');
-
                         modal.hide();
                     } else {
                         modalFeedback.textContent = data.message;
                     }
-                })
-                .catch(err => {
-                    console.error(err);
-                    modalFeedback.textContent = "Error al guardar cliente";
                 });
             });
 
-        });
+            // --- LÓGICA BUSCAR PRODUCTO ---
+            const inputProducto = document.getElementById('productoBusqueda');
+            const listaSugerencias = document.getElementById('listaProductos');
+
+            inputProducto.addEventListener('input', function () {
+                const term = this.value.trim();
+                if (term.length < 2) {
+                    listaSugerencias.style.display = 'none';
+                    return;
+                }
+
+                fetch(`?handler=BuscarNombre&termino=${encodeURIComponent(term)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        listaSugerencias.innerHTML = '';
+                        if (data && data.length > 0) {
+                            data.forEach(nombre => {
+                                const li = document.createElement('li');
+                                li.className = 'list-group-item list-group-item-action';
+                                li.style.cursor = 'pointer';
+                                li.textContent = nombre;
+                                li.onclick = function() {
+                                    inputProducto.value = nombre;
+                                    listaSugerencias.style.display = 'none';
+                                };
+                                listaSugerencias.appendChild(li);
+                            });
+                            listaSugerencias.style.display = 'block';
+                        } else {
+                            listaSugerencias.style.display = 'none';
+                        }
+                    });
+            });
+
+            document.addEventListener('click', function(e) {
+                if (e.target !== inputProducto) {
+                    listaSugerencias.style.display = 'none';
+                }
+            });
+
+            document.getElementById('ventaForm').addEventListener('submit', function(e) {
+                if (!idClienteInput.value) {
+                    e.preventDefault();
+                    feedback.textContent = "Debe seleccionar un cliente válido.";
+                    feedback.className = "form-text text-danger fw-bold";
+                    ciInput.focus();
+                }
+            });
+
+        }); 
     </script>
+}
 }
 
 

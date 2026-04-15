@@ -90,6 +90,18 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
         {
             return false;
         }
+        public DataTable BuscarPorNombre(string frase)
+        {
+            string query = @"SELECT Nombre
+                    FROM producto 
+                    WHERE Estado = 1 AND Nombre LIKE @frase 
+                    ORDER BY Nombre ASC 
+                    LIMIT 10";
 
+            MySqlCommand command = new MySqlCommand(query);
+            command.Parameters.AddWithValue("@frase", "%" + frase + "%");
+
+            return ExecuteReturningDataTable(command);
+        }
     }
 }

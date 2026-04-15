@@ -1,13 +1,16 @@
 using LibreriaJoelito.Aplicacion.Servicios;
 using LibreriaJoelito.Dominio.Models;
+using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Data;
 
 namespace LibreriaJoelito.Pages.Ventas
 {
     public class RegistrarModel : PageModel
     {
         private readonly ClienteServicio _clienteServicio;
+        private readonly ProductoRepository _productoRepository = new ProductoRepository();
 
         public RegistrarModel(ClienteServicio clienteServicio)
         {
@@ -80,6 +83,17 @@ namespace LibreriaJoelito.Pages.Ventas
                     nuevo.Ci
                 }
             });
+        }
+        public JsonResult OnGetBuscarNombre(string termino)
+        {
+            DataTable dt = _productoRepository.BuscarPorNombre(termino);
+            var listaNombres = new List<string>();
+            foreach (DataRow row in dt.Rows)
+            {
+                listaNombres.Add(row["Nombre"].ToString());
+            }
+
+            return new JsonResult(listaNombres);
         }
     }
 }
