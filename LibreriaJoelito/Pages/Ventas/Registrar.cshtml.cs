@@ -95,5 +95,30 @@ namespace LibreriaJoelito.Pages.Ventas
 
             return new JsonResult(listaNombres);
         }
+        public IActionResult OnGetObtenerDetalleProducto(string nombre)
+        {
+            if (string.IsNullOrEmpty(nombre))
+            {
+                return new JsonResult(new { success = false, message = "El nombre está vacío." });
+            }
+            DataTable dtProducto = _productoRepository.BuscarProducto(nombre);
+
+            if (dtProducto.Rows.Count > 0)
+            {
+                DataRow row = dtProducto.Rows[0];
+                return new JsonResult(new
+                {
+                    success = true,
+                    producto = new
+                    {
+                        id = Convert.ToInt32(row["Id"]),
+                        nombre = row["Nombre"].ToString(),
+                        precioUnitario = Convert.ToDecimal(row["Precio"]) 
+                    }
+                });
+            }
+
+            return new JsonResult(new { success = false, message = "Producto no encontrado." });
+        }
     }
 }

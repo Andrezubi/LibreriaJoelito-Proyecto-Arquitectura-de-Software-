@@ -104,5 +104,23 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 
             return ExecuteReturningDataTable(command);
         }
+        public DataTable BuscarProducto(string nombre)
+        {
+            string query = @"
+            SELECT 
+                p.Id, 
+                p.Nombre, 
+                pp.Precio 
+            FROM Producto p
+            INNER JOIN PresentacionProducto pp ON p.Id = pp.IdProducto
+            WHERE p.Nombre LIKE @nombre 
+            AND p.Estado = 1 
+            LIMIT 1";
+
+            MySqlCommand command = new MySqlCommand(query);
+            command.Parameters.AddWithValue("@nombre", "%" + nombre + "%");
+
+            return ExecuteReturningDataTable(command);
+        }
     }
 }
