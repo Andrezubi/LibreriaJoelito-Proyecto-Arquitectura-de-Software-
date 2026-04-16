@@ -27,6 +27,7 @@
                             <div class="input-group">
                                 <input type="text" id="ciCliente" class="form-control" placeholder="Buscar CI/NIT..." required autocomplete="off">
                                 <span class="input-group-text bg-white">🔍</span>
+                                <div id="ciDropdown" class="dropdown-ci"></div>
                             </div>
                             <small id="clienteFeedback" class="form-text text-muted"></small>
                         </div>
@@ -151,6 +152,68 @@
             const modalComplemento = document.getElementById('modalComplemento');
             const modalFrecuente = document.getElementById('modalFrecuente');
             let timeoutId;
+            const dropdown = document.getElementById('ciDropdown');
+                    ciInput.addEventListener('input', function () {
+            const value = this.value.trim();
+
+            if (value.length < 2) {
+                dropdown.style.display = 'none';
+                return;
+            }
+
+            fetch(`?handler=BuscarClientesParcial&ci=${value}`)
+                .then(res => res.json())
+                .then(data => {
+
+                    dropdown.innerHTML = '';
+
+                    if (!data.success || data.clientes.length === 0) {
+                        dropdown.style.display = 'none';
+                        return;
+                    }
+
+                    data.clientes.forEach(c => {
+                        const item = document.createElement('div');
+                        item.classList.add('dropdown-item-ci');
+
+                        const apellidoM = c.apellidoMaterno ? ' ' + c.apellidoMaterno : '';
+
+                        item.innerHTML = `
+                            <strong>${c.ci}</strong>
+                            <span>${c.nombre} ${c.apellidoPaterno}${apellidoM}</span>
+                        `;
+
+                        item.addEventListener('click', () => {
+                            ciInput.value = c.ci;
+                            nombreInput.value = `${c.nombre} ${c.apellidoPaterno}${apellidoM}`;
+                            idClienteInput.value = c.id;
+
+                            dropdown.style.display = 'none';
+
+                            ciInput.classList.remove('is-invalid');
+                            ciInput.classList.add('is-valid');
+
+                            feedback.textContent = "Cliente seleccionado.";
+                            feedback.className = "form-text text-success";
+                        });
+
+                        dropdown.appendChild(item);
+                    });
+
+                    dropdown.style.display = 'block';
+                })
+                .catch(err => {
+                    console.error(err);
+                    dropdown.style.display = 'none';
+                });
+        });
+
+        /* cerrar dropdown si hace click afuera */
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.input-group')) {
+                dropdown.style.display = 'none';
+            }
+        });
 
             const form = document.getElementById('ventaForm');
             form.addEventListener('submit', function(e) {
