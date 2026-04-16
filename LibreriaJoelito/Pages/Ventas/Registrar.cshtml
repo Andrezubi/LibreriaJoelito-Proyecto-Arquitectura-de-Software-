@@ -338,19 +338,19 @@
 
             const tbody = document.querySelector("#tablaProductos tbody");
             const fila = `
-                <tr>
-                    <td>
-                         <input type="number" class="form-control form-control-sm" value="1" min="1"
-                         onchange="recalcularTotal()" oninput="recalcularTotal()">
-                    </td>
-                    <td>${productoTemporal.nombre}</td>
-                    <td>${productoTemporal.precioUnitario.toFixed(2)}</td>
-                    <td>${productoTemporal.precioUnitario.toFixed(2)}</td>
-                    <td>
-                        <button type="button" class="btn btn-outline-danger btn-sm"
-                                onclick="this.closest('tr').remove(); recalcularTotal();">×</button>
-                    </td>
-                </tr>`;
+            <tr>
+                <td>
+                    <input type="number" class="form-control form-control-sm" value="1" min="1"
+                           oninput="recalcularTotal()" onchange="recalcularTotal()">
+                </td>
+                <td>${productoTemporal.nombre}</td>
+                <td>${productoTemporal.precioUnitario.toFixed(2)}</td>
+                <td class="importe-col">${productoTemporal.precioUnitario.toFixed(2)}</td>
+                <td>
+                    <button type="button" class="btn btn-outline-danger btn-sm"
+                            onclick="this.closest('tr').remove(); recalcularTotal();">×</button>
+                </td>
+            </tr>`;
 
             tbody.insertAdjacentHTML('beforeend', fila);
             document.getElementById('productoBusqueda').value = "";
@@ -363,7 +363,7 @@
             function recalcularTotal() {
             let totalGeneral = 0;
             document.querySelectorAll("#tablaProductos tbody tr").forEach(fila => {
-                const inputCantidad = fila.cells.querySelector('input');
+                const inputCantidad = fila.querySelector('input');
                 const cantidad = parseFloat(inputCantidad.value) || 0;
                 const precio = parseFloat(fila.cells[2].textContent) || 0;
                 const importeFila = cantidad * precio;
