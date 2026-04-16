@@ -37,8 +37,8 @@
 
                             <thead class="tabla-head-custom">
                                 <tr>
-                                    <th>N° de venta</th>
-                                    <th>CI/NIT Cliente</th>
+                                    <th>N° de Venta</th>
+                                    <th>CI/NIT de Cliente</th>
                                     <th>Fecha</th>
                                     <th>Total</th>
                                     <th>Acciones</th>
@@ -54,19 +54,9 @@
                                         <td>245.4</td>
                                         <td>
                                             @* <a asp-page="ProductoUpdate" asp-route-id="@row["Id"]" class="btn btn-warning btn-sm">Editar</a> *@
-                                            <a class="btn btn-sistema btn-sm">Ver más</a>
-                                            @* <form method="post" asp-page-handler="Delete" style="display:inline;">
-                            <input type="hidden" name="id" value="@row["Id"]" />
-
-                            <button type="submit"
-                                class="btn btn-danger btn-sm"
-                                onclick="return confirm('¿Desea eliminar el producto @row["Nombre"] ?');">
-                                Eliminar
-                            </button>
-                            </form> *@
+                                        <a class="btn btn-sistema btn-sm" onclick="abrirModalDetalle()">Ver detalle</a>
                                         </td>
                                     </tr>
-
                                 @* } *@
                             </tbody>
                         </table>
@@ -76,3 +66,102 @@
         </div>
     </div>
 </div>
+
+@* MODAL DE DETALLE VENTA *@
+<div class="modal fade" id="modalVerDetalleVenta" tabindex="-1" aria-labelledby="detalleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form method="post" asp-page-handler="">
+                <div class="modal-header modal-header-morado">
+                    <h5 class="modal-title" id="detalleModalLabel">Detalle de Venta</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div id="alertaErrorModal" class="alert alert-danger" style="display:none;"></div>
+
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Información general de la venta</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row text-center">
+                                <div class="col-md-4">
+                                    <h6 class="text-muted">N° de Venta</h6>
+                                    <p class="fw-bold">1</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h6 class="text-muted">CI/NIT de Cliente</h6>
+                                    <p class="fw-bold">735218</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h6 class="text-muted">Fecha</h6>
+                                    <p class="fw-bold">2026-04-14</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0">Detalle de la venta</h5>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered table-hover text-center">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Presentación</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio Unitario</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Producto A</td>
+                                        <td>Caja</td>
+                                        <td>2</td>
+                                        <td>50 Bs</td>
+                                        <td>100 Bs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Producto B</td>
+                                        <td>Paquete</td>
+                                        <td>1</td>
+                                        <td>80 Bs</td>
+                                        <td>80 Bs</td>
+                                    </tr>
+                                </tbody>
+
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4" class="text-end fw-bold">Total General:</td>
+                                        <td class="fw-bold text-success">180 Bs</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                @* <div class="modal-footer">
+                    <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-sistema" onclick="enviarUpdate()">
+                        Guardar Cambios
+                    </button>
+                </div> *@
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+        function abrirModalDetalle() {
+            // 🔥 limpiar errores
+            const alerta = document.getElementById('alertaErrorModal');
+            alerta.style.display = "none";
+            alerta.textContent = "";
+
+            new bootstrap.Modal(document.getElementById('modalVerDetalleVenta')).show();
+        }
+</script>
