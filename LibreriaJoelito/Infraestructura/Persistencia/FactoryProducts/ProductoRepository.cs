@@ -92,6 +92,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
         }
         public DataTable BuscarPorNombre(string frase)
         {
+            frase = frase.ToLower();
             string query = @"SELECT Nombre
                     FROM producto 
                     WHERE Estado = 1 AND Nombre LIKE @frase 
