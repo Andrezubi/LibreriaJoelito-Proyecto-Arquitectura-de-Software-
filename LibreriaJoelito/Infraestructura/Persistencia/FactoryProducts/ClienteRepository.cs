@@ -6,7 +6,7 @@ using LibreriaJoelito.Aplicacion.Interfaces;
 
 namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 {
-    public class ClienteRepository : IClienteRepository
+    public class ClienteRepository :RepositorioBD, IClienteRepository
     {
         public int Delete(Cliente t)
         {
@@ -18,7 +18,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
                 WHERE Id = @id");
             cmd.Parameters.AddWithValue("idUsuario", t.IdUsuario);
             cmd.Parameters.AddWithValue("id", t.Id);
-            return RepositorioBD.Instancia.ExecuteNonQuery(cmd);
+            return ExecuteNonQuery(cmd);
         }
 
         public DataTable GetAll()
@@ -30,7 +30,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
                 WHERE Estado = 1
                 ORDER BY ApellidoPaterno, Nombre");
 
-            return RepositorioBD.Instancia.ExecuteReturningDataTable(cmd);
+            return ExecuteReturningDataTable(cmd);
         }
 
         public DataRow GetById(int id)
@@ -43,7 +43,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 
             cmd.Parameters.AddWithValue("@id", id);
 
-            return RepositorioBD.Instancia.ExecuteReturningDataRow(cmd);
+            return ExecuteReturningDataRow(cmd);
         }
 
         public DataRow GetByCi(string ci)
@@ -57,7 +57,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 
             cmd.Parameters.AddWithValue("@ci", ci);
 
-            return RepositorioBD.Instancia.ExecuteReturningDataRow(cmd);
+            return ExecuteReturningDataRow(cmd);
         }
 
         public int Insert(Cliente t)
@@ -71,7 +71,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 
             AgregarParametros(cmd, t);
 
-            return Convert.ToInt32(RepositorioBD.Instancia.ExecuteScalar(cmd));
+            return Convert.ToInt32(ExecuteScalar(cmd));
         }
 
         public int Update(Cliente t)
@@ -91,7 +91,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 
             AgregarParametros(cmd, t);
             cmd.Parameters.AddWithValue("@id", t.Id);
-            return RepositorioBD.Instancia.ExecuteNonQuery(cmd);
+            return ExecuteNonQuery(cmd);
         }
 
         public bool ExisteDuplicado(Cliente cliente)
@@ -107,7 +107,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             cmd.Parameters.AddWithValue("@complemento", cliente.Complemento ?? string.Empty);
             cmd.Parameters.AddWithValue("@id", cliente.Id);
 
-            return Convert.ToInt32(RepositorioBD.Instancia.ExecuteScalar(cmd)) > 0;
+            return Convert.ToInt32(ExecuteScalar(cmd)) > 0;
         }
 
         // --- Métodos privados de apoyo ---
@@ -136,7 +136,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 
              cmd.Parameters.AddWithValue("@ci", "%" + ci + "%");
 
-             return RepositorioBD.Instancia.ExecuteReturningDataTable(cmd);
+             return ExecuteReturningDataTable(cmd);
         }
 
     }
