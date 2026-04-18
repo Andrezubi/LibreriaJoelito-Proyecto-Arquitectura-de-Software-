@@ -125,7 +125,7 @@
 
                     @if (esAdministrador || esEmpleado)
                     {
-                        <a href="/Index" class="menu-item">
+                        <a href="/Ventas/MostrarVentas" class="menu-item">
                             <img class="menu-icon" src="~/img/ventas-lib.svg">
                             <span>Ventas</span>
                         </a>
@@ -158,6 +158,7 @@
     }
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
 
 </body>
 </html>
