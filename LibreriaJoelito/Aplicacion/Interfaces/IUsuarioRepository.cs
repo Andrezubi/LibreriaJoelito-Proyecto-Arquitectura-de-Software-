@@ -1,4 +1,5 @@
 ﻿using LibreriaJoelito.Dominio.Models;
+using System.Data;
 
 namespace LibreriaJoelito.Aplicacion.Interfaces
 {
@@ -8,6 +9,7 @@ namespace LibreriaJoelito.Aplicacion.Interfaces
         string GetPasswordByUsername(string username);
         
         Usuario GetDatosLogin(string username);
+        
 
     }
 }

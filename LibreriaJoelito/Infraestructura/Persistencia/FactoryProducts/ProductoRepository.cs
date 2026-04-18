@@ -7,7 +7,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 {
-    public class ProductoRepository : IProductoRepository
+    public class ProductoRepository : RepositorioBD, IProductoRepository
     {
         public int DescontarStock(int idProducto, int cantidad)
         {
@@ -21,7 +21,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             command.Parameters.AddWithValue("@idProducto", idProducto);
             command.Parameters.AddWithValue("@fechaAhora", DateTime.Now);
 
-            return RepositorioBD.Instancia.ExecuteNonQuery(command);
+            return ExecuteNonQuery(command);
         }
         public int Delete(Producto producto)
         {
@@ -33,7 +33,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             cmd.Parameters.AddWithValue("@idUsuario", producto.IdUsuario);
             cmd.Parameters.AddWithValue("@Id", producto.Id);
 
-            return RepositorioBD.Instancia.ExecuteNonQuery(cmd);
+            return ExecuteNonQuery(cmd);
             
         }
 
@@ -45,7 +45,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
                             ORDER BY 3";
             MySqlCommand command = new MySqlCommand(query);
 
-            return RepositorioBD.Instancia.ExecuteReturningDataTable(command);
+            return ExecuteReturningDataTable(command);
         }
 
         public DataRow GetById(int id)
@@ -58,7 +58,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             MySqlCommand command = new MySqlCommand(query);
             command.Parameters.AddWithValue("@id", id);
 
-            return RepositorioBD.Instancia.ExecuteReturningDataRow(command);
+            return ExecuteReturningDataRow(command);
         }
 
         public int Insert(Producto producto)
@@ -73,7 +73,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             command.Parameters.AddWithValue("@stock", producto.Stock);
             command.Parameters.AddWithValue("@fechaRegistro",producto.FechaRegistro);
             command.Parameters.AddWithValue("@idUsuario", producto.IdUsuario);
-            return RepositorioBD.Instancia.ExecuteNonQuery(command);
+            return ExecuteNonQuery(command);
         }
 
         public int Update(Producto producto)
@@ -97,13 +97,44 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             command.Parameters.AddWithValue("@fechaAhora", DateTime.Now);
             command.Parameters.AddWithValue("@id", producto.Id);
             command.Parameters.AddWithValue("@idUsuario",producto.IdUsuario);
-            return RepositorioBD.Instancia.ExecuteNonQuery(command);
+            return ExecuteNonQuery(command);
         }
 
         public bool ExisteDuplicado(Producto producto)
         {
             return false;
         }
+        public DataTable BuscarPorNombre(string frase)
+        {
+            frase = frase.ToLower();
+            string query = @"SELECT Nombre
+                    FROM producto 
+                    WHERE Estado = 1 AND Nombre LIKE @frase 
+                    ORDER BY Nombre ASC 
+                    LIMIT 10";
 
+            MySqlCommand command = new MySqlCommand(query);
+            command.Parameters.AddWithValue("@frase", "%" + frase + "%");
+
+            return ExecuteReturningDataTable(command);
+        }
+        public DataTable BuscarProducto(string nombre)
+        {
+            string query = @"
+            SELECT 
+                p.Id, 
+                p.Nombre, 
+                pp.Precio 
+            FROM Producto p
+            INNER JOIN PresentacionProducto pp ON p.Id = pp.IdProducto
+            WHERE p.Nombre LIKE @nombre 
+            AND p.Estado = 1 
+            LIMIT 1";
+
+            MySqlCommand command = new MySqlCommand(query);
+            command.Parameters.AddWithValue("@nombre", "%" + nombre + "%");
+
+            return ExecuteReturningDataTable(command);
+        }
     }
 }

@@ -14,7 +14,6 @@
                     @Html.AntiForgeryToken()
 
                     <div class="row g-3 align-items-center bg-light p-3 rounded border">
-
                         <div class="col-md-3">
                             <label class="form-label fw-bold">Fecha:</label>
                             <input type="text" class="form-control" value="@DateTime.Now.ToString("dd/MM/yyyy")" disabled>
@@ -39,25 +38,65 @@
                             <div class="input-group">
                                 <input type="hidden" id="idCliente" name="IdCliente" required>
                                 <input type="text" id="nombreCliente" class="form-control bg-white" readonly placeholder="El nombre aparecerá automáticamente">
-
-                                <button type="button" class="btn btn-crear" id="btnCrearClienteRapido">
-                                    +
-                                </button>
+                                <button type="button" class="btn btn-crear" id="btnCrearClienteRapido">+</button>
                             </div>
                         </div>
                     </div>
 
-                    <div class="ventas-footer">
+                    <br />
+
+                    <div class="row mb-4 justify-content-center">
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <input type="text" id="productoBusqueda" class="form-control"
+                                       placeholder="Buscar producto para vender..." autocomplete="off">
+            
+                                <button type="button" class="btn btn-primary" onclick="prepararProducto()">
+                                    🔍
+                                </button>
+            
+                                <button type="button" class="btn btn-success" id="btnAñadirLista" disabled onclick="confirmarAñadir()">
+                                    + Añadir a la venta
+                                </button>
+                            </div>
+                            <ul id="listaProductos" class="list-group position-absolute w-50 shadow"
+                                style="z-index: 1050; display: none; max-height: 200px; overflow-y: auto;">
+                            </ul>
+                            <small id="productoFeedback" class="form-text d-block mt-1"></small>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="tablaProductos">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th style="width: 80px;">Cant.</th>
+                                    <th>Descripción</th>
+                                    <th>P. Unit (Bs)</th>
+                                    <th>Importe (Bs)</th>
+                                    <th style="width: 40px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                                <tr class="table-secondary">
+                                    <th colspan="3" class="text-end">TOTAL Bs:</th>
+                                    <th id="totalVenta" class="fw-bold">0.00</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <div class="ventas-footer mt-4">
                         <button type="submit" class="btn btn-guardar" id="btnGuardarVenta">
-                            Guardar Venta
+                            Registrar Venta
                         </button>
                     </div>
                 </form>
-            </div>
-        </div>
-    </div>
-    <!-- ================= MODAL CREAR CLIENTE ================= -->
-    <div class="modal fade" id="modalCliente" tabindex="-1">
+
+                <div class="modal fade" id="modalCliente" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
@@ -144,17 +183,32 @@
         </div>
     </div>
 </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-
-
+            // --- VARIABLES CLIENTE ---
             const ciInput = document.getElementById('ciCliente');
             const nombreInput = document.getElementById('nombreCliente');
             const idClienteInput = document.getElementById('idCliente');
             const feedback = document.getElementById('clienteFeedback');
             const btnGuardarVenta = document.getElementById('btnGuardarVenta');
+
+            // --- VARIABLES MODAL ---
+            const modalElement = document.getElementById('modalCliente');
+            const modal = new bootstrap.Modal(modalElement);
+            const btnCrearCliente = document.getElementById('btnCrearClienteRapido');
+            const btnGuardarClienteModal = document.getElementById('btnGuardarClienteModal');
+            
+            const modalCi = document.getElementById('modalCi');
+            const modalNombre = document.getElementById('modalNombre');
+            const modalApellidoP = document.getElementById('modalApellidoP');
+            const modalApellidoM = document.getElementById('modalApellidoM');
             const modalComplemento = document.getElementById('modalComplemento');
+            const modalEmail = document.getElementById('modalEmail');
             const modalFrecuente = document.getElementById('modalFrecuente');
             let timeoutId;
             const dropdown = document.getElementById('ciDropdown');
@@ -234,112 +288,168 @@
                 const ciValue = this.value.trim();
                 nombreInput.value = '';
                 idClienteInput.value = '';
-                feedback.textContent = '';
-                ciInput.classList.remove('is-invalid', 'is-valid');
-
                 if (ciValue.length >= 4) {
                     clearTimeout(timeoutId);
-
                     timeoutId = setTimeout(() => {
-                        feedback.textContent = "Buscando...";
-                        feedback.className = "form-text text-info";
-
                         fetch(`?handler=BuscarCliente&ci=${encodeURIComponent(ciValue)}`)
-                            .then(response => {
-                                if (!response.ok) throw new Error("Error en la conexión");
-                                return response.json();
-                            })
+                            .then(res => res.json())
                             .then(data => {
                                 if (data.success) {
-                                    const c = data.cliente;
-                                    const apellidoM = c.apellidoMaterno ? ' ' + c.apellidoMaterno : '';
-                                    nombreInput.value = `${c.nombre} ${c.apellidoPaterno}${apellidoM}`;
-                                    idClienteInput.value = c.id;
-
+                                    nombreInput.value = `${data.cliente.nombre} ${data.cliente.apellidoPaterno}`;
+                                    idClienteInput.value = data.cliente.id;
                                     feedback.textContent = "Cliente encontrado.";
                                     feedback.className = "form-text text-success";
-                                    ciInput.classList.add('is-valid');
                                 } else {
-                                    feedback.textContent = "Cliente no encontrado. Use el botón '+' para agregarlo.";
+                                    feedback.textContent = "No existe. Use '+'";
                                     feedback.className = "form-text text-danger";
-                                    ciInput.classList.add('is-invalid');
                                 }
-                            })
-                            .catch(error => {
-                                console.error('Error fetching client:', error);
-                                feedback.textContent = "Error al buscar cliente.";
-                                feedback.className = "form-text text-danger";
                             });
                     }, 400);
                 }
             });
 
-            const modal = new bootstrap.Modal(document.getElementById('modalCliente'));
-            const btnCrearCliente = document.getElementById('btnCrearClienteRapido');
+        // --- LÓGICA MODAL CLIENTE ---
+        btnCrearCliente.addEventListener('click', () => {
+            modalCi.value = ciInput.value;
+            modal.show();
+        });
 
-            const modalCi = document.getElementById('modalCi');
-            const modalNombre = document.getElementById('modalNombre');
-            const modalApellidoP = document.getElementById('modalApellidoP');
-            const modalApellidoM = document.getElementById('modalApellidoM');
-            const modalEmail = document.getElementById('modalEmail');
-            const modalFeedback = document.getElementById('modalFeedback');
+        btnGuardarClienteModal.addEventListener('click', () => {
+            const data = {
+                Ci: modalCi.value,
+                Nombre: modalNombre.value,
+                ApellidoPaterno: modalApellidoP.value,
+                ApellidoMaterno: modalApellidoM.value,
+                Complemento: modalComplemento.value,
+                Email: modalEmail.value,
+                ClienteFrecuente: modalFrecuente.checked
+            };
 
-            const btnGuardarClienteModal = document.getElementById('btnGuardarClienteModal');
-
-            btnCrearCliente.addEventListener('click', () => {
-                modalCi.value = ciInput.value;
-                modal.show();
+            fetch('?handler=CrearCliente', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    const c = data.cliente;
+                    nombreInput.value = `${c.nombre} ${c.apellidoPaterno} ${c.apellidoMaterno || ''}`.trim();
+                    idClienteInput.value = c.id;
+                    ciInput.value = c.ci;
+                    ciInput.classList.add('is-valid');
+                    modal.hide();
+                } else {
+                    modalFeedback.textContent = data.message;
+                }
             });
+        });
 
-            btnGuardarClienteModal.addEventListener('click', () => {
 
-                       const data = {
-            Ci: modalCi.value,
-            Nombre: modalNombre.value,
-            ApellidoPaterno: modalApellidoP.value,
-            ApellidoMaterno: modalApellidoM.value,
-            Complemento: modalComplemento.value,
-            Email: modalEmail.value,
-            ClienteFrecuente: modalFrecuente.checked
-        };
-                fetch('?handler=CrearCliente', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'RequestVerificationToken':
-                            document.querySelector('input[name="__RequestVerificationToken"]').value
-                    },
-                    body: JSON.stringify(data)
-                })
+            // --- LÓGICA BUSCAR PRODUCTO (Sugerencias) ---
+            const inputProducto = document.getElementById('productoBusqueda');
+            const listaSugerencias = document.getElementById('listaProductos');
+
+            inputProducto.addEventListener('input', function () {
+                const term = this.value.trim();
+                if (term.length < 2) {
+                    listaSugerencias.style.display = 'none';
+                    return;
+                }
+                fetch(`?handler=BuscarNombre&termino=${encodeURIComponent(term)}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        listaSugerencias.innerHTML = '';
+                        if (data && data.length > 0) {
+                            data.forEach(nombre => {
+                                const li = document.createElement('li');
+                                li.className = 'list-group-item list-group-item-action';
+                                li.textContent = nombre;
+                                li.onclick = function() {
+                                    inputProducto.value = nombre;
+                                    listaSugerencias.style.display = 'none';
+                                    // CORRECCIÓN: Llamamos a prepararProducto en lugar de agregarProducto
+                                    prepararProducto();
+                                };
+                                listaSugerencias.appendChild(li);
+                            });
+                            listaSugerencias.style.display = 'block';
+                        }
+                    });
+            });
+        });
+
+        // --- LÓGICA PARA AGREGAR PRODUCTOS A LA TABLA ---
+        let productoTemporal = null;
+
+        window.prepararProducto = function() {
+            const nombreBusqueda = document.getElementById('productoBusqueda').value.trim();
+            const feedback = document.getElementById('productoFeedback');
+            const btnAñadir = document.getElementById('btnAñadirLista');
+
+            if (!nombreBusqueda) return;
+
+            fetch(`?handler=ObtenerDetalleProducto&nombre=${encodeURIComponent(nombreBusqueda)}`)
                 .then(res => res.json())
                 .then(data => {
                     if (data.success) {
-                        const c = data.cliente;
-                        const apellidoM = c.apellidoMaterno ? ' ' + c.apellidoMaterno : '';
-
-                        nombreInput.value = `${c.nombre} ${c.apellidoPaterno}${apellidoM}`;
-                        idClienteInput.value = c.id;
-                        ciInput.value = c.ci;
-
-                        feedback.textContent = "Cliente creado y seleccionado.";
-                        feedback.className = "form-text text-success";
-
-                        ciInput.classList.remove('is-invalid');
-                        ciInput.classList.add('is-valid');
-
-                        modal.hide();
+                        productoTemporal = data.producto;
+                        feedback.textContent = `Seleccionado: ${data.producto.nombre} - Bs. ${data.producto.precioUnitario.toFixed(2)}`;
+                        feedback.className = "form-text text-success fw-bold";
+                        btnAñadir.disabled = false;
                     } else {
-                        modalFeedback.textContent = data.message;
+                        productoTemporal = null;
+                        feedback.textContent = "Producto no encontrado.";
+                        feedback.className = "form-text text-danger";
+                        btnAñadir.disabled = true;
                     }
-                })
-                .catch(err => {
-                    console.error(err);
-                    modalFeedback.textContent = "Error al guardar cliente";
                 });
-            });
+        };
 
-        });
+        window.confirmarAñadir = function() {
+            if (!productoTemporal) return;
+
+            const tbody = document.querySelector("#tablaProductos tbody");
+            const fila = `
+            <tr>
+                <td>
+                    <input type="number" class="form-control form-control-sm" value="1" min="1"
+                           oninput="recalcularTotal()" onchange="recalcularTotal()">
+                </td>
+                <td>${productoTemporal.nombre}</td>
+                <td>${productoTemporal.precioUnitario.toFixed(2)}</td>
+                <td class="importe-col">${productoTemporal.precioUnitario.toFixed(2)}</td>
+                <td>
+                    <button type="button" class="btn btn-outline-danger btn-sm"
+                            onclick="this.closest('tr').remove(); recalcularTotal();">×</button>
+                </td>
+            </tr>`;
+
+            tbody.insertAdjacentHTML('beforeend', fila);
+            document.getElementById('productoBusqueda').value = "";
+            document.getElementById('btnAñadirLista').disabled = true;
+            document.getElementById('productoFeedback').textContent = "";
+            productoTemporal = null;
+            recalcularTotal();
+        };
+
+            function recalcularTotal() {
+            let totalGeneral = 0;
+            document.querySelectorAll("#tablaProductos tbody tr").forEach(fila => {
+                const inputCantidad = fila.querySelector('input');
+                const cantidad = parseFloat(inputCantidad.value) || 0;
+                const precio = parseFloat(fila.cells[2].textContent) || 0;
+                const importeFila = cantidad * precio;
+                fila.cells[3].textContent = importeFila.toFixed(2);
+                totalGeneral += importeFila;
+            });
+            const etiquetaTotal = document.getElementById("totalVenta");
+            if (etiquetaTotal) {
+                etiquetaTotal.textContent = totalGeneral.toFixed(2);
+            }
+        }
     </script>
 }
-
-
