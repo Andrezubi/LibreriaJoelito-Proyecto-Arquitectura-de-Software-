@@ -1,5 +1,6 @@
 using LibreriaJoelito.Aplicacion.Servicios;
 using LibreriaJoelito.Dominio.Models;
+using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data;
@@ -10,10 +11,12 @@ namespace LibreriaJoelito.Pages.Ventas
     public class RegistrarModel : PageModel
     {
         private readonly ClienteServicio _clienteServicio;
+        private readonly ProductoServicio _productoServicio;
 
-        public RegistrarModel(ClienteServicio clienteServicio)
+        public RegistrarModel(ClienteServicio clienteServicio, ProductoServicio productoServicio)
         {
             _clienteServicio = clienteServicio;
+            _productoServicio = productoServicio;
         }
 
         public void OnGet()
@@ -52,7 +55,7 @@ namespace LibreriaJoelito.Pages.Ventas
         {
             if (cliente == null)
             {
-                return new JsonResult(new { success = false, message = "Datos inválidos" });
+                return new JsonResult(new { success = false, message = "Datos inv�lidos" });
             }
 
             cliente.Estado = true;
@@ -129,6 +132,42 @@ namespace LibreriaJoelito.Pages.Ventas
                 success = true,
                 clientes = lista
             });
+        }
+        public JsonResult OnGetBuscarNombre(string termino)
+        {
+            DataTable dt = _productoServicio.BuscarPorNombre(termino);
+            var listaNombres = new List<string>();
+            foreach (DataRow row in dt.Rows)
+            {
+                listaNombres.Add(row["Nombre"].ToString());
+            }
+
+            return new JsonResult(listaNombres);
+        }
+        public IActionResult OnGetObtenerDetalleProducto(string nombre)
+        {
+            if (string.IsNullOrEmpty(nombre))
+            {
+                return new JsonResult(new { success = false, message = "El nombre est� vac�o." });
+            }
+            DataTable dtProducto = _productoServicio.BuscarProducto(nombre);
+
+            if (dtProducto.Rows.Count > 0)
+            {
+                DataRow row = dtProducto.Rows[0];
+                return new JsonResult(new
+                {
+                    success = true,
+                    producto = new
+                    {
+                        id = Convert.ToInt32(row["Id"]),
+                        nombre = row["Nombre"].ToString(),
+                        precioUnitario = Convert.ToDecimal(row["Precio"]) 
+                    }
+                });
+            }
+
+            return new JsonResult(new { success = false, message = "Producto no encontrado." });
         }
     }
 }
