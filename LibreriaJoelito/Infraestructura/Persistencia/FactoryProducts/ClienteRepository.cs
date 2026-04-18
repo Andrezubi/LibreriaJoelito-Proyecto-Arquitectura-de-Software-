@@ -124,5 +124,20 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             cmd.Parameters.AddWithValue("@idUsuario", cliente.IdUsuario);
         }
 
+        public DataTable GetAllSimilarId(string ci)
+        {
+            MySqlCommand cmd = new MySqlCommand(@"
+                SELECT Id, Nombre, ApellidoPaterno, ApellidoMaterno,
+                       Ci, Complemento
+                FROM Cliente
+                WHERE Estado = 1 
+                AND CONCAT(Ci, IFNULL(Complemento,'')) LIKE @ci
+                LIMIT 10");
+
+             cmd.Parameters.AddWithValue("@ci", "%" + ci + "%");
+
+             return RepositorioBD.Instancia.ExecuteReturningDataTable(cmd);
+        }
+
     }
 }

@@ -1,7 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using LibreriaJoelito.Aplicacion.Servicios;
 using LibreriaJoelito.Dominio.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Data;
 using System.Security.Claims;
 
 namespace LibreriaJoelito.Pages.Ventas
@@ -24,7 +25,8 @@ namespace LibreriaJoelito.Pages.Ventas
         {
             if (string.IsNullOrWhiteSpace(ci))
                 return new JsonResult(new { success = false, message = "CI no proporcionado" });
-
+            
+            DataTable clientesSimilares = _clienteServicio.GetAllSimilarId(ci);
             var cliente = _clienteServicio.BuscarPorCi(ci);
 
             if (cliente != null)
@@ -45,34 +47,88 @@ namespace LibreriaJoelito.Pages.Ventas
             return new JsonResult(new { success = false, message = "Cliente no encontrado" });
         }
 
-        // --- HU-03 Role B: Quick Client Creation ---
-        public JsonResult OnPostCrearClienteRapido([FromBody] Cliente cliente)
+        [ValidateAntiForgeryToken]
+        public JsonResult OnPostCrearCliente([FromBody] Cliente cliente)
         {
             if (cliente == null)
-                return new JsonResult(new { success = false, message = "Datos de cliente no recibidos" });
-
-            // Asignar auditoria básica (Usuario actual)
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-            if (userIdClaim != null) {
-                cliente.IdUsuario = int.Parse(userIdClaim.Value);
-            } else {
-                cliente.IdUsuario = 1; // Fallback para desarrollo si no hay auth activa
+            {
+                return new JsonResult(new { success = false, message = "Datos inválidos" });
             }
 
-            cliente.ClienteFrecuente = false;
+            cliente.Estado = true;
+            cliente.FechaRegistro = DateTime.Now;
+
+            cliente.IdUsuario = 1;
 
             var result = _clienteServicio.Insert(cliente);
-
-            if (result.IsSuccess)
+            if (result.IsFailure)
             {
-                return new JsonResult(new { 
-                    success = true, 
-                    id = result.Value, 
-                    nombre = $"{cliente.Nombre} {cliente.ApellidoPaterno}"
+                string fullErrorMessage="";
+                foreach (var error in result.Errors)
+                {
+                    var parts = error.Split(':', 2);
+
+                    if (parts.Length == 2)
+                    {
+                        var field = parts[0].Trim();
+                        var message = parts[1].Trim();
+                        fullErrorMessage += $"Error in {field}: {message} \n";
+                        
+                    }
+                    else
+                    {
+                        fullErrorMessage+= $"Error: {error} \n";
+                    }
+                }
+                return new JsonResult(new
+                {
+                    success = false,
+                    message = fullErrorMessage
+                });
+            }
+            var nuevo = _clienteServicio.BuscarPorCi(cliente.Ci);
+
+            return new JsonResult(new
+            {
+                success = true,
+                cliente = new
+                {
+                    nuevo.Id,
+                    nuevo.Nombre,
+                    nuevo.ApellidoPaterno,
+                    nuevo.ApellidoMaterno,
+                    nuevo.Ci
+                }
+            });
+        }
+        public JsonResult OnGetBuscarClientesParcial(string ci)
+        {
+            if (string.IsNullOrWhiteSpace(ci))
+            {
+                return new JsonResult(new { success = false, clientes = new List<object>() });
+            }
+
+            var tabla = _clienteServicio.GetAllSimilarId(ci);
+
+            var lista = new List<object>();
+
+            foreach (DataRow row in tabla.Rows)
+            {
+                lista.Add(new
+                {
+                    id = Convert.ToInt32(row["Id"]),
+                    nombre = row["Nombre"].ToString(),
+                    apellidoPaterno = row["ApellidoPaterno"].ToString(),
+                    apellidoMaterno = row["ApellidoMaterno"] == DBNull.Value ? null : row["ApellidoMaterno"].ToString(),
+                    ci = row["Ci"].ToString()
                 });
             }
 
-            return new JsonResult(new { success = false, errors = result.Errors });
+            return new JsonResult(new
+            {
+                success = true,
+                clientes = lista
+            });
         }
     }
 }

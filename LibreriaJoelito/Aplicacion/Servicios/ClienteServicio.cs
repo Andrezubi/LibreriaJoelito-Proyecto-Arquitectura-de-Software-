@@ -36,6 +36,11 @@ namespace LibreriaJoelito.Aplicacion.Servicios
             };
         }
 
+        public DataTable GetAllSimilarId(string ci)
+        {
+            return clienteRepository.GetAllSimilarId(ci);
+        }
+
         public DataTable GetAll()
         {
             return clienteRepository.GetAll();
