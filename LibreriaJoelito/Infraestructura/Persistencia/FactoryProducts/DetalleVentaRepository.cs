@@ -70,6 +70,22 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             return RepositorioBD.Instancia.ExecuteReturningDataTable(command);
         }
 
+        public DataTable GetDetalleExtraByIdVenta(int idVenta)
+        {
+            string query = @"SELECT dv.IdVenta AS IdVenta, pr.Nombre AS NombreProducto, prs.Nombre AS NombrePresentacion, 
+                                    dv.Cantidad AS Cantidad, dv.PrecioUnitario AS PrecioUnitario, dv.Subtotal AS Subtotal, 
+                                    pp.FactorConversion AS FactorConversion FROM detalleventa dv
+                             INNER JOIN presentacionproducto pp ON dv.IdPresentacion = pp.IdPresentacion AND dv.IdProducto = pp.IdProducto
+                             INNER JOIN producto pr ON dv.IdProducto = pr.Id
+							 INNER JOIN presentacion prs ON dv.IdPresentacion = prs.Id
+                             WHERE dv.IdVenta = @idVenta";
+            MySqlCommand command = new MySqlCommand(query);
+
+            command.Parameters.AddWithValue("@idVenta", idVenta);
+
+            return RepositorioBD.Instancia.ExecuteReturningDataTable(command);
+        }
+
         public int DeleteByIdVenta(int idVenta)
         {
             string query = @"DELETE FROM detalleventa

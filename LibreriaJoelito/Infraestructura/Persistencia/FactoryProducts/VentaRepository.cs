@@ -59,6 +59,27 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             return ExecuteReturningDataRow(command);
         }
 
+        public DataRow GetCabeceraVentaById(int id)
+        {
+            string query = @"SELECT v.Id,
+                                   v.Estado AS EstadoVenta,
+                                   c.Ci AS CiCliente,
+                                   c.Nombre AS NombreCliente,
+                                   u.Nombre AS NombreEmpleado,
+                                   v.Fecha,
+                                   v.Total
+                            FROM venta v
+                            INNER JOIN cliente c ON v.IdCliente = c.Id
+                            INNER JOIN usuario u ON v.IdUsuario = u.Id
+                            WHERE v.Estado=1 and v.Id=@id
+                            ORDER BY v.Fecha DESC";
+
+            MySqlCommand command = new MySqlCommand(query);
+            command.Parameters.AddWithValue("@id", id);
+
+            return ExecuteReturningDataRow(command);
+        }
+
         public DataTable GetByDate(DateTime fechaInicio, DateTime fechaFin)
         {
             string query = @"SELECT  Id, IdCliente, Fecha, Total, FechaRegistro, IdUsuario
