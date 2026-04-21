@@ -71,7 +71,7 @@ builder.Services.AddScoped<ClienteServicio>();
 builder.Services.AddScoped<ProductoServicio>();
 builder.Services.AddScoped<UsuarioServicio>();
 builder.Services.AddScoped<MarcaServicio>();
-builder.Services.AddScoped<IVentaService, VentaService>();
+builder.Services.AddScoped<VentaService>();
 
 // AGREGAR AUTENTICACION
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

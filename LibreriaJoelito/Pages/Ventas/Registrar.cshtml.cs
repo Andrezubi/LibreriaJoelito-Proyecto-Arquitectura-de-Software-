@@ -13,13 +13,13 @@ namespace LibreriaJoelito.Pages.Ventas
     {
         private readonly ClienteServicio _clienteServicio;
         private readonly ProductoServicio _productoServicio;
-        private readonly IVentaService _FachadaVentas;
+        private readonly VentaService _ventaServicio;
 
-        public RegistrarModel(ClienteServicio clienteServicio, ProductoServicio productoServicio, IVentaService fachadaVentas)
+        public RegistrarModel(ClienteServicio clienteServicio, ProductoServicio productoServicio, VentaService ventaServicio)
         {
             _clienteServicio = clienteServicio;
             _productoServicio = productoServicio;
-            _FachadaVentas = fachadaVentas;
+            _ventaServicio = ventaServicio;
         }
 
         public void OnGet()
@@ -138,7 +138,7 @@ namespace LibreriaJoelito.Pages.Ventas
         }
         public JsonResult OnGetBuscarNombre(string termino)
         {
-            DataTable dt = _FachadaVentas.getPresentacionProductosByFrase(termino);
+            DataTable dt = _ventaServicio.getPresentacionProductosByFrase(termino);
             var listaNombres = new List<object>();
             foreach (DataRow row in dt.Rows)
             {
@@ -159,7 +159,7 @@ namespace LibreriaJoelito.Pages.Ventas
             {
                 return new JsonResult(new { success = false, message = "El nombre esta vacio." });
             }
-            return _FachadaVentas.getPresentacionProductoByIds(idProducto,idPresentacion);
+            return _ventaServicio.getPresentacionProductoByIds(idProducto,idPresentacion);
             
         }
 
@@ -185,7 +185,7 @@ namespace LibreriaJoelito.Pages.Ventas
                 total: dto.Detalles.Sum(d => d.Cantidad * d.PrecioUnitario),
                 estado: true
             );
-            var result = _FachadaVentas.RegistrarVenta(venta, dto.Detalles);
+            var result = _ventaServicio.RegistrarVenta(venta, dto.Detalles);
 
             if (result.IsSuccess)
                 return new JsonResult(new { success = true, idVenta = result.Value, message = "Venta registrada correctamente." });

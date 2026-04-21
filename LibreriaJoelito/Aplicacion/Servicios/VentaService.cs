@@ -8,7 +8,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LibreriaJoelito.Aplicacion.Servicios
 {
-    public class VentaService : IVentaService
+    public class VentaService 
     {
         private readonly IVentaRepository _ventaRepository;
         private readonly IDetalleVentaRepository _detalleVentaRepository;
