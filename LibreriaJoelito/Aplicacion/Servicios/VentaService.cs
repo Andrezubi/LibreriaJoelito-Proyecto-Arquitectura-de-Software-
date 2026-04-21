@@ -36,6 +36,12 @@ namespace LibreriaJoelito.Aplicacion.Servicios
         {
             return _presentaProdRepository.obtenerPresentacionProductoDetallado(frase);
         }
+
+        public DataTable LoadVentas()
+        {
+            return _ventaRepository.LoadVentas();
+        }
+
         public Result<int> RegistrarVenta(Venta venta, List<DetalleVenta> detalles)
         {
             try
@@ -185,5 +191,7 @@ namespace LibreriaJoelito.Aplicacion.Servicios
                 return Result<byte[]>.Failure($"Error en fachada de PDF: {ex.Message}");
             }
         }
+
+
     }
 }

@@ -13,8 +13,6 @@ namespace LibreriaJoelito.Pages.Ventas
     {
         public DataTable VentasDataTable { get; set; } = new DataTable();
 
-        public RepositorioBD bd { get; set; } = RepositorioBD.Instancia;
-
         private readonly VentaService _ventaService;
 
         public MostrarVentasModel(VentaService ventaService)
@@ -27,36 +25,10 @@ namespace LibreriaJoelito.Pages.Ventas
 
         public void OnGet()
         {
-            LoadVentas();
+            VentasDataTable = _ventaService.LoadVentas();
         }
 
-        void LoadVentas()
-        {
-            string query = @"
-        SELECT v.Id,
-               v.Estado AS EstadoVenta,
-               c.Ci AS CiCliente,
-               c.Nombre AS NombreCliente,
-               v.Fecha,
-               v.Total,
-               u.Nombre AS NombreEmpleado,
-               dv.Cantidad AS Cantidad,
-               p.Nombre AS NombreProducto,
-               pr.Nombre AS NombrePresentacion,
-               pp.FactorConversion AS FactorConversion
-        FROM venta v
-        INNER JOIN cliente c ON v.IdCliente = c.Id
-        INNER JOIN usuario u ON v.IdUsuario = u.Id
-        INNER JOIN detalleventa dv ON dv.IdVenta = v.Id
-        INNER JOIN producto p ON dv.IdProducto = p.Id
-        INNER JOIN presentacionproducto pp ON dv.IdPresentacion = pp.IdPresentacion AND dv.IdProducto = pp.IdProducto
-        INNER JOIN presentacion pr ON pp.IdPresentacion = pr.Id
-        ORDER BY v.Fecha DESC";
-
-            MySqlCommand cmd = new MySqlCommand(query);
-
-            VentasDataTable = bd.ExecuteReturningDataTable(cmd);
-        }
+        
 
         // EXPORTAR PDF
         public IActionResult OnGetExportarPdf(int id)

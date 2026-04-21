@@ -146,5 +146,25 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 
             return RepositorioBD.Instancia.ExecuteReturningDataTable(command);
         }
+
+
+
+        public DataTable LoadVentas()
+        {
+            string query = @"
+                SELECT v.Id,
+                       v.Estado AS EstadoVenta,
+                       c.Ci AS CiCliente,
+                       c.Nombre AS NombreCliente,
+                       v.Fecha
+                FROM venta v
+                INNER JOIN cliente c ON v.IdCliente = c.Id
+                INNER JOIN usuario u ON v.IdUsuario = u.Id
+                ORDER BY v.Fecha DESC";
+
+            MySqlCommand cmd = new MySqlCommand(query);
+
+            return RepositorioBD.Instancia.ExecuteReturningDataTable(cmd);
+        }
     }
 }
