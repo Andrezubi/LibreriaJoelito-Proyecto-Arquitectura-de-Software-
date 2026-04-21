@@ -36,28 +36,22 @@ namespace LibreriaJoelito.Aplicacion.Servicios
 
         public Result<int> Insert(Producto producto, int idPresentacion, int factorConversion, decimal precioVenta)
         {
-            // Validaciones de negocio preventivas
             if (idPresentacion <= 0) return Result<int>.Failure("Debe seleccionar una presentación válida.");
             if (factorConversion <= 0) return Result<int>.Failure("El factor de conversión debe ser mayor a cero.");
             if (precioVenta <= 0) return Result<int>.Failure("El precio de venta debe ser mayor a cero.");
 
-            // Usamos TransactionScope para que ambas inserciones sean "Todo o Nada"
             using (var scope = new TransactionScope())
             {
                 try
                 {
-                    // 1. Insertamos el producto principal y recuperamos el ID generado
                     int nuevoIdProducto = productoRepository.Insert(producto);
                     if (nuevoIdProducto <= 0) throw new Exception("Error al insertar el producto principal.");
 
-                    // 2. Insertamos la relación (Producto + Presentación + Precio)
-                    // El método en tu Repo espera factorConversion como double, por lo que int pasa sin problema
                     int relacionExitosa = presentacionProductoRepository.InsertarRelacion(
-                        nuevoIdProducto, idPresentacion, factorConversion, precioVenta, producto.IdUsuario);
+                        nuevoIdProducto, idPresentacion, factorConversion, precioVenta, producto.IdUsuario ?? 1);
 
                     if (relacionExitosa <= 0) throw new Exception("Error al asociar la presentación y el precio.");
 
-                    // 3. Confirmamos la transacción
                     scope.Complete();
                     return Result<int>.Success(nuevoIdProducto);
                 }
@@ -65,6 +59,30 @@ namespace LibreriaJoelito.Aplicacion.Servicios
                 {
                     return Result<int>.Failure($"Error en transacción: {ex.Message}");
                 }
+            }
+        }
+
+        // ---> EL NUEVO MÉTODO PARA AGREGAR PRESENTACIONES <---
+        public Result AsociarNuevaPresentacion(int idProducto, int idPresentacion, int factor, decimal precio, int idUsuario)
+        {
+            try
+            {
+                if (idProducto <= 0) return Result.Failure("Producto no válido.");
+                if (idPresentacion <= 0) return Result.Failure("Debe seleccionar una presentación.");
+                if (factor <= 0) return Result.Failure("El factor debe ser mayor a cero.");
+                if (precio <= 0) return Result.Failure("El precio debe ser mayor a cero.");
+
+                // Verificamos si ya existe para evitar errores SQL de llave duplicada
+                var existente = presentacionProductoRepository.GetByIds(idProducto, idPresentacion);
+                if (existente != null) return Result.Failure("Este producto ya tiene registrada esta presentación.");
+
+                int filas = presentacionProductoRepository.InsertarRelacion(idProducto, idPresentacion, factor, precio, idUsuario);
+
+                return filas > 0 ? Result.Success() : Result.Failure("No se pudo registrar la presentación.");
+            }
+            catch (Exception ex)
+            {
+                return Result.Failure("Error de base de datos: " + ex.Message);
             }
         }
 
@@ -86,7 +104,6 @@ namespace LibreriaJoelito.Aplicacion.Servicios
             }
 
             productoRepository.Update(producto);
-
             return Result.Success();
         }
 
