@@ -74,11 +74,23 @@ namespace LibreriaJoelito.Aplicacion.Servicios
                         if (filasDetalle <= 0)
                             throw new Exception($"Error al insertar el detalle para el producto: {_productoRepository.GetById(detalle.IdProducto)?["Nombre"]}");
 
-                        // Descontar Stock y validar suficiencia
-                        int filasStock = _productoRepository.DescontarStock(detalle.IdProducto, detalle.Cantidad);
+                        // --- NUEVA LÓGICA DE FACTOR DE CONVERSIÓN ---
+
+                        // A) Consultamos la presentación a la base de datos para obtener el factor de forma segura
+                        DataRow presentacionRow = _presentaProdRepository.GetByIds(detalle.IdProducto, detalle.IdPresentacion);
+                        if (presentacionRow == null)
+                            throw new Exception("No se encontró la presentación del producto especificado.");
+
+                        int factorConversion = Convert.ToInt32(presentacionRow["FactorConversion"]);
+
+                        // B) Calculamos la cantidad real a descontar del inventario general (unidades)
+                        int cantidadRealADescontar = detalle.Cantidad * factorConversion;
+
+                        // C) Descontamos el stock usando la cantidad real multiplicada
+                        int filasStock = _productoRepository.DescontarStock(detalle.IdProducto, cantidadRealADescontar);
                         if (filasStock <= 0)
                         {
-                            // Si no afectó filas es porque el Stock < Cantidad (validación lógica en el SQL)
+                            // Si no afectó filas es porque el Stock < CantidadReal (validación lógica en el SQL)
                             throw new Exception($"Stock insuficiente para el producto: {_productoRepository.GetById(detalle.IdProducto)?["Nombre"]}");
                         }
                     }
