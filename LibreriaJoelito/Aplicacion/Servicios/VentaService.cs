@@ -100,7 +100,7 @@ namespace LibreriaJoelito.Aplicacion.Servicios
             {
                 var ventaRow = _ventaRepository.GetById(idVenta);
                 if (ventaRow == null)
-                    return Result<int>.Failure("La venta no existe.");
+                    return Result<int>.Failure("La venta ya ha sido anulada antes.");
 
                 RepositorioBD.Instancia.BeginTransaction();
 
@@ -111,7 +111,7 @@ namespace LibreriaJoelito.Aplicacion.Servicios
                     foreach (DataRow row in detallesDt.Rows)
                     {
                         int idProducto = Convert.ToInt32(row["IdProducto"]);
-                        int cantidad = Convert.ToInt32(row["Cantidad"]);
+                        int cantidad = Convert.ToInt32(row["Cantidad"]) * Convert.ToInt32(row["FactorConversion"]);
 
                         int filasStock = _productoRepository.RestaurarStock(idProducto, cantidad);
                         if (filasStock <= 0)

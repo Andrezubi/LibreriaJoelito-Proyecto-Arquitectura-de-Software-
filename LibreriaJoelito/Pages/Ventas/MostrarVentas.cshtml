@@ -38,9 +38,8 @@
                             <thead class="tabla-head-custom">
                                 <tr>
                                     <th>CI Cliente</th>
+                                    <th>Nombre Cliente</th>
                                     <th>Fecha</th>
-                                    <th>Total</th>
-                                    <th>Empleado</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -50,9 +49,8 @@
                                 {
                                     <tr>
                                         <td>@row["CiCliente"]</td>
+										<td>@row["NombreCliente"]</td>
                                         <td>@Convert.ToDateTime(row["Fecha"]).ToString("dd/MM/yyyy")</td>
-                                        <td>@row["Total"] Bs</td>
-                                        <td>@row["NombreEmpleado"]</td>
 
                                         <td>
 
@@ -63,10 +61,25 @@
                                                 <i class="bi bi-eye"> Detalle</i>
                                             </a>
 
-                                    
+                                            @* TODO LLEVAR AL MODAL DE DETALLES *@
                                             <a class="btn btn-danger btn-sm" onclick="prepararAnulacion(@row["Id"])">
                                                 <i class="bi bi-file-earmark-pdf">Anular</i>
                                             </a>
+                                            @* ---- *@
+
+
+                                            <p>
+                                                <i class="bi bi-file-earmark-pdf">
+                                                    @if (row["EstadoVenta"] == DBNull.Value || !(bool)row["EstadoVenta"])
+                                                    {
+                                                        <span class="text-danger fw-bold">Anulada</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-success fw-bold">Activo</span>
+													}
+                                                 </i>
+                                            </p>
 
                                         </td>
                                     </tr>
