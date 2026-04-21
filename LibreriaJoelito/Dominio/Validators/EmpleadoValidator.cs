@@ -13,42 +13,42 @@ namespace LibreriaJoelito.Dominio.Validators
 
             // 1. Nombre
             if (!esNombreValido(emp.Nombre))
-                errores.Add(new ValidationResult("El nombre no es válido (mínimo 2 caracteres y sin espacios a los lados, solo letras).", new[] { "Nombre" }));
+                errores.Add(new ValidationResult("El nombre no es válido (mínimo 2 caracteres y sin espacios a los lados, solo letras).", new[] { "usuario.Nombre" }));
 
             // 2. Apellido
             if (!esApellidoValido(emp.ApellidoPaterno))
-                errores.Add(new ValidationResult("El apellido no es válido (mínimo 4 caracteres Solo letras).", new[] { "ApellidoPaterno" }));
+                errores.Add(new ValidationResult("El apellido no es válido (mínimo 4 caracteres Solo letras).", new[] { "usuario.ApellidoPaterno" }));
 
             if (!esApellidoMaternoValido(emp.ApellidoMaterno))
-                errores.Add(new ValidationResult("El apellido no es válido (mínimo 4 caracteres Solo letras).", new[] { "ApellidoPaterno" }));
+                errores.Add(new ValidationResult("El apellido no es válido (mínimo 4 caracteres Solo letras).", new[] { "usuario.ApellidoPaterno" }));
 
             // 3. CI
             if (!esCiValido(emp.Ci))
-                errores.Add(new ValidationResult("El CI debe tener entre 6 y 11 dígitos.", new[] { "Ci" }));
+                errores.Add(new ValidationResult("El CI debe tener entre 6 y 11 dígitos.", new[] { "usuario.Ci" }));
 
             // 4. Extensión Carnet
             if (!esExtensionCarnetValida(emp.Complemento))
-                errores.Add(new ValidationResult("La extensión del carnet debe estar compuesta de un número y una letra.", new[] { "ExtensionCi" }));
+                errores.Add(new ValidationResult("La extensión del carnet debe estar compuesta de un número y una letra.", new[] { "usuario.Complemento" }));
 
             // 5. Correo
             if (!esCorreoValido(emp.Email))
-                errores.Add(new ValidationResult("El formato del correo electrónico no es correcto.", new[] { "Email" }));
+                errores.Add(new ValidationResult("El formato del correo electrónico no es correcto.", new[] { "usuario.Email" }));
 
             // 6. Fecha Nacimiento
             if (!esFechaNacimientoValida(emp.FechaNacimiento))
-                errores.Add(new ValidationResult("La fecha de nacimiento no es válida (debe ser mayor de 18 años).", new[] { "FechaNacimiento" }));
+                errores.Add(new ValidationResult("La fecha de nacimiento no es válida (debe ser mayor de 18 años).", new[] { "usuario.FechaNacimiento" }));
 
             // 7. Teléfono
             if (!esTelefonoValido(emp.Telefono))
-                errores.Add(new ValidationResult("El número de teléfono debe tener 8 dígitos y no empezar con 0, 5 o 9.", new[] { "Telefono" }));
+                errores.Add(new ValidationResult("El número de teléfono debe tener 8 dígitos y no empezar con 0, 5 o 9.", new[] { "usuario.Telefono" }));
 
             // 8. Dirección
             if (!esDireccionValida(emp.DireccionDomicilio))
-                errores.Add(new ValidationResult("La dirección no es válida (mínimo 10 caracteres).", new[] { "DireccionDomicilio" }));
+                errores.Add(new ValidationResult("La dirección no es válida (mínimo 10 caracteres).", new[] { "usuario.DireccionDomicilio" }));
 
             // 9. Fecha Ingreso
             if (!esFechaIngresoValida(emp.FechaIngreso))
-                errores.Add(new ValidationResult("La fecha de ingreso no es válida (no puede ser una fecha futura).", new[] { "FechaIngreso" }));
+                errores.Add(new ValidationResult("La fecha de ingreso no es válida (no puede ser una fecha futura).", new[] { "usuario.FechaIngreso" }));
 
             return errores;
         }
