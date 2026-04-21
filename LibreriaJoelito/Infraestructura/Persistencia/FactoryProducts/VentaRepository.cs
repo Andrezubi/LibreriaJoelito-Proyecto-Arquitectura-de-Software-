@@ -127,7 +127,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
                     c.Nombre AS ClienteNombre, 
                     c.ApellidoPaterno, 
                     c.ApellidoMaterno,
-                    u.Username AS Cajero,
+                    u.Username AS NombreEmpleado,
                     dv.Cantidad, 
                     CONCAT(pr.Nombre, ' de ', p.Nombre, ' ', m.Nombre) AS DescripcionProducto,
                     dv.PrecioUnitario, 

@@ -1,4 +1,6 @@
 ﻿using LibreriaJoelito.Aplicacion.Interfaces;
+using LibreriaJoelito.Dominio.Models;
+using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
@@ -52,8 +54,8 @@ namespace LibreriaJoelito.Infraestructura.ServiciosExternos
                             tabla.Header(h => {
                                 h.Cell().Border(1).Padding(5).Text("Cant.");
                                 h.Cell().Border(1).Padding(5).Text("Descripción");
-                                h.Cell().Border(1).Padding(5).Text("P. Unit");
-                                h.Cell().Border(1).Padding(5).Text("Importe");
+                                h.Cell().Border(1).Padding(5).Text("P. Unit Bs.");
+                                h.Cell().Border(1).Padding(5).Text("Importe BS.");
                             });
                             foreach (DataRow fila in dt.Rows)
                             {
@@ -67,7 +69,9 @@ namespace LibreriaJoelito.Infraestructura.ServiciosExternos
                         col.Item().Text($"Son: {NumeroALetras(total)}").Bold();
                     });
 
-                    page.Footer().AlignRight().Text($"{DateTime.Now:dd/MM/yyyy HH:mm} - {cabecera["Cajero"]}").Italic();
+                    string nombreEmpleado = cabecera["NombreEmpleado"].ToString();
+
+                    page.Footer().AlignRight().Text($"{DateTime.Now:dd/MM/yyyy HH:mm} - {nombreEmpleado}").Italic();
                 });
             });
 
