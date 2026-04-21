@@ -182,10 +182,70 @@
                         </div>
                     </div>
                 </div>
+
+                    
             </div>
         </div>
     </div>
 </div>
+
+
+    <div class="modal fade" id="modalVentaExitosa" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+            
+                <div class="modal-header modal-header-morado">
+                    <h5 class="modal-title">¡Operación Exitosa!</h5>
+                </div>
+            
+                <div class="modal-body text-center p-4">
+                    <div class="mb-3">
+                        <span style="font-size: 3rem; color: #198754;">✔</span>
+                    </div>
+                    <h4 class="text-success mb-2">Venta Registrada</h4>
+                    <p class="fs-5 text-muted" id="textoVentaExitosa"></p>
+                </div>
+            
+                <div class="modal-footer justify-content-center bg-light">
+                    <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
+                        Hacer Otra Venta
+                    </button>
+                    <button type="button" class="btn btn-sistema" id="btnImprimirComprobante">
+                        Imprimir Comprobante
+                    </button>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalVentaError" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+            
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">Error en la Operación</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            
+                <div class="modal-body text-center p-4">
+                    <div class="mb-3">
+                        <span style="font-size: 3rem; color: #dc3545;">✖</span>
+                    </div>
+                    <h4 class="text-danger mb-2">¡Algo salió mal!</h4>
+                    <p class="fs-5 text-muted" id="textoVentaError"></p>
+                </div>
+            
+                <div class="modal-footer justify-content-center bg-light">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Entendido
+                    </button>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+
+
 @section Scripts {
 <script>
     // ── Scope global compartido ──────────────────────────────────────────
@@ -261,7 +321,10 @@
             // Validar que haya productos
             const filas = document.querySelectorAll('#tablaProductos tbody tr');
             if (filas.length === 0) {
-                alert("Agregue al menos un producto a la venta.");
+                // Usamos el nuevo modal de error en lugar del alert feo
+                document.getElementById('textoVentaError').textContent = "Debe agregar al menos un producto a la venta antes de registrarla.";
+                const modalError = new bootstrap.Modal(document.getElementById('modalVentaError'));
+                modalError.show();
                 return;
             }
 
@@ -296,19 +359,38 @@
                 .then(r => r.json())
                 .then(data => {
                     if (data.success) {
-                        alert(`✔ Venta #${data.idVenta} registrada correctamente.`);
-                        // Limpiar el formulario
-                        document.getElementById('ciCliente').value = '';
-                        document.getElementById('nombreCliente').value = '';
-                        document.getElementById('idCliente').value = '';
-                        document.querySelector('#tablaProductos tbody').innerHTML = '';
-                        document.getElementById('totalVenta').textContent = '0.00';
-                        document.getElementById('ciCliente').classList.remove('is-valid');
+                                // 1. Ocultar la alerta y poner el texto dinámico en el Modal
+                                document.getElementById('textoVentaExitosa').innerHTML = `La venta número <strong>#${data.idVenta}</strong> se ha guardado correctamente.`;
+                        
+                                // 2. Levantar el Modal
+                                const modalExito = new bootstrap.Modal(document.getElementById('modalVentaExitosa'));
+                                modalExito.show();
+
+                                // 3. Guardar el ID de la venta en el botón de Imprimir para usarlo después
+                                document.getElementById('btnImprimirComprobante').dataset.idVenta = data.idVenta;
+
+                                // 4. Limpiar el formulario (Se queda igual)
+                                document.getElementById('ciCliente').value = '';
+                                document.getElementById('nombreCliente').value = '';
+                                document.getElementById('idCliente').value = '';
+                                document.querySelector('#tablaProductos tbody').innerHTML = '';
+                                document.getElementById('totalVenta').textContent = '0.00';
+                                document.getElementById('ciCliente').classList.remove('is-valid');
                     } else {
-                        alert(`✖ Error: ${data.message}`);
+                                // 1. Mostrar el error en el Modal en lugar del alert
+                                document.getElementById('textoVentaError').textContent = data.message;
+                        
+                                // 2. Levantar el Modal de Error
+                                const modalError = new bootstrap.Modal(document.getElementById('modalVentaError'));
+                                modalError.show();
                     }
                 })
-                .catch(() => alert("Error de conexión al registrar la venta."))
+                .catch(() => {
+                            // También cubrimos si se cae el internet o el servidor no responde
+                            document.getElementById('textoVentaError').textContent = "Error de conexión al registrar la venta. Por favor, verifique su red e intente nuevamente.";
+                            const modalError = new bootstrap.Modal(document.getElementById('modalVentaError'));
+                            modalError.show();
+                })
                 .finally(() => {
                     btnGuardar.disabled = false;
                     btnGuardar.textContent = "Registrar Venta";
@@ -482,5 +564,4 @@
         if (etiqueta) etiqueta.textContent = total.toFixed(2);
     }
 </script>
-}
 }

@@ -2,6 +2,7 @@ using LibreriaJoelito.Aplicacion.Interfaces;
 using LibreriaJoelito.Aplicacion.Results;
 using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Infraestructura.Persistencia;
+using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -62,14 +63,14 @@ namespace LibreriaJoelito.Aplicacion.Servicios
                         // Insertar Detalle
                         int filasDetalle = _detalleVentaRepository.Insert(detalle);
                         if (filasDetalle <= 0)
-                            throw new Exception($"Error al insertar el detalle para el producto ID: {detalle.IdProducto}");
+                            throw new Exception($"Error al insertar el detalle para el producto: {_productoRepository.GetById(detalle.IdProducto)?["Nombre"]}");
 
                         // Descontar Stock y validar suficiencia
                         int filasStock = _productoRepository.DescontarStock(detalle.IdProducto, detalle.Cantidad);
                         if (filasStock <= 0)
                         {
                             // Si no afectó filas es porque el Stock < Cantidad (validación lógica en el SQL)
-                            throw new Exception($"Stock insuficiente para el producto ID: {detalle.IdProducto}");
+                            throw new Exception($"Stock insuficiente para el producto: {_productoRepository.GetById(detalle.IdProducto)?["Nombre"]}");
                         }
                     }
 
