@@ -54,7 +54,7 @@
                                         <td>@row["Stock"]</td>
                                         <td>@Convert.ToDateTime(row["FechaRegistro"]).ToString("dd/MM/yyyy")</td>
                                         <td>
-                                            <button class="btn btn-info btn-sm text-white"
+                                            <button class="btn btn-sistema-danger btn-sm text-white"
                                                     onclick="abrirModalAgregarPresentacion('@row["Id"]', '@row["Nombre"]')">
                                                 Nueva Presentacion
                                             </button>
