@@ -204,6 +204,15 @@ namespace LibreriaJoelito.Aplicacion.Servicios
             }
         }
 
+        public (DataRow venta, DataTable detalles) ObtenerVentaCompleta(int idVenta)
+        {
+            var ventaRow = _ventaRepository.GetCabeceraVentaById(idVenta);
+            if (ventaRow == null)
+                throw new Exception("No se encontró la venta.");
 
+            var detalles = _detalleVentaRepository.GetDetalleExtraByIdVenta(idVenta);
+
+            return (ventaRow, detalles);
+        }
     }
 }

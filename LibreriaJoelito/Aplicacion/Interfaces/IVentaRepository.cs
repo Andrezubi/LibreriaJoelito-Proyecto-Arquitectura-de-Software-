@@ -7,6 +7,7 @@ namespace LibreriaJoelito.Aplicacion.Interfaces
 {
     public interface IVentaRepository : IRepository<Venta>
     {
+        DataRow GetCabeceraVentaById(int id);
         DataTable GetByDate(DateTime fechaInicio, DateTime fechaFin);
         DataTable GetByIdCliente(int idCliente);
 
