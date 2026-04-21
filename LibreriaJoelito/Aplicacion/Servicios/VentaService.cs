@@ -111,6 +111,10 @@ namespace LibreriaJoelito.Aplicacion.Servicios
                 return Result<int>.Failure($"Error inesperado: {ex.Message}");
             }
         }
+        public DataTable ObtenerDetalleVenta(int idVenta)
+        {
+            return _detalleVentaRepository.GetByIdVenta(idVenta);
+        }
 
         public Result<int> AnularVenta(int idVenta)
         {

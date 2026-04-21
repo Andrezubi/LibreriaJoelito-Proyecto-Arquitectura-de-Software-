@@ -1,3 +1,4 @@
+using LibreriaJoelito.Aplicacion.Interfaces;
 using LibreriaJoelito.Aplicacion.Servicios;
 using LibreriaJoelito.Infraestructura.Persistencia;
 using Microsoft.AspNetCore.Authorization;
@@ -14,10 +15,11 @@ namespace LibreriaJoelito.Pages.Ventas
         public DataTable VentasDataTable { get; set; } = new DataTable();
 
         private readonly VentaService _ventaService;
-
-        public MostrarVentasModel(VentaService ventaService)
+        private readonly IPdfService _pdfService;
+        public MostrarVentasModel(VentaService ventaService, IPdfService pdfService)
         {
             _ventaService = ventaService;
+            _pdfService = pdfService;
         }
 
         [TempData]
@@ -33,8 +35,20 @@ namespace LibreriaJoelito.Pages.Ventas
         // EXPORTAR PDF
         public IActionResult OnGetExportarPdf(int id)
         {
-            // aquí luego puedes generar el PDF
-            return RedirectToPage(); // placeholder
+            if (id <= 0)
+                return RedirectToPage();
+
+            // 1. Obtener detalle de la venta (debes tener este método)
+            DataTable dt = _ventaService.ObtenerDetalleVenta(id);
+
+            if (dt.Rows.Count == 0)
+                return RedirectToPage();
+
+            // 2. Generar PDF
+            byte[] pdfBytes = _pdfService.GenerarComprobanteVenta(dt);
+
+            // 3. Retornar archivo
+            return File(pdfBytes, "application/pdf", $"Comprobante_Venta_{id}.pdf");
         }
 
         public IActionResult OnPostAnular(int idVenta)
