@@ -47,26 +47,29 @@
                             <tbody>
                                 @foreach (System.Data.DataRow row in Model.VentasDataTable.Rows)
                                 {
+                                    bool ventaActiva = row["EstadoVenta"] != DBNull.Value && (bool)row["EstadoVenta"];
                                     <tr>
                                         <td>@row["CiCliente"]</td>
 										<td>@row["NombreCliente"]</td>
                                         <td>@Convert.ToDateTime(row["Fecha"]).ToString("dd/MM/yyyy")</td>
 
                                         <td>
+                                            @if (ventaActiva)
+                                            {
+                                                <button type="button"
+                                                        class="btn btn-sistema btn-sm btn-ver-detalle"
+                                                        data-idventa="@row["Id"]"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#modalVerDetalleVenta">
+                                                    <i class="bi bi-eye"></i> Detalle
+                                                </button>
 
-                                           
-                                            <a class="btn btn-sistema btn-sm"
-                                               asp-page-handler="DetalleVenta"
-                                               asp-route-id="@row["Id"]">
-                                                <i class="bi bi-eye"> Detalle</i>
-                                            </a>
-
-                                            @* TODO LLEVAR AL MODAL DE DETALLES *@
-                                            <a class="btn btn-danger btn-sm" onclick="prepararAnulacion(@row["Id"])">
-                                                <i class="bi bi-file-earmark-pdf">Anular</i>
-                                            </a>
-                                            @* ---- *@
-
+                                                @* TODO LLEVAR AL MODAL DE DETALLES *@
+                                                <a class="btn btn-danger btn-sm" onclick="prepararAnulacion(@row["Id"])">
+                                                    <i class="bi bi-file-earmark-pdf">Anular</i>
+                                                </a>
+                                                @* ---- *@
+                                            }
 
                                             <p>
                                                 <i class="bi bi-file-earmark-pdf">
@@ -96,30 +99,113 @@
     </div>
 </div>
 
+@* MODAL DE DETALLE VENTA *@
+<div class="modal fade" id="modalVerDetalleVenta" tabindex="-1" aria-labelledby="detalleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header modal-header-morado">
+                <h5 class="modal-title" id="detalleModalLabel">Detalle de Venta</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div id="alertaErrorModal" class="alert alert-danger" style="display:none;"></div>
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Información general de la venta</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-md-3">
+                                <h6 class="text-muted">CI/NIT de Cliente</h6>
+                                <p class="fw-bold" id="modalCiCliente"></p>
+                            </div>
+                            <div class="col-md-3">
+                                <h6 class="text-muted">Nombre de Cliente</h6>
+                                <p class="fw-bold" id="modalNombreCliente"></p>
+                            </div>
+                            <div class="col-md-3">
+                                <h6 class="text-muted">Fecha</h6>
+                                <p class="fw-bold" id="modalFechaVenta"></p>
+                            </div>
+                            <div class="col-md-3">
+                                <h6 class="text-muted">Empleado</h6>
+                                <p class="fw-bold" id="modalNombreEmpleado"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">Detalle de la venta</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-hover text-center">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Presentación</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio Unitario</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="modalDetalleBody">
+                            </tbody>
+
+                            <tfoot>
+                                <tr>
+                                    <td colspan="4" class="text-end fw-bold">Total General:</td>
+                                    <td class="fw-bold text-success" id="modalTotalGeneral"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cerrar
+                </button>
+
+                <button type="button" class="btn btn-info" id="btnImprimirComprobante" data-idventa="">
+                    <i class="bi bi-receipt"></i> Imprimir Comprobante
+                </button>
+
+                <button type="button" class="btn btn-danger" id="btnAnularVenta" data-idventa="">
+                    <i class="bi bi-x-circle"></i> Anular Venta
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="modalAnularVenta" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-danger">
-            
+
             <div class="modal-header bg-danger text-white">
                 <h5 class="modal-title">
                     <i class="bi bi-exclamation-triangle-fill me-2"></i> Advertencia de Anulación
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            
+
             <div class="modal-body p-4">
                 <h5 class="text-center mb-3">¿Está completamente seguro de anular la venta <strong id="lblVentaAnular"></strong>?</h5>
-                
+
                 <div class="alert alert-warning border-warning text-dark shadow-sm">
                     <strong>⚠️ IMPORTANTE:</strong> <br />
                     Esta acción revertirá la transacción. <strong>Solo debe proceder</strong> si se está realizando un reembolso al cliente y/o existe una razón física para que los productos retornen al inventario de la librería.
                 </div>
             </div>
-            
+
             <div class="modal-footer bg-light justify-content-center">
                 <form method="post" asp-page-handler="Anular">
                     <input type="hidden" id="inputIdVentaAnular" name="idVenta" value="" />
-                    
+
                     <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-danger">Sí, Anular Venta y Restaurar Stock</button>
                 </form>
@@ -129,15 +215,98 @@
     </div>
 </div>
 
-
-
 <script>
+        document.addEventListener("click", async function (e) {
+        const boton = e.target.closest(".btn-ver-detalle");
+        if (!boton) return;
+
+        const idVenta = boton.dataset.idventa;
+
+        document.getElementById("btnImprimirComprobante").dataset.idventa = idVenta;
+        document.getElementById("btnAnularVenta").dataset.idventa = idVenta;
+
+        const alertaError = document.getElementById("alertaErrorModal");
+        const bodyDetalle = document.getElementById("modalDetalleBody");
+
+        document.getElementById("modalCiCliente").textContent = "";
+        document.getElementById("modalNombreCliente").textContent = "";
+        document.getElementById("modalFechaVenta").textContent = "";
+        document.getElementById("modalNombreEmpleado").textContent = "";
+        document.getElementById("modalTotalGeneral").textContent = "";
+        bodyDetalle.innerHTML = "";
+        alertaError.style.display = "none";
+        alertaError.textContent = "";
+
+        try {
+            const response = await fetch(`?handler=ObtenerDetalleVenta&idVenta=${idVenta}`);
+            const data = await response.json();
+
+            if (!data.success) {
+                throw new Error(data.message || "No se pudo obtener el detalle.");
+            }
+
+            document.getElementById("modalCiCliente").textContent = data.venta.ciCliente;
+            document.getElementById("modalNombreCliente").textContent = data.venta.nombreCliente;
+            document.getElementById("modalFechaVenta").textContent = data.venta.fecha;
+            document.getElementById("modalNombreEmpleado").textContent = data.venta.empleado;
+            document.getElementById("modalTotalGeneral").textContent = `${data.venta.total} Bs`;
+
+            data.detalles.forEach(item => {
+                const fila = `
+                    <tr>
+                        <td>${item.producto}</td>
+                        <td>${item.presentacion}</td>
+                        <td>${item.cantidad}</td>
+                        <td>${item.precioUnitario} Bs</td>
+                        <td>${item.subtotal} Bs</td>
+                    </tr>
+                `;
+                bodyDetalle.innerHTML += fila;
+            });
+
+        } catch (error) {
+            alertaError.textContent = error.message;
+            alertaError.style.display = "block";
+        }
+    });
+
+    document.getElementById("btnAnularVenta").addEventListener("click", function () {
+        const idVenta = this.dataset.idventa;
+
+        if (!idVenta) {
+            alert("No se encontró el ID de la venta.");
+            return;
+        }
+
+        prepararAnulacion(idVenta);
+    });
+
     function prepararAnulacion(idVenta) {
         document.getElementById('lblVentaAnular').textContent = "#" + idVenta;
         
         document.getElementById('inputIdVentaAnular').value = idVenta;
-        
-        var myModal = new bootstrap.Modal(document.getElementById('modalAnularVenta'));
-        myModal.show();
+
+        const modalDetalle = bootstrap.Modal.getInstance(document.getElementById('modalVerDetalleVenta'));
+        if (modalDetalle) {
+            modalDetalle.hide();
+        }
+
+        setTimeout(() => {
+            const modalAnular = new bootstrap.Modal(document.getElementById('modalAnularVenta'));
+            modalAnular.show();
+        }, 300);
     }
+
+    document.getElementById("btnImprimirComprobante").addEventListener("click", function () {
+        const idVenta = this.dataset.idventa;
+
+        if (!idVenta) {
+            alert("No se encontró el ID de la venta.");
+            return;
+        }
+
+        const url = `?handler=ExportarPdf&idVenta=${idVenta}`;
+
+        window.open(url, "_blank");
+    });
 </script>

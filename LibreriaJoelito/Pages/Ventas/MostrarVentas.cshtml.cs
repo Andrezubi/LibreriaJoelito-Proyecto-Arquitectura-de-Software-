@@ -1,4 +1,5 @@
 using LibreriaJoelito.Aplicacion.Servicios;
+using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Infraestructura.Persistencia;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,10 +33,30 @@ namespace LibreriaJoelito.Pages.Ventas
         
 
         // EXPORTAR PDF
-        public IActionResult OnGetExportarPdf(int id)
+        public IActionResult OnGetExportarPdf(int idVenta)
         {
-            // aquí luego puedes generar el PDF
-            return RedirectToPage(); // placeholder
+            if (idVenta <= 0)
+            {
+                return BadRequest("ID de venta inválido.");
+            }
+
+            var result = _ventaService.GenerarComprobantePdf(idVenta);
+
+            if (result.IsFailure)
+            {
+                return Content($"Error: {string.Join(", ", result.Errors)}");
+            }
+
+            string nombreArchivo = $"Comprobante_Venta_{idVenta}.pdf";
+
+            var contentDisposition = new System.Net.Mime.ContentDisposition
+            {
+                FileName = nombreArchivo,
+                Inline = true
+            };
+            Response.Headers.Append("Content-Disposition", contentDisposition.ToString());
+
+            return File(result.Value, "application/pdf");
         }
 
         public IActionResult OnPostAnular(int idVenta)
@@ -56,6 +77,54 @@ namespace LibreriaJoelito.Pages.Ventas
             }
 
             return RedirectToPage();
+        }
+
+        public JsonResult OnGetObtenerDetalleVenta(int idVenta)
+        {
+            try
+            {
+                var resultado = _ventaService.ObtenerVentaCompleta(idVenta);
+
+                var venta = resultado.venta;
+                var detalles = resultado.detalles;
+
+                var listaDetalles = new List<object>();
+
+                foreach (DataRow row in detalles.Rows)
+                {
+                    listaDetalles.Add(new
+                    {
+                        producto = row["NombreProducto"]?.ToString(),
+                        presentacion = row["NombrePresentacion"]?.ToString(),
+                        cantidad = Convert.ToInt32(row["Cantidad"]),
+                        precioUnitario = Convert.ToDecimal(row["PrecioUnitario"]),
+                        subtotal = Convert.ToDecimal(row["Subtotal"])
+                    });
+                }
+
+                return new JsonResult(new
+                {
+                    success = true,
+                    venta = new
+                    {
+                        idVenta = Convert.ToInt32(venta["Id"]),
+                        ciCliente = venta["CiCliente"]?.ToString(),
+                        nombreCliente = venta["NombreCliente"]?.ToString(),
+                        fecha = Convert.ToDateTime(venta["Fecha"]).ToString("dd/MM/yyyy"),
+                        empleado = venta["NombreEmpleado"]?.ToString(),
+                        total = Convert.ToDecimal(venta["Total"])
+                    },
+                    detalles = listaDetalles
+                });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
         }
     }
 }
