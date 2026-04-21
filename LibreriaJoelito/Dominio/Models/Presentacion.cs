@@ -8,12 +8,12 @@
         public bool Estado { get; set; } = true;
         public DateTime FechaRegistro { get; set; }
         public DateTime? FechaUltimaActualizacion { get; set; }
-        public int IdUsuario { get; set; }
+        public int? IdUsuario { get; set; }
         #endregion
 
         #region Constructores
         public Presentacion() { }
-        public Presentacion(string nombre, int idUsuario)
+        public Presentacion(string nombre, int? idUsuario)
         {
             Nombre = nombre;
             Estado = true;

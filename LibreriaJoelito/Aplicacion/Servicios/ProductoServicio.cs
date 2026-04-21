@@ -2,21 +2,25 @@
 using LibreriaJoelito.Aplicacion.Results;
 using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Dominio.Validators;
-using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
-using MySqlX.XDevAPI;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Transactions;
 
 namespace LibreriaJoelito.Aplicacion.Servicios
 {
     public class ProductoServicio
     {
         private readonly IProductoRepository productoRepository;
+        private readonly IPresentacionProductoRepository presentacionProductoRepository;
         private readonly ProductValidator productoValidator;
 
-        public ProductoServicio(IProductoRepository productoRepository, ProductValidator productoValidator)
+        public ProductoServicio(
+            IProductoRepository productoRepository,
+            IPresentacionProductoRepository presentacionProductoRepository,
+            ProductValidator productoValidator)
         {
             this.productoRepository = productoRepository;
+            this.presentacionProductoRepository = presentacionProductoRepository;
             this.productoValidator = productoValidator;
         }
 
@@ -30,26 +34,67 @@ namespace LibreriaJoelito.Aplicacion.Servicios
             return productoRepository.GetById(id);
         }
 
-        public Result Insert(Producto producto)
+        public Result<int> Insert(Producto producto, int idPresentacion, int factorConversion, decimal precioVenta)
         {
-            var validationResults = productoValidator.ValidarProducto(producto);
+            // 1. Validaciones básicas
+            if (idPresentacion <= 0) return Result<int>.Failure("Debe seleccionar una presentación válida.");
+            if (factorConversion <= 0) return Result<int>.Failure("El factor de conversión debe ser mayor a cero.");
+            if (precioVenta <= 0) return Result<int>.Failure("El precio de venta debe ser mayor a cero.");
 
-            if (validationResults.Any())
+            using (var scope = new TransactionScope())
             {
-                var errors = validationResults
-                    .Select(v =>
-                    {
-                        var field = v.MemberNames.FirstOrDefault() ?? "General";
-                        return $"{field}: {v.ErrorMessage}";
-                    })
-                    .ToList();
+                try
+                {
+                    // 2. Insertamos el producto principal y recuperamos el ID generado
+                    int nuevoIdProducto = productoRepository.Insert(producto);
+                    if (nuevoIdProducto <= 0) throw new Exception("Error al insertar el producto principal.");
 
-                return Result.Failure(errors);
+                    // 3. VALIDACIÓN DE DUPLICADOS (Opcional aquí, pero recomendada)
+                    var existente = presentacionProductoRepository.GetByIds(nuevoIdProducto, idPresentacion);
+                    if (existente != null)
+                        return Result<int>.Failure("Esta combinación de producto y presentación ya existe.");
+
+                    // 4. Insertamos la relación
+                    int relacionExitosa = presentacionProductoRepository.InsertarRelacion(
+                        nuevoIdProducto, idPresentacion, factorConversion, precioVenta, producto.IdUsuario ?? 1);
+
+                    if (relacionExitosa <= 0) throw new Exception("Error al asociar la presentación y el precio.");
+
+                    scope.Complete();
+                    return Result<int>.Success(nuevoIdProducto);
+                }
+                catch (Exception ex)
+                {
+                    return Result<int>.Failure($"Error en transacción: {ex.Message}");
+                }
             }
+        }
 
-            productoRepository.Insert(producto);
+        // ---> EL NUEVO MÉTODO PARA AGREGAR PRESENTACIONES <---
+        public Result AsociarNuevaPresentacion(int idProducto, int idPresentacion, int factor, decimal precio, int idUsuario)
+        {
+            try
+            {
+                // 1. Validaciones de negocio
+                if (idProducto <= 0) return Result.Failure("Producto no válido.");
+                if (idPresentacion <= 0) return Result.Failure("Debe seleccionar una presentación.");
 
-            return Result.Success();
+                // 2. 🔥 REVISIÓN DE DUPLICADOS: Consultamos si ya existe la llave compuesta
+                var existente = presentacionProductoRepository.GetByIds(idProducto, idPresentacion);
+                if (existente != null)
+                {
+                    return Result.Failure("Este producto ya tiene registrada esa presentación.");
+                }
+
+                // 3. Si no existe, procedemos con la inserción
+                int filas = presentacionProductoRepository.InsertarRelacion(idProducto, idPresentacion, factor, precio, idUsuario);
+
+                return filas > 0 ? Result.Success() : Result.Failure("No se pudo registrar la presentación.");
+            }
+            catch (Exception ex)
+            {
+                return Result.Failure("Error de base de datos: " + ex.Message);
+            }
         }
 
         public Result Update(Producto producto)
@@ -70,7 +115,6 @@ namespace LibreriaJoelito.Aplicacion.Servicios
             }
 
             productoRepository.Update(producto);
-
             return Result.Success();
         }
 

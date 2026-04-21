@@ -112,7 +112,7 @@ namespace LibreriaJoelito.Aplicacion.Servicios
             }
         }
 
-        public Result<int> AnularVenta(int idVenta)
+        public Result<int> AnularVenta(int idVenta, int idEmpleado)
         {
             try
             {
@@ -139,7 +139,7 @@ namespace LibreriaJoelito.Aplicacion.Servicios
                     Venta venta = new Venta
                     {
                         Id = idVenta,
-                        IdUsuario = Convert.ToInt32(ventaRow["IdUsuario"])
+                        IdUsuario = idEmpleado
                     };
 
                     int resultado = _ventaRepository.Delete(venta);

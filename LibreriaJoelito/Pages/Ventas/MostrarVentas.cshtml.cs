@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
 using System.Data;
+using System.Security.Claims;
 
 namespace LibreriaJoelito.Pages.Ventas
 {
@@ -62,7 +63,9 @@ namespace LibreriaJoelito.Pages.Ventas
         {
             if (idVenta <= 0) return RedirectToPage();
 
-            var resultado = _ventaService.AnularVenta(idVenta);
+            int idEmpleado= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+            var resultado = _ventaService.AnularVenta(idVenta, idEmpleado);
 
             if (resultado.IsSuccess)
             {
