@@ -106,10 +106,12 @@
     display: flex;
     flex-direction: column;
     padding-top: 25px;
-    height: calc(100vh - 80px);
+    height: 100vh;
+    position: sticky;
+    top: 80px;
     box-shadow: 2px 0 10px rgba(0,0,0,0.08);
     border-right: 1px solid rgba(0,0,0,0.08);
-    
+    overflow-y: auto;
 }
 /* menu items */
 
@@ -816,3 +818,49 @@ select.form-control {
         font-size: 13px;
         color: #555;
     }
+.btn-cancelarlog {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    background: #8a8f98; /* gris del sistema */
+    color: white;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 10px;
+    transition: all 0.2s ease;
+}
+
+    .btn-cancelarlog:hover {
+        background: #6f757d;
+        transform: translateY(-1px);
+    }
+
+/* BOTON VERDE (CONFIRMAR) */
+.btn-confirmar {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    background: #5FB8A5; 
+    color: white;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+.btn-info {
+    background: #7b35be;
+    font-size: 16px;
+    color: white;
+    border: none;
+}
+
+.btn-confirmar:hover {
+    background: #4aa894;
+    transform: translateY(-1px);
+}
+.header-sistema {
+    background-color: #5FB8A5;
+    color: white;
+    font-weight: 600;
+}
