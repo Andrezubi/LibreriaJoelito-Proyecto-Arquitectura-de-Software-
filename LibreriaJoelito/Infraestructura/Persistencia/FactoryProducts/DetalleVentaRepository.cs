@@ -58,8 +58,11 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 
         public DataTable GetByIdVenta(int idVenta)
         {
-            string query = @"SELECT IdVenta, IdProducto, IdPresentacion, Cantidad, PrecioUnitario, Subtotal FROM detalleventa
-                             WHERE IdVenta = @idVenta";
+            string query = @"SELECT dv.IdVenta AS IdVenta, dv.IdProducto AS IdProducto, dv.IdPresentacion AS IdPresentacion, 
+                                    dv.Cantidad AS Cantidad, dv.PrecioUnitario AS PrecioUnitario, dv.Subtotal AS Subtotal, 
+                                    pp.FactorConversion AS FactorConversion FROM detalleventa dv
+                             INNER JOIN presentacionproducto pp ON dv.IdPresentacion = pp.IdPresentacion AND dv.IdProducto = pp.IdProducto
+                             WHERE dv.IdVenta = @idVenta";
             MySqlCommand command = new MySqlCommand(query);
 
             command.Parameters.AddWithValue("@idVenta", idVenta);

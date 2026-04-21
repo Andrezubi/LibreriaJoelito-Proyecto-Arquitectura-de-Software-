@@ -33,6 +33,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
                                     pp.IdProducto,
                                     pp.IdPresentacion,
                                     pp.Precio,
+                                    pp.FactorConversion AS FactorConversion,
                                     p.Nombre AS Producto,
                                     pr.Nombre AS Presentacion,
                                     m.Nombre AS Marca,

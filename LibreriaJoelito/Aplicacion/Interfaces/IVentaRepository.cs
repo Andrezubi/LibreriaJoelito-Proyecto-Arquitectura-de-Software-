@@ -11,5 +11,7 @@ namespace LibreriaJoelito.Aplicacion.Interfaces
         DataTable GetByIdCliente(int idCliente);
 
         DataTable ObtenerDatosComprobante(int idVenta);
+
+        DataTable LoadVentas();
     }
 }
