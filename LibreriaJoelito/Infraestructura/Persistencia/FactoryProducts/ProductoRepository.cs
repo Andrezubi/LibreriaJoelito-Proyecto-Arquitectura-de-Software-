@@ -64,7 +64,8 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
         public int Insert(Producto producto)
         {
             string query = @"INSERT INTO producto ( Nombre,IdCategoria,IdMarca,Stock,FechaRegistro,IdUsuario)
-                            VALUES (@nombre,@idCategoria,@idMarca,@stock,@fechaRegistro,@idUsuario)";
+                            VALUES (@nombre,@idCategoria,@idMarca,@stock,@fechaRegistro,@idUsuario);
+                            SELECT LAST_INSERT_ID();";
             MySqlCommand command = new MySqlCommand(query);
 
             command.Parameters.AddWithValue("@nombre", producto.Nombre);
@@ -73,7 +74,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             command.Parameters.AddWithValue("@stock", producto.Stock);
             command.Parameters.AddWithValue("@fechaRegistro",producto.FechaRegistro);
             command.Parameters.AddWithValue("@idUsuario", producto.IdUsuario);
-            return ExecuteNonQuery(command);
+            return Convert.ToInt32(RepositorioBD.Instancia.ExecuteScalar(command));
         }
 
         public int Update(Producto producto)

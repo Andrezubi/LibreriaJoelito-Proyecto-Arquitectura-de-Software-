@@ -10,12 +10,12 @@
         public bool Estado { get; set; }
         public DateTime FechaRegistro { get; set; }
         public DateTime? FechaUltimaActualizacion { get; set; } 
-        public int IdUsuario { get; set; }
+        public int? IdUsuario { get; set; }
         #endregion
 
         #region Constructores
         public PresentacionProducto() { }
-        public PresentacionProducto(int idProducto, int idPresentacion, int factorConversion, decimal precio, int idUsuario)
+        public PresentacionProducto(int idProducto, int idPresentacion, int factorConversion, decimal precio, int? idUsuario)
         {
             IdProducto = idProducto;
             IdPresentacion = idPresentacion;

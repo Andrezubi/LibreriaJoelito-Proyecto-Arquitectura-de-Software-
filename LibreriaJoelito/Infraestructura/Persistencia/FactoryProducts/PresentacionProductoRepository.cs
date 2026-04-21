@@ -100,5 +100,20 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
         {
             throw new NotImplementedException();
         }
+
+        public int InsertarRelacion(int idProducto, int idPresentacion, double factorConversion, decimal precio, int? idUsuario)
+        {
+            string query = @"INSERT INTO presentacionproducto (IdProducto, IdPresentacion, FactorConversion, Precio, IdUsuario) 
+                     VALUES (@idProd, @idPres, @factor, @precio, @idUsu)";
+
+            MySqlCommand cmd = new MySqlCommand(query);
+            cmd.Parameters.AddWithValue("@idProd", idProducto);
+            cmd.Parameters.AddWithValue("@idPres", idPresentacion);
+            cmd.Parameters.AddWithValue("@factor", factorConversion);
+            cmd.Parameters.AddWithValue("@precio", precio);
+            cmd.Parameters.AddWithValue("@idUsu", idUsuario);
+
+            return ExecuteNonQuery(cmd);
+        }
     }
 }

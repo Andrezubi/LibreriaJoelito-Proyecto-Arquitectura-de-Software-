@@ -2,21 +2,25 @@
 using LibreriaJoelito.Aplicacion.Results;
 using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Dominio.Validators;
-using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
-using MySqlX.XDevAPI;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Transactions;
 
 namespace LibreriaJoelito.Aplicacion.Servicios
 {
     public class ProductoServicio
     {
         private readonly IProductoRepository productoRepository;
+        private readonly IPresentacionProductoRepository presentacionProductoRepository;
         private readonly ProductValidator productoValidator;
 
-        public ProductoServicio(IProductoRepository productoRepository, ProductValidator productoValidator)
+        public ProductoServicio(
+            IProductoRepository productoRepository,
+            IPresentacionProductoRepository presentacionProductoRepository,
+            ProductValidator productoValidator)
         {
             this.productoRepository = productoRepository;
+            this.presentacionProductoRepository = presentacionProductoRepository;
             this.productoValidator = productoValidator;
         }
 
@@ -30,26 +34,38 @@ namespace LibreriaJoelito.Aplicacion.Servicios
             return productoRepository.GetById(id);
         }
 
-        public Result Insert(Producto producto)
+        public Result<int> Insert(Producto producto, int idPresentacion, int factorConversion, decimal precioVenta)
         {
-            var validationResults = productoValidator.ValidarProducto(producto);
+            // Validaciones de negocio preventivas
+            if (idPresentacion <= 0) return Result<int>.Failure("Debe seleccionar una presentación válida.");
+            if (factorConversion <= 0) return Result<int>.Failure("El factor de conversión debe ser mayor a cero.");
+            if (precioVenta <= 0) return Result<int>.Failure("El precio de venta debe ser mayor a cero.");
 
-            if (validationResults.Any())
+            // Usamos TransactionScope para que ambas inserciones sean "Todo o Nada"
+            using (var scope = new TransactionScope())
             {
-                var errors = validationResults
-                    .Select(v =>
-                    {
-                        var field = v.MemberNames.FirstOrDefault() ?? "General";
-                        return $"{field}: {v.ErrorMessage}";
-                    })
-                    .ToList();
+                try
+                {
+                    // 1. Insertamos el producto principal y recuperamos el ID generado
+                    int nuevoIdProducto = productoRepository.Insert(producto);
+                    if (nuevoIdProducto <= 0) throw new Exception("Error al insertar el producto principal.");
 
-                return Result.Failure(errors);
+                    // 2. Insertamos la relación (Producto + Presentación + Precio)
+                    // El método en tu Repo espera factorConversion como double, por lo que int pasa sin problema
+                    int relacionExitosa = presentacionProductoRepository.InsertarRelacion(
+                        nuevoIdProducto, idPresentacion, factorConversion, precioVenta, producto.IdUsuario);
+
+                    if (relacionExitosa <= 0) throw new Exception("Error al asociar la presentación y el precio.");
+
+                    // 3. Confirmamos la transacción
+                    scope.Complete();
+                    return Result<int>.Success(nuevoIdProducto);
+                }
+                catch (Exception ex)
+                {
+                    return Result<int>.Failure($"Error en transacción: {ex.Message}");
+                }
             }
-
-            productoRepository.Insert(producto);
-
-            return Result.Success();
         }
 
         public Result Update(Producto producto)

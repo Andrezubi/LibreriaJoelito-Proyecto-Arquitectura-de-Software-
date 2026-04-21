@@ -55,10 +55,20 @@ builder.Services.AddScoped<IRepository<PresentacionProducto>>(provider =>
     return new PresentacionProductoCreator().CreateRepository();
 });
 builder.Services.AddTransient<IProductoRepository, ProductoRepository>();
+builder.Services.AddTransient<IPresentacionProductoRepository, PresentacionProductoRepository>();
+
+builder.Services.AddScoped<IRepository<Presentacion>>(provider =>
+{
+    return new PresentacionCreatorRepository().CreateRepository();
+});
+
+// 👉 ¡AGREGA ESTA LÍNEA EXACTAMENTE AQUÍ! 👈
+builder.Services.AddTransient<IPresentacionRepository, PresentacionRepository>();
 
 builder.Services.AddScoped<IVentaRepository>(provider => {
     return (IVentaRepository)new VentaCreatorRepository().CreateRepository();
 });
+
 
 builder.Services.AddScoped<IDetalleVentaRepository>(provider => {
     return (IDetalleVentaRepository)new DetalleVentaCreatorRepository().CreateRepository();
@@ -78,6 +88,7 @@ builder.Services.AddScoped<ProductoServicio>();
 builder.Services.AddScoped<UsuarioServicio>();
 builder.Services.AddScoped<MarcaServicio>();
 builder.Services.AddScoped<VentaService>();
+builder.Services.AddScoped<PresentacionServicio>();
 
 // AGREGAR AUTENTICACION
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
