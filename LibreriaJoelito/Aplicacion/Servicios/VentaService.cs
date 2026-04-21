@@ -16,11 +16,13 @@ namespace LibreriaJoelito.Aplicacion.Servicios
         private readonly IProductoRepository _productoRepository;
         private readonly IClienteRepository _clienteRepository;
         private readonly IPresentacionProductoRepository _presentaProdRepository;
+        private readonly IPdfService _pdfService;
         public VentaService(
             IPresentacionProductoRepository presentProdRepository,
             IVentaRepository ventaRepository,
             IDetalleVentaRepository detalleVentaRepository,
             IProductoRepository productoRepository,
+            IPdfService pdfService,
             IClienteRepository clienteRepository)
         {
             _ventaRepository = ventaRepository;
@@ -28,6 +30,7 @@ namespace LibreriaJoelito.Aplicacion.Servicios
             _productoRepository = productoRepository;
             _clienteRepository = clienteRepository;
             _presentaProdRepository = presentProdRepository;
+            _pdfService = pdfService;
         }
         public DataTable getPresentacionProductosByFrase(string frase)
         {
@@ -138,6 +141,27 @@ namespace LibreriaJoelito.Aplicacion.Servicios
             }
 
             return new JsonResult(new { success = false });
+        }
+
+        public Result<byte[]> GenerarComprobantePdf(int idVenta)
+        {
+            try
+            {
+                // 1. Pedimos los datos al repositorio (La consulta de los Joins)
+                DataTable dt = _ventaRepository.ObtenerDatosComprobante(idVenta);
+
+                if (dt == null || dt.Rows.Count == 0)
+                    return Result<byte[]>.Failure("No se encontró la venta.");
+
+                // 2. Delegamos la creación del archivo al servicio especializado
+                byte[] pdf = _pdfService.GenerarComprobanteVenta(dt);
+
+                return Result<byte[]>.Success(pdf);
+            }
+            catch (Exception ex)
+            {
+                return Result<byte[]>.Failure($"Error en fachada de PDF: {ex.Message}");
+            }
         }
     }
 }

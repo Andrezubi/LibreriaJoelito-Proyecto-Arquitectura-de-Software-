@@ -113,5 +113,38 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
         {
             return false;
         }
+
+        public DataTable ObtenerDatosComprobante(int idVenta)
+        {
+            string query = @"
+                SELECT 
+                    v.Id AS VentaId, 
+                    v.Fecha, 
+                    v.Total,
+                    v.FechaRegistro,
+                    c.Ci, 
+                    c.Complemento, 
+                    c.Nombre AS ClienteNombre, 
+                    c.ApellidoPaterno, 
+                    c.ApellidoMaterno,
+                    u.Username AS Cajero,
+                    dv.Cantidad, 
+                    CONCAT(pr.Nombre, ' de ', p.Nombre, ' ', m.Nombre) AS DescripcionProducto,
+                    dv.PrecioUnitario, 
+                    dv.Subtotal
+                FROM venta v
+                INNER JOIN cliente c ON v.IdCliente = c.Id
+                INNER JOIN usuario u ON v.IdUsuario = u.Id
+                INNER JOIN detalleventa dv ON v.Id = dv.IdVenta
+                INNER JOIN producto p ON dv.IdProducto = p.Id
+                INNER JOIN marca m ON p.IdMarca = m.Id
+                INNER JOIN presentacion pr ON dv.IdPresentacion = pr.Id
+                WHERE v.Id = @idVenta AND v.Estado = 1";
+
+            MySqlCommand command = new MySqlCommand(query);
+            command.Parameters.AddWithValue("@idVenta", idVenta);
+
+            return RepositorioBD.Instancia.ExecuteReturningDataTable(command);
+        }
     }
 }

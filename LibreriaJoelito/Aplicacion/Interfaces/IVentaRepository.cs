@@ -9,5 +9,7 @@ namespace LibreriaJoelito.Aplicacion.Interfaces
     {
         DataTable GetByDate(DateTime fechaInicio, DateTime fechaFin);
         DataTable GetByIdCliente(int idCliente);
+
+        DataTable ObtenerDatosComprobante(int idVenta);
     }
 }

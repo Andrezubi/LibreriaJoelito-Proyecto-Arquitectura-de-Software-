@@ -563,5 +563,25 @@
         const etiqueta = document.getElementById('totalVenta');
         if (etiqueta) etiqueta.textContent = total.toFixed(2);
     }
+
+
+    // 1. Escuchar el clic en el botón de "Imprimir Comprobante" dentro del Modal de éxito
+    document.getElementById('btnImprimirComprobante').addEventListener('click', function () {
+        // Recuperamos el ID de la venta que guardamos anteriormente en el dataset del botón
+        const idVenta = this.dataset.idVenta;
+
+        if (idVenta) {
+            // 2. Armar la URL para llamar al handler OnGetImprimirComprobante
+            // Se abre en una pestaña nueva ('_blank')
+            window.open(`?handler=ImprimirComprobante&idVenta=${idVenta}`, '_blank');
+        
+            // 3. Ocultar el modal de éxito (puedes decidir si quieres hacerlo o no)
+            const modalExito = bootstrap.Modal.getInstance(document.getElementById('modalVentaExitosa'));
+            modalExito.hide();
+        } else {
+            // Puedes mostrar un error si el ID no se guardó correctamente
+            alert("Error al intentar imprimir el comprobante: ID de venta no encontrado.");
+        }
+    });
 </script>
 }

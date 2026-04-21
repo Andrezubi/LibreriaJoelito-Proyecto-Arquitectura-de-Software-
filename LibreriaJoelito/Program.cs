@@ -12,8 +12,14 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Licencia para Pdfs
+QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
+
 // Registro de IEmailService
 builder.Services.AddTransient<IEmailService, EmailService>();
+
+// Registro de IPdfService
+builder.Services.AddScoped<IPdfService, PdfService>();
 
 // Registro de Password Hasher
 builder.Services.AddTransient<IPasswordHasher, LibreriaJoelito.Infraestructura.Encryptacion.SimpleHasher>();

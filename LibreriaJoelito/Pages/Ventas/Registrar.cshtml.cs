@@ -163,6 +163,34 @@ namespace LibreriaJoelito.Pages.Ventas
             
         }
 
+
+        public IActionResult OnGetImprimirComprobante(int idVenta)
+        {
+            if (idVenta <= 0)
+            {
+                return BadRequest("ID de venta inválido.");
+            }
+
+            var result = _ventaServicio.GenerarComprobantePdf(idVenta);
+
+            if (result.IsFailure)
+            {
+                return Content($"Error: {string.Join(", ", result.Errors)}");
+            }
+
+            string nombreArchivo = $"Comprobante_Venta_{idVenta}.pdf";
+
+            var contentDisposition = new System.Net.Mime.ContentDisposition
+            {
+                FileName = nombreArchivo,
+                Inline = true
+            };
+            Response.Headers.Append("Content-Disposition", contentDisposition.ToString());
+
+            return File(result.Value, "application/pdf");
+        }
+
+
         public class RegistrarVentaDto
         {
             public int IdCliente { get; set; }
