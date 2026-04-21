@@ -2,6 +2,9 @@ using LibreriaJoelito.Aplicacion.Interfaces;
 using LibreriaJoelito.Aplicacion.Results;
 using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Infraestructura.Persistencia;
+using Microsoft.AspNetCore.Mvc;
+using System.Data;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LibreriaJoelito.Aplicacion.Servicios
 {
@@ -11,8 +14,9 @@ namespace LibreriaJoelito.Aplicacion.Servicios
         private readonly IDetalleVentaRepository _detalleVentaRepository;
         private readonly IProductoRepository _productoRepository;
         private readonly IClienteRepository _clienteRepository;
-
+        private readonly IPresentacionProductoRepository _presentaProdRepository;
         public VentaService(
+            IPresentacionProductoRepository presentProdRepository,
             IVentaRepository ventaRepository,
             IDetalleVentaRepository detalleVentaRepository,
             IProductoRepository productoRepository,
@@ -22,8 +26,12 @@ namespace LibreriaJoelito.Aplicacion.Servicios
             _detalleVentaRepository = detalleVentaRepository;
             _productoRepository = productoRepository;
             _clienteRepository = clienteRepository;
+            _presentaProdRepository = presentProdRepository;
         }
-
+        public DataTable getPresentacionProductosByFrase(string frase)
+        {
+            return _presentaProdRepository.obtenerPresentacionProductoDetallado(frase);
+        }
         public Result<int> RegistrarVenta(Venta venta, List<DetalleVenta> detalles)
         {
             try
@@ -107,6 +115,28 @@ namespace LibreriaJoelito.Aplicacion.Servicios
             {
                 return Result.Failure($"Error al anular: {ex.Message}");
             }
+        }
+
+        public JsonResult getPresentacionProductoByIds(int idProducto, int idPresentacion)
+        {
+            DataRow row = _presentaProdRepository.GetByIds(idProducto, idPresentacion);
+
+            if (row != null)
+            {
+                return new JsonResult(new
+                {
+                    success = true,
+                    producto = new
+                    {
+                        idProducto = idProducto,
+                        idPresentacion=idPresentacion,
+                        nombre = row["Descripcion"].ToString(),
+                        precioUnitario = Convert.ToDecimal(row["Precio"])
+                    }
+                });
+            }
+
+            return new JsonResult(new { success = false });
         }
     }
 }

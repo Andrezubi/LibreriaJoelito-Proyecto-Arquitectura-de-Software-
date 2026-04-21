@@ -43,6 +43,11 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IRepository<Producto>>(provider => {
     return new ProductoCreatorRepository().CreateRepository();
 });
+builder.Services.AddTransient<IPresentacionProductoRepository, PresentacionProductoRepository>();
+builder.Services.AddScoped<IRepository<PresentacionProducto>>(provider =>
+{
+    return new PresentacionProductoCreator().CreateRepository();
+});
 builder.Services.AddTransient<IProductoRepository, ProductoRepository>();
 
 builder.Services.AddScoped<IVentaRepository>(provider => {
