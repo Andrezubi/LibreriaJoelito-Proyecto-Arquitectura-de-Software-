@@ -136,5 +136,19 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 
             return ExecuteReturningDataTable(command);
         }
+
+        public int RestaurarStock(int idProducto, int cantidad)
+        {
+            string query = @"UPDATE producto 
+                             SET Stock = Stock + @cantidad, 
+                                 FechaUltimaActualizacion = @fechaAhora 
+                             WHERE Id = @idProducto;";
+            
+            MySqlCommand command = new MySqlCommand(query);
+            command.Parameters.AddWithValue("@cantidad", cantidad);
+            command.Parameters.AddWithValue("@idProducto", idProducto);
+            command.Parameters.AddWithValue("@fechaAhora", DateTime.Now);
+            return ExecuteNonQuery(command);
+        }
     }
 }

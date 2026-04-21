@@ -38,9 +38,8 @@
                             <thead class="tabla-head-custom">
                                 <tr>
                                     <th>CI Cliente</th>
+                                    <th>Nombre Cliente</th>
                                     <th>Fecha</th>
-                                    <th>Total</th>
-                                    <th>Empleado</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -50,9 +49,8 @@
                                 {
                                     <tr>
                                         <td>@row["CiCliente"]</td>
+										<td>@row["NombreCliente"]</td>
                                         <td>@Convert.ToDateTime(row["Fecha"]).ToString("dd/MM/yyyy")</td>
-                                        <td>@row["Total"] Bs</td>
-                                        <td>@row["NombreEmpleado"]</td>
 
                                         <td>
 
@@ -63,12 +61,25 @@
                                                 <i class="bi bi-eye"> Detalle</i>
                                             </a>
 
-                                    
-                                            <a class="btn btn-danger btn-sm"
-                                               asp-page-handler="Anular"
-                                               asp-route-id="@row["Id"]">
+                                            @* TODO LLEVAR AL MODAL DE DETALLES *@
+                                            <a class="btn btn-danger btn-sm" onclick="prepararAnulacion(@row["Id"])">
                                                 <i class="bi bi-file-earmark-pdf">Anular</i>
                                             </a>
+                                            @* ---- *@
+
+
+                                            <p>
+                                                <i class="bi bi-file-earmark-pdf">
+                                                    @if (row["EstadoVenta"] == DBNull.Value || !(bool)row["EstadoVenta"])
+                                                    {
+                                                        <span class="text-danger fw-bold">Anulada</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-success fw-bold">Activo</span>
+													}
+                                                 </i>
+                                            </p>
 
                                         </td>
                                     </tr>
@@ -84,3 +95,49 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalAnularVenta" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-danger">
+            
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i> Advertencia de Anulación
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body p-4">
+                <h5 class="text-center mb-3">¿Está completamente seguro de anular la venta <strong id="lblVentaAnular"></strong>?</h5>
+                
+                <div class="alert alert-warning border-warning text-dark shadow-sm">
+                    <strong>⚠️ IMPORTANTE:</strong> <br />
+                    Esta acción revertirá la transacción. <strong>Solo debe proceder</strong> si se está realizando un reembolso al cliente y/o existe una razón física para que los productos retornen al inventario de la librería.
+                </div>
+            </div>
+            
+            <div class="modal-footer bg-light justify-content-center">
+                <form method="post" asp-page-handler="Anular">
+                    <input type="hidden" id="inputIdVentaAnular" name="idVenta" value="" />
+                    
+                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Sí, Anular Venta y Restaurar Stock</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function prepararAnulacion(idVenta) {
+        document.getElementById('lblVentaAnular').textContent = "#" + idVenta;
+        
+        document.getElementById('inputIdVentaAnular').value = idVenta;
+        
+        var myModal = new bootstrap.Modal(document.getElementById('modalAnularVenta'));
+        myModal.show();
+    }
+</script>
