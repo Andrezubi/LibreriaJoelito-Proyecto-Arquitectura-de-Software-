@@ -69,6 +69,52 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 
             return RepositorioBD.Instancia.ExecuteReturningDataTable(command);
         }
+        public DataTable GetVentaDetalladaById(int idVenta)
+        {
+            string query = @"SELECT 
+                                v.Fecha,
+                                c.Ci,
+                                c.Nombre AS ClienteNombre,
+                                c.ApellidoPaterno,
+                                v.Total,
+
+                                CONCAT(u.Nombre, ' ', u.ApellidoPaterno) AS NombreEmpleado,
+
+                                dv.Cantidad,
+
+                                CONCAT(pr.Nombre,' de ',p.Nombre, ' ', m.Nombre) AS DescripcionProducto,
+
+                                dv.PrecioUnitario,
+                                dv.Subtotal
+
+                            FROM Venta v
+
+                            INNER JOIN Cliente c 
+                                ON v.IdCliente = c.Id
+
+                            INNER JOIN Usuario u 
+                                ON v.IdUsuario = u.Id
+
+                            INNER JOIN DetalleVenta dv 
+                                ON v.Id = dv.IdVenta
+
+                            INNER JOIN Producto p 
+                                ON dv.IdProducto = p.Id
+
+                            INNER JOIN Marca m 
+                                ON p.IdMarca = m.Id  
+
+                            INNER JOIN Presentacion pr 
+                                ON dv.IdPresentacion = pr.Id
+
+                            WHERE v.Id = @idVenta
+                              AND v.Estado = TRUE;";
+            MySqlCommand command = new MySqlCommand(query);
+
+            command.Parameters.AddWithValue("@idVenta", idVenta);
+
+            return RepositorioBD.Instancia.ExecuteReturningDataTable(command);
+        }
 
         public int DeleteByIdVenta(int idVenta)
         {

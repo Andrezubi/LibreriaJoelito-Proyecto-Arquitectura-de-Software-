@@ -113,7 +113,7 @@ namespace LibreriaJoelito.Aplicacion.Servicios
         }
         public DataTable ObtenerDetalleVenta(int idVenta)
         {
-            return _detalleVentaRepository.GetByIdVenta(idVenta);
+            return _detalleVentaRepository.GetVentaDetalladaById(idVenta);
         }
 
         public Result<int> AnularVenta(int idVenta)
@@ -207,6 +207,7 @@ namespace LibreriaJoelito.Aplicacion.Servicios
                 return Result<byte[]>.Failure($"Error en fachada de PDF: {ex.Message}");
             }
         }
+        
 
 
     }

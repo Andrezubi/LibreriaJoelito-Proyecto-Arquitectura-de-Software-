@@ -7,5 +7,7 @@ namespace LibreriaJoelito.Aplicacion.Interfaces
     {
         DataTable GetByIdVenta(int ventaId);
         int DeleteByIdVenta(int ventaId);
+
+        DataTable GetVentaDetalladaById(int idVenta);
     }
 }
