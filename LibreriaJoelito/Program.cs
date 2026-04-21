@@ -12,8 +12,14 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Licencia para Pdfs
+QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
+
 // Registro de IEmailService
 builder.Services.AddTransient<IEmailService, EmailService>();
+
+// Registro de IPdfService
+builder.Services.AddScoped<IPdfService, PdfService>();
 
 // Registro de Password Hasher
 builder.Services.AddTransient<IPasswordHasher, LibreriaJoelito.Infraestructura.Encryptacion.SimpleHasher>();
@@ -43,6 +49,11 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IRepository<Producto>>(provider => {
     return new ProductoCreatorRepository().CreateRepository();
 });
+builder.Services.AddTransient<IPresentacionProductoRepository, PresentacionProductoRepository>();
+builder.Services.AddScoped<IRepository<PresentacionProducto>>(provider =>
+{
+    return new PresentacionProductoCreator().CreateRepository();
+});
 builder.Services.AddTransient<IProductoRepository, ProductoRepository>();
 
 builder.Services.AddScoped<IVentaRepository>(provider => {
@@ -66,7 +77,7 @@ builder.Services.AddScoped<ClienteServicio>();
 builder.Services.AddScoped<ProductoServicio>();
 builder.Services.AddScoped<UsuarioServicio>();
 builder.Services.AddScoped<MarcaServicio>();
-builder.Services.AddScoped<IVentaService, VentaService>();
+builder.Services.AddScoped<VentaService>();
 
 // AGREGAR AUTENTICACION
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

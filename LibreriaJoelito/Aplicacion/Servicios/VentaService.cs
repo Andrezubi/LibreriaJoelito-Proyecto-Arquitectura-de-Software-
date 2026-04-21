@@ -2,28 +2,40 @@ using LibreriaJoelito.Aplicacion.Interfaces;
 using LibreriaJoelito.Aplicacion.Results;
 using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Infraestructura.Persistencia;
+using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
+using Microsoft.AspNetCore.Mvc;
+using System.Data;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LibreriaJoelito.Aplicacion.Servicios
 {
-    public class VentaService : IVentaService
+    public class VentaService 
     {
         private readonly IVentaRepository _ventaRepository;
         private readonly IDetalleVentaRepository _detalleVentaRepository;
         private readonly IProductoRepository _productoRepository;
         private readonly IClienteRepository _clienteRepository;
-
+        private readonly IPresentacionProductoRepository _presentaProdRepository;
+        private readonly IPdfService _pdfService;
         public VentaService(
+            IPresentacionProductoRepository presentProdRepository,
             IVentaRepository ventaRepository,
             IDetalleVentaRepository detalleVentaRepository,
             IProductoRepository productoRepository,
+            IPdfService pdfService,
             IClienteRepository clienteRepository)
         {
             _ventaRepository = ventaRepository;
             _detalleVentaRepository = detalleVentaRepository;
             _productoRepository = productoRepository;
             _clienteRepository = clienteRepository;
+            _presentaProdRepository = presentProdRepository;
+            _pdfService = pdfService;
         }
-
+        public DataTable getPresentacionProductosByFrase(string frase)
+        {
+            return _presentaProdRepository.obtenerPresentacionProductoDetallado(frase);
+        }
         public Result<int> RegistrarVenta(Venta venta, List<DetalleVenta> detalles)
         {
             try
@@ -54,14 +66,14 @@ namespace LibreriaJoelito.Aplicacion.Servicios
                         // Insertar Detalle
                         int filasDetalle = _detalleVentaRepository.Insert(detalle);
                         if (filasDetalle <= 0)
-                            throw new Exception($"Error al insertar el detalle para el producto ID: {detalle.IdProducto}");
+                            throw new Exception($"Error al insertar el detalle para el producto: {_productoRepository.GetById(detalle.IdProducto)?["Nombre"]}");
 
                         // Descontar Stock y validar suficiencia
                         int filasStock = _productoRepository.DescontarStock(detalle.IdProducto, detalle.Cantidad);
                         if (filasStock <= 0)
                         {
                             // Si no afectó filas es porque el Stock < Cantidad (validación lógica en el SQL)
-                            throw new Exception($"Stock insuficiente para el producto ID: {detalle.IdProducto}");
+                            throw new Exception($"Stock insuficiente para el producto: {_productoRepository.GetById(detalle.IdProducto)?["Nombre"]}");
                         }
                     }
 
@@ -106,6 +118,49 @@ namespace LibreriaJoelito.Aplicacion.Servicios
             catch (Exception ex)
             {
                 return Result.Failure($"Error al anular: {ex.Message}");
+            }
+        }
+
+        public JsonResult getPresentacionProductoByIds(int idProducto, int idPresentacion)
+        {
+            DataRow row = _presentaProdRepository.GetByIds(idProducto, idPresentacion);
+
+            if (row != null)
+            {
+                return new JsonResult(new
+                {
+                    success = true,
+                    producto = new
+                    {
+                        idProducto = idProducto,
+                        idPresentacion=idPresentacion,
+                        nombre = row["Descripcion"].ToString(),
+                        precioUnitario = Convert.ToDecimal(row["Precio"])
+                    }
+                });
+            }
+
+            return new JsonResult(new { success = false });
+        }
+
+        public Result<byte[]> GenerarComprobantePdf(int idVenta)
+        {
+            try
+            {
+                // 1. Pedimos los datos al repositorio (La consulta de los Joins)
+                DataTable dt = _ventaRepository.ObtenerDatosComprobante(idVenta);
+
+                if (dt == null || dt.Rows.Count == 0)
+                    return Result<byte[]>.Failure("No se encontró la venta.");
+
+                // 2. Delegamos la creación del archivo al servicio especializado
+                byte[] pdf = _pdfService.GenerarComprobanteVenta(dt);
+
+                return Result<byte[]>.Success(pdf);
+            }
+            catch (Exception ex)
+            {
+                return Result<byte[]>.Failure($"Error en fachada de PDF: {ex.Message}");
             }
         }
     }

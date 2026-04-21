@@ -1,4 +1,6 @@
-﻿using LibreriaJoelito.Dominio.Models;
+﻿using LibreriaJoelito.Aplicacion.Results;
+using LibreriaJoelito.Dominio.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
 namespace LibreriaJoelito.Aplicacion.Interfaces
@@ -7,5 +9,7 @@ namespace LibreriaJoelito.Aplicacion.Interfaces
     {
         DataTable GetByDate(DateTime fechaInicio, DateTime fechaFin);
         DataTable GetByIdCliente(int idCliente);
+
+        DataTable ObtenerDatosComprobante(int idVenta);
     }
 }

@@ -58,23 +58,18 @@
 
                                            
                                             <a class="btn btn-sistema btn-sm"
-                                               asp-page="DetalleVenta"
+                                               asp-page-handler="DetalleVenta"
                                                asp-route-id="@row["Id"]">
-                                                <i class="bi bi-eye"></i>
+                                                <i class="bi bi-eye"> Detalle</i>
                                             </a>
 
                                     
                                             <a class="btn btn-danger btn-sm"
-                                               asp-page-handler="ExportarPdf"
+                                               asp-page-handler="Anular"
                                                asp-route-id="@row["Id"]">
-                                                <i class="bi bi-file-earmark-pdf"></i>
+                                                <i class="bi bi-file-earmark-pdf">Anular</i>
                                             </a>
 
-                                            <a data-bs-toggle="modal"
-                                               data-bs-target="#modalAnular-@row["Id"]"
-                                               class="btn btn-warning btn-sm">
-                                                <i class="bi bi-x-circle"></i>
-                                            </a>
                                         </td>
                                     </tr>
                                 }

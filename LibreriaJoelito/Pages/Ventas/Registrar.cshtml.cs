@@ -1,3 +1,4 @@
+using LibreriaJoelito.Aplicacion.Interfaces;
 using LibreriaJoelito.Aplicacion.Servicios;
 using LibreriaJoelito.Dominio.Models;
 using LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts;
@@ -12,11 +13,13 @@ namespace LibreriaJoelito.Pages.Ventas
     {
         private readonly ClienteServicio _clienteServicio;
         private readonly ProductoServicio _productoServicio;
+        private readonly VentaService _ventaServicio;
 
-        public RegistrarModel(ClienteServicio clienteServicio, ProductoServicio productoServicio)
+        public RegistrarModel(ClienteServicio clienteServicio, ProductoServicio productoServicio, VentaService ventaServicio)
         {
             _clienteServicio = clienteServicio;
             _productoServicio = productoServicio;
+            _ventaServicio = ventaServicio;
         }
 
         public void OnGet()
@@ -135,39 +138,87 @@ namespace LibreriaJoelito.Pages.Ventas
         }
         public JsonResult OnGetBuscarNombre(string termino)
         {
-            DataTable dt = _productoServicio.BuscarPorNombre(termino);
-            var listaNombres = new List<string>();
+            DataTable dt = _ventaServicio.getPresentacionProductosByFrase(termino);
+            var listaNombres = new List<object>();
             foreach (DataRow row in dt.Rows)
             {
-                listaNombres.Add(row["Nombre"].ToString());
+
+                listaNombres.Add(new
+                {
+                    texto = row["Presentacion"] + " de " + row["Producto"] + " " + row["Marca"],
+                    idProducto = row["IdProducto"],
+                    idPresentacion = row["IdPresentacion"]
+                });
             }
 
             return new JsonResult(listaNombres);
         }
-        public IActionResult OnGetObtenerDetalleProducto(string nombre)
+        public IActionResult OnGetObtenerDetalleProducto(string frase,int idProducto, int idPresentacion)
         {
-            if (string.IsNullOrEmpty(nombre))
+            if (string.IsNullOrEmpty(frase))
             {
-                return new JsonResult(new { success = false, message = "El nombre est� vac�o." });
+                return new JsonResult(new { success = false, message = "El nombre esta vacio." });
             }
-            DataTable dtProducto = _productoServicio.BuscarProducto(nombre);
+            return _ventaServicio.getPresentacionProductoByIds(idProducto,idPresentacion);
+            
+        }
 
-            if (dtProducto.Rows.Count > 0)
+
+        public IActionResult OnGetImprimirComprobante(int idVenta)
+        {
+            if (idVenta <= 0)
             {
-                DataRow row = dtProducto.Rows[0];
-                return new JsonResult(new
-                {
-                    success = true,
-                    producto = new
-                    {
-                        id = Convert.ToInt32(row["Id"]),
-                        nombre = row["Nombre"].ToString(),
-                        precioUnitario = Convert.ToDecimal(row["Precio"]) 
-                    }
-                });
+                return BadRequest("ID de venta inválido.");
             }
 
-            return new JsonResult(new { success = false, message = "Producto no encontrado." });
+            var result = _ventaServicio.GenerarComprobantePdf(idVenta);
+
+            if (result.IsFailure)
+            {
+                return Content($"Error: {string.Join(", ", result.Errors)}");
+            }
+
+            string nombreArchivo = $"Comprobante_Venta_{idVenta}.pdf";
+
+            var contentDisposition = new System.Net.Mime.ContentDisposition
+            {
+                FileName = nombreArchivo,
+                Inline = true
+            };
+            Response.Headers.Append("Content-Disposition", contentDisposition.ToString());
+
+            return File(result.Value, "application/pdf");
+        }
+
+
+        public class RegistrarVentaDto
+        {
+            public int IdCliente { get; set; }
+            public List<DetalleVenta> Detalles { get; set; }
+        }
+
+        [ValidateAntiForgeryToken]
+        public JsonResult OnPostRegistrarVenta([FromBody] RegistrarVentaDto dto)
+        {
+            if (dto == null || dto.Detalles == null || !dto.Detalles.Any())
+                return new JsonResult(new { success = false, message = "La venta no tiene productos." });
+
+            if (dto.IdCliente <= 0)
+                return new JsonResult(new { success = false, message = "Cliente no válido." });
+
+            var venta = new Venta(
+                idCliente: dto.IdCliente,
+                idUsuario: int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value),
+                fecha: DateTime.Now,
+                total: dto.Detalles.Sum(d => d.Cantidad * d.PrecioUnitario),
+                estado: true
+            );
+            var result = _ventaServicio.RegistrarVenta(venta, dto.Detalles);
+
+            if (result.IsSuccess)
+                return new JsonResult(new { success = true, idVenta = result.Value, message = "Venta registrada correctamente." });
+
+            return new JsonResult(new { success = false, message = result.Errors.FirstOrDefault() ?? "Error al registrar." });
         }
     }
 }
