@@ -49,6 +49,7 @@ namespace LibreriaJoelito.Pages.Usuarios
             {
                 foreach (var error in result.Errors)
                 {
+                    Console.WriteLine(error);
                     var parts = error.Split(':', 2);
 
                     if (parts.Length == 2)

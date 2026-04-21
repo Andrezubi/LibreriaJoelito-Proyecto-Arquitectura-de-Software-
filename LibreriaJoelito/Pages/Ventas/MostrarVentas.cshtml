@@ -40,6 +40,7 @@
                                     <th>CI Cliente</th>
                                     <th>Nombre Cliente</th>
                                     <th>Fecha</th>
+                                    <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -52,7 +53,20 @@
                                         <td>@row["CiCliente"]</td>
 										<td>@row["NombreCliente"]</td>
                                         <td>@Convert.ToDateTime(row["Fecha"]).ToString("dd/MM/yyyy")</td>
-
+                                        <td>
+                                            <p>
+                                                <i class="bi bi-file-earmark-pdf">
+                                                    @if (!ventaActiva)
+                                                    {
+                                                        <span class="text-danger fw-bold">Anulada</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-success fw-bold">Activo</span>
+                                                    }
+                                                </i>
+                                            </p>
+                                        </td>
                                         <td>
                                             @if (ventaActiva)
                                             {
@@ -70,20 +84,6 @@
                                                 </a>
                                                 @* ---- *@
                                             }
-
-                                            <p>
-                                                <i class="bi bi-file-earmark-pdf">
-                                                    @if (row["EstadoVenta"] == DBNull.Value || !(bool)row["EstadoVenta"])
-                                                    {
-                                                        <span class="text-danger fw-bold">Anulada</span>
-                                                    }
-                                                    else
-                                                    {
-                                                        <span class="text-success fw-bold">Activo</span>
-													}
-                                                 </i>
-                                            </p>
-
                                         </td>
                                     </tr>
                                 }
