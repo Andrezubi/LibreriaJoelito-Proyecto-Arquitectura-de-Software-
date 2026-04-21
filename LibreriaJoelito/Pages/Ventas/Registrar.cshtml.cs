@@ -145,7 +145,7 @@ namespace LibreriaJoelito.Pages.Ventas
 
                 listaNombres.Add(new
                 {
-                    texto = row["Presentacion"] + " de " + row["Producto"] + " " + row["Marca"],
+                    texto = row["Presentacion"] + " de " + row["Producto"] + " - " + row["Marca"],
                     idProducto = row["IdProducto"],
                     idPresentacion = row["IdPresentacion"]
                 });
