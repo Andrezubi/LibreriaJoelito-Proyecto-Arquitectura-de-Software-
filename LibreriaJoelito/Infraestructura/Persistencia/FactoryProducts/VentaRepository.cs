@@ -5,7 +5,7 @@ using System.Data;
 
 namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 {
-    public class VentaRepository : IVentaRepository, IRepository<Venta>
+    public class VentaRepository : RepositorioBD, IVentaRepository
     {
         public int Insert(Venta venta)
         {
@@ -18,7 +18,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             command.Parameters.AddWithValue("@total", venta.Total);
             command.Parameters.AddWithValue("@idUsuario", venta.IdUsuario);
 
-            return Convert.ToInt32(RepositorioBD.Instancia.ExecuteScalar(command));
+            return Convert.ToInt32(ExecuteScalar(command));
         }
 
         public int Delete(Venta venta)
@@ -32,7 +32,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             command.Parameters.AddWithValue("@idUsuario", venta.IdUsuario);
             command.Parameters.AddWithValue("@Id", venta.Id);
 
-            return RepositorioBD.Instancia.ExecuteNonQuery(command);
+            return ExecuteNonQuery(command);
         }
 
         public DataTable GetAll()
@@ -43,7 +43,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
                             ORDER BY 3";
             MySqlCommand command = new MySqlCommand(query);
 
-            return RepositorioBD.Instancia.ExecuteReturningDataTable(command);
+            return ExecuteReturningDataTable(command);
         }
 
         public DataRow GetById(int id)
@@ -56,7 +56,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             MySqlCommand command = new MySqlCommand(query);
             command.Parameters.AddWithValue("@id", id);
 
-            return RepositorioBD.Instancia.ExecuteReturningDataRow(command);
+            return ExecuteReturningDataRow(command);
         }
 
         public DataTable GetByDate(DateTime fechaInicio, DateTime fechaFin)
@@ -71,7 +71,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             command.Parameters.AddWithValue("@fechaInicio", fechaInicio);
             command.Parameters.AddWithValue("@fechaFin", fechaFin);
 
-            return RepositorioBD.Instancia.ExecuteReturningDataTable(command);
+            return ExecuteReturningDataTable(command);
         }
 
         public DataTable GetByIdCliente(int idCliente)
@@ -85,7 +85,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 
             command.Parameters.AddWithValue("@idCliente", idCliente);
 
-            return RepositorioBD.Instancia.ExecuteReturningDataTable(command);
+            return ExecuteReturningDataTable(command);
         }
 
         public int Update(Venta venta)
@@ -106,7 +106,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             command.Parameters.AddWithValue("@fechaAhora", DateTime.Now);
             command.Parameters.AddWithValue("@Id", venta.Id);
 
-            return RepositorioBD.Instancia.ExecuteNonQuery(command);
+            return ExecuteNonQuery(command);
         }
 
         public bool ExisteDuplicado(Venta venta)
@@ -144,7 +144,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
             MySqlCommand command = new MySqlCommand(query);
             command.Parameters.AddWithValue("@idVenta", idVenta);
 
-            return RepositorioBD.Instancia.ExecuteReturningDataTable(command);
+            return ExecuteReturningDataTable(command);
         }
 
 
@@ -164,7 +164,7 @@ namespace LibreriaJoelito.Infraestructura.Persistencia.FactoryProducts
 
             MySqlCommand cmd = new MySqlCommand(query);
 
-            return RepositorioBD.Instancia.ExecuteReturningDataTable(cmd);
+            return ExecuteReturningDataTable(cmd);
         }
     }
 }
