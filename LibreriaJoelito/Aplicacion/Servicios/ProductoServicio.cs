@@ -36,6 +36,7 @@ namespace LibreriaJoelito.Aplicacion.Servicios
 
         public Result<int> Insert(Producto producto, int idPresentacion, int factorConversion, decimal precioVenta)
         {
+            // 1. Validaciones básicas
             if (idPresentacion <= 0) return Result<int>.Failure("Debe seleccionar una presentación válida.");
             if (factorConversion <= 0) return Result<int>.Failure("El factor de conversión debe ser mayor a cero.");
             if (precioVenta <= 0) return Result<int>.Failure("El precio de venta debe ser mayor a cero.");
@@ -44,9 +45,16 @@ namespace LibreriaJoelito.Aplicacion.Servicios
             {
                 try
                 {
+                    // 2. Insertamos el producto principal y recuperamos el ID generado
                     int nuevoIdProducto = productoRepository.Insert(producto);
                     if (nuevoIdProducto <= 0) throw new Exception("Error al insertar el producto principal.");
 
+                    // 3. VALIDACIÓN DE DUPLICADOS (Opcional aquí, pero recomendada)
+                    var existente = presentacionProductoRepository.GetByIds(nuevoIdProducto, idPresentacion);
+                    if (existente != null)
+                        return Result<int>.Failure("Esta combinación de producto y presentación ya existe.");
+
+                    // 4. Insertamos la relación
                     int relacionExitosa = presentacionProductoRepository.InsertarRelacion(
                         nuevoIdProducto, idPresentacion, factorConversion, precioVenta, producto.IdUsuario ?? 1);
 
@@ -67,15 +75,18 @@ namespace LibreriaJoelito.Aplicacion.Servicios
         {
             try
             {
+                // 1. Validaciones de negocio
                 if (idProducto <= 0) return Result.Failure("Producto no válido.");
                 if (idPresentacion <= 0) return Result.Failure("Debe seleccionar una presentación.");
-                if (factor <= 0) return Result.Failure("El factor debe ser mayor a cero.");
-                if (precio <= 0) return Result.Failure("El precio debe ser mayor a cero.");
 
-                // Verificamos si ya existe para evitar errores SQL de llave duplicada
+                // 2. 🔥 REVISIÓN DE DUPLICADOS: Consultamos si ya existe la llave compuesta
                 var existente = presentacionProductoRepository.GetByIds(idProducto, idPresentacion);
-                if (existente != null) return Result.Failure("Este producto ya tiene registrada esta presentación.");
+                if (existente != null)
+                {
+                    return Result.Failure("Este producto ya tiene registrada esa presentación.");
+                }
 
+                // 3. Si no existe, procedemos con la inserción
                 int filas = presentacionProductoRepository.InsertarRelacion(idProducto, idPresentacion, factor, precio, idUsuario);
 
                 return filas > 0 ? Result.Success() : Result.Failure("No se pudo registrar la presentación.");

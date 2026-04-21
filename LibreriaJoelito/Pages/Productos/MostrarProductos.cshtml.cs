@@ -85,7 +85,7 @@ namespace LibreriaJoelito.Pages.Productos
             if (result.IsFailure)
             {
                 // Mostramos el error en la misma pantalla usando TempData (o ModelState)
-                TempData["MensajeError"] = result.Errors;
+                TempData["MensajeError"] = string.Join(", ", result.Errors);
                 return RedirectToPage();
             }
 
