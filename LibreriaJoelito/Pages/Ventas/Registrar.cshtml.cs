@@ -208,7 +208,7 @@ namespace LibreriaJoelito.Pages.Ventas
 
             var venta = new Venta(
                 idCliente: dto.IdCliente,
-                idUsuario: 1,
+                idUsuario: int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value),
                 fecha: DateTime.Now,
                 total: dto.Detalles.Sum(d => d.Cantidad * d.PrecioUnitario),
                 estado: true
