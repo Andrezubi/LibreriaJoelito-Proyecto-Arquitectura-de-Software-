@@ -94,30 +94,52 @@ namespace LibreriaJoelito.Aplicacion.Servicios
             }
         }
 
-        public Result AnularVenta(int idVenta)
+        public Result<int> AnularVenta(int idVenta)
         {
             try
             {
                 var ventaRow = _ventaRepository.GetById(idVenta);
                 if (ventaRow == null)
-                    return Result.Failure("La venta no existe.");
+                    return Result<int>.Failure("La venta no existe.");
 
-                Venta venta = new Venta
+                RepositorioBD.Instancia.BeginTransaction();
+
+                try
                 {
-                    Id = idVenta,
-                    IdUsuario = Convert.ToInt32(ventaRow["IdUsuario"]) // O el usuario actual de la sesión
-                };
+                    DataTable detallesDt = _detalleVentaRepository.GetByIdVenta(Convert.ToInt32(idVenta));
 
-                int resultado = _ventaRepository.Delete(venta);
-                
-                if (resultado > 0)
-                    return Result.Success();
-                
-                return Result.Failure("No se pudo anular la venta.");
+                    foreach (DataRow row in detallesDt.Rows)
+                    {
+                        int idProducto = Convert.ToInt32(row["IdProducto"]);
+                        int cantidad = Convert.ToInt32(row["Cantidad"]);
+
+                        int filasStock = _productoRepository.RestaurarStock(idProducto, cantidad);
+                        if (filasStock <= 0)
+                            return Result<int>.Failure($"Error al restaurar el stock del producto ID {idProducto}.");
+                    }
+
+                    Venta venta = new Venta
+                    {
+                        Id = idVenta,
+                        IdUsuario = Convert.ToInt32(ventaRow["IdUsuario"])
+                    };
+
+                    int resultado = _ventaRepository.Delete(venta);
+                    if (resultado <= 0)
+                        return Result<int>.Failure("No se pudo actualizar el estado de la venta.");
+
+                    RepositorioBD.Instancia.Commit();
+                    return Result<int>.Success(venta.Id);
+                }
+                catch (Exception ex)
+                {
+                    RepositorioBD.Instancia.Rollback();
+                    return Result<int>.Failure($"Transacción revertida. Error: {ex.Message}");
+                }
             }
             catch (Exception ex)
             {
-                return Result.Failure($"Error al anular: {ex.Message}");
+                return Result<int>.Failure($"Error inesperado al anular: {ex.Message}");
             }
         }
 

@@ -7,6 +7,8 @@ namespace LibreriaJoelito.Aplicacion.Interfaces
     {
         int DescontarStock(int idProducto, int cantidad);
 
+        int RestaurarStock(int idProducto, int cantidad);
+
         DataTable BuscarProducto(string nombre);
 
         DataTable BuscarPorNombre(string frase);

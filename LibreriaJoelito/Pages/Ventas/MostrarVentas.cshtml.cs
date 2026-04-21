@@ -1,3 +1,4 @@
+using LibreriaJoelito.Aplicacion.Servicios;
 using LibreriaJoelito.Infraestructura.Persistencia;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,13 @@ namespace LibreriaJoelito.Pages.Ventas
         public DataTable VentasDataTable { get; set; } = new DataTable();
 
         public RepositorioBD bd { get; set; } = RepositorioBD.Instancia;
+
+        private readonly VentaService _ventaService;
+
+        public MostrarVentasModel(VentaService ventaService)
+        {
+            _ventaService = ventaService;
+        }
 
         [TempData]
         public string MensajeExito { get; set; }
@@ -45,6 +53,24 @@ namespace LibreriaJoelito.Pages.Ventas
         {
             // aquí luego puedes generar el PDF
             return RedirectToPage(); // placeholder
+        }
+
+        public IActionResult OnPostAnular(int idVenta)
+        {
+            if (idVenta <= 0) return RedirectToPage();
+
+            var resultado = _ventaService.AnularVenta(idVenta);
+
+            if (resultado.IsSuccess)
+            {
+                MensajeExito = $"La venta #{idVenta} ha sido anulada y el stock fue restaurado correctamente.";
+            }
+            else
+            {
+                MensajeExito = $"Hubo un problema al anular: {string.Join(", ", resultado.Errors)}";
+            }
+
+            return RedirectToPage();
         }
     }
 }
